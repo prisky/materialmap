@@ -26,20 +26,20 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
+                'brandLabel' => Yii::$app->params['businessName'],
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Home', 'url' => ['/frontend/index']],
             ];
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
             } else {
                 $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'label' => 'Logout (' . Yii::$app->user->identity->contact->email . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
@@ -51,12 +51,20 @@ AppAsset::register($this);
             NavBar::end();
         ?>
 
-        <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
-        </div>
+		<div class="container">'
+		<?php
+			if(isset($this->context->action->controller->breadCrumbs)) {
+				echo  Breadcrumbs::widget([
+					'links' => $this->context->action->controller->breadCrumbs,
+					'homeLink' => false,
+					]);
+				echo \backend\components\Tabs::widget(['items' => $this->context->action->controller->tabs($content)]);
+			}
+			else {
+				echo $content;
+			}
+		?>
+		</div>
     </div>
 
     <footer class="footer">

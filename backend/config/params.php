@@ -1,4 +1,5 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'admin@newzealandfishing.com',
+	'icon-framework' => 'fa',  // Font Awesome Icon framework
 ];

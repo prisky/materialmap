@@ -17,12 +17,21 @@
 		"php": ">=5.4.0",
 		"yiisoft/yii2": "*",
 		"yiisoft/yii2-bootstrap": "*",
-		"yiisoft/yii2-swiftmailer": "*"
+		"yiisoft/yii2-swiftmailer": "*",
+		"aidask/yii-closure-table-behavior": "*",
+		"kartik-v/yii2-widgets": "dev-master",
+		"kartik-v/yii2-helpers": "*",
+		"kartik-v/yii2-detail-view": "*",
+		"kartik-v/yii2-grid": "*",
+		"kartik-v/yii2-icons": "dev-master"
 	},
 	"require-dev": {
 		"yiisoft/yii2-codeception": "*",
 		"yiisoft/yii2-debug": "*",
-		"yiisoft/yii2-gii": "*"
+		"yiisoft/yii2-gii": "*",
+		"codeception/specify": "*",
+		"codeception/verify": "*",
+		"yiisoft/yii2-faker": "*"
 	},
 	"suggest": {
 		"codeception/codeception": "Codeception, 1.8.*@dev is currently works well with Yii.",
@@ -42,6 +51,9 @@
 		"writable": [
 			"backend/runtime",
 			"backend/web/assets",
+
+			"console/runtime",
+			"console/migrations",
 
 			"frontend/runtime",
 			"frontend/web/assets"

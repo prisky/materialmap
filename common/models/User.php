@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use yii\base\NotSupportedException;
@@ -7,26 +8,97 @@ use yii\helpers\Security;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "tbl_user".
  *
- * @property integer $id
- * @property string $username
+ * @property string $id
+ * @property string $contact_id
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
- * @property integer $role
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property integer $deleted
+ *
+ * @property Account[] $accounts
+ * @property AccountToUser[] $accountToUsers
+ * @property AuthAssignment[] $authAssignments
+ * @property Contact $contact
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends \common\components\ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'tbl_user';
+    }
 
-    const ROLE_USER = 10;
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['contact_id', 'auth_key', 'password_hash'], 'required'],
+            [['contact_id', 'deleted'], 'integer'],
+            [['auth_key'], 'string', 'max' => 32],
+            [['password_hash'], 'string', 'max' => 64],
+            [['password_reset_token'], 'string', 'max' => 255],
+            [['contact_id'], 'unique']
+        ];
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccounts()
+    {
+        return $this->hasMany(Account::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccountToUsers()
+    {
+        return $this->hasMany(AccountToUser::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthAssignments()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContact()
+    {
+        return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
+    }
+
+    /**
+     * Creates a new user
+     *
+     * @param  array       $attributes the attributes given by field => value
+     * @return static|null the newly created model, or null on failure
+     */
+    public static function create($attributes)
+    {
+        /** @var User $user */
+        $user = new static();
+        $user->setAttributes($attributes);
+        $user->setPassword($attributes['password']);
+        $user->generateAuthKey();
+        if ($user->save()) {
+            return $user;
+        } else {
+            return null;
+}
+    }
 
     /**
      * @inheritdoc
@@ -45,20 +117,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-      * @inheritdoc
-      */
-     public function rules()
-     {
-         return [
-             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-
-             ['role', 'default', 'value' => self::ROLE_USER],
-             ['role', 'in', 'range' => [self::ROLE_USER]],
-         ];
-     }
-
-    /**
      * @inheritdoc
      */
     public static function findIdentity($id)
@@ -69,21 +127,21 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = NULL)
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
     /**
-     * Finds user by username
+     * Finds user by email
      *
-     * @param  string      $username
+     * @param  string      $email
      * @return static|null
      */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
+	public static function findByEmail($email)
+	{
+		return static::find(['contact.email' => $email])->joinWith('contact')->one();
+	}	
 
     /**
      * Finds user by password reset token
@@ -175,4 +233,16 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+	
+	public function beforeSave($insert)
+	{
+		if (parent::beforeSave($insert)) {
+			if ($this->isNewRecord) {
+				$this->auth_key = Security::generateRandomKey();
+			}
+			return true;
+		}
+		return false;
+	}
 }
