@@ -9,6 +9,7 @@ namespace common\models;
  * @property string $account_id
  * @property string $user_id
  * @property string $rate
+ * @property integer $newsletter
  * @property integer $immediate
  * @property integer $deleted
  *
@@ -35,7 +36,7 @@ class AccountToUser extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'user_id'], 'required'],
-            [['account_id', 'user_id', 'immediate'], 'integer'],
+            [['account_id', 'user_id', 'newsletter', 'immediate'], 'integer'],
             [['rate'], 'number'],
             [['account_id', 'user_id'], 'unique', 'targetAttribute' => ['account_id', 'user_id'], 'message' => 'The combination of Account and User has already been taken.']
         ];

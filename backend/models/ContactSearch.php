@@ -13,7 +13,7 @@ class ContactSearch extends Contact
     public function rules()
     {
         return [
-            [['id', 'newsletter'], 'integer'],
+            [['id'], 'integer'],
             [['first_name', 'last_name', 'email', 'phone_mobile'], 'safe'],
         ];
     }
@@ -38,7 +38,6 @@ class ContactSearch extends Contact
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'newsletter' => $this->newsletter,
         ]);
 
         $query->andFilterWhere(['like', 'first_name', $this->first_name])

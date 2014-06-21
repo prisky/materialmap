@@ -49,7 +49,7 @@ abstract class Controller extends \common\components\Controller
 	{
 		return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
                         'allow' => true,
@@ -398,15 +398,17 @@ abstract class Controller extends \common\components\Controller
 				->all();
 			// all tabs will need this value for a parameter
 			$primaryKey = $_GET['id'];
+			
+			// check the users rights to see how to show the detail view
+			$action = Yii::$app->user->can($this->modelName) ? 'update' : 'view';
+			
 			// set first tab to an update/view view
 			$tabs[] = [
 				'label' => static::labelShort($primaryKey),
 				'content' => $content,
-				'linkOptions' => ['href' => ["{$this->id}/update", 'id' => $primaryKey]],
+				'linkOptions' => ['href' => ["{$this->id}/$action", 'id' => $primaryKey]],
 				'active' => TRUE,
 			];
-			// flag that we are in an update/view view
-			$inGrid = FALSE;
 		}
 		// otherwise sibling nodes all as index view
 		else {
@@ -420,14 +422,17 @@ abstract class Controller extends \common\components\Controller
 			$parentForeignKeyName = $fullModelName::getParentForeignKeyName();
 			// all tabs will need this value for a parameter
 			$primaryKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
-			// flag that we are in a grid view
-			$inGrid = TRUE;
 		}
 		
 		// create the tabs
 		foreach($models as $model)
 		{
 			$modelNameShort = $model['auth_item_name'];
+			// if no read access for this user for this model
+			if(!Yii::$app->user->can($this->modelName . 'Read'))	{
+				// skip this model i.e. no tab
+	//			continue;
+			}	
 			$modelName = "\\common\models\\$modelNameShort";
 			$controller = strtolower($modelNameShort);
 			

@@ -13,7 +13,7 @@ class AccountToUserSearch extends AccountToUser
     public function rules()
     {
         return [
-            [['id', 'account_id', 'user_id', 'immediate', 'deleted'], 'integer'],
+            [['id', 'account_id', 'user_id', 'newsletter', 'immediate', 'deleted'], 'integer'],
             [['rate'], 'number'],
         ];
     }
@@ -41,6 +41,7 @@ class AccountToUserSearch extends AccountToUser
             'account_id' => $this->account_id,
             'user_id' => $this->user_id,
             'rate' => $this->rate,
+            'newsletter' => $this->newsletter,
             'immediate' => $this->immediate,
             'deleted' => $this->deleted,
         ]);

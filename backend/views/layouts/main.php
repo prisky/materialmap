@@ -51,7 +51,7 @@ AppAsset::register($this);
             NavBar::end();
         ?>
 
-		<div class="container">'
+		<div class="container">
 		<?php
 			if(isset($this->context->action->controller->breadCrumbs)) {
 				echo  Breadcrumbs::widget([

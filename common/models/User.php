@@ -140,7 +140,7 @@ class User extends \common\components\ActiveRecord implements IdentityInterface
      */
 	public static function findByEmail($email)
 	{
-		return static::find(['contact.email' => $email])->joinWith('contact')->one();
+		return static::find()->joinWith('contact')->where(['email' => $email])->one();
 	}	
 
     /**

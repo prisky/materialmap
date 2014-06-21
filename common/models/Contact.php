@@ -10,7 +10,6 @@ namespace common\models;
  * @property string $last_name
  * @property string $email
  * @property string $phone_mobile
- * @property integer $newsletter
  *
  * @property MailQueue[] $mailQueues
  * @property Sms[] $sms
@@ -34,7 +33,6 @@ class Contact extends \common\components\ActiveRecord
     {
         return [
             [['first_name', 'last_name', 'email'], 'required'],
-            [['newsletter'], 'integer'],
             [['first_name', 'last_name'], 'string', 'max' => 64],
             [['email'], 'string', 'max' => 255],
             [['phone_mobile'], 'string', 'max' => 20],

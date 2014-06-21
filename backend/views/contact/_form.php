@@ -20,7 +20,6 @@ use backend\components\DetailView;
 			['attribute' => 'first_name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'last_name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'email', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'newsletter', 'type' =>  DetailView::INPUT_SWITCH],
 			['attribute' => 'phone_mobile', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 20]],
 		]
 	]);	?>
