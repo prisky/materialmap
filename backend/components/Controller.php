@@ -423,15 +423,15 @@ abstract class Controller extends \common\components\Controller
 			// all tabs will need this value for a parameter
 			$primaryKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
 		}
-		
+
 		// create the tabs
 		foreach($models as $model)
 		{
 			$modelNameShort = $model['auth_item_name'];
 			// if no read access for this user for this model
-			if(!Yii::$app->user->can($this->modelName . 'Read'))	{
+			if(!Yii::$app->user->can($modelNameShort . 'Read'))	{
 				// skip this model i.e. no tab
-	//			continue;
+				continue;
 			}	
 			$modelName = "\\common\models\\$modelNameShort";
 			$controller = strtolower($modelNameShort);

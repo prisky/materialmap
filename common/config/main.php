@@ -2,6 +2,10 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
  	'components' => [
+        'user' => [
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+        ],
 		'db' => [
 			'class' => 'yii\db\Connection',
 			'tablePrefix' => 'tbl_',
@@ -14,7 +18,7 @@ return [
 			'class' => 'yii\caching\FileCache',
 		],
 		'authManager' => [
-			'class' => yii\rbac\DbManager::className(),
+			'class' => 'common\components\DbManager',
 			'defaultRoles' => ['end-user'],
 		],
 	],
