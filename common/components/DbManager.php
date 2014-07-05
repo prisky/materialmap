@@ -40,6 +40,7 @@ class DbManager extends \yii\rbac\DbManager
                 return true;
             }
         }
+
 		// check children for read access 
 		if(preg_match('/Read$/', $itemName)) {
 			if($model = Model::findOne(['auth_item_name' => str_replace('Read', '', $itemName)])) {

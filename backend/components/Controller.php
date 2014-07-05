@@ -63,7 +63,7 @@ abstract class Controller extends \common\components\Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'delete'],
+                        'actions' => ['create', 'update', 'delete'],
                         'roles' => [$this->modelNameShort],
                     ],
                     [

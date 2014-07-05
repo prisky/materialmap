@@ -63,12 +63,36 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
     public static function find()
     {
 		$modelNameQuery = static::modelName() . 'Query';
+		
+		if(class_exists($modelNameQuery)) {
+			$modelNameQuery = new $modelNameQuery(get_called_class());
+			return $modelNameQuery->defaultScope();
+		}
 	
-		return class_exists($modelNameQuery)
-			? new $modelNameQuery(get_called_class())
-			: parent::find();
+		return  parent::find();
     }
-	
+
+    /**
+	 * Extended as need to add table or else if joined then column can be ambiguous i.e. id in both joined tables
+     * @inheritdoc
+     */
+    public static function findOne($condition)
+    {
+        $query = static::find();
+        if (\yii\helpers\ArrayHelper::isAssociative($condition)) {
+            // hash condition
+            return $query->andWhere($condition)->one();
+        } else {
+            // query by primary key
+            $primaryKey = static::primaryKey();
+            if (isset($primaryKey[0])) {
+                return $query->andWhere([static::tableName() . '.' . $primaryKey[0] => $condition])->one();
+            } else {
+                throw new InvalidConfigException(get_called_class() . ' must have a primary key.');
+            }
+        }
+    }
+
 	/**
 	 * Get foreign key attribute name within this model that references another model.
 	 * @param string $references the name name of the model that the foreign key references.

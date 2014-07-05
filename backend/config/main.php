@@ -29,7 +29,8 @@ return [
     'params' => $params,
 	'modules' => [
 	   'gridview' =>  [
-			'class' => '\kartik\grid\Module'
+			'class' => '\kartik\grid\Module',
+//			'downloadAction' => ['site/index', true],
 		],
 	],
 ];
