@@ -143,7 +143,6 @@ class ClosureTableQuery extends \yii\db\ActiveQuery
      */
     public function siblingsOf($primaryKey, $include = FALSE)
     {
-		
  		$modelName = $this->modelClass;
 		$table = $modelName::tableName();
 		$pk = $modelName::primaryKey()[0];
@@ -183,4 +182,24 @@ class ClosureTableQuery extends \yii\db\ActiveQuery
 		return $this->union($union);
 	}
 
+    /**
+     * Finds roots
+     * @return ActiveQuery the owner.
+     */
+    public function roots()
+	{
+ 		$modelName = $this->modelClass;
+		$t = $modelName::tableName();
+		$pk = $modelName::primaryKey()[0];
+		$closure = $this->closureTableName;
+		$parent = $this->parentAttribute;
+		$child = $this->childAttribute;
+
+		$this
+			->join("JOIN", "$closure c1", "$t.$pk = c1.$child")
+			->join("LEFT JOIN", "$closure c2", "c1.$child = c2.$child AND c1.$parent != c2.$parent")
+			->where("c2.$parent IS NULL");
+		
+		return $this;
+	}
 }

@@ -196,6 +196,17 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 * @inheritdoc
 	 */
 	public function getAttributeLabel($attribute) {
+		return static::attributeLabel($attribute);
+	}
+
+	/**
+	 * Get the label for a given attribute
+	 * @staticvar null $labels
+	 * @staticvar null $models
+	 * @param type $attribute
+	 * @return string attribute label
+	 */
+	public static function attributeLabel($attribute) {
 		// caches
 		static $labels = NULL;
 		static $models = NULL;
@@ -205,7 +216,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		// if not cached
 		if(!isset($labels[$modelName][$attribute])) {
 			// if the attribute is a foreign key
-			if($referencedModelName = $this->referencedModelName($attribute)) {
+			if($referencedModelName = static::referencedModelName($attribute)) {
 				$referencedModelName = "\\common\\models\\$referencedModelName";
 				$label = $referencedModelName::label();
 			}
@@ -239,7 +250,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 * @param string $attribute The name of the attribute to check if is foreign key and what it references
 	 * @return string The referenced model name or null if not a foreign key
 	 */
-	private function referencedModelName($attribute) {
+	private static function referencedModelName($attribute) {
 		// cache
 		static $keyColumnUsage = NULL;
 		

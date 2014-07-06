@@ -30,7 +30,6 @@ return [
 	'modules' => [
 	   'gridview' =>  [
 			'class' => '\kartik\grid\Module',
-//			'downloadAction' => ['site/index', true],
 		],
 	],
 ];

@@ -6,11 +6,12 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\LoginForm;
 use yii\filters\VerbFilter;
+use common\models\Model;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends \backend\components\Controller
 {
     /**
      * @inheritdoc
@@ -80,4 +81,53 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+	
+	public function tabs($content)
+	{
+		$tabs = [];
+
+		// Get roots
+		$models = Model::find()
+			->select([Model::tableName() . '.id', 'auth_item_name'])
+			->roots()
+			->asArray()
+			->all();
+
+		// create the tabs
+		foreach($models as $model)
+		{
+			$modelNameShort = $model['auth_item_name'];
+			// if no read access for this user for this model
+			if(!Yii::$app->user->can($modelNameShort . 'Read'))	{
+				// skip this model i.e. no tab
+				continue;
+			}	
+			$modelName = "\\common\models\\$modelNameShort";
+			$controller = strtolower($modelNameShort);
+			
+			$url = ["/$controller"];
+			
+			// create the tab
+			$tab = [
+				'label' => $modelName::labelPlural(),
+				'content' => '',
+				'linkOptions' => ['href' => $url],
+			];
+			
+			// append tab
+			$tabs[] = $tab;
+		}
+		
+		return $tabs;
+	}
+
+	/**
+	 * Builds top level navigatgion structure
+	 * @return array the breadcrumbs
+	 */
+	public function getBreadCrumbs($home = false)
+	{
+		return ['label' => Yii::t('app', 'Home')];
+	}
+
 }

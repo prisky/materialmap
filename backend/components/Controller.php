@@ -10,9 +10,9 @@ use yii\web\JsExpression;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use common\models\Column;
-use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\helpers\Url;
+use kartik\grid\GridView;
 /**
  * Controller is the base class of app controllers and implements the CRUD actions for a model.
  *
@@ -68,7 +68,7 @@ abstract class Controller extends \common\components\Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view', 'index', $this->modelNameShort . 'list'],
+                        'actions' => ['view', 'index', 'export', $this->modelNameShort . 'list'],
                         'roles' => [$this->modelNameShort . 'Read'],
                     ],
                 ],
@@ -89,7 +89,7 @@ abstract class Controller extends \common\components\Controller
 	public function actionIndex()
 	{
 		$searchModel = new $this->modelNameSearch;
-		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		return $this->render('@app/views/index', [
 				'dataProvider' => $dataProvider,
@@ -100,9 +100,10 @@ abstract class Controller extends \common\components\Controller
 
 	/**
 	 * List of columns to show in index view - grid.
+	 * @param bool $includeNumberFormat true if want number format for export to excel - not accepted by kartik\grid\GridView
 	 * @return array
 	 */
-	protected function getGridColumns()
+	protected function getGridColumns($includeNumberFormat = false)
 	{
 		$modelName = $this->modelName;
 		$modelNameShort = $this->modelNameShort;
@@ -124,8 +125,9 @@ abstract class Controller extends \common\components\Controller
 		}
 
 		foreach($attributes as $attribute) {
+			$numberFormat = false;
 			$attribute = $attribute['name'];
-
+				
 			$column = $columns[$attribute];
 
 			$gridColumn = ['attribute' => $attribute];
@@ -146,9 +148,11 @@ abstract class Controller extends \common\components\Controller
 			}
 			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
 				$gridColumn['filterType'] = GridView::FILTER_MONEY;
+				$numberFormat = '$#,##0.00;[Red]-$#,##0.00';
 			}
 			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
 				$gridColumn['filterType'] = GridView::FILTER_SPIN;
+				$numberFormat = '0.00%';
 			}
 			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
 				$dropDownOptions = [];
@@ -190,20 +194,27 @@ abstract class Controller extends \common\components\Controller
 					switch($column->dbType) {
 						case 'tinyint(1)' :
 							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
+							$numberFormat = '[=0]"No";[=1]"Yes"';
 							break;
 						case 'date' :
 							$gridColumn['filterType'] = GridView::FILTER__DATE;
+							$numberFormat = 'mmmm d", "yy';
 							break;
 						case 'time' :
 							$gridColumn['filterType'] = GridView::FILTER_TIME;
+							$numberFormat = 'hh:mm AM/PM';
 							break;
 						case 'datetime' :
 						case 'timestamp' :
 							$gridColumn['filterType'] = GridView::FILTER_DATETIME;
+							$numberFormat = 'hh:mm AM/PM on mmmm d, yy';
 					}
 				}
 			}
 			
+			if($includeNumberFormat && $numberFormat) {
+				$gridColumn['numberFormat'] = $numberFormat;
+			}
 			$gridColumns[] = $gridColumn;
 		}
 
@@ -291,6 +302,77 @@ abstract class Controller extends \common\components\Controller
 		return $this->redirect(['index']);
 	}
 
+    /**
+     * Download the exported file
+     */
+    public function actionExport()
+    {
+        $this->setHttpHeaders(Yii::$app->request->bodyParams['export_filetype'], $this->id);
+
+		$searchModel = new $this->modelNameSearch;
+		$queryParams = Yii::$app->request->queryParams;
+		if(isset($queryParams['page'])) {
+			unset($queryParams['page']);
+		}
+
+		$columns = $this->getGridColumns(true);
+		$objPHPExcel = new \PHPExcel();
+		$activeSheet = $objPHPExcel->setActiveSheetIndex(0);
+		$modelName = $this->modelName;
+		$activeSheet->setTitle($modelName::label());
+
+		// headings
+		$col = 0;
+		$objPHPExcel->getActiveSheet()->getStyle(1)->getFont()->setBold(true);
+		foreach($columns as $column) {
+			if(isset($column['attribute'])) {
+				$attribute = $column['attribute'];
+				if(isset($column['numberFormat'])) {
+					$columnIndex = \PHPExcel_Cell::stringFromColumnIndex($col);
+					$activeSheet->getStyle($columnIndex)->getNumberFormat()->setFormatCode($column['numberFormat']);
+				}
+				$activeSheet->setCellValueByColumnAndRow($col++, 1, $modelName::attributeLabel($attribute));
+			}
+		}
+
+		// data
+		$dataProvider = $searchModel->search($queryParams);
+		$dataProvider->pagination = false;
+		$row = 2;
+		foreach($dataProvider->models as $model) {
+			$col = 0;
+			foreach($columns as $column) {
+				if(isset($column['attribute'])) {
+					$attribute = $column['attribute'];
+					$activeSheet->setCellValueByColumnAndRow($col++, $row, $model->$attribute);
+				}
+			}
+			$row++;
+		}
+
+		$writerType = (Yii::$app->request->bodyParams['export_filetype'] == GridView::EXCEL) ? 'Excel5' : 'CSV';
+		$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, $writerType);
+		ob_start();
+		$objWriter->save('php://output');
+		
+		return ob_get_clean();
+    }
+	
+    /**
+     * Sets the HTTP headers needed by file download action.
+     */
+    private function setHttpHeaders($type, $name)
+    {
+        $mime = ($type == GridView::CSV) ? 'text/csv' : 'application/vnd.ms-excel';
+
+        Yii::$app->getResponse()->getHeaders()
+                 ->set('Pragma', 'public')
+                 ->set('Expires', '0')
+                 ->set('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
+                 ->set('Content-Disposition', 'attachment; filename="' . $name . '.' . $type . '"')
+                 ->set('Content-type', $mime . '; charset=utf-8');
+    }
+
 	/**
 	 * Finds the model based on its primary key value.
 	 * If the model not found, a 404 HTTP exception will be thrown.
@@ -313,9 +395,8 @@ abstract class Controller extends \common\components\Controller
 	 * Builds breadcrumbs using the tbl_navigation closure table and working back from the current url.
 	 * @return array the breadcrumbs
 	 */
-	public function getBreadCrumbs()
+	public function getBreadCrumbs($home = false)
 	{
-
 		// Model extends ClosureTableActiveRecord
 		$model = Model::findOne(['auth_item_name' => $this->modelNameShort]);
 		$models = Model::find()
@@ -368,6 +449,7 @@ abstract class Controller extends \common\components\Controller
 		}
 
 		// reverse the order of the breadcrumbs so working in correct order
+		$breadcrumbs[] = ['label' => Yii::t('app', 'Home'), 'url' => ["site/index"]];
 		$breadcrumbs = array_reverse($breadcrumbs);
 
 		// remove the link from the last item so just label - this is the active page

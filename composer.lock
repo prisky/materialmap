@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "04476e811a3d41afa0a431e36652d72c",
+    "hash": "70bbe1f9f9caef6114feee86e1c75a8f",
     "packages": [
         {
             "name": "aidask/yii-closure-table-behavior",
@@ -803,6 +804,63 @@
             "time": "2014-06-25 15:50:23"
         },
         {
+            "name": "phpoffice/phpexcel",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "59ef7c3325f27a8fbf705ceaba46d94d26c15740"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/59ef7c3325f27a8fbf705ceaba46d94d26c15740",
+                "reference": "59ef7c3325f27a8fbf705ceaba46d94d26c15740",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2014-07-03 00:01:39"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "dev-master",
             "source": {
@@ -1046,12 +1104,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "dd2a4cef9428369f153e939a544a419606573c4c"
+                "reference": "b978ac1ff96745063e0ab08a48ce429dbc51477e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/dd2a4cef9428369f153e939a544a419606573c4c",
-                "reference": "dd2a4cef9428369f153e939a544a419606573c4c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b978ac1ff96745063e0ab08a48ce429dbc51477e",
+                "reference": "b978ac1ff96745063e0ab08a48ce429dbc51477e",
                 "shasum": ""
             },
             "require": {
@@ -1119,7 +1177,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-07-05 04:03:03"
+            "time": "2014-07-05 16:07:46"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -1677,7 +1735,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "kartik-v/yii2-widgets": 20,
-        "kartik-v/yii2-icons": 20
+        "kartik-v/yii2-icons": 20,
+        "phpoffice/phpexcel": 20
     },
     "platform": {
         "php": ">=5.4.0"

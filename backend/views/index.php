@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
@@ -12,6 +13,12 @@ use yii\bootstrap\Modal;
  */
 
 $this->title = $this->context->labelPlural();
+
+// alter action for exporet to use current params for filtering etc
+$action = array_merge(['export'], Yii::$app->request->queryParams);
+unset($action['r']);
+Yii::$app->getModule('gridview')->downloadAction = $action;
+
 ?>
 <div class="index">
 
@@ -32,6 +39,8 @@ $this->title = $this->context->labelPlural();
 	</div>
 	<?php Modal::end(); ?>
 
+	<?php Pjax::begin(); ?>
+
     <?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
@@ -49,8 +58,14 @@ $this->title = $this->context->labelPlural();
 				'options' => ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#new'],
 				'encodeLabel' => false
 			]),
-			'showFooter'=>true
+			'showFooter' => true,
+		],
+		'exportConfig' => [
+			GridView::CSV => [],
+			GridView::EXCEL => [],
 		],
 	]); ?>
+
+	<?php Pjax::end(); ?>
 	
 </div>

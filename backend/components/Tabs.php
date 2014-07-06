@@ -22,10 +22,6 @@ class Tabs extends \yii\bootstrap\Tabs
         $headers = [];
         $panes = [];
 
-        if (!$this->hasActiveTab() && !empty($this->items)) {
-            $this->items[0]['active'] = true;
-        }
-
         foreach ($this->items as $n => $item) {
             if (!isset($item['label'])) {
                 throw new InvalidConfigException("The 'label' option is required.");
