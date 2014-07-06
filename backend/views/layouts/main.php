@@ -34,15 +34,18 @@ AppAsset::register($this);
             ]);
             $menuItems = [
             ];
-            if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-            } else {
-                $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->contact->email . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ];
-            }
+			if($this->context->action->id != 'login') {
+				if(Yii::$app->user->isGuest) {
+					$menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+				} else {
+					$menuItems[] = [
+						'label' => 'Logout (' . Yii::$app->user->identity->contact->email . ')',
+						'url' => ['/site/logout'],
+						'linkOptions' => ['data-method' => 'post']
+					];
+				}
+			}
+			
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
@@ -52,7 +55,7 @@ AppAsset::register($this);
 
 		<div class="container">
 		<?php
-			if(isset($this->context->action->controller->breadCrumbs)) {
+			if($this->context->action->id != 'login' && isset($this->context->action->controller->breadCrumbs)) {
 				echo  Breadcrumbs::widget([
 					'links' => $this->context->action->controller->breadCrumbs,
 					'homeLink' => false,
