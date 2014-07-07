@@ -13,6 +13,7 @@ use common\models\Column;
 use kartik\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
+use backend\components\FieldRange;
 /**
  * Controller is the base class of app controllers and implements the CRUD actions for a model.
  *
@@ -147,11 +148,36 @@ abstract class Controller extends \common\components\Controller
 				continue;
 			}
 			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
-				$gridColumn['filterType'] = GridView::FILTER_MONEY;
+				$gridColumn['filterType'] = 'backend\components\FieldRange';
+				$gridColumn['filterWidgetOptions'] = [
+					'attribute1' => $attribute . '_from',
+					'attribute2' => $attribute . '_to',
+					'type' => FieldRange::INPUT_WIDGET,
+					'widgetClass' => GridView::FILTER_MONEY,
+				];
 				$numberFormat = '$#,##0.00;[Red]-$#,##0.00';
 			}
 			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
-				$gridColumn['filterType'] = GridView::FILTER_SPIN;
+				$gridColumn['filterType'] = 'backend\components\FieldRange';
+				$gridColumn['filterWidgetOptions'] = [
+					'attribute1' => $attribute . '_from',
+					'attribute2' => $attribute . '_to',
+					'type' => FieldRange::INPUT_SPIN,
+					'widgetOptions1' => [
+						'pluginOptions' => [
+							'verticalbuttons' => true,
+							'verticalupclass' => 'glyphicon glyphicon-plus',
+							'verticaldownclass' => 'glyphicon glyphicon-minus',
+						],
+					],
+					'widgetOptions2' => [
+						'pluginOptions' => [
+							'verticalbuttons' => true,
+							'verticalupclass' => 'glyphicon glyphicon-plus',
+							'verticaldownclass' => 'glyphicon glyphicon-minus',
+						],
+					],
+				];
 				$numberFormat = '0.00%';
 			}
 			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
@@ -197,16 +223,47 @@ abstract class Controller extends \common\components\Controller
 							$numberFormat = '[=0]"No";[=1]"Yes"';
 							break;
 						case 'date' :
-							$gridColumn['filterType'] = GridView::FILTER__DATE;
+							$gridColumn['filterType'] = 'backend\components\FieldRange';
+							$gridColumn['filterWidgetOptions'] = [
+								'attribute1' => $attribute . '_from',
+								'attribute2' => $attribute . '_to',
+								'type' => FieldRange::INPUT_DATE,
+								'widgetOptions1' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+								'widgetOptions2' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+							];
 							$numberFormat = 'mmmm d", "yy';
 							break;
 						case 'time' :
-							$gridColumn['filterType'] = GridView::FILTER_TIME;
+							$gridColumn['filterWidgetOptions'] = [
+								'attribute1' => $attribute . '_from',
+								'attribute2' => $attribute . '_to',
+								'type' => FieldRange::INPUT_TIME,
+								'widgetOptions1' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+								'widgetOptions2' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+							];
 							$numberFormat = 'hh:mm AM/PM';
 							break;
 						case 'datetime' :
 						case 'timestamp' :
-							$gridColumn['filterType'] = GridView::FILTER_DATETIME;
+							$gridColumn['filterWidgetOptions'] = [
+								'attribute1' => $attribute . '_from',
+								'attribute2' => $attribute . '_to',
+								'type' => FieldRange::INPUT_DATETIME,
+									'widgetOptions1' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+								'widgetOptions2' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+						];
 							$numberFormat = 'hh:mm AM/PM on mmmm d, yy';
 					}
 				}

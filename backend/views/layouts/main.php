@@ -34,6 +34,8 @@ AppAsset::register($this);
             ]);
             $menuItems = [
             ];
+
+			// TODO: probably should have different layout for login rather than these conidtions hard coded in
 			if($this->context->action->id != 'login') {
 				if(Yii::$app->user->isGuest) {
 					$menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

@@ -10,6 +10,26 @@ use common\models\Account;
  */
 class AccountSearch extends Account
 {
+	public $balance_from;
+	public $summary_charge_from;
+	public $booking_charge_from;
+	public $ticket_charge_from;
+	public $seat_charge_from;
+	public $sms_charge_from;
+	public $annual_charge_from;
+	public $rate_from;
+	public $created_from;
+		
+	public $balance_to;
+	public $summary_charge_to;
+	public $booking_charge_to;
+	public $ticket_charge_to;
+	public $seat_charge_to;
+	public $sms_charge_to;
+	public $annual_charge_to;
+	public $rate_to;
+	public $created_to;
+
     public function rules()
     {
         return [
