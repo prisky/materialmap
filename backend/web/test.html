@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="TkdSQS5faml9EzYIemcwCAglKy5mEF8OeRE6LWYsDz8rcms2H206Lw==">
+    <title>Accounts</title>
+    <link href="/bookaspot/backend/web/assets/3d44a39a/css/bootstrap.css" rel="stylesheet">
+<link href="/bookaspot/backend/web/css/site.css" rel="stylesheet">
+<script type="text/javascript">var select2_803b74d7 = {"allowClear":true,"ajax":{"url":"\/bookaspot\/backend\/web\/index.php?r=account%2Fuserlist","dataType":"json","data":function (term, page) {
+	return {
+		q: term,
+		page_limit: 10,
+		page: page,
+	};
+},"results":function (data, page) {
+	var more = (page * 10) < data.total;
+
+	return {
+		results: data.results,
+		more: more
+	};
+}},"initSelection":function (element, callback) {
+    var id=$(element).val();
+    if (id !== "") {
+        $.ajax("/bookaspot/backend/web/index.php?r=account%2Fuserlist?id=" + id, {dataType: "json"}).done(function(data) { callback(data.results);});
+    }
+},"width":"resolve"};
+
+var select2_4a0a0c99 = {"allowClear":true,"ajax":{"url":"\/bookaspot\/backend\/web\/index.php?r=account%2Faddresslist","dataType":"json","data":function (term, page) {
+	return {
+		q: term,
+		page_limit: 10,
+		page: page,
+	};
+},"results":function (data, page) {
+	var more = (page * 10) < data.total;
+
+	return {
+		results: data.results,
+		more: more
+	};
+}},"initSelection":function (element, callback) {
+    var id=$(element).val();
+    if (id !== "") {
+        $.ajax("/bookaspot/backend/web/index.php?r=account%2Faddresslist?id=" + id, {dataType: "json"}).done(function(data) { callback(data.results);});
+    }
+},"width":"resolve"};
+
+var maskMoney_00000000 = {};
+
+var TouchSpin_57926292 = {"buttonup":"<button type=\"button\" class=\"btn btn-default bootstrap-touchspin-up\"><i class='glyphicon glyphicon-forward'><\/i><\/button>","buttondown":"<button type=\"button\" class=\"btn btn-default bootstrap-touchspin-down\"><i class='glyphicon glyphicon-backward'><\/i><\/button>"};
+
+var kvFieldRange_9989e6c3 = {"attrFrom":"accountsearch-annual_charge_from","container":"w7-container","errorContainer":"accountsearch-annual_charge_from-error"};
+
+var maskMoney_d4a9ac23 = {"allowEmpty":true};
+
+var kvFieldRange_708cc6eb = {"attrFrom":"accountsearch-balance_from","container":"w8-container","errorContainer":"accountsearch-balance_from-error"};
+
+var kvFieldRange_474d32d5 = {"attrFrom":"accountsearch-booking_charge_from","container":"w9-container","errorContainer":"accountsearch-booking_charge_from-error"};
+
+var kvFieldRange_61731075 = {"attrFrom":"accountsearch-rate_from","container":"w10-container","errorContainer":"accountsearch-rate_from-error"};
+
+var TouchSpin_90dd8e5f = {"buttonup":"<button type=\"button\" class=\"btn btn-default bootstrap-touchspin-up\"><i class='glyphicon glyphicon-forward'><\/i><\/button>","buttondown":"<button type=\"button\" class=\"btn btn-default bootstrap-touchspin-down\"><i class='glyphicon glyphicon-backward'><\/i><\/button>","verticalbuttons":true,"verticalupclass":"glyphicon glyphicon-plus","verticaldownclass":"glyphicon glyphicon-minus"};
+
+var kvFieldRange_9d021c27 = {"attrFrom":"accountsearch-seat_charge_from","container":"w11-container","errorContainer":"accountsearch-seat_charge_from-error"};
+
+var kvFieldRange_4ce64173 = {"attrFrom":"accountsearch-sms_charge_from","container":"w12-container","errorContainer":"accountsearch-sms_charge_from-error"};
+
+var kvFieldRange_cba944f6 = {"attrFrom":"accountsearch-summary_charge_from","container":"w13-container","errorContainer":"accountsearch-summary_charge_from-error"};
+
+var kvFieldRange_9aa40bad = {"attrFrom":"accountsearch-ticket_charge_from","container":"w14-container","errorContainer":"accountsearch-ticket_charge_from-error"};
+</script></head>
+<body>
+        <div class="wrap">
+        <nav id="w15" class="navbar-inverse navbar-fixed-top navbar" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle" data-toggle="collapse" data-target="#w15-collapse"><span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button><a class="navbar-brand" href="/bookaspot/backend/web/index.php">bookaspot</a></div><div id="w15-collapse" class="collapse navbar-collapse"><ul id="w16" class="navbar-nav navbar-right nav"><li><a href="/bookaspot/backend/web/index.php?r=site%2Flogout" data-method="post">Logout (developer)</a></li></ul></div></div></nav>
+		<div class="container">
+		<ul class="breadcrumb"><li><a href="/bookaspot/backend/web/index.php?r=site%2Findex">Home</a></li>
+<li class="active">Accounts</li>
+</ul><ul id="w17" class="nav nav-tabs"><li class="active"><a href="/bookaspot/backend/web/index.php?r=account">Accounts</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=affiliatecategory">Affiliate categories</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=authitem">Roles</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=channel">Channels</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=contact">Contacts</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=country">Countries</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=message">Messages</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=messagefield">Message fields</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=model">Models</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=navigation">Navigation</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=paymentgateway">Payment gateways</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=reseller">Resellers</a></li>
+<li><a href="/bookaspot/backend/web/index.php?r=user">Users</a></li></ul>
+<div class="tab-content"><div id="w17-tab0" class="tab-pane active"><div class="index">
+
+    <p>
+	
+<div id="new" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog ">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title"> New Account</h4>
+</div>
+<div class="modal-body">
+    </p>
+
+	<div>
+
+	
+<div class="account-form">
+
+    <form id="w1" action="/bookaspot/backend/web/index.php?r=account%2Fcreate" method="post">
+<input type="hidden" name="_csrf" value="TkdSQS5faml9EzYIemcwCAglKy5mEF8OeRE6LWYsDz8rcms2H206Lw=="><div id="w0"><div class="table-responsive"><table class="detail-view table table-hover table-bordered table-striped table-condensed"><tr><th style="width: 20%; text-align: right; vertical-align: middle;">User</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-user_id required">
+<div class="kv-plugin-loading loading-account-user_id">&nbsp;</div><input type="text" id="account-user_id" class="kv-hide " name="Account[user_id]" style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_803b74d7">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Address</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-address_id required">
+<div class="kv-plugin-loading loading-account-address_id">&nbsp;</div><input type="text" id="account-address_id" class="kv-hide " name="Account[address_id]" style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_4a0a0c99">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Phone work</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-phone_work required">
+<input type="text" id="account-phone_work" class="form-control" name="Account[phone_work]" maxlength="20">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Balance</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-balance">
+<input type="text" id="account-balance-disp" class="form-control" name="account-balance-disp"><input type="hidden" id="account-balance" name="Account[balance]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Summary charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-summary_charge">
+<input type="text" id="account-summary_charge-disp" class="form-control" name="account-summary_charge-disp"><input type="hidden" id="account-summary_charge" name="Account[summary_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Booking charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-booking_charge">
+<input type="text" id="account-booking_charge-disp" class="form-control" name="account-booking_charge-disp"><input type="hidden" id="account-booking_charge" name="Account[booking_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Ticket charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-ticket_charge">
+<input type="text" id="account-ticket_charge-disp" class="form-control" name="account-ticket_charge-disp"><input type="hidden" id="account-ticket_charge" name="Account[ticket_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Seat charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-seat_charge">
+<input type="text" id="account-seat_charge-disp" class="form-control" name="account-seat_charge-disp"><input type="hidden" id="account-seat_charge" name="Account[seat_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Sms charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-sms_charge">
+<input type="text" id="account-sms_charge-disp" class="form-control" name="account-sms_charge-disp"><input type="hidden" id="account-sms_charge" name="Account[sms_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Annual charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-annual_charge">
+<input type="text" id="account-annual_charge-disp" class="form-control" name="account-annual_charge-disp"><input type="hidden" id="account-annual_charge" name="Account[annual_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Rate</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-rate">
+<input type="text" id="account-rate" name="Account[rate]" data-plugin-name="TouchSpin" data-plugin-options="TouchSpin_57926292">
+
+<div class="help-block"></div>
+</div></div></td></tr></table></div></div><button type="submit" class="btn btn-success">Save</button></form>
+</div>
+
+	</div>
+	
+</div>
+
+</div>
+</div>
+</div>
+	<div id="w2">
+    <div id="w4" class="grid-view">    <div class="panel panel-default">
+        <div class="panel-heading">
+             <div class="pull-right"></div>
+             <h3 class="panel-title">Accounts</h3>
+        </div>
+         <div class="kv-panel-before"><div class="pull-right">
+	
+<div class="btn-group">
+<button id="w5" class="btn btn-danger dropdown-toggle" href="#" data-toggle="dropdown"><i class='glyphicon glyphicon-export'></i> Export <span class="caret"></span></button>
+
+<ul id="w6" class="dropdown-menu"><li title="Save as CSV"><a class="export-csv" href="#" tabindex="-1"><i class="glyphicon glyphicon-floppy-open"></i> CSV</a></li>
+<li title="Save as Excel"><a class="export-xls" href="#" tabindex="-1"><i class="glyphicon glyphicon-floppy-remove"></i> Excel</a></li></ul>
+</div><form class="kv-export-form" action="/bookaspot/backend/web/index.php?r=account%2Fexport&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=" method="post" style="display:none" target="_blank">
+<input type="hidden" name="_csrf" value="TkdSQS5faml9EzYIemcwCAglKy5mEF8OeRE6LWYsDz8rcms2H206Lw=="><input type="text" name="export_filetype"><input type="text" name="export_filename"><textarea name="export_content"></textarea></form>
+</div>
+<button id="w3" class="btn btn-success" data-toggle="modal" data-target="#new"><i class="glyphicon glyphicon-plus"></i> New</button>
+<div class="clearfix"></div></div>
+        <div class="table-responsive"><table class="table table-hover table-striped"><thead>
+
+<tr><th>&nbsp;</th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=address_id" data-sort="address_id">Address</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=annual_charge" data-sort="annual_charge">Annual charge</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=balance" data-sort="balance">Balance</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=booking_charge" data-sort="booking_charge">Booking charge</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=phone_work" data-sort="phone_work">Phone work</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=rate" data-sort="rate">Rate</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=seat_charge" data-sort="seat_charge">Seat charge</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=sms_charge" data-sort="sms_charge">Sms charge</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=summary_charge" data-sort="summary_charge">Summary charge</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=ticket_charge" data-sort="ticket_charge">Ticket charge</a></th><th><a href="/bookaspot/backend/web/index.php?r=account%2Findex&amp;AccountSearch%5Baddress_id%5D=&amp;AccountSearch%5Bannual_charge_from%5D=&amp;AccountSearch%5Bannual_charge_to%5D=&amp;AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&amp;AccountSearch%5Bbalance_to%5D=&amp;AccountSearch%5Bbooking_charge_from%5D=&amp;AccountSearch%5Bbooking_charge_to%5D=&amp;AccountSearch%5Bphone_work%5D=&amp;AccountSearch%5Brate_from%5D=&amp;AccountSearch%5Brate_to%5D=&amp;AccountSearch%5Bseat_charge_from%5D=&amp;AccountSearch%5Bseat_charge_to%5D=&amp;AccountSearch%5Bsms_charge_from%5D=&amp;AccountSearch%5Bsms_charge_to%5D=&amp;AccountSearch%5Bsummary_charge_from%5D=&amp;AccountSearch%5Bsummary_charge_to%5D=&amp;AccountSearch%5Bticket_charge_from%5D=&amp;AccountSearch%5Bticket_charge_to%5D=&amp;AccountSearch%5Buser_id%5D=&amp;sort=user_id" data-sort="user_id">User</a></th></tr><tr id="w4-filters" class="filters"><td>&nbsp;</td><td><div class="kv-plugin-loading loading-accountsearch-address_id">&nbsp;</div><input type="text" id="accountsearch-address_id" class="form-control kv-hide " name="AccountSearch[address_id]" value="" style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_4a0a0c99"></td><td><div id="w7-container" class="form-group"><div><input type="text" id="accountsearch-annual_charge_from-disp" class="form-control" name="accountsearch-annual_charge_from-disp" placeholder="From"><input type="hidden" id="accountsearch-annual_charge_from" name="AccountSearch[annual_charge_from]" placeholder="From"><input type="text" id="accountsearch-annual_charge_to-disp" class="form-control" name="accountsearch-annual_charge_to-disp" placeholder="To"><input type="hidden" id="accountsearch-annual_charge_to" name="AccountSearch[annual_charge_to]" placeholder="To"></div><div id="accountsearch-annual_charge_from-error"><div class="help-block"></div></div></div></td><td><div id="w8-container" class="form-group"><div><input type="text" id="accountsearch-balance_from-disp" class="form-control" name="accountsearch-balance_from-disp" placeholder="From"><input type="hidden" id="accountsearch-balance_from" name="AccountSearch[balance_from]" placeholder="From"><input type="text" id="accountsearch-balance_to-disp" class="form-control" name="accountsearch-balance_to-disp" placeholder="To"><input type="hidden" id="accountsearch-balance_to" name="AccountSearch[balance_to]" placeholder="To"></div><div id="accountsearch-balance_from-error"><div class="help-block"></div></div></div></td><td><div id="w9-container" class="form-group"><div><input type="text" id="accountsearch-booking_charge_from-disp" class="form-control" name="accountsearch-booking_charge_from-disp" placeholder="From"><input type="hidden" id="accountsearch-booking_charge_from" name="AccountSearch[booking_charge_from]" placeholder="From"><input type="text" id="accountsearch-booking_charge_to-disp" class="form-control" name="accountsearch-booking_charge_to-disp" placeholder="To"><input type="hidden" id="accountsearch-booking_charge_to" name="AccountSearch[booking_charge_to]" placeholder="To"></div><div id="accountsearch-booking_charge_from-error"><div class="help-block"></div></div></div></td><td><input type="text" class="form-control" name="AccountSearch[phone_work]" value=""> </td><td><div id="w10-container" class="form-group"><div><input type="text" id="accountsearch-rate_from" class="input-left-rounded" name="AccountSearch[rate_from]" placeholder="From" data-plugin-name="TouchSpin" data-plugin-options="TouchSpin_90dd8e5f"><input type="text" id="accountsearch-rate_to" class="input-left-rounded" name="AccountSearch[rate_to]" placeholder="To" data-plugin-name="TouchSpin" data-plugin-options="TouchSpin_90dd8e5f"></div><div id="accountsearch-rate_from-error"><div class="help-block"></div></div></div></td><td><div id="w11-container" class="form-group"><div><input type="text" id="accountsearch-seat_charge_from-disp" class="form-control" name="accountsearch-seat_charge_from-disp" placeholder="From"><input type="hidden" id="accountsearch-seat_charge_from" name="AccountSearch[seat_charge_from]" placeholder="From"><input type="text" id="accountsearch-seat_charge_to-disp" class="form-control" name="accountsearch-seat_charge_to-disp" placeholder="To"><input type="hidden" id="accountsearch-seat_charge_to" name="AccountSearch[seat_charge_to]" placeholder="To"></div><div id="accountsearch-seat_charge_from-error"><div class="help-block"></div></div></div></td><td><div id="w12-container" class="form-group"><div><input type="text" id="accountsearch-sms_charge_from-disp" class="form-control" name="accountsearch-sms_charge_from-disp" placeholder="From"><input type="hidden" id="accountsearch-sms_charge_from" name="AccountSearch[sms_charge_from]" placeholder="From"><input type="text" id="accountsearch-sms_charge_to-disp" class="form-control" name="accountsearch-sms_charge_to-disp" placeholder="To"><input type="hidden" id="accountsearch-sms_charge_to" name="AccountSearch[sms_charge_to]" placeholder="To"></div><div id="accountsearch-sms_charge_from-error"><div class="help-block"></div></div></div></td><td><div id="w13-container" class="form-group"><div><input type="text" id="accountsearch-summary_charge_from-disp" class="form-control" name="accountsearch-summary_charge_from-disp" placeholder="From"><input type="hidden" id="accountsearch-summary_charge_from" name="AccountSearch[summary_charge_from]" placeholder="From"><input type="text" id="accountsearch-summary_charge_to-disp" class="form-control" name="accountsearch-summary_charge_to-disp" placeholder="To"><input type="hidden" id="accountsearch-summary_charge_to" name="AccountSearch[summary_charge_to]" placeholder="To"></div><div id="accountsearch-summary_charge_from-error"><div class="help-block"></div></div></div></td><td><div id="w14-container" class="form-group"><div><input type="text" id="accountsearch-ticket_charge_from-disp" class="form-control" name="accountsearch-ticket_charge_from-disp" placeholder="From"><input type="hidden" id="accountsearch-ticket_charge_from" name="AccountSearch[ticket_charge_from]" placeholder="From"><input type="text" id="accountsearch-ticket_charge_to-disp" class="form-control" name="accountsearch-ticket_charge_to-disp" placeholder="To"><input type="hidden" id="accountsearch-ticket_charge_to" name="AccountSearch[ticket_charge_to]" placeholder="To"></div><div id="accountsearch-ticket_charge_from-error"><div class="help-block"></div></div></div></td><td><div class="kv-plugin-loading loading-accountsearch-user_id">&nbsp;</div><input type="text" id="accountsearch-user_id" class="form-control kv-hide " name="AccountSearch[user_id]" value="" style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_803b74d7"></td></tr>
+
+</thead>
+<tbody>
+<tr><td colspan="12"><div class="empty">No results found.</div></td></tr>
+</tbody></table></div>
+        
+        <div class="panel-footer">
+            <div class="pull-right"></div>
+            <div class="kv-panel-pager"></div>
+            <div class="clearfix"></div>
+        </div>
+    </div></div>
+	</div>	
+</div>
+</div>
+<div id="w17-tab1" class="tab-pane"></div>
+<div id="w17-tab2" class="tab-pane"></div>
+<div id="w17-tab3" class="tab-pane"></div>
+<div id="w17-tab4" class="tab-pane"></div>
+<div id="w17-tab5" class="tab-pane"></div>
+<div id="w17-tab6" class="tab-pane"></div>
+<div id="w17-tab7" class="tab-pane"></div>
+<div id="w17-tab8" class="tab-pane"></div>
+<div id="w17-tab9" class="tab-pane"></div>
+<div id="w17-tab10" class="tab-pane"></div>
+<div id="w17-tab11" class="tab-pane"></div>
+<div id="w17-tab12" class="tab-pane"></div></div>		</div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+        <p class="pull-left">&copy; My Company 2014</p>
+        <p class="pull-right">Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></p>
+        </div>
+    </footer>
+
+    <div id="yii-debug-toolbar" data-url="/bookaspot/backend/web/index.php?r=debug%2Fdefault%2Ftoolbar&tag=53bbc21e8c5af" style="display:none"></div><style>#yii-debug-toolbar {
+    padding: 0;
+    font: 11px Verdana, Arial, sans-serif;
+    text-align: left;
+    min-height: 40px;
+    overflow: auto;
+    background: rgb(246,246,246);
+    background: -moz-linear-gradient(top,  rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(237,237,237,1)), color-stop(53%,rgba(246,246,246,1)), color-stop(100%,rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff',GradientType=0 );
+    background: rgb(246,246,246) url(data:image/svg+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAoCAYAAAA/tpB3AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94BBQwuINct3v0AAAAjSURBVAjXY3j79u1/JgYGBgYkgpGRkYEYMSpKUGLK+/fvGQAaDAb6F86IsAAAAABJRU5ErkJggg==); /* generated using "cat assets/bg.png | base64" */
+}
+
+.yii-debug-toolbar-top {
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.yii-debug-toolbar-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    z-index: 1000000;
+    border-top: 1px solid #ccc;
+}
+
+.yii-debug-toolbar-block {
+    float: left;
+    margin: 0;
+    border-right: 1px solid #e4e4e4;
+    padding: 4px 8px;
+    line-height: 32px;
+    white-space: nowrap;
+}
+
+.yii-debug-toolbar-block a {
+    text-decoration: none;
+    color: black;
+}
+
+.yii-debug-toolbar-block span {
+}
+
+.yii-debug-toolbar-block img {
+    vertical-align: middle;
+}
+
+#yii-debug-toolbar .label {
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 11.844px;
+    font-weight: normal;
+    line-height: 14px;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #999999;
+}
+
+#yii-debug-toolbar .label {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#yii-debug-toolbar .label:empty {
+    display: none;
+}
+
+#yii-debug-toolbar a.label:hover,
+#yii-debug-toolbar a.label:focus {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#yii-debug-toolbar .label-important {
+    background-color: #b94a48;
+}
+
+#yii-debug-toolbar .label-important[href] {
+    background-color: #953b39;
+}
+
+#yii-debug-toolbar .label-warning,
+#yii-debug-toolbar .badge-warning {
+    background-color: #f89406;
+}
+
+#yii-debug-toolbar .label-warning[href] {
+    background-color: #c67605;
+}
+
+#yii-debug-toolbar .label-success {
+    background-color: #468847;
+}
+
+#yii-debug-toolbar .label-success[href] {
+    background-color: #356635;
+}
+
+#yii-debug-toolbar .label-info {
+    background-color: #3a87ad;
+}
+
+#yii-debug-toolbar .label-info[href] {
+    background-color: #2d6987;
+}
+
+#yii-debug-toolbar .label-inverse,
+#yii-debug-toolbar .badge-inverse {
+    background-color: #333333;
+}
+
+#yii-debug-toolbar .label-inverse[href],
+#yii-debug-toolbar .badge-inverse[href] {
+    background-color: #1a1a1a;
+}
+
+.yii-debug-toolbar-toggler {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    width: 15px;
+    height: 30px;
+    font-size: 25px;
+    font-weight: 100;
+    line-height: 28px;
+    color: #ffffff;
+    text-align: center;
+    background: #666666;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.yii-debug-toolbar-toggler:hover,
+.yii-debug-toolbar-toggler:focus {
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+#yii-debug-toolbar-min {
+    display: none;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 1000000;
+    font: 11px Verdana, Arial, sans-serif;
+    text-align: left;
+    width: 63px;
+    height: 38px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    -webkit-border-top-left-radius: 6px;
+    -moz-border-top-left-radius: 6px;
+    border-top-left-radius: 6px;
+    background: rgb(237,237,237);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkZWRlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUzJSIgc3RvcC1jb2xvcj0iI2Y2ZjZmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(237,237,237,1)), color-stop(53%,rgba(246,246,246,1)), color-stop(100%,rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom,  rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff',GradientType=0 );
+}
+
+#yii-debug-toolbar-logo {
+    position: fixed;
+    right: 31px;
+    bottom: 4px;
+}
+</style><script>(function () {
+    var ajax = function (url, settings) {
+        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        settings = settings || {};
+        xhr.open(settings.method || 'GET', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onreadystatechange = function (state) {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200 && settings.success) {
+                    settings.success(xhr);
+                } else if (xhr.status != 200 && settings.error) {
+                    settings.error(xhr);
+                }
+            }
+        };
+        xhr.send(settings.data || '');
+    };
+
+    var e = document.getElementById('yii-debug-toolbar');
+    if (e) {
+        e.style.display = 'block';
+        var url = e.getAttribute('data-url');
+        ajax(url, {
+            success: function (xhr) {
+                var div = document.createElement('div');
+                div.innerHTML = xhr.responseText;
+                e.parentNode.replaceChild(div, e);
+                if (window.localStorage) {
+                    var pref = localStorage.getItem('yii-debug-toolbar');
+                    if (pref == 'minimized') {
+                        document.getElementById('yii-debug-toolbar').style.display = 'none';
+                        document.getElementById('yii-debug-toolbar-min').style.display = 'block';
+                    }
+                }
+            },
+            error: function (xhr) {
+                e.innerHTML = xhr.responseText;
+            }
+        });
+    }
+})();
+</script><script src="/bookaspot/backend/web/assets/b4cd500d/jquery.js"></script>
+<script src="/bookaspot/backend/web/assets/8d956f8e/js/kv-detail-view.js"></script>
+<script src="/bookaspot/backend/web/assets/6ba824d9/select2.js"></script>
+<script src="/bookaspot/backend/web/assets/6939fda8/yii.js"></script>
+<script src="/bookaspot/backend/web/assets/6939fda8/yii.validation.js"></script>
+<script src="/bookaspot/backend/web/assets/7119efd8/js/jquery.maskMoney.js"></script>
+<script src="/bookaspot/backend/web/assets/a4ac18a8/js/bootstrap-touchspin.js"></script>
+<script src="/bookaspot/backend/web/assets/6939fda8/yii.activeForm.js"></script>
+<script src="/bookaspot/backend/web/assets/3d44a39a/js/bootstrap.js"></script>
+<script src="/bookaspot/backend/web/assets/fc046e6f/js/kv-grid.js"></script>
+<script src="/bookaspot/backend/web/assets/fc046e6f/js/kv-grid-export.js"></script>
+<script src="/bookaspot/backend/web/assets/fc046e6f/js/jquery.floatThead.js"></script>
+<script src="/bookaspot/backend/web/assets/6939fda8/yii.gridView.js"></script>
+<script src="/bookaspot/backend/web/assets/a72850ce/js/field-range.js"></script>
+<script src="/bookaspot/backend/web/assets/e642d459/jquery.pjax.js"></script>
+<script type="text/javascript">jQuery(document).ready(function () {
+$("#w0").kvDetailView({"mode":"edit"});
+$.when($('#account-user_id').select2(select2_803b74d7)).done(function(){
+    var $container = $('#account-user_id').select2('container');
+    $('#account-user_id').removeClass('kv-hide');
+    $container.removeClass('kv-hide');
+    $('.kv-plugin-loading.loading-account-user_id').remove();
+    if (Object.keys($('.kv-hide.group-account-user_id')).length > 0) {
+        $('.kv-hide.group-account-user_id').removeClass('kv-hide').removeClass('group-account-user_id');
+    }
+});
+$.when($('#account-address_id').select2(select2_4a0a0c99)).done(function(){
+    var $container = $('#account-address_id').select2('container');
+    $('#account-address_id').removeClass('kv-hide');
+    $container.removeClass('kv-hide');
+    $('.kv-plugin-loading.loading-account-address_id').remove();
+    if (Object.keys($('.kv-hide.group-account-address_id')).length > 0) {
+        $('.kv-hide.group-account-address_id').removeClass('kv-hide').removeClass('group-account-address_id');
+    }
+});
+$("#account-balance-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-balance").val());
+$("#account-balance-disp").maskMoney('mask', val);
+$("#account-balance-disp").on('change', function () {
+     var numDecimal = $("#account-balance-disp").maskMoney('unmasked')[0];
+    $("#account-balance").val(numDecimal);
+    $("#account-balance").trigger('change');
+});
+$("#account-summary_charge-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-summary_charge").val());
+$("#account-summary_charge-disp").maskMoney('mask', val);
+$("#account-summary_charge-disp").on('change', function () {
+     var numDecimal = $("#account-summary_charge-disp").maskMoney('unmasked')[0];
+    $("#account-summary_charge").val(numDecimal);
+    $("#account-summary_charge").trigger('change');
+});
+$("#account-booking_charge-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-booking_charge").val());
+$("#account-booking_charge-disp").maskMoney('mask', val);
+$("#account-booking_charge-disp").on('change', function () {
+     var numDecimal = $("#account-booking_charge-disp").maskMoney('unmasked')[0];
+    $("#account-booking_charge").val(numDecimal);
+    $("#account-booking_charge").trigger('change');
+});
+$("#account-ticket_charge-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-ticket_charge").val());
+$("#account-ticket_charge-disp").maskMoney('mask', val);
+$("#account-ticket_charge-disp").on('change', function () {
+     var numDecimal = $("#account-ticket_charge-disp").maskMoney('unmasked')[0];
+    $("#account-ticket_charge").val(numDecimal);
+    $("#account-ticket_charge").trigger('change');
+});
+$("#account-seat_charge-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-seat_charge").val());
+$("#account-seat_charge-disp").maskMoney('mask', val);
+$("#account-seat_charge-disp").on('change', function () {
+     var numDecimal = $("#account-seat_charge-disp").maskMoney('unmasked')[0];
+    $("#account-seat_charge").val(numDecimal);
+    $("#account-seat_charge").trigger('change');
+});
+$("#account-sms_charge-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-sms_charge").val());
+$("#account-sms_charge-disp").maskMoney('mask', val);
+$("#account-sms_charge-disp").on('change', function () {
+     var numDecimal = $("#account-sms_charge-disp").maskMoney('unmasked')[0];
+    $("#account-sms_charge").val(numDecimal);
+    $("#account-sms_charge").trigger('change');
+});
+$("#account-annual_charge-disp").maskMoney(maskMoney_00000000);
+var val = parseFloat($("#account-annual_charge").val());
+$("#account-annual_charge-disp").maskMoney('mask', val);
+$("#account-annual_charge-disp").on('change', function () {
+     var numDecimal = $("#account-annual_charge-disp").maskMoney('unmasked')[0];
+    $("#account-annual_charge").val(numDecimal);
+    $("#account-annual_charge").trigger('change');
+});
+jQuery('#account-rate').TouchSpin(TouchSpin_57926292);
+jQuery('#w1').yiiActiveForm({"user_id":{"validate":function (attribute, value, messages) {yii.validation.required(value, messages, {"message":"User cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"User must be an integer.","skipOnEmpty":1});},"id":"account-user_id","name":"user_id","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-user_id","input":"#account-user_id","error":".help-block"},"address_id":{"validate":function (attribute, value, messages) {yii.validation.required(value, messages, {"message":"Address cannot be blank."});yii.validation.number(value, messages, {"pattern":/^\s*[+-]?\d+\s*$/,"message":"Address must be an integer.","skipOnEmpty":1});},"id":"account-address_id","name":"address_id","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-address_id","input":"#account-address_id","error":".help-block"},"phone_work":{"validate":function (attribute, value, messages) {yii.validation.required(value, messages, {"message":"Phone work cannot be blank."});yii.validation.string(value, messages, {"message":"Phone work must be a string.","max":20,"tooLong":"Phone work should contain at most 20 characters.","skipOnEmpty":1});},"id":"account-phone_work","name":"phone_work","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-phone_work","input":"#account-phone_work","error":".help-block"},"balance":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Balance must be a number.","skipOnEmpty":1});},"id":"account-balance","name":"balance","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-balance","input":"#account-balance","error":".help-block"},"summary_charge":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Summary charge must be a number.","skipOnEmpty":1});},"id":"account-summary_charge","name":"summary_charge","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-summary_charge","input":"#account-summary_charge","error":".help-block"},"booking_charge":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Booking charge must be a number.","skipOnEmpty":1});},"id":"account-booking_charge","name":"booking_charge","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-booking_charge","input":"#account-booking_charge","error":".help-block"},"ticket_charge":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Ticket charge must be a number.","skipOnEmpty":1});},"id":"account-ticket_charge","name":"ticket_charge","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-ticket_charge","input":"#account-ticket_charge","error":".help-block"},"seat_charge":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Seat charge must be a number.","skipOnEmpty":1});},"id":"account-seat_charge","name":"seat_charge","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-seat_charge","input":"#account-seat_charge","error":".help-block"},"sms_charge":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Sms charge must be a number.","skipOnEmpty":1});},"id":"account-sms_charge","name":"sms_charge","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-sms_charge","input":"#account-sms_charge","error":".help-block"},"annual_charge":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Annual charge must be a number.","skipOnEmpty":1});},"id":"account-annual_charge","name":"annual_charge","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-annual_charge","input":"#account-annual_charge","error":".help-block"},"rate":{"validate":function (attribute, value, messages) {yii.validation.number(value, messages, {"pattern":/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/,"message":"Rate must be a number.","skipOnEmpty":1});},"id":"account-rate","name":"rate","validateOnChange":true,"validateOnType":false,"validationDelay":200,"container":".field-account-rate","input":"#account-rate","error":".help-block"}}, {"errorSummary":".error-summary","validateOnSubmit":true,"errorCssClass":"has-error","successCssClass":"has-success","validatingCssClass":"validating","ajaxParam":"ajax","ajaxDataType":"json"});
+jQuery('#new').modal({"show":false});
+$("#w4 .export-csv").gridexport({"grid":$("#w4"),"filename":"grid-export","showHeader":true,"showPageSummary":true,"showFooter":true,"worksheet":"","colDelimiter":",","rowDelimiter":"\r\n","alertMsg":"The CSV export file will be generated for download.","browserPopupsMsg":"Disable any popup blockers in your browser to ensure proper download.","cssFile":""});
+$("#w4 .export-xls").gridexport({"grid":$("#w4"),"filename":"grid-export","showHeader":true,"showPageSummary":true,"showFooter":true,"worksheet":"ExportWorksheet","colDelimiter":"","rowDelimiter":"","alertMsg":"The EXCEL export file will be generated for download.","browserPopupsMsg":"Disable any popup blockers in your browser to ensure proper download.","cssFile":""});
+$("#w4 table").floatThead({"floatTableClass":"kv-table-float","floatContainerClass":"kv-thead-float","scrollingTop":50});
+jQuery('#w5').button();
+jQuery('#w4').yiiGridView({"filterUrl":"\/bookaspot\/backend\/web\/index.php?AccountSearch%5Baddress_id%5D=&AccountSearch%5Bannual_charge_from%5D=&AccountSearch%5Bannual_charge_to%5D=&AccountSearch%5Bbalance_from%5D=07%2F15%2F2014&AccountSearch%5Bbalance_to%5D=&AccountSearch%5Bbooking_charge_from%5D=&AccountSearch%5Bbooking_charge_to%5D=&AccountSearch%5Bphone_work%5D=&AccountSearch%5Brate_from%5D=&AccountSearch%5Brate_to%5D=&AccountSearch%5Bseat_charge_from%5D=&AccountSearch%5Bseat_charge_to%5D=&AccountSearch%5Bsms_charge_from%5D=&AccountSearch%5Bsms_charge_to%5D=&AccountSearch%5Bsummary_charge_from%5D=&AccountSearch%5Bsummary_charge_to%5D=&AccountSearch%5Bticket_charge_from%5D=&AccountSearch%5Bticket_charge_to%5D=&AccountSearch%5Buser_id%5D=&r=account","filterSelector":"#w4-filters input, #w4-filters select"});
+$.when($('#accountsearch-address_id').select2(select2_4a0a0c99)).done(function(){
+    var $container = $('#accountsearch-address_id').select2('container');
+    $('#accountsearch-address_id').removeClass('kv-hide');
+    $container.removeClass('kv-hide');
+    $('.kv-plugin-loading.loading-accountsearch-address_id').remove();
+    if (Object.keys($('.kv-hide.group-accountsearch-address_id')).length > 0) {
+        $('.kv-hide.group-accountsearch-address_id').removeClass('kv-hide').removeClass('group-accountsearch-address_id');
+    }
+});
+$("#accountsearch-annual_charge_to").kvFieldRange(kvFieldRange_9989e6c3);
+$("#accountsearch-annual_charge_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-annual_charge_from").val());
+$("#accountsearch-annual_charge_from-disp").maskMoney('mask', val);
+$("#accountsearch-annual_charge_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-annual_charge_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-annual_charge_from").val(numDecimal);
+    $("#accountsearch-annual_charge_from").trigger('change');
+});
+$("#accountsearch-annual_charge_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-annual_charge_to").val());
+$("#accountsearch-annual_charge_to-disp").maskMoney('mask', val);
+$("#accountsearch-annual_charge_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-annual_charge_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-annual_charge_to").val(numDecimal);
+    $("#accountsearch-annual_charge_to").trigger('change');
+});
+$("#accountsearch-balance_to").kvFieldRange(kvFieldRange_708cc6eb);
+$("#accountsearch-balance_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-balance_from").val());
+$("#accountsearch-balance_from-disp").maskMoney('mask', val);
+$("#accountsearch-balance_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-balance_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-balance_from").val(numDecimal);
+    $("#accountsearch-balance_from").trigger('change');
+});
+$("#accountsearch-balance_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-balance_to").val());
+$("#accountsearch-balance_to-disp").maskMoney('mask', val);
+$("#accountsearch-balance_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-balance_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-balance_to").val(numDecimal);
+    $("#accountsearch-balance_to").trigger('change');
+});
+$("#accountsearch-booking_charge_to").kvFieldRange(kvFieldRange_474d32d5);
+$("#accountsearch-booking_charge_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-booking_charge_from").val());
+$("#accountsearch-booking_charge_from-disp").maskMoney('mask', val);
+$("#accountsearch-booking_charge_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-booking_charge_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-booking_charge_from").val(numDecimal);
+    $("#accountsearch-booking_charge_from").trigger('change');
+});
+$("#accountsearch-booking_charge_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-booking_charge_to").val());
+$("#accountsearch-booking_charge_to-disp").maskMoney('mask', val);
+$("#accountsearch-booking_charge_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-booking_charge_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-booking_charge_to").val(numDecimal);
+    $("#accountsearch-booking_charge_to").trigger('change');
+});
+$("#accountsearch-rate_to").kvFieldRange(kvFieldRange_61731075);
+jQuery('#accountsearch-rate_from').TouchSpin(TouchSpin_90dd8e5f);
+jQuery('#accountsearch-rate_to').TouchSpin(TouchSpin_90dd8e5f);
+$("#accountsearch-seat_charge_to").kvFieldRange(kvFieldRange_9d021c27);
+$("#accountsearch-seat_charge_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-seat_charge_from").val());
+$("#accountsearch-seat_charge_from-disp").maskMoney('mask', val);
+$("#accountsearch-seat_charge_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-seat_charge_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-seat_charge_from").val(numDecimal);
+    $("#accountsearch-seat_charge_from").trigger('change');
+});
+$("#accountsearch-seat_charge_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-seat_charge_to").val());
+$("#accountsearch-seat_charge_to-disp").maskMoney('mask', val);
+$("#accountsearch-seat_charge_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-seat_charge_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-seat_charge_to").val(numDecimal);
+    $("#accountsearch-seat_charge_to").trigger('change');
+});
+$("#accountsearch-sms_charge_to").kvFieldRange(kvFieldRange_4ce64173);
+$("#accountsearch-sms_charge_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-sms_charge_from").val());
+$("#accountsearch-sms_charge_from-disp").maskMoney('mask', val);
+$("#accountsearch-sms_charge_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-sms_charge_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-sms_charge_from").val(numDecimal);
+    $("#accountsearch-sms_charge_from").trigger('change');
+});
+$("#accountsearch-sms_charge_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-sms_charge_to").val());
+$("#accountsearch-sms_charge_to-disp").maskMoney('mask', val);
+$("#accountsearch-sms_charge_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-sms_charge_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-sms_charge_to").val(numDecimal);
+    $("#accountsearch-sms_charge_to").trigger('change');
+});
+$("#accountsearch-summary_charge_to").kvFieldRange(kvFieldRange_cba944f6);
+$("#accountsearch-summary_charge_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-summary_charge_from").val());
+$("#accountsearch-summary_charge_from-disp").maskMoney('mask', val);
+$("#accountsearch-summary_charge_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-summary_charge_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-summary_charge_from").val(numDecimal);
+    $("#accountsearch-summary_charge_from").trigger('change');
+});
+$("#accountsearch-summary_charge_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-summary_charge_to").val());
+$("#accountsearch-summary_charge_to-disp").maskMoney('mask', val);
+$("#accountsearch-summary_charge_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-summary_charge_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-summary_charge_to").val(numDecimal);
+    $("#accountsearch-summary_charge_to").trigger('change');
+});
+$("#accountsearch-ticket_charge_to").kvFieldRange(kvFieldRange_9aa40bad);
+$("#accountsearch-ticket_charge_from-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-ticket_charge_from").val());
+$("#accountsearch-ticket_charge_from-disp").maskMoney('mask', val);
+$("#accountsearch-ticket_charge_from-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-ticket_charge_from-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-ticket_charge_from").val(numDecimal);
+    $("#accountsearch-ticket_charge_from").trigger('change');
+});
+$("#accountsearch-ticket_charge_to-disp").maskMoney(maskMoney_d4a9ac23);
+var val = parseFloat($("#accountsearch-ticket_charge_to").val());
+$("#accountsearch-ticket_charge_to-disp").maskMoney('mask', val);
+$("#accountsearch-ticket_charge_to-disp").on('change', function () {
+     var numDecimal = $("#accountsearch-ticket_charge_to-disp").maskMoney('unmasked')[0];
+    $("#accountsearch-ticket_charge_to").val(numDecimal);
+    $("#accountsearch-ticket_charge_to").trigger('change');
+});
+$.when($('#accountsearch-user_id').select2(select2_803b74d7)).done(function(){
+    var $container = $('#accountsearch-user_id').select2('container');
+    $('#accountsearch-user_id').removeClass('kv-hide');
+    $container.removeClass('kv-hide');
+    $('.kv-plugin-loading.loading-accountsearch-user_id').remove();
+    if (Object.keys($('.kv-hide.group-accountsearch-user_id')).length > 0) {
+        $('.kv-hide.group-accountsearch-user_id').removeClass('kv-hide').removeClass('group-accountsearch-user_id');
+    }
+});
+jQuery(document).pjax("#w2 a", "#w2", {"push":true,"replace":false,"timeout":1000,"scrollTo":false});
+jQuery(document).on('submit', "#w2 form[data-pjax]", function (event) {jQuery.pjax.submit(event, '#w2', {"push":true,"replace":false,"timeout":1000,"scrollTo":false});});
+jQuery('#w17').tab();
+});</script></body>
+</html>

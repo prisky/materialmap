@@ -150,26 +150,38 @@ abstract class Controller extends \common\components\Controller
 			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
 				$gridColumn['filterType'] = 'backend\components\FieldRange';
 				$gridColumn['filterWidgetOptions'] = [
-					'attribute1' => $attribute . '_from',
-					'attribute2' => $attribute . '_to',
+					'separator' => null,
+					'attribute1' => "from_$attribute",
+					'attribute2' => "to_$attribute",
 					'type' => FieldRange::INPUT_WIDGET,
 					'widgetClass' => GridView::FILTER_MONEY,
+					'widgetOptions1' => [
+						'pluginOptions' => [
+							'allowEmpty' => true,
+						],
+					],
+					'widgetOptions2' => [
+						'pluginOptions' => [
+							'allowEmpty' => true,
+						],
+					],
 				];
 				$numberFormat = '$#,##0.00;[Red]-$#,##0.00';
 			}
 			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
 				$gridColumn['filterType'] = 'backend\components\FieldRange';
 				$gridColumn['filterWidgetOptions'] = [
-					'attribute1' => $attribute . '_from',
-					'attribute2' => $attribute . '_to',
+					'separator' => null,
+					'attribute1' => "from_$attribute",
+					'attribute2' => "to_$attribute",
 					'type' => FieldRange::INPUT_SPIN,
 					'widgetOptions1' => [
 						'pluginOptions' => [
 							'verticalbuttons' => true,
 							'verticalupclass' => 'glyphicon glyphicon-plus',
 							'verticaldownclass' => 'glyphicon glyphicon-minus',
+								],
 						],
-					],
 					'widgetOptions2' => [
 						'pluginOptions' => [
 							'verticalbuttons' => true,
@@ -225,8 +237,9 @@ abstract class Controller extends \common\components\Controller
 						case 'date' :
 							$gridColumn['filterType'] = 'backend\components\FieldRange';
 							$gridColumn['filterWidgetOptions'] = [
-								'attribute1' => $attribute . '_from',
-								'attribute2' => $attribute . '_to',
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
 								'type' => FieldRange::INPUT_DATE,
 								'widgetOptions1' => [
 									'pluginOptions' => ['autoclose' => true,],
@@ -239,8 +252,9 @@ abstract class Controller extends \common\components\Controller
 							break;
 						case 'time' :
 							$gridColumn['filterWidgetOptions'] = [
-								'attribute1' => $attribute . '_from',
-								'attribute2' => $attribute . '_to',
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
 								'type' => FieldRange::INPUT_TIME,
 								'widgetOptions1' => [
 									'pluginOptions' => ['autoclose' => true,],
@@ -254,17 +268,20 @@ abstract class Controller extends \common\components\Controller
 						case 'datetime' :
 						case 'timestamp' :
 							$gridColumn['filterWidgetOptions'] = [
-								'attribute1' => $attribute . '_from',
-								'attribute2' => $attribute . '_to',
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
 								'type' => FieldRange::INPUT_DATETIME,
-									'widgetOptions1' => [
+								'widgetOptions1' => [
+									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
 									'pluginOptions' => ['autoclose' => true,],
 								],
 								'widgetOptions2' => [
+									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
 									'pluginOptions' => ['autoclose' => true,],
 								],
-						];
-							$numberFormat = 'hh:mm AM/PM on mmmm d, yy';
+							];
+						$numberFormat = 'hh:mm AM/PM on mmmm d, yy';
 					}
 				}
 			}
