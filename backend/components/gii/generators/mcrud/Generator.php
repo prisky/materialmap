@@ -15,6 +15,8 @@ use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
 use yii\helpers\StringHelper;
+use backend\components\FieldRange;
+use kartik\grid\GridView;
 
 /**
  * This generator will generate one or multiple ActiveRecord classes for the specified database table and crud
@@ -711,6 +713,35 @@ class Generator extends \yii\gii\generators\crud\Generator
     }
 	
 	/**
+	 * Tidy var_export using php 5.4 short array syntax as per http://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
+	 * @param type $var
+	 * @param type $indent
+	 * @return type
+	 */
+	public function var_export54($var, $indent="", $key = null) {
+		switch (gettype($var)) {
+			case "string":
+				// allow for closures
+				return ((strpos($var, 'function') === 0) && $key == 'value')
+					? $var
+					: '"' . addcslashes($var, "\\\$\"\r\n\t\v\f") . '"';
+			case "array":
+				$indexed = array_keys($var) === range(0, count($var) - 1);
+				$r = [];
+				foreach ($var as $key => $value) {
+					$r[] = "$indent    "
+						 . ($indexed ? "" : $this->var_export54($key) . " => ")
+						 . $this->var_export54($value, "$indent    ", $key);
+				}
+				return "[\n" . implode(",\n", $r) . "\n" . $indent . "]";
+			case "boolean":
+				return $var ? "TRUE" : "FALSE";
+			default:
+				return var_export($var, TRUE);
+		}
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function generateActiveField($attribute)
@@ -734,7 +765,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 			$inputType = "DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],
-				'items' => " . preg_replace("/\n\s*/", ' ', \yii\helpers\VarDumper::export($dropDownOptions));
+				'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '\t\t'));
 		}
 		else {
 			if($column->type == 'integer') {
@@ -785,13 +816,14 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 * @param bool $includeNumberFormat true if want number format for export to excel - not accepted by kartik\grid\GridView
 	 * @return array
 	 */
-	protected function generateGridColumns($modelName, $modelNameShort, $excelFormats, $searchConditions = [], $searchAttributes = [])
+	public function generateGridColumns($modelName, $modelNameShort, &$excelFormats, &$searchConditions = [], &$searchAttributes = [])
 	{
 		$tableSchema =  Yii::$app->db->getTableSchema($modelName::tableName());
  		$columns = $tableSchema->columns;
+		$gridColumns = [];
 
  		// get all columns that have labels
-		$attributes = Column::find()
+		$attributes = \common\models\Column::find()
 			->joinWith('model')
 			->where(['auth_item_name' => $modelNameShort])
 			->asArray()
@@ -886,10 +918,9 @@ class Generator extends \yii\gii\generators\crud\Generator
 				$gridColumn['class'] = 'dropDownList';
 				$gridColumn['filterWidgetOptions'] = [
 					'options' => ['prompt' => ''],
-					'items' => preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions))
+					'items' => preg_replace("/\n\s*/", ' ', \yii\helpers\VarDumper::dumpAsString($dropDownOptions))
 				];
 				$searchConditions[] = "'{$attribute}' => \$this->{$attribute}";
-				$searchAttributes[] = $attribute;
 			}
 			else {
 				if($column->type == 'integer') {
@@ -898,20 +929,19 @@ class Generator extends \yii\gii\generators\crud\Generator
 						if(isset($tableKeys[$column->name])) {
 							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
 							$gridColumn['filterWidgetOptions'] =
-								$this->fKWidgetOptions(Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_'));
-							$gridColumn['value'] = function ($model, $key, $index, $widget) {
+								\backend\components\Controller::fKWidgetOptions(Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_'));
+							$gridColumn['value'] = 'function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . '/update', 'id' => $key]));
+									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));
 								}
-								elseif(Yii::$app->user->can($model->modelNameShort . 'Read')) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . '/read', 'id' => $key]));
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/read", "id" => $key]));
 								}
 								else {
 									return $model->label($key);
 								}
-							};
+							}';
 							$searchConditions[] = "'like', '{$attribute}', \$this->{$attribute}";
-							$searchAttributes[] = $attribute;
 							$gridColumn['format'] = 'raw';
 							break;
 						}
@@ -923,7 +953,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 						case 'tinyint(1)' :
 							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
 							$excelFormats[$attribute] = '[=0]"No";[=1]"Yes"';
-							$searchAttributes[] = $attribute;
 							break;
 						case 'date' :
 							$gridColumn['filterType'] = 'backend\components\FieldRange';
@@ -985,9 +1014,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
 							$searchAttributes[] = "from_$attribute";
 							$searchAttributes[] = "to_$attribute";
-							break;
-						default :
-							$searchAttributes[] = $attribute;
 					}
 				
 					// last resort
@@ -1014,7 +1040,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 							$searchConditions[] = "$attribute => \$this->{$attribute}";
 						}
 						else {
-							$searchAttributes[] =$attribute;
 							$searchConditions[] = "'like', '{$attribute}', \$this->{$attribute}";
 						}
 					}

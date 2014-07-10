@@ -31,17 +31,15 @@ class <?= $controllerClass ?> extends <?= '\\' . $generator->baseControllerClass
 	/**
 	 * @inheritdoc
 	 */
-	public $gridColumns = [
-		<?= implode(",\n\t\t", \yii\helpers\BaseVarDumper::dumpAsString($gridColumns)) ?>
-	];
-	
+	public $excelFormats = <?= $generator->var_export54($excelFormats, '    ') ?>;
+
 	/**
 	 * @inheritdoc
 	 */
-	public $excelFormats = [
-		<?= implode(",\n\t\t", $excelFormats) ?>
-	];
-
+	public function getGridColumns() {
+		return <?= $generator->var_export54($gridColumns, '        ') ?>;
+	}
+	
 	<?php
 	// if the field is a foreign key
 	foreach($tableSchema->foreignKeys as $tableKeys) {

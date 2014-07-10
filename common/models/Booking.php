@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $summary_id
  * @property string $status
  *
- * @property Summary $summary
- * @property Event $event
  * @property Account $account
+ * @property Event $event
+ * @property Summary $summary
  * @property BookingToCharge[] $bookingToCharges
  * @property BookingToEventToResourceToCustomField[] $bookingToEventToResourceToCustomFields
  * @property BookingToEventToResourceToExtra[] $bookingToEventToResourceToExtras
@@ -47,9 +47,9 @@ class Booking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getAccount()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -63,9 +63,9 @@ class Booking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSummary()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 
     /**

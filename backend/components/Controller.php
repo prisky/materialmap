@@ -28,14 +28,17 @@ abstract class Controller extends \common\components\Controller
 	public $modelNameSearch;
 	
 	/**
-	 * @var array of grid column information for grid view
-	 */
-	public $gridColumns = [];
-	
-	/**
 	 * @var array of Excel format strings indexed by attribute
 	 */
 	public $excelFormats = [];
+	
+	/**
+	 * Build array of grid columns for  use in grid view
+	 * return array grid columns
+	 */
+	public function getGridColumns() {
+		return [];
+	}
 	
 	/**
 	 * @inheritdoc
@@ -203,7 +206,7 @@ abstract class Controller extends \common\components\Controller
 			unset($queryParams['page']);
 		}
 
-		$columns = $this->getGridColumns(true);
+		$columns = $this->gridColumns;
 		$objPHPExcel = new \PHPExcel();
 		$activeSheet = $objPHPExcel->setActiveSheetIndex(0);
 		$modelName = $this->modelName;
@@ -437,7 +440,7 @@ abstract class Controller extends \common\components\Controller
 	 * controller action in the child class to handle the ajax request.
 	 * @return array Widget options
 	 */
-	public function fKWidgetOptions ($shortModelName)
+	public static function fKWidgetOptions ($shortModelName)
 	{
 		// The controller action that will render the list
 		$url = \yii\helpers\BaseUrl::toRoute(strtolower($shortModelName) . 'list');
@@ -473,16 +476,20 @@ function (data, page) {
 }
 SCRIPT;
 
+	// NB: need to trick __tostring function into firing below.
+	$dataScript = new JsExpression($dataScript);
+	$resultsScript = new JsExpression($resultsScript);
+	$initScript = new JsExpression($initScript);
 	return [
 			'pluginOptions' => [
 				'allowClear' => true,
 				'ajax' => [
 					'url' => $url,
 					'dataType' => 'json',
-					'data' => new JsExpression($dataScript),
-					'results' => new JsExpression($resultsScript),
+					'data' => "$dataScript",
+					'results' => "$resultsScript",
 				],
-				'initSelection' => new JsExpression($initScript)
+				'initSelection' => "$initScript",
 			],
 		];
 	}

@@ -35,8 +35,8 @@ use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelA
 class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $modelClass ?>
 
 {
-    <?php= foreach($searchAttributes as $searchAttribute) {
-		echo "\tpublic $$searchAttribute;\n";
+    <?php foreach($searchAttributes as $searchAttribute) {
+		echo "public $$searchAttribute;\n\t";
 	} ?>
 
     public function rules()
@@ -64,7 +64,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             return $dataProvider;
         }
 
-		<?php= foreach($searchConditions as $searchCondition) {
+		<?php foreach($searchConditions as $searchCondition) {
 			echo "\$query->andFilterWhere([$searchCondition]);\n\t\t";
 		} ?>
 
