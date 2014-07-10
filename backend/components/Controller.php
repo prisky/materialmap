@@ -28,6 +28,16 @@ abstract class Controller extends \common\components\Controller
 	public $modelNameSearch;
 	
 	/**
+	 * @var array of grid column information for grid view
+	 */
+	public $gridColumns = [];
+	
+	/**
+	 * @var array of Excel format strings indexed by attribute
+	 */
+	public $excelFormats = [];
+	
+	/**
 	 * @inheritdoc
 	 */
 	public function __construct($id, $module, $config = [])
@@ -97,202 +107,6 @@ abstract class Controller extends \common\components\Controller
 				'searchModel' => $searchModel,
 				'gridColumns' => $this->gridColumns,
 		]);
-	}
-
-	/**
-	 * List of columns to show in index view - grid.
-	 * @param bool $includeNumberFormat true if want number format for export to excel - not accepted by kartik\grid\GridView
-	 * @return array
-	 */
-	protected function getGridColumns($includeNumberFormat = false)
-	{
-		$modelName = $this->modelName;
-		$modelNameShort = $this->modelNameShort;
-		$tableSchema =  Yii::$app->db->getTableSchema($modelName::tableName());
- 		$columns = $tableSchema->columns;
-
- 		// get all columns that have labels
-		$attributes = Column::find()
-			->joinWith('model')
-			->where(['auth_item_name' => $modelNameShort])
-			->asArray()
-			->all();
-		
-		if(Yii::$app->user->can($modelNameShort)) {
-			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'];
-		}
-		elseif(Yii::$app->user->can($modelNameShort . 'Read')) {
-			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'];
-		}
-
-		foreach($attributes as $attribute) {
-			$numberFormat = false;
-			$attribute = $attribute['name'];
-				
-			$column = $columns[$attribute];
-
-			$gridColumn = ['attribute' => $attribute];
-
-			// exlude some columns
-			switch($attribute) {
-				case 'id' :
-				// exclude the parent foreign key
-				case $modelName::getParentForeignKeyName() :
-				case 'deleted' :
-				case 'created' :
-				case 'account_id' :
-					continue 2;
-			}
-
-			if (preg_match('/(password|pass|passwd|passcode)/i', $attribute)) {
-				continue;
-			}
-			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
-				$gridColumn['filterType'] = 'backend\components\FieldRange';
-				$gridColumn['filterWidgetOptions'] = [
-					'separator' => null,
-					'attribute1' => "from_$attribute",
-					'attribute2' => "to_$attribute",
-					'type' => FieldRange::INPUT_WIDGET,
-					'widgetClass' => GridView::FILTER_MONEY,
-					'widgetOptions1' => [
-						'pluginOptions' => [
-							'allowEmpty' => true,
-						],
-					],
-					'widgetOptions2' => [
-						'pluginOptions' => [
-							'allowEmpty' => true,
-						],
-					],
-				];
-				$numberFormat = '$#,##0.00;[Red]-$#,##0.00';
-			}
-			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
-				$gridColumn['filterType'] = 'backend\components\FieldRange';
-				$gridColumn['filterWidgetOptions'] = [
-					'separator' => null,
-					'attribute1' => "from_$attribute",
-					'attribute2' => "to_$attribute",
-					'type' => FieldRange::INPUT_SPIN,
-					'widgetOptions1' => [
-						'pluginOptions' => [
-							'verticalbuttons' => true,
-							'verticalupclass' => 'glyphicon glyphicon-plus',
-							'verticaldownclass' => 'glyphicon glyphicon-minus',
-								],
-						],
-					'widgetOptions2' => [
-						'pluginOptions' => [
-							'verticalbuttons' => true,
-							'verticalupclass' => 'glyphicon glyphicon-plus',
-							'verticaldownclass' => 'glyphicon glyphicon-minus',
-						],
-					],
-				];
-				$numberFormat = '0.00%';
-			}
-			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
-				$dropDownOptions = [];
-				foreach ($column->enumValues as $enumValue) {
-					$dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
-				}
-				$gridColumn['class'] = 'dropDownList';
-				$gridColumn['filterWidgetOptions'] = [
-					'options' => ['prompt' => ''],
-					'items' => preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions))
-				];
-			}
-			else {
-				if($column->type == 'integer') {
-					// if the field is a foreign key
-					foreach($tableSchema->foreignKeys as $tableKeys) {
-						if(isset($tableKeys[$column->name])) {
-							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
-							$gridColumn['filterWidgetOptions'] =
-								$this->fKWidgetOptions(Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_'));
-							$gridColumn['value'] = function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . '/update', 'id' => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . 'Read')) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . '/read', 'id' => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							};
-							$gridColumn['format'] = 'raw';
-							break;
-						}
-					}
-				}
-
-				if(!isset($gridColumn['filterType'])) {
-					switch($column->dbType) {
-						case 'tinyint(1)' :
-							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
-							$numberFormat = '[=0]"No";[=1]"Yes"';
-							break;
-						case 'date' :
-							$gridColumn['filterType'] = 'backend\components\FieldRange';
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-								'type' => FieldRange::INPUT_DATE,
-								'widgetOptions1' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-								'widgetOptions2' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-							];
-							$numberFormat = 'mmmm d", "yy';
-							break;
-						case 'time' :
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-								'type' => FieldRange::INPUT_TIME,
-								'widgetOptions1' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-								'widgetOptions2' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-							];
-							$numberFormat = 'hh:mm AM/PM';
-							break;
-						case 'datetime' :
-						case 'timestamp' :
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-								'type' => FieldRange::INPUT_DATETIME,
-								'widgetOptions1' => [
-									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
-									'pluginOptions' => ['autoclose' => true,],
-								],
-								'widgetOptions2' => [
-									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
-									'pluginOptions' => ['autoclose' => true,],
-								],
-							];
-						$numberFormat = 'hh:mm AM/PM on mmmm d, yy';
-					}
-				}
-			}
-			
-			if($includeNumberFormat && $numberFormat) {
-				$gridColumn['numberFormat'] = $numberFormat;
-			}
-			$gridColumns[] = $gridColumn;
-		}
-
-		return $gridColumns;
 	}
 
 	/**
@@ -401,9 +215,9 @@ abstract class Controller extends \common\components\Controller
 		foreach($columns as $column) {
 			if(isset($column['attribute'])) {
 				$attribute = $column['attribute'];
-				if(isset($column['numberFormat'])) {
+				if(isset($this->excelFormats[$attribute])) {
 					$columnIndex = \PHPExcel_Cell::stringFromColumnIndex($col);
-					$activeSheet->getStyle($columnIndex)->getNumberFormat()->setFormatCode($column['numberFormat']);
+					$activeSheet->getStyle($columnIndex)->getNumberFormat()->setFormatCode($this->excelFormats[$attribute]);
 				}
 				$activeSheet->setCellValueByColumnAndRow($col++, 1, $modelName::attributeLabel($attribute));
 			}

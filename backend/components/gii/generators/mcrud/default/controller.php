@@ -15,6 +15,8 @@ $controllerClass = StringHelper::basename($generator->controllerClass);
 $modelClass = StringHelper::basename($generator->modelClass);
 $db =  $generator->getDbConnection();
 $tableSchema = $db->getTableSchema($tableName);
+$excelFormats = [];
+$gridColumns = $generator->generateGridColumns($generator->modelClass, $modelClass, $excelFormats);
 
 echo "<?php\n";
 ?>
@@ -26,6 +28,20 @@ namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>
  */
 class <?= $controllerClass ?> extends <?= '\\' . $generator->baseControllerClass . "\n" ?>
 {
+	/**
+	 * @inheritdoc
+	 */
+	public $gridColumns = [
+		<?= implode(",\n\t\t", \yii\helpers\BaseVarDumper::dumpAsString($gridColumns)) ?>
+	];
+	
+	/**
+	 * @inheritdoc
+	 */
+	public $excelFormats = [
+		<?= implode(",\n\t\t", $excelFormats) ?>
+	];
+
 	<?php
 	// if the field is a foreign key
 	foreach($tableSchema->foreignKeys as $tableKeys) {

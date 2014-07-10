@@ -16,8 +16,10 @@ if ($modelClass === $searchModelClass) {
 }
 $rules = $generator->generateSearchRules();
 $labels = $generator->generateSearchLabels();
-$searchAttributes = $generator->getSearchAttributes();
-$searchConditions = $generator->generateSearchConditions();
+$searchAttributes = [];
+$searchConditions = [];
+$excelFormats = [];
+$gridColumns = $generator->generateGridColumns($generator->modelClass, $modelClass, $excelFormats, $searchConditions, $searchAttributes);
 
 echo "<?php\n";
 ?>
@@ -33,10 +35,14 @@ use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelA
 class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $modelClass ?>
 
 {
+    <?php= foreach($searchAttributes as $searchAttribute) {
+		echo "\tpublic $$searchAttribute;\n";
+	} ?>
+
     public function rules()
     {
         return [
-            <?= implode(",\n            ", $rules) ?>,
+            <?= implode(",\n\t\t\t", $rules) ?>,
         ];
     }
 
@@ -58,7 +64,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             return $dataProvider;
         }
 
-        <?= implode("\n        ", $searchConditions) ?>
+		<?php= foreach($searchConditions as $searchCondition) {
+			echo "\$query->andFilterWhere([$searchCondition]);\n\t\t";
+		} ?>
 
         return $dataProvider;
     }

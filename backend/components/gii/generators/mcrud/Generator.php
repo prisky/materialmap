@@ -779,4 +779,301 @@ class Generator extends \yii\gii\generators\crud\Generator
 
         return "			['attribute' => '$attribute', 'type' =>  $inputType],";
 	}
+	
+	/**
+	 * Generate list of columns to show in index view - grid.
+	 * @param bool $includeNumberFormat true if want number format for export to excel - not accepted by kartik\grid\GridView
+	 * @return array
+	 */
+	protected function generateGridColumns($modelName, $modelNameShort, $excelFormats, $searchConditions = [], $searchAttributes = [])
+	{
+		$tableSchema =  Yii::$app->db->getTableSchema($modelName::tableName());
+ 		$columns = $tableSchema->columns;
+
+ 		// get all columns that have labels
+		$attributes = Column::find()
+			->joinWith('model')
+			->where(['auth_item_name' => $modelNameShort])
+			->asArray()
+			->all();
+		
+		if(Yii::$app->user->can($modelNameShort)) {
+			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'];
+		}
+		elseif(Yii::$app->user->can($modelNameShort . 'Read')) {
+			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'];
+		}
+
+		foreach($attributes as $attribute) {
+			$attribute = $attribute['name'];
+				
+			$column = $columns[$attribute];
+
+			$gridColumn = ['attribute' => $attribute];
+
+			// exlude some columns
+			switch($attribute) {
+				case 'id' :
+				// exclude the parent foreign key
+				case $modelName::getParentForeignKeyName() :
+				case 'deleted' :
+				case 'created' :
+				case 'account_id' :
+					continue 2;
+			}
+
+			if (preg_match('/(password|pass|passwd|passcode)/i', $attribute)) {
+				continue;
+			}
+			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
+				$gridColumn['filterType'] = 'backend\components\FieldRange';
+				$gridColumn['filterWidgetOptions'] = [
+					'separator' => null,
+					'attribute1' => "from_$attribute",
+					'attribute2' => "to_$attribute",
+					'type' => FieldRange::INPUT_WIDGET,
+					'widgetClass' => GridView::FILTER_MONEY,
+					'widgetOptions1' => [
+						'pluginOptions' => [
+							'allowEmpty' => true,
+						],
+					],
+					'widgetOptions2' => [
+						'pluginOptions' => [
+							'allowEmpty' => true,
+						],
+					],
+				];
+				$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
+				$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+				$searchAttributes[] = "from_$attribute";
+				$searchAttributes[] = "to_$attribute";
+				$excelFormats[$attribute] = '$#,##0.00;[Red]-$#,##0.00';
+			}
+			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
+				$gridColumn['filterType'] = 'backend\components\FieldRange';
+				$gridColumn['filterWidgetOptions'] = [
+					'separator' => null,
+					'attribute1' => "from_$attribute",
+					'attribute2' => "to_$attribute",
+					'type' => FieldRange::INPUT_SPIN,
+					'widgetOptions1' => [
+						'pluginOptions' => [
+							'verticalbuttons' => true,
+							'verticalupclass' => 'glyphicon glyphicon-plus',
+							'verticaldownclass' => 'glyphicon glyphicon-minus',
+								],
+						],
+					'widgetOptions2' => [
+						'pluginOptions' => [
+							'verticalbuttons' => true,
+							'verticalupclass' => 'glyphicon glyphicon-plus',
+							'verticaldownclass' => 'glyphicon glyphicon-minus',
+						],
+					],
+				];
+				$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
+				$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+				$searchAttributes[] = "from_$attribute";
+				$searchAttributes[] = "to_$attribute";
+				$excelFormats[$attribute] = '0.00%';
+			}
+			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
+				$dropDownOptions = [];
+				foreach ($column->enumValues as $enumValue) {
+					$dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+				}
+				$gridColumn['class'] = 'dropDownList';
+				$gridColumn['filterWidgetOptions'] = [
+					'options' => ['prompt' => ''],
+					'items' => preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions))
+				];
+				$searchConditions[] = "'{$attribute}' => \$this->{$attribute}";
+				$searchAttributes[] = $attribute;
+			}
+			else {
+				if($column->type == 'integer') {
+					// if the field is a foreign key
+					foreach($tableSchema->foreignKeys as $tableKeys) {
+						if(isset($tableKeys[$column->name])) {
+							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
+							$gridColumn['filterWidgetOptions'] =
+								$this->fKWidgetOptions(Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_'));
+							$gridColumn['value'] = function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . '/update', 'id' => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . 'Read')) {
+									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . '/read', 'id' => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							};
+							$searchConditions[] = "'like', '{$attribute}', \$this->{$attribute}";
+							$searchAttributes[] = $attribute;
+							$gridColumn['format'] = 'raw';
+							break;
+						}
+					}
+				}
+
+				if(!isset($gridColumn['filterType'])) {
+					switch($column->dbType) {
+						case 'tinyint(1)' :
+							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
+							$excelFormats[$attribute] = '[=0]"No";[=1]"Yes"';
+							$searchAttributes[] = $attribute;
+							break;
+						case 'date' :
+							$gridColumn['filterType'] = 'backend\components\FieldRange';
+							$gridColumn['filterWidgetOptions'] = [
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
+								'type' => FieldRange::INPUT_DATE,
+								'widgetOptions1' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+								'widgetOptions2' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+							];
+							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
+							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$searchAttributes[] = "from_$attribute";
+							$searchAttributes[] = "to_$attribute";
+							$excelFormats[$attribute] = 'mmmm d", "yy';
+							break;
+						case 'time' :
+							$gridColumn['filterWidgetOptions'] = [
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
+								'type' => FieldRange::INPUT_TIME,
+								'widgetOptions1' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+								'widgetOptions2' => [
+									'pluginOptions' => ['autoclose' => true,],
+								],
+							];
+							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
+							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$searchAttributes[] = "from_$attribute";
+							$searchAttributes[] = "to_$attribute";
+							$excelFormats[$attribute] = 'hh:mm AM/PM';
+							break;
+						case 'datetime' :
+						case 'timestamp' :
+							$gridColumn['filterWidgetOptions'] = [
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
+								'type' => FieldRange::INPUT_DATETIME,
+								'widgetOptions1' => [
+									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
+									'pluginOptions' => ['autoclose' => true,],
+								],
+								'widgetOptions2' => [
+									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
+									'pluginOptions' => ['autoclose' => true,],
+								],
+							];
+							$excelFormats[$attribute] = 'hh:mm AM/PM on mmmm d, yy';
+							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
+							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$searchAttributes[] = "from_$attribute";
+							$searchAttributes[] = "to_$attribute";
+							break;
+						default :
+							$searchAttributes[] = $attribute;
+					}
+				
+					// last resort
+					if(!isset($gridColumn['filterType'])) {
+						switch($column->type) {
+							case 'integer' :
+								$excelFormats[$attribute] = '#';
+								break;
+							case 'decimal' :
+								$excelFormats[$attribute] = '#.#';
+								break;
+						}
+						if(isset($excelFormats[$attribute])) {
+							$gridColumn['filterType'] = 'backend\components\FieldRange';
+							$gridColumn['filterWidgetOptions'] = [
+								'separator' => null,
+								'attribute1' => "from_$attribute",
+								'attribute2' => "to_$attribute",
+							];
+							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
+							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$searchAttributes[] = "from_$attribute";
+							$searchAttributes[] = "to_$attribute";
+							$searchConditions[] = "$attribute => \$this->{$attribute}";
+						}
+						else {
+							$searchAttributes[] =$attribute;
+							$searchConditions[] = "'like', '{$attribute}', \$this->{$attribute}";
+						}
+					}
+				}
+			}
+			
+			$gridColumns[] = $gridColumn;
+		}
+
+		return $gridColumns;
+	}
+
+	    /**
+     * Generates validation rules for the search model.
+     * @return array the generated validation rules
+     */
+    public function generateSearchRules()
+    {
+        if (($table = $this->getTableSchema()) === false) {
+            return ["[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"];
+        }
+        $types = [];
+        foreach ($table->columns as $column) {
+            switch ($column->type) {
+                case Schema::TYPE_SMALLINT:
+                case Schema::TYPE_INTEGER:
+                case Schema::TYPE_BIGINT:
+                    $types['integer'][] = $column->name;
+                    $types['integer'][] = 'from_' . $column->name;
+                    $types['integer'][] = 'to_' . $column->name;
+                    break;
+                case Schema::TYPE_BOOLEAN:
+                    $types['boolean'][] = $column->name;
+                    break;
+                case Schema::TYPE_FLOAT:
+                case Schema::TYPE_DECIMAL:
+                case Schema::TYPE_MONEY:
+                    $types['number'][] = $column->name;
+                    $types['number'][] = 'from_' . $column->name;
+                    $types['number'][] = 'to_' . $column->name;
+                    break;
+                case Schema::TYPE_DATE:
+                case Schema::TYPE_TIME:
+                case Schema::TYPE_DATETIME:
+                case Schema::TYPE_TIMESTAMP:
+                default:
+                    $types['safe'][] = $column->name;
+                    $types['safe'][] = 'from_' . $column->name;
+                    $types['safe'][] = 'to_' . $column->name;
+                    break;
+            }
+        }
+
+        $rules = [];
+        foreach ($types as $type => $columns) {
+            $rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
+        }
+
+        return $rules;
+    }
+
 }
