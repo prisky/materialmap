@@ -714,16 +714,16 @@ class Generator extends \yii\gii\generators\crud\Generator
 	
 	/**
 	 * Tidy var_export using php 5.4 short array syntax as per http://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
+	 * preceding with a pipe character in position 0 means not to quote or add slashes
 	 * @param type $var
 	 * @param type $indent
 	 * @return type
 	 */
-	public function var_export54($var, $indent="", $key = null) {
+	public function var_export54($var, $indent="") {
 		switch (gettype($var)) {
 			case "string":
-				// allow for closures
-				return ((strpos($var, 'function') === 0) && $key == 'value')
-					? $var
+				return ((strpos($var, '|') === 0))
+					? str_replace('|', '', $var)
 					: '"' . addcslashes($var, "\\\$\"\r\n\t\v\f") . '"';
 			case "array":
 				$indexed = array_keys($var) === range(0, count($var) - 1);
@@ -731,7 +731,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 				foreach ($var as $key => $value) {
 					$r[] = "$indent    "
 						 . ($indexed ? "" : $this->var_export54($key) . " => ")
-						 . $this->var_export54($value, "$indent    ", $key);
+						 . $this->var_export54($value, "$indent    ");
 				}
 				return "[\n" . implode(",\n", $r) . "\n" . $indent . "]";
 			case "boolean":
@@ -829,13 +829,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 			->asArray()
 			->all();
 		
-		if(Yii::$app->user->can($modelNameShort)) {
-			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'];
-		}
-		elseif(Yii::$app->user->can($modelNameShort . 'Read')) {
-			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'];
-		}
-
 		foreach($attributes as $attribute) {
 			$attribute = $attribute['name'];
 				
@@ -929,8 +922,8 @@ class Generator extends \yii\gii\generators\crud\Generator
 						if(isset($tableKeys[$column->name])) {
 							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
 							$gridColumn['filterWidgetOptions'] =
-								\backend\components\Controller::fKWidgetOptions(Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_'));
-							$gridColumn['value'] = 'function ($model, $key, $index, $widget) {
+								'|Controller::fKWidgetOptions($this->modelNameShort)';
+							$gridColumn['value'] = '|function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));
 								}

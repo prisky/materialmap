@@ -39,7 +39,6 @@ Yii::$app->getModule('gridview')->downloadAction = $action;
 	</div>
 	<?php Modal::end(); ?>
 
-	<?php Pjax::begin(); ?>
 
     <?= GridView::widget([
 		'dataProvider' => $dataProvider,
@@ -66,6 +65,5 @@ Yii::$app->getModule('gridview')->downloadAction = $action;
 		],
 	]); ?>
 
-	<?php Pjax::end(); ?>
 	
 </div>

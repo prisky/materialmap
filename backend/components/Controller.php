@@ -82,7 +82,7 @@ abstract class Controller extends \common\components\Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view', 'index', 'export', $this->modelNameShort . 'list'],
+                        'actions' => ['view', 'index', 'export', 'list'],
                         'roles' => [$this->modelNameShort . 'Read'],
                     ],
                 ],
@@ -101,14 +101,23 @@ abstract class Controller extends \common\components\Controller
 	 * @return mixed
 	 */
 	public function actionIndex()
-	{
+	{ 
 		$searchModel = new $this->modelNameSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		if(Yii::$app->user->can($this->modelNameShort)) {
+			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'];
+		}
+		elseif(Yii::$app->user->can($this->modelNameShort . 'Read')) {
+			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'];
+		}
+
+		$gridColumns += $this->gridColumns;
 
 		return $this->render('@app/views/index', [
 				'dataProvider' => $dataProvider,
 				'searchModel' => $searchModel,
-				'gridColumns' => $this->gridColumns,
+				'gridColumns' => $gridColumns,
 		]);
 	}
 
@@ -248,7 +257,36 @@ abstract class Controller extends \common\components\Controller
 		
 		return ob_get_clean();
     }
+
+	/**
+	 * Produce list data for ajax return in Select2 widget
+	 * @param string $q Search term the user enters - sent by ajax with each keypress
+	 * @param int $page Page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
+	 * @param int $id Id of the model to load initially
+	 */
+	public function actionList($q = null, $page = null, $id = null) {
+		$modelName = $this->modelName;
+		$out = ['more' => false];
+
+		if (!is_null($q)) {
+			$query = $modelName::find()
+				->displayAttributes($q, $page);
+			$command = $query->createCommand();
+			$data = $command->queryAll();
+			$out['results'] = array_values($data);
+			$out['total'] = $query->count();
+		}
+		elseif ($id > 0) {
+			$model = $modelName::find($id)->displayAttributes()->one();
+			$out['results'] = ['id' => $id, 'text' => $model->text];
+		}
+		else {
+			$out['results'] = ['id' => 0, 'text' => 'No matching records found'];
+		}
 	
+		echo \yii\helpers\Json::encode($out);
+	}
+
     /**
      * Sets the HTTP headers needed by file download action.
      */
@@ -443,14 +481,14 @@ abstract class Controller extends \common\components\Controller
 	public static function fKWidgetOptions ($shortModelName)
 	{
 		// The controller action that will render the list
-		$url = \yii\helpers\BaseUrl::toRoute(strtolower($shortModelName) . 'list');
+		$url = \yii\helpers\BaseUrl::toRoute(strtolower($shortModelName) . '/list');
 
 // Script to initialize the selection based on the value of the select2 element
 $initScript = <<< SCRIPT
 function (element, callback) {
     var id=$(element).val();
     if (id !== "") {
-        $.ajax("{$url}?id=" + id, {dataType: "json"}).done(function(data) { callback(data.results);});
+        $.ajax("{$url}&id=" + id, {dataType: "json"}).done(function(data) { callback(data.results);});
     }
 }
 SCRIPT;
@@ -476,50 +514,18 @@ function (data, page) {
 }
 SCRIPT;
 
-	// NB: need to trick __tostring function into firing below.
-	$dataScript = new JsExpression($dataScript);
-	$resultsScript = new JsExpression($resultsScript);
-	$initScript = new JsExpression($initScript);
 	return [
 			'pluginOptions' => [
 				'allowClear' => true,
 				'ajax' => [
 					'url' => $url,
 					'dataType' => 'json',
-					'data' => "$dataScript",
-					'results' => "$resultsScript",
+					'data' => new JsExpression($dataScript),
+					'results' => new JsExpression($resultsScript),
 				],
-				'initSelection' => "$initScript",
-			],
+				'initSelection' => new JsExpression($initScript),
+			],	
 		];
 	}
 	
-	/**
-	 * Produce widget options for a Select2 widget for user_id foreign key field referencing the tbl_user table
-	 * @param string $name The short model of the referenced/parent model
-	 * @param string $q Search term the user enters - sent by ajax with each keypress
-	 * @param int $page Page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param int $id Id of the model to load initially
-	 */
-	protected function foreignKeylist($foreignKeyModelNameShort, $q = null, $page = null, $id = null) {
-		$foreignKeyModelName = '\\common\\models\\' . $foreignKeyModelNameShort;
-		$out = ['more' => false];
-
-		if (!is_null($q)) {
-			$query = $foreignKeyModelName::find()
-				->displayAttributes($q, $page);
-			$command = $query->createCommand();
-			$data = $command->queryAll();
-			$out['results'] = array_values($data);
-			$out['total'] = $query->count();
-		}
-		elseif ($id > 0) {
-			$out['results'] = ['id' => $id, 'text' => $foreignKeyModelName::find($id)->displayAttributes()];
-		}
-		else {
-			$out['results'] = ['id' => 0, 'text' => 'No matching records found'];
-		}
-	
-		echo \yii\helpers\Json::encode($out);
-	}
 }

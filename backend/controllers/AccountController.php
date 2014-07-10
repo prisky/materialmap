@@ -2,6 +2,13 @@
 
 namespace backend\controllers;
 
+
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * AccountController implements the CRUD actions for Account model.
  */
@@ -27,24 +34,9 @@ class AccountController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
-                "class" => "yii\\grid\\ActionColumn",
-                "template" => "{update} {delete}"
-            ],
-            [
                 "attribute" => "address_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => [
-                    "pluginOptions" => [
-                        "allowClear" => TRUE,
-                        "ajax" => [
-                            "url" => "/bookaspot/backend/web/index.php?r=gii%2Fdefault%2Faddresslist",
-                            "dataType" => "json",
-                            "data" => "function (term, page) {\n\treturn {\n\t\tq: term,\n\t\tpage_limit: 10,\n\t\tpage: page,\n\t};\n}",
-                            "results" => "function (data, page) {\n\tvar more = (page * 10) < data.total;\n\n\treturn {\n\t\tresults: data.results,\n\t\tmore: more\n\t};\n}"
-                        ],
-                        "initSelection" => "function (element, callback) {\n    var id=\$(element).val();\n    if (id !== \"\") {\n        \$.ajax(\"/bookaspot/backend/web/index.php?r=gii%2Fdefault%2Faddresslist?id=\" + id, {dataType: \"json\"}).done(function(data) { callback(data.results);});\n    }\n}"
-                    ]
-                ],
+                "filterWidgetOptions" => Controller::fKWidgetOptions($this->modelNameShort),
                 "value" => function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));
@@ -235,18 +227,7 @@ class AccountController extends \backend\components\Controller
             [
                 "attribute" => "user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => [
-                    "pluginOptions" => [
-                        "allowClear" => TRUE,
-                        "ajax" => [
-                            "url" => "/bookaspot/backend/web/index.php?r=gii%2Fdefault%2Fuserlist",
-                            "dataType" => "json",
-                            "data" => "function (term, page) {\n\treturn {\n\t\tq: term,\n\t\tpage_limit: 10,\n\t\tpage: page,\n\t};\n}",
-                            "results" => "function (data, page) {\n\tvar more = (page * 10) < data.total;\n\n\treturn {\n\t\tresults: data.results,\n\t\tmore: more\n\t};\n}"
-                        ],
-                        "initSelection" => "function (element, callback) {\n    var id=\$(element).val();\n    if (id !== \"\") {\n        \$.ajax(\"/bookaspot/backend/web/index.php?r=gii%2Fdefault%2Fuserlist?id=\" + id, {dataType: \"json\"}).done(function(data) { callback(data.results);});\n    }\n}"
-                    ]
-                ],
+                "filterWidgetOptions" => Controller::fKWidgetOptions($this->modelNameShort),
                 "value" => function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));

@@ -23,6 +23,13 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
+
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
  */
@@ -39,25 +46,5 @@ class <?= $controllerClass ?> extends <?= '\\' . $generator->baseControllerClass
 	public function getGridColumns() {
 		return <?= $generator->var_export54($gridColumns, '        ') ?>;
 	}
-	
-	<?php
-	// if the field is a foreign key
-	foreach($tableSchema->foreignKeys as $tableKeys) {
-		$tableName = $tableKeys[0];
-		$attribute = key(array_slice($tableKeys, -1, 1, TRUE));
-		$modelName = $generator->generateClassName($tableKeys[0]);
-	?>
-
-	/**
-	 * Produce widget options for a Select2 widget for the <?= $attribute ?> foreign key attribute
-	 * referencing the <?= $tableName ?> table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
-	 */
-	 public function action<?= ucfirst(strtolower($modelName)) ?>list($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('<?= $modelName ?>', $q, $page, $id);
-	}
-<?php }?>
 
 }
