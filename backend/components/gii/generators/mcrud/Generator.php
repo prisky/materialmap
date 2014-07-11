@@ -813,10 +813,15 @@ class Generator extends \yii\gii\generators\crud\Generator
 	
 	/**
 	 * Generate list of columns to show in index view - grid.
-	 * @param bool $includeNumberFormat true if want number format for export to excel - not accepted by kartik\grid\GridView
-	 * @return array
+	 * @param string $modelName name spaced model name
+	 * @param string $modelNameShort model name without namespace
+	 * @param array $excelFormats format strings for use when exporting to excel
+	 * @param array $searchConditions for use in search model
+	 * @param array $searchAttributes for use in search model
+	 * @param array $searchRules for use in search model
+	 * @return array the grid columns
 	 */
-	public function generateGridColumns($modelName, $modelNameShort, &$excelFormats, &$searchConditions = [], &$searchAttributes = [])
+	public function generateGridColumns($modelName, $modelNameShort, &$excelFormats, &$searchConditions = [], &$searchAttributes = [], &$searchRules = [])
 	{
 		$tableSchema =  Yii::$app->db->getTableSchema($modelName::tableName());
  		$columns = $tableSchema->columns;
@@ -869,8 +874,11 @@ class Generator extends \yii\gii\generators\crud\Generator
 						],
 					],
 				];
-				$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
-				$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+				$types['number'][] = $attribute;
+				$types['number'][] = "from_$attribute";
+				$types['number'][] = "to_$attribute";
+				$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+				$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
 				$searchAttributes[] = "from_$attribute";
 				$searchAttributes[] = "to_$attribute";
 				$excelFormats[$attribute] = '$#,##0.00;[Red]-$#,##0.00';
@@ -897,8 +905,11 @@ class Generator extends \yii\gii\generators\crud\Generator
 						],
 					],
 				];
-				$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
-				$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+				$types['number'][] = $attribute;
+				$types['number'][] = "from_$attribute";
+				$types['number'][] = "to_$attribute";
+				$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+				$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
 				$searchAttributes[] = "from_$attribute";
 				$searchAttributes[] = "to_$attribute";
 				$excelFormats[$attribute] = '0.00%';
@@ -913,28 +924,32 @@ class Generator extends \yii\gii\generators\crud\Generator
 					'options' => ['prompt' => ''],
 					'items' => preg_replace("/\n\s*/", ' ', \yii\helpers\VarDumper::dumpAsString($dropDownOptions))
 				];
-				$searchConditions[] = "'{$attribute}' => \$this->{$attribute}";
+				$types['number'][] = $attribute;
+				$searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
 			}
 			else {
 				if($column->type == 'integer') {
 					// if the field is a foreign key
 					foreach($tableSchema->foreignKeys as $tableKeys) {
 						if(isset($tableKeys[$column->name])) {
+							$foreignKeyModelNameShort = Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_');
+							$foreignKeyRelationName = lcfirst($foreignKeyModelNameShort);
 							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
 							$gridColumn['filterWidgetOptions'] =
-								'|Controller::fKWidgetOptions($this->modelNameShort)';
+								'|Controller::fKWidgetOptions(\''. $foreignKeyModelNameShort . '\')';
 							$gridColumn['value'] = '|function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));
+									return Html::a($model->'. $foreignKeyRelationName . '->label, Url::toRoute([strtolower(\'' . $foreignKeyModelNameShort . '\') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/read", "id" => $key]));
+									return Html::a($model->'. $foreignKeyRelationName . '->label, Url::toRoute([strtolower(\'' . $foreignKeyModelNameShort . '\') . "/read", "id" => $key]));
 								}
 								else {
 									return $model->label($key);
 								}
 							}';
-							$searchConditions[] = "'like', '{$attribute}', \$this->{$attribute}";
+							$types['integer'][] = $attribute;
+							$searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
 							$gridColumn['format'] = 'raw';
 							break;
 						}
@@ -946,6 +961,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 						case 'tinyint(1)' :
 							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
 							$excelFormats[$attribute] = '[=0]"No";[=1]"Yes"';
+							$types['boolean'][] = $attribute;
 							break;
 						case 'date' :
 							$gridColumn['filterType'] = 'backend\components\FieldRange';
@@ -961,8 +977,11 @@ class Generator extends \yii\gii\generators\crud\Generator
 									'pluginOptions' => ['autoclose' => true,],
 								],
 							];
-							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
-							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$types['number'][] = $attribute;
+							$types['number'][] = "from_$attribute";
+							$types['number'][] = "to_$attribute";
+							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
 							$searchAttributes[] = "from_$attribute";
 							$searchAttributes[] = "to_$attribute";
 							$excelFormats[$attribute] = 'mmmm d", "yy';
@@ -980,8 +999,11 @@ class Generator extends \yii\gii\generators\crud\Generator
 									'pluginOptions' => ['autoclose' => true,],
 								],
 							];
-							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
-							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$types['number'][] = $attribute;
+							$types['number'][] = "from_$attribute";
+							$types['number'][] = "to_$attribute";
+							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
 							$searchAttributes[] = "from_$attribute";
 							$searchAttributes[] = "to_$attribute";
 							$excelFormats[$attribute] = 'hh:mm AM/PM';
@@ -1002,9 +1024,12 @@ class Generator extends \yii\gii\generators\crud\Generator
 									'pluginOptions' => ['autoclose' => true,],
 								],
 							];
+							$types['number'][] = $attribute;
+							$types['number'][] = "from_$attribute";
+							$types['number'][] = "to_$attribute";
 							$excelFormats[$attribute] = 'hh:mm AM/PM on mmmm d, yy';
-							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
-							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
 							$searchAttributes[] = "from_$attribute";
 							$searchAttributes[] = "to_$attribute";
 					}
@@ -1014,8 +1039,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 						switch($column->type) {
 							case 'integer' :
 								$excelFormats[$attribute] = '#';
+								$types['integer'][] = $attribute;
 								break;
 							case 'decimal' :
+								$types['number'][] = $attribute;
 								$excelFormats[$attribute] = '#.#';
 								break;
 						}
@@ -1026,14 +1053,14 @@ class Generator extends \yii\gii\generators\crud\Generator
 								'attribute1' => "from_$attribute",
 								'attribute2' => "to_$attribute",
 							];
-							$searchConditions[] = "'>=', 'from_{$attribute}', \$this->from_{$attribute}";
-							$searchConditions[] = "'<=', 'to_{$attribute}', \$this->to_{$attribute}";
+							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
 							$searchAttributes[] = "from_$attribute";
 							$searchAttributes[] = "to_$attribute";
-							$searchConditions[] = "$attribute => \$this->{$attribute}";
 						}
 						else {
-							$searchConditions[] = "'like', '{$attribute}', \$this->{$attribute}";
+							$types['safe'][] = $attribute;
+							$searchConditions[] = "\$query->andFilterWhere(['like', '{$attribute}', \$this->{$attribute}])";
 						}
 					}
 				}
@@ -1042,56 +1069,12 @@ class Generator extends \yii\gii\generators\crud\Generator
 			$gridColumns[] = $gridColumn;
 		}
 
+        $searchRules = [];
+        foreach ($types as $type => $columns) {
+            $searchRules[] = "[['" . implode("', '", $columns) . "'], '$type']";
+        }
+
 		return $gridColumns;
 	}
-
-	    /**
-     * Generates validation rules for the search model.
-     * @return array the generated validation rules
-     */
-    public function generateSearchRules()
-    {
-        if (($table = $this->getTableSchema()) === false) {
-            return ["[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"];
-        }
-        $types = [];
-        foreach ($table->columns as $column) {
-            switch ($column->type) {
-                case Schema::TYPE_SMALLINT:
-                case Schema::TYPE_INTEGER:
-                case Schema::TYPE_BIGINT:
-                    $types['integer'][] = $column->name;
-                    $types['integer'][] = 'from_' . $column->name;
-                    $types['integer'][] = 'to_' . $column->name;
-                    break;
-                case Schema::TYPE_BOOLEAN:
-                    $types['boolean'][] = $column->name;
-                    break;
-                case Schema::TYPE_FLOAT:
-                case Schema::TYPE_DECIMAL:
-                case Schema::TYPE_MONEY:
-                    $types['number'][] = $column->name;
-                    $types['number'][] = 'from_' . $column->name;
-                    $types['number'][] = 'to_' . $column->name;
-                    break;
-                case Schema::TYPE_DATE:
-                case Schema::TYPE_TIME:
-                case Schema::TYPE_DATETIME:
-                case Schema::TYPE_TIMESTAMP:
-                default:
-                    $types['safe'][] = $column->name;
-                    $types['safe'][] = 'from_' . $column->name;
-                    $types['safe'][] = 'to_' . $column->name;
-                    break;
-            }
-        }
-
-        $rules = [];
-        foreach ($types as $type => $columns) {
-            $rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
-        }
-
-        return $rules;
-    }
 
 }

@@ -30,9 +30,9 @@ class AccountSearch extends Account
     public function rules()
     {
         return [
-            [['id', 'from_id', 'to_id', 'user_id', 'from_user_id', 'to_user_id', 'address_id', 'from_address_id', 'to_address_id'], 'integer'],
-			[['phone_work', 'from_phone_work', 'to_phone_work', 'created', 'from_created', 'to_created'], 'safe'],
-			[['balance', 'from_balance', 'to_balance', 'summary_charge', 'from_summary_charge', 'to_summary_charge', 'booking_charge', 'from_booking_charge', 'to_booking_charge', 'ticket_charge', 'from_ticket_charge', 'to_ticket_charge', 'seat_charge', 'from_seat_charge', 'to_seat_charge', 'sms_charge', 'from_sms_charge', 'to_sms_charge', 'annual_charge', 'from_annual_charge', 'to_annual_charge', 'rate', 'from_rate', 'to_rate'], 'number'],
+            [['address_id', 'user_id'], 'integer'],
+			[['annual_charge', 'from_annual_charge', 'to_annual_charge', 'balance', 'from_balance', 'to_balance', 'booking_charge', 'from_booking_charge', 'to_booking_charge', 'rate', 'from_rate', 'to_rate', 'seat_charge', 'from_seat_charge', 'to_seat_charge', 'sms_charge', 'from_sms_charge', 'to_sms_charge', 'summary_charge', 'from_summary_charge', 'to_summary_charge', 'ticket_charge', 'from_ticket_charge', 'to_ticket_charge'], 'number'],
+			[['phone_work'], 'safe'],
         ];
     }
 
@@ -54,25 +54,25 @@ class AccountSearch extends Account
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'address_id', $this->address_id]);
-		$query->andFilterWhere(['>=', 'from_annual_charge', $this->from_annual_charge]);
-		$query->andFilterWhere(['<=', 'to_annual_charge', $this->to_annual_charge]);
-		$query->andFilterWhere(['>=', 'from_balance', $this->from_balance]);
-		$query->andFilterWhere(['<=', 'to_balance', $this->to_balance]);
-		$query->andFilterWhere(['>=', 'from_booking_charge', $this->from_booking_charge]);
-		$query->andFilterWhere(['<=', 'to_booking_charge', $this->to_booking_charge]);
+		$query->andFilterWhere(['address_id' => $this->address_id]);
+		if(!is_null($this->from_annual_charge) && $this->from_annual_charge != '') $query->andWhere('`annual_charge` >= :from_annual_charge', [':from_annual_charge' => $this->from_annual_charge]);
+		if(!is_null($this->to_annual_charge) && $this->to_annual_charge != '') $query->andWhere('`annual_charge` <= :to_annual_charge', [':to_annual_charge' => $this->to_annual_charge]);
+		if(!is_null($this->from_balance) && $this->from_balance != '') $query->andWhere('`balance` >= :from_balance', [':from_balance' => $this->from_balance]);
+		if(!is_null($this->to_balance) && $this->to_balance != '') $query->andWhere('`balance` <= :to_balance', [':to_balance' => $this->to_balance]);
+		if(!is_null($this->from_booking_charge) && $this->from_booking_charge != '') $query->andWhere('`booking_charge` >= :from_booking_charge', [':from_booking_charge' => $this->from_booking_charge]);
+		if(!is_null($this->to_booking_charge) && $this->to_booking_charge != '') $query->andWhere('`booking_charge` <= :to_booking_charge', [':to_booking_charge' => $this->to_booking_charge]);
 		$query->andFilterWhere(['like', 'phone_work', $this->phone_work]);
-		$query->andFilterWhere(['>=', 'from_rate', $this->from_rate]);
-		$query->andFilterWhere(['<=', 'to_rate', $this->to_rate]);
-		$query->andFilterWhere(['>=', 'from_seat_charge', $this->from_seat_charge]);
-		$query->andFilterWhere(['<=', 'to_seat_charge', $this->to_seat_charge]);
-		$query->andFilterWhere(['>=', 'from_sms_charge', $this->from_sms_charge]);
-		$query->andFilterWhere(['<=', 'to_sms_charge', $this->to_sms_charge]);
-		$query->andFilterWhere(['>=', 'from_summary_charge', $this->from_summary_charge]);
-		$query->andFilterWhere(['<=', 'to_summary_charge', $this->to_summary_charge]);
-		$query->andFilterWhere(['>=', 'from_ticket_charge', $this->from_ticket_charge]);
-		$query->andFilterWhere(['<=', 'to_ticket_charge', $this->to_ticket_charge]);
-		$query->andFilterWhere(['like', 'user_id', $this->user_id]);
+		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
+		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
+		if(!is_null($this->from_seat_charge) && $this->from_seat_charge != '') $query->andWhere('`seat_charge` >= :from_seat_charge', [':from_seat_charge' => $this->from_seat_charge]);
+		if(!is_null($this->to_seat_charge) && $this->to_seat_charge != '') $query->andWhere('`seat_charge` <= :to_seat_charge', [':to_seat_charge' => $this->to_seat_charge]);
+		if(!is_null($this->from_sms_charge) && $this->from_sms_charge != '') $query->andWhere('`sms_charge` >= :from_sms_charge', [':from_sms_charge' => $this->from_sms_charge]);
+		if(!is_null($this->to_sms_charge) && $this->to_sms_charge != '') $query->andWhere('`sms_charge` <= :to_sms_charge', [':to_sms_charge' => $this->to_sms_charge]);
+		if(!is_null($this->from_summary_charge) && $this->from_summary_charge != '') $query->andWhere('`summary_charge` >= :from_summary_charge', [':from_summary_charge' => $this->from_summary_charge]);
+		if(!is_null($this->to_summary_charge) && $this->to_summary_charge != '') $query->andWhere('`summary_charge` <= :to_summary_charge', [':to_summary_charge' => $this->to_summary_charge]);
+		if(!is_null($this->from_ticket_charge) && $this->from_ticket_charge != '') $query->andWhere('`ticket_charge` >= :from_ticket_charge', [':from_ticket_charge' => $this->from_ticket_charge]);
+		if(!is_null($this->to_ticket_charge) && $this->to_ticket_charge != '') $query->andWhere('`ticket_charge` <= :to_ticket_charge', [':to_ticket_charge' => $this->to_ticket_charge]);
+		$query->andFilterWhere(['user_id' => $this->user_id]);
 		
         return $dataProvider;
     }

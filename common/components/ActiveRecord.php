@@ -192,6 +192,10 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		return Html::encode($label);
 	}
 	
+	public function getLabel() {
+		return static::label($this->primaryKey);
+	}
+	
 	/**
 	 * @inheritdoc
 	 */

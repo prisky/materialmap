@@ -36,13 +36,13 @@ class AccountController extends \backend\components\Controller
             [
                 "attribute" => "address_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions($this->modelNameShort),
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Address'),
                 "value" => function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));
+									return Html::a($model->address->label, Url::toRoute([strtolower('Address') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/read", "id" => $key]));
+									return Html::a($model->address->label, Url::toRoute([strtolower('Address') . "/read", "id" => $key]));
 								}
 								else {
 									return $model->label($key);
@@ -224,47 +224,7 @@ class AccountController extends \backend\components\Controller
                     ]
                 ]
             ],
-            [
-                "attribute" => "user_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions($this->modelNameShort),
-                "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->label($key), Url::toRoute([strtolower($model->modelNameShort) . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ]
-        ];
-	}
-	
-	
-	/**
-	 * Produce widget options for a Select2 widget for the address_id foreign key attribute
-	 * referencing the tbl_address table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
-	 */
-	 public function actionAddresslist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Address', $q, $page, $id);
-	}
-
-	/**
-	 * Produce widget options for a Select2 widget for the user_id foreign key attribute
-	 * referencing the tbl_user table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
-	 */
-	 public function actionUserlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('User', $q, $page, $id);
+       ];
 	}
 
 }

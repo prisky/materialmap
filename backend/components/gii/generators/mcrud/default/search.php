@@ -14,12 +14,12 @@ $searchModelClass = StringHelper::basename($generator->searchModelClass);
 if ($modelClass === $searchModelClass) {
     $modelAlias = $modelClass . 'Model';
 }
-$rules = $generator->generateSearchRules();
 $labels = $generator->generateSearchLabels();
 $searchAttributes = [];
 $searchConditions = [];
+$searchRules = [];
 $excelFormats = [];
-$gridColumns = $generator->generateGridColumns($generator->modelClass, $modelClass, $excelFormats, $searchConditions, $searchAttributes);
+$gridColumns = $generator->generateGridColumns($generator->modelClass, $modelClass, $excelFormats, $searchConditions, $searchAttributes, $searchRules);
 
 echo "<?php\n";
 ?>
@@ -42,7 +42,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     public function rules()
     {
         return [
-            <?= implode(",\n\t\t\t", $rules) ?>,
+            <?= implode(",\n\t\t\t", $searchRules) ?>,
         ];
     }
 
@@ -65,7 +65,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
         }
 
 		<?php foreach($searchConditions as $searchCondition) {
-			echo "\$query->andFilterWhere([$searchCondition]);\n\t\t";
+			echo "$searchCondition;\n\t\t";
 		} ?>
 
         return $dataProvider;
