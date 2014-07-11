@@ -10,11 +10,11 @@ use common\models\SurveyResultToSummary;
  */
 class SurveyResultToSummarySearch extends SurveyResultToSummary
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'survey_result_id'], 'integer'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -35,12 +35,7 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'survey_result_id' => $this->survey_result_id,
-        ]);
-
+		
         return $dataProvider;
     }
 }

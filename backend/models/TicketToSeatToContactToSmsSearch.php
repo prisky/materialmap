@@ -10,11 +10,11 @@ use common\models\TicketToSeatToContactToSms;
  */
 class TicketToSeatToContactToSmsSearch extends TicketToSeatToContactToSms
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'ticket_to_seat_to_contact_id', 'sms_id'], 'integer'],
-        ];
+            [['sms_id', 'ticket_to_seat_to_contact_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,9 @@ class TicketToSeatToContactToSmsSearch extends TicketToSeatToContactToSms
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'ticket_to_seat_to_contact_id' => $this->ticket_to_seat_to_contact_id,
-            'sms_id' => $this->sms_id,
-        ]);
-
+		$query->andFilterWhere(['sms_id' => $this->sms_id]);
+		$query->andFilterWhere(['ticket_to_seat_to_contact_id' => $this->ticket_to_seat_to_contact_id]);
+		
         return $dataProvider;
     }
 }

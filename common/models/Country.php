@@ -31,7 +31,8 @@ class Country extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['code'], 'required'],
+            [['name', 'code'], 'required'],
+            [['name'], 'string', 'max' => 64],
             [['code'], 'string', 'max' => 2],
             [['currency_code'], 'string', 'max' => 3],
             [['currency_symbol'], 'string', 'max' => 1],

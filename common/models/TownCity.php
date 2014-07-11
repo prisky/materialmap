@@ -28,9 +28,10 @@ class TownCity extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['state_province_id'], 'required'],
+            [['name', 'state_province_id'], 'required'],
             [['state_province_id'], 'integer'],
-            [['state_province_id', 'name'], 'unique', 'targetAttribute' => ['state_province_id', 'name'], 'message' => 'The combination of  and State province has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['state_province_id', 'name'], 'unique', 'targetAttribute' => ['state_province_id', 'name'], 'message' => 'The combination of Name and State province has already been taken.']
         ];
     }
 

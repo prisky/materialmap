@@ -10,12 +10,15 @@ use common\models\Sms;
  */
 class SmsSearch extends Sms
 {
+    public $from_outgoing;
+	public $to_outgoing;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'contact_id', 'sms_thread_id', 'outgoing'], 'integer'],
-            [['sms_message', 'created'], 'safe'],
-        ];
+            [['contact_id'], 'integer'],
+			[['outgoing'], 'boolean'],
+			[['sms_message'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,17 +39,11 @@ class SmsSearch extends Sms
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'contact_id' => $this->contact_id,
-            'sms_thread_id' => $this->sms_thread_id,
-            'outgoing' => $this->outgoing,
-            'created' => $this->created,
-        ]);
-
-        $query->andFilterWhere(['like', 'sms_message', $this->sms_message]);
-
+		$query->andFilterWhere(['contact_id' => $this->contact_id]);
+		if(!is_null($this->from_outgoing) && $this->from_outgoing != '') $query->andWhere('`outgoing` >= :from_outgoing', [':from_outgoing' => $this->from_outgoing]);
+		if(!is_null($this->to_outgoing) && $this->to_outgoing != '') $query->andWhere('`outgoing` <= :to_outgoing', [':to_outgoing' => $this->to_outgoing]);
+		$query->andFilterWhere(['like', 'sms_message', $this->sms_message]);
+		
         return $dataProvider;
     }
 }

@@ -11,8 +11,8 @@ namespace common\models;
  * @property string $invalid_from
  * @property string $invalaid_to
  *
- * @property PercentVoucher $percentVoucher
  * @property Account $account
+ * @property PercentVoucher $percentVoucher
  */
 class PercentVoucherConstraint extends \common\components\ActiveRecord
 {
@@ -42,16 +42,16 @@ class PercentVoucherConstraint extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPercentVoucher()
+    public function getAccount()
     {
-        return $this->hasOne(PercentVoucher::className(), ['id' => 'percent_voucher_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getPercentVoucher()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(PercentVoucher::className(), ['id' => 'percent_voucher_id', 'account_id' => 'account_id']);
     }
 }

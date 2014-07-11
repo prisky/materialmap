@@ -2,43 +2,50 @@
 
 namespace backend\controllers;
 
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * SummaryToEventToResourceToCustomFieldController implements the CRUD actions for SummaryToEventToResourceToCustomField model.
  */
 class SummaryToEventToResourceToCustomFieldController extends \backend\components\Controller
 {
-	
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_summary table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionSummarylist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Summary', $q, $page, $id);
-	}
+	public $excelFormats = [
+
+    ];
 
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_event_to_resource_to_custom_field table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionEventtoresourcetocustomfieldlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('EventToResourceToCustomField', $q, $page, $id);
-	}
-
-	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_account table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
-	 */
-	 public function actionAccountlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Account', $q, $page, $id);
+	public function getGridColumns() {
+		return [
+            [
+                "attribute" => "custom_value"
+            ],
+            [
+                "attribute" => "event_to_resource_to_custom_field_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('EventToResourceToCustomField'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->eventToResourceToCustomField->label, Url::toRoute([strtolower('EventToResourceToCustomField') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->eventToResourceToCustomField->label, Url::toRoute([strtolower('EventToResourceToCustomField') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ]
+        ];
 	}
 
 }

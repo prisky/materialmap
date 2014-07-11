@@ -12,8 +12,8 @@ namespace common\models;
  * @property string $sms_message
  * @property string $email_submect
  *
- * @property Message $message
  * @property Account $account
+ * @property Message $message
  * @property AccountToMessageToUser[] $accountToMessageToUsers
  */
 class AccountToMessage extends \common\components\ActiveRecord
@@ -45,17 +45,17 @@ class AccountToMessage extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMessage()
+    public function getAccount()
     {
-        return $this->hasOne(Message::className(), ['id' => 'message_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getMessage()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Message::className(), ['id' => 'message_id']);
     }
 
     /**

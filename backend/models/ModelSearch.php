@@ -10,12 +10,11 @@ use common\models\Model;
  */
 class ModelSearch extends Model
 {
+    
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['auth_item_name', 'label', 'label_plural', 'help'], 'safe'],
-        ];
+            [['auth_item_name', 'help', 'label', 'label_plural'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +35,11 @@ class ModelSearch extends Model
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'auth_item_name', $this->auth_item_name])
-            ->andFilterWhere(['like', 'label', $this->label])
-            ->andFilterWhere(['like', 'label_plural', $this->label_plural])
-            ->andFilterWhere(['like', 'help', $this->help]);
-
+		$query->andFilterWhere(['like', 'auth_item_name', $this->auth_item_name]);
+		$query->andFilterWhere(['like', 'help', $this->help]);
+		$query->andFilterWhere(['like', 'label', $this->label]);
+		$query->andFilterWhere(['like', 'label_plural', $this->label_plural]);
+		
         return $dataProvider;
     }
 }

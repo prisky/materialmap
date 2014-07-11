@@ -10,11 +10,11 @@ use common\models\AccountToPaymentGateway;
  */
 class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'payment_gateway_id', 'deleted'], 'integer'],
-        ];
+            [['payment_gateway_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'payment_gateway_id' => $this->payment_gateway_id,
-            'deleted' => $this->deleted,
-        ]);
-
+		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
+		
         return $dataProvider;
     }
 }

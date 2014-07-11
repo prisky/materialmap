@@ -10,12 +10,11 @@ use common\models\AuthRule;
  */
 class AuthRuleSearch extends AuthRule
 {
+    
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'data'], 'safe'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -36,15 +35,7 @@ class AuthRuleSearch extends AuthRule
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'data', $this->data]);
-
+		
         return $dataProvider;
     }
 }

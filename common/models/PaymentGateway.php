@@ -27,6 +27,8 @@ class PaymentGateway extends \common\components\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 64],
             [['name'], 'unique']
         ];
     }

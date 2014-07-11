@@ -10,12 +10,11 @@ use common\models\Summary;
  */
 class SummarySearch extends Summary
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['created'], 'safe'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -36,12 +35,7 @@ class SummarySearch extends Summary
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'created' => $this->created,
-        ]);
-
+		
         return $dataProvider;
     }
 }

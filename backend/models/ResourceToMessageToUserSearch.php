@@ -10,11 +10,13 @@ use common\models\ResourceToMessageToUser;
  */
 class ResourceToMessageToUserSearch extends ResourceToMessageToUser
 {
+    public $from_user_id;
+	public $to_user_id;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'resource_to_message', 'user_id'], 'integer'],
-        ];
+            [['user_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +37,9 @@ class ResourceToMessageToUserSearch extends ResourceToMessageToUser
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'resource_to_message' => $this->resource_to_message,
-            'user_id' => $this->user_id,
-        ]);
-
+		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);
+		if(!is_null($this->to_user_id) && $this->to_user_id != '') $query->andWhere('`user_id` <= :to_user_id', [':to_user_id' => $this->to_user_id]);
+		
         return $dataProvider;
     }
 }

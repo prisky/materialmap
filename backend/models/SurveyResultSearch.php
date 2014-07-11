@@ -10,12 +10,12 @@ use common\models\SurveyResult;
  */
 class SurveyResultSearch extends SurveyResult
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'survey_to_custom_field_id'], 'integer'],
-            [['custom_value', 'created'], 'safe'],
-        ];
+            [['custom_value'], 'safe'],
+			[['survey_to_custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,9 @@ class SurveyResultSearch extends SurveyResult
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'survey_to_custom_field_id' => $this->survey_to_custom_field_id,
-            'created' => $this->created,
-        ]);
-
-        $query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
-
+		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterWhere(['survey_to_custom_field_id' => $this->survey_to_custom_field_id]);
+		
         return $dataProvider;
     }
 }

@@ -2,32 +2,76 @@
 
 namespace backend\controllers;
 
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * EventController implements the CRUD actions for Event model.
  */
 class EventController extends \backend\components\Controller
 {
-	
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_event_detail table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionEventdetaillist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('EventDetail', $q, $page, $id);
-	}
+	public $excelFormats = [
+        "end" => "hh:mm AM/PM on mmmm d, yy",
+        "start" => "hh:mm AM/PM on mmmm d, yy"
+    ];
 
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_account table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionAccountlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Account', $q, $page, $id);
+	public function getGridColumns() {
+		return [
+            [
+                "attribute" => "end",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_end",
+                    "attribute2" => "to_end"
+                ],
+                "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "event_detail_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('EventDetail'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->eventDetail->label, Url::toRoute([strtolower('EventDetail') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->eventDetail->label, Url::toRoute([strtolower('EventDetail') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "start",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_start",
+                    "attribute2" => "to_start"
+                ],
+                "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "status",
+                "class" => "dropDownList",
+                "filterWidgetOptions" => [
+                    "options" => [
+                        "prompt" => ""
+                    ],
+                    "items" => "[ 'confirmed' => 'Confirmed' 'canceled' => 'Canceled' 'awaiting_mimimum' => 'Awaiting mimimum' ]"
+                ]
+            ]
+        ];
 	}
 
 }

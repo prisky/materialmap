@@ -13,8 +13,8 @@ namespace common\models;
  * @property string $deadline
  * @property string $updated
  *
- * @property Question $question
  * @property Account $account
+ * @property Question $question
  * @property Question[] $questions
  */
 class Bid extends \common\components\ActiveRecord
@@ -33,7 +33,7 @@ class Bid extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'question_id', 'comment', 'deadline', 'updated'], 'required'],
+            [['account_id', 'question_id', 'comment', 'deadline'], 'required'],
             [['account_id', 'question_id'], 'integer'],
             [['offer'], 'number'],
             [['comment'], 'string'],
@@ -45,17 +45,17 @@ class Bid extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getQuestion()
+    public function getAccount()
     {
-        return $this->hasOne(Question::className(), ['id' => 'question_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getQuestion()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id', 'account_id' => 'account_id']);
     }
 
     /**

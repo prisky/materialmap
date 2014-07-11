@@ -10,12 +10,13 @@ use common\models\Charge;
  */
 class ChargeSearch extends Charge
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['amount'], 'number'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,12 +37,9 @@ class ChargeSearch extends Charge
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'amount' => $this->amount,
-        ]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		
         return $dataProvider;
     }
 }

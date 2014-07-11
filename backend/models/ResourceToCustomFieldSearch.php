@@ -10,11 +10,11 @@ use common\models\ResourceToCustomField;
  */
 class ResourceToCustomFieldSearch extends ResourceToCustomField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'resource_id', 'custom_field_id', 'deleted'], 'integer'],
-        ];
+            [['custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,14 +35,8 @@ class ResourceToCustomFieldSearch extends ResourceToCustomField
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'resource_id' => $this->resource_id,
-            'custom_field_id' => $this->custom_field_id,
-            'deleted' => $this->deleted,
-        ]);
-
+		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+		
         return $dataProvider;
     }
 }

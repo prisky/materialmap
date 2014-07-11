@@ -10,12 +10,11 @@ use common\models\Resource;
  */
 class ResourceSearch extends Resource
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'deleted'], 'integer'],
-            [['name', 'comment'], 'safe'],
-        ];
+            [['comment', 'name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +35,9 @@ class ResourceSearch extends Resource
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
-
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

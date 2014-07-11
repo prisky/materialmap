@@ -10,12 +10,14 @@ use common\models\Message;
  */
 class MessageSearch extends Message
 {
+    public $from_system;
+	public $to_system;
+	
     public function rules()
     {
         return [
-            [['id', 'system'], 'integer'],
-            [['name', 'email_html', 'sms_text', 'email_subject'], 'safe'],
-        ];
+            [['email_html', 'email_subject', 'name', 'sms_text'], 'safe'],
+			[['system'], 'boolean']        ];
     }
 
     public function scenarios()
@@ -36,16 +38,13 @@ class MessageSearch extends Message
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'system' => $this->system,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'email_html', $this->email_html])
-            ->andFilterWhere(['like', 'sms_text', $this->sms_text])
-            ->andFilterWhere(['like', 'email_subject', $this->email_subject]);
-
+		$query->andFilterWhere(['like', 'email_html', $this->email_html]);
+		$query->andFilterWhere(['like', 'email_subject', $this->email_subject]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterWhere(['like', 'sms_text', $this->sms_text]);
+		if(!is_null($this->from_system) && $this->from_system != '') $query->andWhere('`system` >= :from_system', [':from_system' => $this->from_system]);
+		if(!is_null($this->to_system) && $this->to_system != '') $query->andWhere('`system` <= :to_system', [':to_system' => $this->to_system]);
+		
         return $dataProvider;
     }
 }

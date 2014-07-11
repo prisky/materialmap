@@ -9,8 +9,8 @@ namespace common\models;
  * @property string $account_id
  * @property string $survey_result_id
  *
- * @property SurveyResult $surveyResult
  * @property Account $account
+ * @property SurveyResult $surveyResult
  */
 class SurveyResultToSummary extends \common\components\ActiveRecord
 {
@@ -38,16 +38,16 @@ class SurveyResultToSummary extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyResult()
+    public function getAccount()
     {
-        return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSurveyResult()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
     }
 }

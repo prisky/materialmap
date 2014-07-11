@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $survey_result_id
  * @property string $ticket_id
  *
+ * @property Account $account
  * @property SurveyResult $surveyResult
  * @property Ticket $ticket
- * @property Account $account
  */
 class SurveyResultToTicket extends \common\components\ActiveRecord
 {
@@ -40,6 +40,14 @@ class SurveyResultToTicket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSurveyResult()
     {
         return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
@@ -51,13 +59,5 @@ class SurveyResultToTicket extends \common\components\ActiveRecord
     public function getTicket()
     {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

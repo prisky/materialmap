@@ -10,12 +10,11 @@ use common\models\QuestionThread;
  */
 class QuestionThreadSearch extends QuestionThread
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'question_id'], 'integer'],
-            [['comment', 'created'], 'safe'],
-        ];
+            [['comment'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +35,8 @@ class QuestionThreadSearch extends QuestionThread
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'question_id' => $this->question_id,
-            'created' => $this->created,
-        ]);
-
-        $query->andFilterWhere(['like', 'comment', $this->comment]);
-
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		
         return $dataProvider;
     }
 }

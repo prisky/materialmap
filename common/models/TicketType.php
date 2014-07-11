@@ -36,11 +36,12 @@ class TicketType extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'seats'], 'required'],
+            [['account_id', 'seats', 'name'], 'required'],
             [['account_id', 'seats', 'event_max', 'booking_max'], 'integer'],
             [['amount'], 'number'],
             [['comment'], 'string'],
-            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and  has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and Name has already been taken.']
         ];
     }
 

@@ -10,13 +10,15 @@ use common\models\Question;
  */
 class QuestionSearch extends Question
 {
+    public $from_offer;
+	public $to_offer;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'bid_id', 'answer'], 'integer'],
-            [['comment', 'created'], 'safe'],
-            [['offer'], 'number'],
-        ];
+            [['answer', 'bid_id'], 'integer'],
+			[['comment'], 'safe'],
+			[['offer'], 'number']        ];
     }
 
     public function scenarios()
@@ -37,17 +39,12 @@ class QuestionSearch extends Question
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'offer' => $this->offer,
-            'created' => $this->created,
-            'bid_id' => $this->bid_id,
-            'answer' => $this->answer,
-        ]);
-
-        $query->andFilterWhere(['like', 'comment', $this->comment]);
-
+		$query->andFilterWhere(['answer' => $this->answer]);
+		$query->andFilterWhere(['bid_id' => $this->bid_id]);
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		if(!is_null($this->from_offer) && $this->from_offer != '') $query->andWhere('`offer` >= :from_offer', [':from_offer' => $this->from_offer]);
+		if(!is_null($this->to_offer) && $this->to_offer != '') $query->andWhere('`offer` <= :to_offer', [':to_offer' => $this->to_offer]);
+		
         return $dataProvider;
     }
 }

@@ -19,8 +19,8 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property Resource $resource
- * @property SeatType $seatType
  * @property Account $account
+ * @property SeatType $seatType
  * @property SeatToTicketType[] $seatToTicketTypes
  * @property TicketToSeat[] $ticketToSeats
  */
@@ -40,9 +40,10 @@ class Seat extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'resource_id', 'seat_type_id', 'root', 'lft', 'rgt', 'level'], 'required'],
+            [['account_id', 'resource_id', 'seat_type_id', 'root', 'lft', 'rgt', 'level', 'name'], 'required'],
             [['account_id', 'resource_id', 'seat_type_id', 'root', 'lft', 'rgt', 'level', 'x', 'y'], 'integer'],
-            [['account_id', 'resource_id', 'level', 'name'], 'unique', 'targetAttribute' => ['account_id', 'resource_id', 'level', 'name'], 'message' => 'The combination of Account, Resource, Level and  has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['account_id', 'resource_id', 'level', 'name'], 'unique', 'targetAttribute' => ['account_id', 'resource_id', 'level', 'name'], 'message' => 'The combination of Account, Resource, Level and Name has already been taken.']
         ];
     }
 
@@ -58,17 +59,17 @@ class Seat extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSeatType()
+    public function getAccount()
     {
-        return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSeatType()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id', 'account_id' => 'account_id']);
     }
 
     /**

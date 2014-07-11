@@ -10,12 +10,12 @@ use common\models\PaypalSubCategory;
  */
 class PaypalSubCategorySearch extends PaypalSubCategory
 {
+    
     public function rules()
     {
         return [
-            [['id', 'paypal_category_id'], 'integer'],
             [['name'], 'safe'],
-        ];
+			[['paypal_category_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,13 +36,9 @@ class PaypalSubCategorySearch extends PaypalSubCategory
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'paypal_category_id' => $this->paypal_category_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterWhere(['paypal_category_id' => $this->paypal_category_id]);
+		
         return $dataProvider;
     }
 }

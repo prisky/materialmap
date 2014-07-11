@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $voucher_id
  * @property string $amount
  *
+ * @property Account $account
  * @property Summary $summary
  * @property Voucher $voucher
- * @property Account $account
  */
 class SummaryToVoucher extends \common\components\ActiveRecord
 {
@@ -42,6 +42,14 @@ class SummaryToVoucher extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSummary()
     {
         return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
@@ -53,13 +61,5 @@ class SummaryToVoucher extends \common\components\ActiveRecord
     public function getVoucher()
     {
         return $this->hasOne(Voucher::className(), ['id' => 'voucher_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

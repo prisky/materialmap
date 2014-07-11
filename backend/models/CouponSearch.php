@@ -10,12 +10,17 @@ use common\models\Coupon;
  */
 class CouponSearch extends Coupon
 {
+    public $from_expiry;
+	public $to_expiry;
+	public $from_expiry;
+	public $to_expiry;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'reseller_id'], 'integer'],
-            [['uniqueid', 'expiry', 'created'], 'safe'],
-        ];
+            [['expiry', 'from_expiry', 'to_expiry'], 'number'],
+			[['reseller_id'], 'integer'],
+			[['uniqueid'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,16 +41,13 @@ class CouponSearch extends Coupon
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'reseller_id' => $this->reseller_id,
-            'expiry' => $this->expiry,
-            'created' => $this->created,
-        ]);
-
-        $query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
-
+		if(!is_null($this->from_expiry) && $this->from_expiry != '') $query->andWhere('`expiry` >= :from_expiry', [':from_expiry' => $this->from_expiry]);
+		if(!is_null($this->to_expiry) && $this->to_expiry != '') $query->andWhere('`expiry` <= :to_expiry', [':to_expiry' => $this->to_expiry]);
+		if(!is_null($this->from_expiry) && $this->from_expiry != '') $query->andWhere('`expiry` >= :from_expiry', [':from_expiry' => $this->from_expiry]);
+		if(!is_null($this->to_expiry) && $this->to_expiry != '') $query->andWhere('`expiry` <= :to_expiry', [':to_expiry' => $this->to_expiry]);
+		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);
+		$query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
+		
         return $dataProvider;
     }
 }

@@ -10,12 +10,11 @@ use common\models\CancellatonPolicyBlackhole;
  */
 class CancellatonPolicyBlackholeSearch extends CancellatonPolicyBlackhole
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'cancellation_policy_id', 'days'], 'integer'],
-            [['rate', 'base_fee'], 'number'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -36,15 +35,7 @@ class CancellatonPolicyBlackholeSearch extends CancellatonPolicyBlackhole
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'cancellation_policy_id' => $this->cancellation_policy_id,
-            'days' => $this->days,
-            'rate' => $this->rate,
-            'base_fee' => $this->base_fee,
-        ]);
-
+		
         return $dataProvider;
     }
 }

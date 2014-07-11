@@ -10,12 +10,15 @@ use common\models\BookingToEventToResourceToExtra;
  */
 class BookingToEventToResourceToExtraSearch extends BookingToEventToResourceToExtra
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'event_to_resource_to_extra_id', 'booking_id', 'quantity'], 'integer'],
-            [['amount'], 'number'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number'],
+			[['event_to_resource_to_extra_id'], 'integer'],
+			[['quantity'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +39,11 @@ class BookingToEventToResourceToExtraSearch extends BookingToEventToResourceToEx
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'event_to_resource_to_extra_id' => $this->event_to_resource_to_extra_id,
-            'booking_id' => $this->booking_id,
-            'amount' => $this->amount,
-            'quantity' => $this->quantity,
-        ]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		$query->andFilterWhere(['event_to_resource_to_extra_id' => $this->event_to_resource_to_extra_id]);
+		$query->andFilterWhere(['like', 'quantity', $this->quantity]);
+		
         return $dataProvider;
     }
 }

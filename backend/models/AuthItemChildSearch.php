@@ -10,12 +10,11 @@ use common\models\AuthItemChild;
  */
 class AuthItemChildSearch extends AuthItemChild
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['parent', 'child'], 'safe'],
-        ];
+            [['parent'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,14 +35,8 @@ class AuthItemChildSearch extends AuthItemChild
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'parent', $this->parent])
-            ->andFilterWhere(['like', 'child', $this->child]);
-
+		$query->andFilterWhere(['like', 'parent', $this->parent]);
+		
         return $dataProvider;
     }
 }

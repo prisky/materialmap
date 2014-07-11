@@ -10,13 +10,15 @@ use common\models\Payment;
  */
 class PaymentSearch extends Payment
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'summary_id', 'payment_gateway_id'], 'integer'],
-            [['amount'], 'number'],
-            [['uniqueid'], 'safe'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number'],
+			[['payment_gateway_id', 'summary_id'], 'integer'],
+			[['uniqueid'], 'safe']        ];
     }
 
     public function scenarios()
@@ -37,16 +39,12 @@ class PaymentSearch extends Payment
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'summary_id' => $this->summary_id,
-            'payment_gateway_id' => $this->payment_gateway_id,
-            'amount' => $this->amount,
-        ]);
-
-        $query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
+		$query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
+		
         return $dataProvider;
     }
 }

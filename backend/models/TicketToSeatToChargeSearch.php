@@ -10,11 +10,11 @@ use common\models\TicketToSeatToCharge;
  */
 class TicketToSeatToChargeSearch extends TicketToSeatToCharge
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'ticket_to_seat_id', 'charge_id'], 'integer'],
-        ];
+            [['charge_id', 'ticket_to_seat_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,9 @@ class TicketToSeatToChargeSearch extends TicketToSeatToCharge
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'ticket_to_seat_id' => $this->ticket_to_seat_id,
-            'charge_id' => $this->charge_id,
-        ]);
-
+		$query->andFilterWhere(['charge_id' => $this->charge_id]);
+		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+		
         return $dataProvider;
     }
 }

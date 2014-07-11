@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $resource_id
  * @property integer $deleted
  *
- * @property Survey $survey
- * @property Resource $resource
  * @property Account $account
+ * @property Resource $resource
+ * @property Survey $survey
  */
 class SurveyToResource extends \common\components\ActiveRecord
 {
@@ -41,9 +41,9 @@ class SurveyToResource extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurvey()
+    public function getAccount()
     {
-        return $this->hasOne(Survey::className(), ['id' => 'survey_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -57,8 +57,8 @@ class SurveyToResource extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSurvey()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Survey::className(), ['id' => 'survey_id', 'account_id' => 'account_id']);
     }
 }

@@ -13,8 +13,8 @@ namespace common\models;
  * @property integer $inventory
  * @property integer $deleted
  *
- * @property Extra $extra
  * @property Account $account
+ * @property Extra $extra
  */
 class Item extends \common\components\ActiveRecord
 {
@@ -32,10 +32,11 @@ class Item extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'extra_id'], 'required'],
+            [['account_id', 'extra_id', 'name'], 'required'],
             [['account_id', 'extra_id', 'inventory'], 'integer'],
             [['amount'], 'number'],
-            [['extra_id', 'name'], 'unique', 'targetAttribute' => ['extra_id', 'name'], 'message' => 'The combination of Extra and  has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['extra_id', 'name'], 'unique', 'targetAttribute' => ['extra_id', 'name'], 'message' => 'The combination of Extra and Name has already been taken.']
         ];
     }
 
@@ -43,16 +44,16 @@ class Item extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getExtra()
+    public function getAccount()
     {
-        return $this->hasOne(Extra::className(), ['id' => 'extra_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getExtra()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Extra::className(), ['id' => 'extra_id', 'account_id' => 'account_id']);
     }
 }

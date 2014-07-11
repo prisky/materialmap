@@ -10,12 +10,14 @@ use common\models\Extra;
  */
 class ExtraSearch extends Extra
 {
+    public $from_mandatory;
+	public $to_mandatory;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'mandatory', 'minimum', 'maximum', 'deleted'], 'integer'],
-            [['name'], 'safe'],
-        ];
+            [['mandatory'], 'boolean'],
+			[['maximum', 'minimum', 'name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,17 +38,12 @@ class ExtraSearch extends Extra
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'mandatory' => $this->mandatory,
-            'minimum' => $this->minimum,
-            'maximum' => $this->maximum,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		if(!is_null($this->from_mandatory) && $this->from_mandatory != '') $query->andWhere('`mandatory` >= :from_mandatory', [':from_mandatory' => $this->from_mandatory]);
+		if(!is_null($this->to_mandatory) && $this->to_mandatory != '') $query->andWhere('`mandatory` <= :to_mandatory', [':to_mandatory' => $this->to_mandatory]);
+		$query->andFilterWhere(['like', 'maximum', $this->maximum]);
+		$query->andFilterWhere(['like', 'minimum', $this->minimum]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

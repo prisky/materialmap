@@ -10,11 +10,11 @@ use common\models\SurveyResultToTicket;
  */
 class SurveyResultToTicketSearch extends SurveyResultToTicket
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'survey_result_id', 'ticket_id'], 'integer'],
-        ];
+            [['ticket_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class SurveyResultToTicketSearch extends SurveyResultToTicket
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'survey_result_id' => $this->survey_result_id,
-            'ticket_id' => $this->ticket_id,
-        ]);
-
+		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);
+		
         return $dataProvider;
     }
 }

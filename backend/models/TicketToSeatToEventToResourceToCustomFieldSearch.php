@@ -10,12 +10,12 @@ use common\models\TicketToSeatToEventToResourceToCustomField;
  */
 class TicketToSeatToEventToResourceToCustomFieldSearch extends TicketToSeatToEventToResourceToCustomField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'ticket_to_seat_id', 'event_to_resource_to_custom_field_id'], 'integer'],
             [['custom_value'], 'safe'],
-        ];
+			[['event_to_resource_to_custom_field_id', 'ticket_to_seat_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,10 @@ class TicketToSeatToEventToResourceToCustomFieldSearch extends TicketToSeatToEve
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'ticket_to_seat_id' => $this->ticket_to_seat_id,
-            'event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
-
+		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
+		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+		
         return $dataProvider;
     }
 }

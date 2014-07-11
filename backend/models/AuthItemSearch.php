@@ -10,12 +10,18 @@ use common\models\AuthItem;
  */
 class AuthItemSearch extends AuthItem
 {
+    public $from_created_at;
+	public $to_created_at;
+	public $from_type;
+	public $to_type;
+	public $from_updated_at;
+	public $to_updated_at;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'type', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'description', 'rule_name', 'data'], 'safe'],
-        ];
+            [['created_at', 'type', 'updated_at'], 'integer'],
+			[['data', 'description', 'name', 'rule_name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,19 +42,17 @@ class AuthItemSearch extends AuthItem
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'type' => $this->type,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'rule_name', $this->rule_name])
-            ->andFilterWhere(['like', 'data', $this->data]);
-
+		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
+		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
+		$query->andFilterWhere(['like', 'data', $this->data]);
+		$query->andFilterWhere(['like', 'description', $this->description]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterWhere(['like', 'rule_name', $this->rule_name]);
+		if(!is_null($this->from_type) && $this->from_type != '') $query->andWhere('`type` >= :from_type', [':from_type' => $this->from_type]);
+		if(!is_null($this->to_type) && $this->to_type != '') $query->andWhere('`type` <= :to_type', [':to_type' => $this->to_type]);
+		if(!is_null($this->from_updated_at) && $this->from_updated_at != '') $query->andWhere('`updated_at` >= :from_updated_at', [':from_updated_at' => $this->from_updated_at]);
+		if(!is_null($this->to_updated_at) && $this->to_updated_at != '') $query->andWhere('`updated_at` <= :to_updated_at', [':to_updated_at' => $this->to_updated_at]);
+		
         return $dataProvider;
     }
 }

@@ -10,11 +10,11 @@ use common\models\StandardSetup;
  */
 class StandardSetupSearch extends StandardSetup
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'reseller_id'], 'integer'],
-        ];
+            [['reseller_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,12 +35,8 @@ class StandardSetupSearch extends StandardSetup
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'reseller_id' => $this->reseller_id,
-        ]);
-
+		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);
+		
         return $dataProvider;
     }
 }

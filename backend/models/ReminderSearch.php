@@ -10,11 +10,11 @@ use common\models\Reminder;
  */
 class ReminderSearch extends Reminder
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'hours_prior'], 'integer'],
-        ];
+            [['hours_prior'], 'safe']        ];
     }
 
     public function scenarios()
@@ -35,12 +35,8 @@ class ReminderSearch extends Reminder
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'hours_prior' => $this->hours_prior,
-        ]);
-
+		$query->andFilterWhere(['like', 'hours_prior', $this->hours_prior]);
+		
         return $dataProvider;
     }
 }

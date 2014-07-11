@@ -11,8 +11,8 @@ namespace common\models;
  * @property string $charge_id
  *
  * @property Account $account
- * @property Summary $summary
  * @property Charge $charge
+ * @property Summary $summary
  */
 class SummaryToCharge extends \common\components\ActiveRecord
 {
@@ -48,16 +48,16 @@ class SummaryToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getCharge()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCharge()
+    public function getSummary()
     {
-        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 }

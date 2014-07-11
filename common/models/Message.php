@@ -32,8 +32,10 @@ class Message extends \common\components\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['system'], 'integer'],
             [['email_html'], 'string'],
+            [['name'], 'string', 'max' => 255],
             [['sms_text'], 'string', 'max' => 140],
             [['email_subject'], 'string', 'max' => 100],
             [['name'], 'unique']

@@ -10,11 +10,13 @@ use common\models\Navigation;
  */
 class NavigationSearch extends Navigation
 {
+    public $from_depth;
+	public $to_depth;
+	
     public function rules()
     {
         return [
-            [['id', 'parent', 'child', 'depth'], 'integer'],
-        ];
+            [['child', 'depth', 'parent'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +37,11 @@ class NavigationSearch extends Navigation
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'parent' => $this->parent,
-            'child' => $this->child,
-            'depth' => $this->depth,
-        ]);
-
+		$query->andFilterWhere(['child' => $this->child]);
+		if(!is_null($this->from_depth) && $this->from_depth != '') $query->andWhere('`depth` >= :from_depth', [':from_depth' => $this->from_depth]);
+		if(!is_null($this->to_depth) && $this->to_depth != '') $query->andWhere('`depth` <= :to_depth', [':to_depth' => $this->to_depth]);
+		$query->andFilterWhere(['parent' => $this->parent]);
+		
         return $dataProvider;
     }
 }

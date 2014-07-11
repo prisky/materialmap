@@ -10,11 +10,11 @@ use common\models\SurveyToResource;
  */
 class SurveyToResourceSearch extends SurveyToResource
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'survey_id', 'resource_id', 'deleted'], 'integer'],
-        ];
+            [['resource_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,14 +35,8 @@ class SurveyToResourceSearch extends SurveyToResource
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'survey_id' => $this->survey_id,
-            'resource_id' => $this->resource_id,
-            'deleted' => $this->deleted,
-        ]);
-
+		$query->andFilterWhere(['resource_id' => $this->resource_id]);
+		
         return $dataProvider;
     }
 }

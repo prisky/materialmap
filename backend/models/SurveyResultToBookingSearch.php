@@ -10,11 +10,11 @@ use common\models\SurveyResultToBooking;
  */
 class SurveyResultToBookingSearch extends SurveyResultToBooking
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'survey_result_id', 'booking_id'], 'integer'],
-        ];
+            [['booking_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'survey_result_id' => $this->survey_result_id,
-            'booking_id' => $this->booking_id,
-        ]);
-
+		$query->andFilterWhere(['booking_id' => $this->booking_id]);
+		
         return $dataProvider;
     }
 }

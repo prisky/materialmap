@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $booking_id
  * @property string $charge_id
  *
+ * @property Account $account
  * @property Booking $booking
  * @property Charge $charge
- * @property Account $account
  */
 class BookingToCharge extends \common\components\ActiveRecord
 {
@@ -40,6 +40,14 @@ class BookingToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getBooking()
     {
         return $this->hasOne(Booking::className(), ['id' => 'booking_id', 'account_id' => 'account_id']);
@@ -51,13 +59,5 @@ class BookingToCharge extends \common\components\ActiveRecord
     public function getCharge()
     {
         return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

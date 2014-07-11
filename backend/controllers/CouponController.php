@@ -2,32 +2,59 @@
 
 namespace backend\controllers;
 
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * CouponController implements the CRUD actions for Coupon model.
  */
 class CouponController extends \backend\components\Controller
 {
-	
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_account table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionAccountlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Account', $q, $page, $id);
-	}
+	public $excelFormats = [
+        "expiry" => "hh:mm AM/PM on mmmm d, yy"
+    ];
 
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_reseller table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionResellerlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Reseller', $q, $page, $id);
+	public function getGridColumns() {
+		return [
+            [
+                "attribute" => "expiry",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_expiry",
+                    "attribute2" => "to_expiry"
+                ],
+                "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "reseller_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Reseller'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->reseller->label, Url::toRoute([strtolower('Reseller') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->reseller->label, Url::toRoute([strtolower('Reseller') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "uniqueid"
+            ]
+        ];
 	}
 
 }

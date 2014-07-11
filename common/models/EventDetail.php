@@ -18,8 +18,8 @@ namespace common\models;
  * @property string $tooltip
  *
  * @property Event[] $events
- * @property Resource $resource
  * @property Account $account
+ * @property Resource $resource
  * @property EventDetailToTicketType[] $eventDetailToTicketTypes
  */
 class EventDetail extends \common\components\ActiveRecord
@@ -38,10 +38,11 @@ class EventDetail extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'resource_id', 'seats_max'], 'required'],
+            [['account_id', 'resource_id', 'seats_max', 'name'], 'required'],
             [['account_id', 'resource_id', 'seats_max', 'deposit_hours', 'seats_min', 'seats_min_hours'], 'integer'],
             [['deposit'], 'number'],
-            [['private_note', 'tooltip'], 'string']
+            [['private_note', 'tooltip'], 'string'],
+            [['name'], 'string', 'max' => 64]
         ];
     }
 
@@ -57,17 +58,17 @@ class EventDetail extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResource()
+    public function getAccount()
     {
-        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getResource()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
     }
 
     /**

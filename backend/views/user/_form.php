@@ -20,6 +20,7 @@ use backend\components\DetailView;
 			['attribute' => 'contact_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact')],
 			['attribute' => 'auth_key', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 32]],
 			['attribute' => 'password_hash', 'type' =>  DetailView::INPUT_PASSWORD],
+			['attribute' => 'deleted', 'type' =>  DetailView::INPUT_SWITCH],
 			['attribute' => 'password_reset_token', 'type' =>  DetailView::INPUT_PASSWORD],
 		]
 	]);	?>

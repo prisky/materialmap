@@ -10,12 +10,11 @@ use common\models\SeatType;
  */
 class SeatTypeSearch extends SeatType
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'deleted'], 'integer'],
-            [['name'], 'safe'],
-        ];
+            [['name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,14 +35,8 @@ class SeatTypeSearch extends SeatType
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

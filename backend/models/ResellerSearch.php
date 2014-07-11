@@ -10,12 +10,17 @@ use common\models\Reseller;
  */
 class ResellerSearch extends Reseller
 {
+    public $from_child_admin;
+	public $to_child_admin;
+	public $from_rate;
+	public $to_rate;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'trial_days', 'expiry_days', 'child_admin'], 'integer'],
-            [['rate'], 'number'],
-        ];
+            [['child_admin'], 'boolean'],
+			[['expiry_days', 'trial_days'], 'safe'],
+			[['rate', 'from_rate', 'to_rate'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,15 +41,13 @@ class ResellerSearch extends Reseller
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'trial_days' => $this->trial_days,
-            'expiry_days' => $this->expiry_days,
-            'rate' => $this->rate,
-            'child_admin' => $this->child_admin,
-        ]);
-
+		if(!is_null($this->from_child_admin) && $this->from_child_admin != '') $query->andWhere('`child_admin` >= :from_child_admin', [':from_child_admin' => $this->from_child_admin]);
+		if(!is_null($this->to_child_admin) && $this->to_child_admin != '') $query->andWhere('`child_admin` <= :to_child_admin', [':to_child_admin' => $this->to_child_admin]);
+		$query->andFilterWhere(['like', 'expiry_days', $this->expiry_days]);
+		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
+		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
+		$query->andFilterWhere(['like', 'trial_days', $this->trial_days]);
+		
         return $dataProvider;
     }
 }

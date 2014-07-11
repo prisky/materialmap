@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $ticket_to_seat_id
  * @property string $charge_id
  *
- * @property TicketToSeat $ticketToSeat
- * @property Charge $charge
  * @property Account $account
+ * @property Charge $charge
+ * @property TicketToSeat $ticketToSeat
  */
 class TicketToSeatToCharge extends \common\components\ActiveRecord
 {
@@ -40,9 +40,9 @@ class TicketToSeatToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToSeat()
+    public function getAccount()
     {
-        return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -56,8 +56,8 @@ class TicketToSeatToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getTicketToSeat()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id', 'account_id' => 'account_id']);
     }
 }

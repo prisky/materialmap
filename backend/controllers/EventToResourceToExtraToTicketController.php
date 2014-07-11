@@ -2,43 +2,71 @@
 
 namespace backend\controllers;
 
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * EventToResourceToExtraToTicketController implements the CRUD actions for EventToResourceToExtraToTicket model.
  */
 class EventToResourceToExtraToTicketController extends \backend\components\Controller
 {
-	
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_event_to_resource_to_extra table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionEventtoresourcetoextralist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('EventToResourceToExtra', $q, $page, $id);
-	}
+	public $excelFormats = [
+        "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
+    ];
 
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_ticket table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionTicketlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Ticket', $q, $page, $id);
-	}
-
-	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_account table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
-	 */
-	 public function actionAccountlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Account', $q, $page, $id);
+	public function getGridColumns() {
+		return [
+            [
+                "attribute" => "amount",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_amount",
+                    "attribute2" => "to_amount",
+                    "type" => "widget",
+                    "widgetClass" => "\\kartik\\money\\MaskMoney",
+                    "widgetOptions1" => [
+                        "pluginOptions" => [
+                            "allowEmpty" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "pluginOptions" => [
+                            "allowEmpty" => TRUE
+                        ]
+                    ]
+                ]
+            ],
+            [
+                "attribute" => "quantity"
+            ],
+            [
+                "attribute" => "ticket_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Ticket'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->ticket->label, Url::toRoute([strtolower('Ticket') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->ticket->label, Url::toRoute([strtolower('Ticket') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ]
+        ];
 	}
 
 }

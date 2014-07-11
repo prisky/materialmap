@@ -10,11 +10,11 @@ use common\models\ResourceToExtra;
  */
 class ResourceToExtraSearch extends ResourceToExtra
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'resource_id', 'extra_id', 'deleted'], 'integer'],
-        ];
+            [['extra_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,14 +35,8 @@ class ResourceToExtraSearch extends ResourceToExtra
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'resource_id' => $this->resource_id,
-            'extra_id' => $this->extra_id,
-            'deleted' => $this->deleted,
-        ]);
-
+		$query->andFilterWhere(['extra_id' => $this->extra_id]);
+		
         return $dataProvider;
     }
 }

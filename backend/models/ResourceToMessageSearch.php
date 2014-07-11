@@ -10,12 +10,12 @@ use common\models\ResourceToMessage;
  */
 class ResourceToMessageSearch extends ResourceToMessage
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'resource_id', 'message_id'], 'integer'],
-            [['email_message', 'sms_message', 'email_submect'], 'safe'],
-        ];
+            [['email_message', 'email_submect', 'sms_message'], 'safe'],
+			[['message_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,17 +36,11 @@ class ResourceToMessageSearch extends ResourceToMessage
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'resource_id' => $this->resource_id,
-            'message_id' => $this->message_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'email_message', $this->email_message])
-            ->andFilterWhere(['like', 'sms_message', $this->sms_message])
-            ->andFilterWhere(['like', 'email_submect', $this->email_submect]);
-
+		$query->andFilterWhere(['like', 'email_message', $this->email_message]);
+		$query->andFilterWhere(['like', 'email_submect', $this->email_submect]);
+		$query->andFilterWhere(['message_id' => $this->message_id]);
+		$query->andFilterWhere(['like', 'sms_message', $this->sms_message]);
+		
         return $dataProvider;
     }
 }

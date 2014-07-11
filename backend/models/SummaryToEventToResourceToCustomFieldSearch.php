@@ -10,12 +10,12 @@ use common\models\SummaryToEventToResourceToCustomField;
  */
 class SummaryToEventToResourceToCustomFieldSearch extends SummaryToEventToResourceToCustomField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'summary_id', 'event_to_resource_to_custom_field_id'], 'integer'],
             [['custom_value'], 'safe'],
-        ];
+			[['event_to_resource_to_custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,9 @@ class SummaryToEventToResourceToCustomFieldSearch extends SummaryToEventToResour
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'summary_id' => $this->summary_id,
-            'event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
-
+		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
+		
         return $dataProvider;
     }
 }

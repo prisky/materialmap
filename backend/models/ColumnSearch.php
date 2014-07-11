@@ -10,12 +10,11 @@ use common\models\Column;
  */
 class ColumnSearch extends Column
 {
+    
     public function rules()
     {
         return [
-            [['id', 'model_id'], 'integer'],
-            [['name', 'label', 'help'], 'safe'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -36,15 +35,7 @@ class ColumnSearch extends Column
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'model_id' => $this->model_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'label', $this->label])
-            ->andFilterWhere(['like', 'help', $this->help]);
-
+		
         return $dataProvider;
     }
 }

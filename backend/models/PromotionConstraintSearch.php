@@ -10,12 +10,19 @@ use common\models\PromotionConstraint;
  */
 class PromotionConstraintSearch extends PromotionConstraint
 {
+    public $from_invalid_from;
+	public $to_invalid_from;
+	public $from_invalid_from;
+	public $to_invalid_from;
+	public $from_invalid_to;
+	public $to_invalid_to;
+	public $from_invalid_to;
+	public $to_invalid_to;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'promotion_id'], 'integer'],
-            [['invalid_from', 'invalid_to'], 'safe'],
-        ];
+            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,14 +43,15 @@ class PromotionConstraintSearch extends PromotionConstraint
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'promotion_id' => $this->promotion_id,
-            'invalid_from' => $this->invalid_from,
-            'invalid_to' => $this->invalid_to,
-        ]);
-
+		if(!is_null($this->from_invalid_from) && $this->from_invalid_from != '') $query->andWhere('`invalid_from` >= :from_invalid_from', [':from_invalid_from' => $this->from_invalid_from]);
+		if(!is_null($this->to_invalid_from) && $this->to_invalid_from != '') $query->andWhere('`invalid_from` <= :to_invalid_from', [':to_invalid_from' => $this->to_invalid_from]);
+		if(!is_null($this->from_invalid_from) && $this->from_invalid_from != '') $query->andWhere('`invalid_from` >= :from_invalid_from', [':from_invalid_from' => $this->from_invalid_from]);
+		if(!is_null($this->to_invalid_from) && $this->to_invalid_from != '') $query->andWhere('`invalid_from` <= :to_invalid_from', [':to_invalid_from' => $this->to_invalid_from]);
+		if(!is_null($this->from_invalid_to) && $this->from_invalid_to != '') $query->andWhere('`invalid_to` >= :from_invalid_to', [':from_invalid_to' => $this->from_invalid_to]);
+		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
+		if(!is_null($this->from_invalid_to) && $this->from_invalid_to != '') $query->andWhere('`invalid_to` >= :from_invalid_to', [':from_invalid_to' => $this->from_invalid_to]);
+		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
+		
         return $dataProvider;
     }
 }

@@ -10,12 +10,11 @@ use common\models\Comment;
  */
 class CommentSearch extends Comment
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'event_id'], 'integer'],
-            [['content', 'created', 'email'], 'safe'],
-        ];
+            [['content', 'email'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,16 +35,9 @@ class CommentSearch extends Comment
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'event_id' => $this->event_id,
-            'created' => $this->created,
-        ]);
-
-        $query->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'email', $this->email]);
-
+		$query->andFilterWhere(['like', 'content', $this->content]);
+		$query->andFilterWhere(['like', 'email', $this->email]);
+		
         return $dataProvider;
     }
 }

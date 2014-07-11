@@ -22,7 +22,7 @@ use backend\components\DetailView;
 			['attribute' => 'end', 'type' =>  DetailView::INPUT_DATETIME],
 			['attribute' => 'status', 'type' =>  DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],
-				'items' => [ 'confirmed' => 'Confirmed', 'canceled' => 'Canceled', 'awaiting_mimimum' => 'Awaiting mimimum', ]],
+				'items' => [ "confirmed" => "Confirmed", "canceled" => "Canceled", "awaiting_mimimum" => "Awaiting mimimum" ]],
 		]
 	]);	?>
 

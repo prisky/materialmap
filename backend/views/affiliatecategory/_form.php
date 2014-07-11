@@ -22,6 +22,7 @@ use backend\components\DetailView;
 			['attribute' => 'lft', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 			['attribute' => 'rgt', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 			['attribute' => 'level', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
+			['attribute' => 'name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 		]
 	]);	?>
 

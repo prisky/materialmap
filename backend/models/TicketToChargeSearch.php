@@ -10,11 +10,11 @@ use common\models\TicketToCharge;
  */
 class TicketToChargeSearch extends TicketToCharge
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'ticket_id', 'charge_id'], 'integer'],
-        ];
+            [['charge_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class TicketToChargeSearch extends TicketToCharge
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'ticket_id' => $this->ticket_id,
-            'charge_id' => $this->charge_id,
-        ]);
-
+		$query->andFilterWhere(['charge_id' => $this->charge_id]);
+		
         return $dataProvider;
     }
 }

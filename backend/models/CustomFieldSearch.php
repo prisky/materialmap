@@ -10,12 +10,17 @@ use common\models\CustomField;
  */
 class CustomFieldSearch extends CustomField
 {
+    public $from_allow_new;
+	public $to_allow_new;
+	public $from_mandatory;
+	public $to_mandatory;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'allow_new', 'mandatory', 'deleted'], 'integer'],
-            [['label', 'validation_type', 'data_type', 'comment', 'validation_text', 'validation_error'], 'safe'],
-        ];
+            [['allow_new', 'mandatory'], 'boolean'],
+			[['comment', 'label', 'validation_error', 'validation_text'], 'safe'],
+			[['data_type', 'validation_type'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,21 +41,17 @@ class CustomFieldSearch extends CustomField
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'allow_new' => $this->allow_new,
-            'mandatory' => $this->mandatory,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'label', $this->label])
-            ->andFilterWhere(['like', 'validation_type', $this->validation_type])
-            ->andFilterWhere(['like', 'data_type', $this->data_type])
-            ->andFilterWhere(['like', 'comment', $this->comment])
-            ->andFilterWhere(['like', 'validation_text', $this->validation_text])
-            ->andFilterWhere(['like', 'validation_error', $this->validation_error]);
-
+		if(!is_null($this->from_allow_new) && $this->from_allow_new != '') $query->andWhere('`allow_new` >= :from_allow_new', [':from_allow_new' => $this->from_allow_new]);
+		if(!is_null($this->to_allow_new) && $this->to_allow_new != '') $query->andWhere('`allow_new` <= :to_allow_new', [':to_allow_new' => $this->to_allow_new]);
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterWhere(['data_type' => $this->data_type]);
+		$query->andFilterWhere(['like', 'label', $this->label]);
+		if(!is_null($this->from_mandatory) && $this->from_mandatory != '') $query->andWhere('`mandatory` >= :from_mandatory', [':from_mandatory' => $this->from_mandatory]);
+		if(!is_null($this->to_mandatory) && $this->to_mandatory != '') $query->andWhere('`mandatory` <= :to_mandatory', [':to_mandatory' => $this->to_mandatory]);
+		$query->andFilterWhere(['like', 'validation_error', $this->validation_error]);
+		$query->andFilterWhere(['like', 'validation_text', $this->validation_text]);
+		$query->andFilterWhere(['validation_type' => $this->validation_type]);
+		
         return $dataProvider;
     }
 }

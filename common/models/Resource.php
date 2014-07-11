@@ -36,10 +36,11 @@ class Resource extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id'], 'required'],
+            [['account_id', 'name'], 'required'],
             [['account_id'], 'integer'],
             [['comment'], 'string'],
-            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and  has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and Name has already been taken.']
         ];
     }
 

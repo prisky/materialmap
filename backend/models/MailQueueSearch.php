@@ -10,12 +10,11 @@ use common\models\MailQueue;
  */
 class MailQueueSearch extends MailQueue
 {
+    
     public function rules()
     {
         return [
-            [['id', 'to', 'from'], 'integer'],
-            [['email_message', 'subject', 'created'], 'safe'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -36,16 +35,7 @@ class MailQueueSearch extends MailQueue
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'to' => $this->to,
-            'from' => $this->from,
-            'created' => $this->created,
-        ]);
-
-        $query->andFilterWhere(['like', 'email_message', $this->email_message])
-            ->andFilterWhere(['like', 'subject', $this->subject]);
-
+		
         return $dataProvider;
     }
 }

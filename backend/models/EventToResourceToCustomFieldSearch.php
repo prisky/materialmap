@@ -10,11 +10,11 @@ use common\models\EventToResourceToCustomField;
  */
 class EventToResourceToCustomFieldSearch extends EventToResourceToCustomField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'event_id', 'resource_to_custom_field_id'], 'integer'],
-        ];
+            [['resource_to_custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class EventToResourceToCustomFieldSearch extends EventToResourceToCustomField
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'event_id' => $this->event_id,
-            'resource_to_custom_field_id' => $this->resource_to_custom_field_id,
-        ]);
-
+		$query->andFilterWhere(['resource_to_custom_field_id' => $this->resource_to_custom_field_id]);
+		
         return $dataProvider;
     }
 }

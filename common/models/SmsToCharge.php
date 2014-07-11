@@ -11,8 +11,8 @@ namespace common\models;
  * @property string $charge_id
  *
  * @property Account $account
- * @property Sms $sms
  * @property Charge $charge
+ * @property Sms $sms
  */
 class SmsToCharge extends \common\components\ActiveRecord
 {
@@ -49,16 +49,16 @@ class SmsToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSms()
+    public function getCharge()
     {
-        return $this->hasOne(Sms::className(), ['id' => 'sms_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCharge()
+    public function getSms()
     {
-        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Sms::className(), ['id' => 'sms_id', 'account_id' => 'account_id']);
     }
 }

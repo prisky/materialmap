@@ -10,12 +10,12 @@ use common\models\BookingToEventToResourceToCustomField;
  */
 class BookingToEventToResourceToCustomFieldSearch extends BookingToEventToResourceToCustomField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'booking_id', 'event_to_resource_to_custom_field_id'], 'integer'],
             [['custom_value'], 'safe'],
-        ];
+			[['event_to_resource_to_custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,9 @@ class BookingToEventToResourceToCustomFieldSearch extends BookingToEventToResour
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'booking_id' => $this->booking_id,
-            'event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
-
+		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
+		
         return $dataProvider;
     }
 }

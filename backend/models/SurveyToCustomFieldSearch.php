@@ -10,12 +10,12 @@ use common\models\SurveyToCustomField;
  */
 class SurveyToCustomFieldSearch extends SurveyToCustomField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'survey_id', 'custom_field_id', 'deleted'], 'integer'],
-            [['order'], 'number'],
-        ];
+            [['custom_field_id'], 'integer'],
+			[['order'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,9 @@ class SurveyToCustomFieldSearch extends SurveyToCustomField
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'survey_id' => $this->survey_id,
-            'custom_field_id' => $this->custom_field_id,
-            'order' => $this->order,
-            'deleted' => $this->deleted,
-        ]);
-
+		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+		$query->andFilterWhere(['like', 'order', $this->order]);
+		
         return $dataProvider;
     }
 }

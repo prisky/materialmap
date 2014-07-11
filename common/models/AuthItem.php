@@ -38,10 +38,10 @@ class AuthItem extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'type', 'created_at', 'updated_at'], 'integer'],
-            [['type'], 'required'],
+            [['name', 'type'], 'required'],
             [['description', 'data'], 'string'],
-            [['rule_name'], 'string', 'max' => 64],
-            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and  has already been taken.']
+            [['name', 'rule_name'], 'string', 'max' => 64],
+            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and Name has already been taken.']
         ];
     }
 
@@ -75,7 +75,7 @@ class AuthItem extends \common\components\ActiveRecord
      */
     public function getAuthItemChildren()
     {
-        return $this->hasMany(AuthItemChild::className(), ['child' => 'name', 'account_id' => 'account_id']);
+        return $this->hasMany(AuthItemChild::className(), ['parent' => 'name', 'account_id' => 'account_id']);
     }
 
     /**

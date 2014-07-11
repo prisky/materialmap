@@ -10,12 +10,11 @@ use common\models\Contact;
  */
 class ContactSearch extends Contact
 {
+    
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['first_name', 'last_name', 'email', 'phone_mobile'], 'safe'],
-        ];
+            [['email', 'first_name', 'last_name', 'phone_mobile'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +35,11 @@ class ContactSearch extends Contact
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phone_mobile', $this->phone_mobile]);
-
+		$query->andFilterWhere(['like', 'email', $this->email]);
+		$query->andFilterWhere(['like', 'first_name', $this->first_name]);
+		$query->andFilterWhere(['like', 'last_name', $this->last_name]);
+		$query->andFilterWhere(['like', 'phone_mobile', $this->phone_mobile]);
+		
         return $dataProvider;
     }
 }

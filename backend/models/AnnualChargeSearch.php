@@ -10,11 +10,11 @@ use common\models\AnnualCharge;
  */
 class AnnualChargeSearch extends AnnualCharge
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'charge_id'], 'integer'],
-        ];
+            [['charge_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,12 +35,8 @@ class AnnualChargeSearch extends AnnualCharge
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'charge_id' => $this->charge_id,
-        ]);
-
+		$query->andFilterWhere(['charge_id' => $this->charge_id]);
+		
         return $dataProvider;
     }
 }

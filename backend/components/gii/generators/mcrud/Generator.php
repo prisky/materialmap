@@ -765,7 +765,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 			$inputType = "DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],
-				'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '\t\t'));
+				'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '    '));
 		}
 		else {
 			if($column->type == 'integer') {
@@ -808,7 +808,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 		}
 
-        return "			['attribute' => '$attribute', 'type' =>  $inputType],";
+        return "\t\t\t['attribute' => '$attribute', 'type' =>  $inputType],";
 	}
 	
 	/**
@@ -826,6 +826,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		$tableSchema =  Yii::$app->db->getTableSchema($modelName::tableName());
  		$columns = $tableSchema->columns;
 		$gridColumns = [];
+		$types = [];
 
  		// get all columns that have labels
 		$attributes = \common\models\Column::find()

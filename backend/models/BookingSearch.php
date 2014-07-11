@@ -10,12 +10,12 @@ use common\models\Booking;
  */
 class BookingSearch extends Booking
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'event_id', 'summary_id'], 'integer'],
-            [['status'], 'safe'],
-        ];
+            [['status'], 'number'],
+			[['summary_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,9 @@ class BookingSearch extends Booking
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'event_id' => $this->event_id,
-            'summary_id' => $this->summary_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'status', $this->status]);
-
+		$query->andFilterWhere(['status' => $this->status]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
+		
         return $dataProvider;
     }
 }

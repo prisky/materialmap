@@ -10,13 +10,15 @@ use common\models\EventDetail;
  */
 class EventDetailSearch extends EventDetail
 {
+    public $from_deposit;
+	public $to_deposit;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'resource_id', 'seats_max', 'deposit_hours', 'seats_min', 'seats_min_hours'], 'integer'],
-            [['name', 'private_note', 'tooltip'], 'safe'],
             [['deposit'], 'number'],
-        ];
+			[['deposit_hours', 'name', 'private_note', 'seats_max', 'seats_min', 'seats_min_hours', 'tooltip'], 'safe'],
+			[['resource_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -37,21 +39,17 @@ class EventDetailSearch extends EventDetail
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'resource_id' => $this->resource_id,
-            'seats_max' => $this->seats_max,
-            'deposit' => $this->deposit,
-            'deposit_hours' => $this->deposit_hours,
-            'seats_min' => $this->seats_min,
-            'seats_min_hours' => $this->seats_min_hours,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'private_note', $this->private_note])
-            ->andFilterWhere(['like', 'tooltip', $this->tooltip]);
-
+		if(!is_null($this->from_deposit) && $this->from_deposit != '') $query->andWhere('`deposit` >= :from_deposit', [':from_deposit' => $this->from_deposit]);
+		if(!is_null($this->to_deposit) && $this->to_deposit != '') $query->andWhere('`deposit` <= :to_deposit', [':to_deposit' => $this->to_deposit]);
+		$query->andFilterWhere(['like', 'deposit_hours', $this->deposit_hours]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterWhere(['like', 'private_note', $this->private_note]);
+		$query->andFilterWhere(['resource_id' => $this->resource_id]);
+		$query->andFilterWhere(['like', 'seats_max', $this->seats_max]);
+		$query->andFilterWhere(['like', 'seats_min', $this->seats_min]);
+		$query->andFilterWhere(['like', 'seats_min_hours', $this->seats_min_hours]);
+		$query->andFilterWhere(['like', 'tooltip', $this->tooltip]);
+		
         return $dataProvider;
     }
 }

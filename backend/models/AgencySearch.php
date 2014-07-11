@@ -10,11 +10,11 @@ use common\models\Agency;
  */
 class AgencySearch extends Agency
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'supplier_account_id'], 'integer'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -35,12 +35,7 @@ class AgencySearch extends Agency
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'supplier_account_id' => $this->supplier_account_id,
-        ]);
-
+		
         return $dataProvider;
     }
 }

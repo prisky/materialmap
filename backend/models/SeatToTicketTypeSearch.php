@@ -10,11 +10,11 @@ use common\models\SeatToTicketType;
  */
 class SeatToTicketTypeSearch extends SeatToTicketType
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'seat_id', 'ticket_type_id', 'deleted'], 'integer'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -35,14 +35,7 @@ class SeatToTicketTypeSearch extends SeatToTicketType
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'seat_id' => $this->seat_id,
-            'ticket_type_id' => $this->ticket_type_id,
-            'deleted' => $this->deleted,
-        ]);
-
+		
         return $dataProvider;
     }
 }

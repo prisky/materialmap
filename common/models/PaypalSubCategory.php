@@ -27,9 +27,10 @@ class PaypalSubCategory extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['paypal_category_id'], 'required'],
+            [['paypal_category_id', 'name'], 'required'],
             [['paypal_category_id'], 'integer'],
-            [['paypal_category_id', 'name'], 'unique', 'targetAttribute' => ['paypal_category_id', 'name'], 'message' => 'The combination of Paypal category and  has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['paypal_category_id', 'name'], 'unique', 'targetAttribute' => ['paypal_category_id', 'name'], 'message' => 'The combination of Paypal category and Name has already been taken.']
         ];
     }
 

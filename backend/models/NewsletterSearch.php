@@ -10,12 +10,16 @@ use common\models\Newsletter;
  */
 class NewsletterSearch extends Newsletter
 {
+    public $from_sent;
+	public $to_sent;
+	public $from_sent;
+	public $to_sent;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['subject', 'content', 'sent'], 'safe'],
-        ];
+            [['content', 'subject'], 'safe'],
+			[['sent', 'from_sent', 'to_sent'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,15 +40,13 @@ class NewsletterSearch extends Newsletter
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'sent' => $this->sent,
-        ]);
-
-        $query->andFilterWhere(['like', 'subject', $this->subject])
-            ->andFilterWhere(['like', 'content', $this->content]);
-
+		$query->andFilterWhere(['like', 'content', $this->content]);
+		if(!is_null($this->from_sent) && $this->from_sent != '') $query->andWhere('`sent` >= :from_sent', [':from_sent' => $this->from_sent]);
+		if(!is_null($this->to_sent) && $this->to_sent != '') $query->andWhere('`sent` <= :to_sent', [':to_sent' => $this->to_sent]);
+		if(!is_null($this->from_sent) && $this->from_sent != '') $query->andWhere('`sent` >= :from_sent', [':from_sent' => $this->from_sent]);
+		if(!is_null($this->to_sent) && $this->to_sent != '') $query->andWhere('`sent` <= :to_sent', [':to_sent' => $this->to_sent]);
+		$query->andFilterWhere(['like', 'subject', $this->subject]);
+		
         return $dataProvider;
     }
 }

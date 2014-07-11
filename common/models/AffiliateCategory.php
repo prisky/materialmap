@@ -32,8 +32,9 @@ class AffiliateCategory extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'root', 'lft', 'rgt', 'level'], 'required'],
-            [['account_id', 'root', 'lft', 'rgt', 'level'], 'integer']
+            [['account_id', 'root', 'lft', 'rgt', 'level', 'name'], 'required'],
+            [['account_id', 'root', 'lft', 'rgt', 'level'], 'integer'],
+            [['name'], 'string', 'max' => 64]
         ];
     }
 

@@ -10,11 +10,11 @@ use common\models\SmsThread;
  */
 class SmsThreadSearch extends SmsThread
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-        ];
+                    ];
     }
 
     public function scenarios()
@@ -35,11 +35,7 @@ class SmsThreadSearch extends SmsThread
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-        ]);
-
+		
         return $dataProvider;
     }
 }

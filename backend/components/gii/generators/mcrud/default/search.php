@@ -42,7 +42,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     public function rules()
     {
         return [
-            <?= implode(",\n\t\t\t", $searchRules) ?>,
+            <?= implode(",\n\t\t\t", $searchRules) ?>
         ];
     }
 

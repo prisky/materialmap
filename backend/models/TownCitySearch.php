@@ -10,12 +10,11 @@ use common\models\TownCity;
  */
 class TownCitySearch extends TownCity
 {
+    
     public function rules()
     {
         return [
-            [['id', 'state_province_id'], 'integer'],
-            [['name'], 'safe'],
-        ];
+            [['name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,13 +35,8 @@ class TownCitySearch extends TownCity
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'state_province_id' => $this->state_province_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

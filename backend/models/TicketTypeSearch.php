@@ -10,13 +10,14 @@ use common\models\TicketType;
  */
 class TicketTypeSearch extends TicketType
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'seats', 'event_max', 'booking_max', 'deleted'], 'integer'],
-            [['name', 'comment'], 'safe'],
-            [['amount'], 'number'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number'],
+			[['booking_max', 'comment', 'event_max', 'name', 'seats'], 'safe']        ];
     }
 
     public function scenarios()
@@ -37,19 +38,14 @@ class TicketTypeSearch extends TicketType
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'seats' => $this->seats,
-            'amount' => $this->amount,
-            'event_max' => $this->event_max,
-            'booking_max' => $this->booking_max,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		$query->andFilterWhere(['like', 'booking_max', $this->booking_max]);
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterWhere(['like', 'event_max', $this->event_max]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterWhere(['like', 'seats', $this->seats]);
+		
         return $dataProvider;
     }
 }

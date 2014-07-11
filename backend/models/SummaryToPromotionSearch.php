@@ -10,11 +10,11 @@ use common\models\SummaryToPromotion;
  */
 class SummaryToPromotionSearch extends SummaryToPromotion
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'summary_id', 'promotion_id'], 'integer'],
-        ];
+            [['promotion_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class SummaryToPromotionSearch extends SummaryToPromotion
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'summary_id' => $this->summary_id,
-            'promotion_id' => $this->promotion_id,
-        ]);
-
+		$query->andFilterWhere(['promotion_id' => $this->promotion_id]);
+		
         return $dataProvider;
     }
 }

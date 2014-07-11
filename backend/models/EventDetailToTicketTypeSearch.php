@@ -10,11 +10,11 @@ use common\models\EventDetailToTicketType;
  */
 class EventDetailToTicketTypeSearch extends EventDetailToTicketType
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'event_detail_id', 'ticket_type_id'], 'integer'],
-        ];
+            [['ticket_type_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class EventDetailToTicketTypeSearch extends EventDetailToTicketType
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'event_detail_id' => $this->event_detail_id,
-            'ticket_type_id' => $this->ticket_type_id,
-        ]);
-
+		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
+		
         return $dataProvider;
     }
 }

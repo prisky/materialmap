@@ -16,8 +16,8 @@ namespace common\models;
  * @property Referral[] $referrals
  * @property Account $account
  * @property AccountToUser $accountToUser
- * @property Summary $summary
  * @property Invoice $invoice
+ * @property Summary $summary
  */
 class SummaryToAccountToUser extends \common\components\ActiveRecord
 {
@@ -70,16 +70,16 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getInvoice()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Invoice::className(), ['id' => 'invoice_id', 'account_to_user_id' => 'account_to_user_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInvoice()
+    public function getSummary()
     {
-        return $this->hasOne(Invoice::className(), ['id' => 'invoice_id', 'account_to_user_id' => 'account_to_user_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 }

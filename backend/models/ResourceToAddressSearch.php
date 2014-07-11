@@ -10,11 +10,11 @@ use common\models\ResourceToAddress;
  */
 class ResourceToAddressSearch extends ResourceToAddress
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'address_id', 'resource_id'], 'integer'],
-        ];
+            [['address_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class ResourceToAddressSearch extends ResourceToAddress
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'address_id' => $this->address_id,
-            'resource_id' => $this->resource_id,
-        ]);
-
+		$query->andFilterWhere(['address_id' => $this->address_id]);
+		
         return $dataProvider;
     }
 }

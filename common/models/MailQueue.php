@@ -12,8 +12,8 @@ namespace common\models;
  * @property string $subject
  * @property string $created
  *
- * @property Contact $to0
  * @property Account $from0
+ * @property Contact $to0
  */
 class MailQueue extends \common\components\ActiveRecord
 {
@@ -39,16 +39,16 @@ class MailQueue extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTo0()
+    public function getFrom0()
     {
-        return $this->hasOne(Contact::className(), ['id' => 'to']);
+        return $this->hasOne(Account::className(), ['id' => 'from']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFrom0()
+    public function getTo0()
     {
-        return $this->hasOne(Account::className(), ['id' => 'from']);
+        return $this->hasOne(Contact::className(), ['id' => 'to']);
     }
 }

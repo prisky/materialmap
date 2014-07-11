@@ -76,5 +76,5 @@ class Model extends \common\components\ActiveRecord
     public function getNavigationChilds()
     {
         return $this->hasMany(Navigation::className(), ['child' => 'auth_item_name']);
-}
+	}
 }

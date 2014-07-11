@@ -10,11 +10,11 @@ use common\models\SummaryToPercentPromotion;
  */
 class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'summary_id', 'percent_promotion_id'], 'integer'],
-        ];
+            [['percent_promotion_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'summary_id' => $this->summary_id,
-            'percent_promotion_id' => $this->percent_promotion_id,
-        ]);
-
+		$query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
+		
         return $dataProvider;
     }
 }

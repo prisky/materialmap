@@ -17,10 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'mandatory', 'type' =>  DetailView::INPUT_SWITCH],
 			['attribute' => 'minimum', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 			['attribute' => 'maximum', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 		]
 	]);	?>
 

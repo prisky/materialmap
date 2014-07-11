@@ -10,12 +10,11 @@ use common\models\Survey;
  */
 class SurveySearch extends Survey
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['name', 'comment', 'deleted'], 'safe'],
-        ];
+            [['comment', 'name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,15 +35,9 @@ class SurveySearch extends Survey
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment])
-            ->andFilterWhere(['like', 'deleted', $this->deleted]);
-
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

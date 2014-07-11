@@ -10,12 +10,12 @@ use common\models\User;
  */
 class UserSearch extends User
 {
+    
     public function rules()
     {
         return [
-            [['id', 'contact_id', 'deleted'], 'integer'],
-            [['auth_key', 'password_hash', 'password_reset_token'], 'safe'],
-        ];
+            [['auth_key'], 'safe'],
+			[['contact_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,16 +36,9 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'contact_id' => $this->contact_id,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token]);
-
+		$query->andFilterWhere(['like', 'auth_key', $this->auth_key]);
+		$query->andFilterWhere(['contact_id' => $this->contact_id]);
+		
         return $dataProvider;
     }
 }

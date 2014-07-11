@@ -14,9 +14,9 @@ namespace common\models;
  * @property string $answer
  *
  * @property Bid[] $bs
+ * @property Account $account
  * @property Bid $bid
  * @property QuestionThread $answer0
- * @property Account $account
  * @property QuestionThread[] $questionThreads
  */
 class Question extends \common\components\ActiveRecord
@@ -54,6 +54,14 @@ class Question extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getBid()
     {
         return $this->hasOne(Bid::className(), ['id' => 'bid_id', 'account_id' => 'account_id']);
@@ -65,14 +73,6 @@ class Question extends \common\components\ActiveRecord
     public function getAnswer0()
     {
         return $this->hasOne(QuestionThread::className(), ['id' => 'answer', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

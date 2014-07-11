@@ -10,12 +10,14 @@ use common\models\SummaryToVoucher;
  */
 class SummaryToVoucherSearch extends SummaryToVoucher
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'summary_id', 'voucher_id'], 'integer'],
-            [['amount'], 'number'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number'],
+			[['voucher_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,14 +38,10 @@ class SummaryToVoucherSearch extends SummaryToVoucher
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'summary_id' => $this->summary_id,
-            'voucher_id' => $this->voucher_id,
-            'amount' => $this->amount,
-        ]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		$query->andFilterWhere(['voucher_id' => $this->voucher_id]);
+		
         return $dataProvider;
     }
 }

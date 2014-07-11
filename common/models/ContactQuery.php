@@ -30,5 +30,4 @@ class ContactQuery extends \common\components\ActiveQuery
 //			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
 			->select(["tbl_contact.id id", "CONCAT_WS(' ', first_name, last_name, email, phone_mobile) text"]);
 	}
-	
 }

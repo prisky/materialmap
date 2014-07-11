@@ -10,12 +10,14 @@ use common\models\AuthAssignment;
  */
 class AuthAssignmentSearch extends AuthAssignment
 {
+    public $from_created_at;
+	public $to_created_at;
+	
     public function rules()
     {
         return [
-            [['id', 'user_id', 'created_at'], 'integer'],
-            [['item_name'], 'safe'],
-        ];
+            [['created_at'], 'integer'],
+			[['item_name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,14 +38,10 @@ class AuthAssignmentSearch extends AuthAssignment
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-        ]);
-
-        $query->andFilterWhere(['like', 'item_name', $this->item_name]);
-
+		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
+		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
+		$query->andFilterWhere(['like', 'item_name', $this->item_name]);
+		
         return $dataProvider;
     }
 }

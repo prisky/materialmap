@@ -10,12 +10,11 @@ use common\models\PaymentGateway;
  */
 class PaymentGatewaySearch extends PaymentGateway
 {
+    
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name'], 'safe'],
-        ];
+            [['name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,12 +35,8 @@ class PaymentGatewaySearch extends PaymentGateway
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

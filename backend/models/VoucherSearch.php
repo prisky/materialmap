@@ -10,13 +10,14 @@ use common\models\Voucher;
  */
 class VoucherSearch extends Voucher
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['amount'], 'number'],
-            [['uniqueid'], 'safe'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number'],
+			[['uniqueid'], 'safe']        ];
     }
 
     public function scenarios()
@@ -37,14 +38,10 @@ class VoucherSearch extends Voucher
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'amount' => $this->amount,
-        ]);
-
-        $query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		$query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
+		
         return $dataProvider;
     }
 }

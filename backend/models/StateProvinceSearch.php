@@ -10,12 +10,11 @@ use common\models\StateProvince;
  */
 class StateProvinceSearch extends StateProvince
 {
+    
     public function rules()
     {
         return [
-            [['id', 'country_id'], 'integer'],
-            [['name'], 'safe'],
-        ];
+            [['name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,13 +35,8 @@ class StateProvinceSearch extends StateProvince
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'country_id' => $this->country_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

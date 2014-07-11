@@ -10,8 +10,8 @@ namespace common\models;
  * @property string $account_to_message
  * @property string $user_id
  *
- * @property AccountToMessage $accountToMessage
  * @property Account $account
+ * @property AccountToMessage $accountToMessage
  */
 class AccountToMessageToUser extends \common\components\ActiveRecord
 {
@@ -39,16 +39,16 @@ class AccountToMessageToUser extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccountToMessage()
+    public function getAccount()
     {
-        return $this->hasOne(AccountToMessage::className(), ['id' => 'account_to_message', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getAccountToMessage()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(AccountToMessage::className(), ['id' => 'account_to_message', 'account_id' => 'account_id']);
     }
 }

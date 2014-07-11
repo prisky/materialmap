@@ -13,9 +13,9 @@ namespace common\models;
  *
  * @property EventToResourceToExtraToTicket[] $eventToResourceToExtraToTickets
  * @property SurveyResultToTicket[] $surveyResultToTickets
- * @property TicketType $ticketType
- * @property Booking $booking
  * @property Account $account
+ * @property Booking $booking
+ * @property TicketType $ticketType
  * @property TicketToCharge[] $ticketToCharges
  * @property TicketToEventToResourceToCustomField[] $ticketToEventToResourceToCustomFields
  * @property TicketToSeat[] $ticketToSeats
@@ -63,9 +63,9 @@ class Ticket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketType()
+    public function getAccount()
     {
-        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -79,9 +79,9 @@ class Ticket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getTicketType()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
     }
 
     /**

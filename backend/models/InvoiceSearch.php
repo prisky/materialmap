@@ -10,12 +10,20 @@ use common\models\Invoice;
  */
 class InvoiceSearch extends Invoice
 {
+    public $from_invoiced;
+	public $to_invoiced;
+	public $from_invoiced;
+	public $to_invoiced;
+	public $from_paid;
+	public $to_paid;
+	public $from_paid;
+	public $to_paid;
+	
     public function rules()
     {
         return [
-            [['id', 'account_to_user_id'], 'integer'],
-            [['invoiced', 'paid'], 'safe'],
-        ];
+            [['account_to_user_id'], 'integer'],
+			[['invoiced', 'from_invoiced', 'to_invoiced', 'paid', 'from_paid', 'to_paid'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,13 +44,16 @@ class InvoiceSearch extends Invoice
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_to_user_id' => $this->account_to_user_id,
-            'invoiced' => $this->invoiced,
-            'paid' => $this->paid,
-        ]);
-
+		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
+		if(!is_null($this->from_invoiced) && $this->from_invoiced != '') $query->andWhere('`invoiced` >= :from_invoiced', [':from_invoiced' => $this->from_invoiced]);
+		if(!is_null($this->to_invoiced) && $this->to_invoiced != '') $query->andWhere('`invoiced` <= :to_invoiced', [':to_invoiced' => $this->to_invoiced]);
+		if(!is_null($this->from_invoiced) && $this->from_invoiced != '') $query->andWhere('`invoiced` >= :from_invoiced', [':from_invoiced' => $this->from_invoiced]);
+		if(!is_null($this->to_invoiced) && $this->to_invoiced != '') $query->andWhere('`invoiced` <= :to_invoiced', [':to_invoiced' => $this->to_invoiced]);
+		if(!is_null($this->from_paid) && $this->from_paid != '') $query->andWhere('`paid` >= :from_paid', [':from_paid' => $this->from_paid]);
+		if(!is_null($this->to_paid) && $this->to_paid != '') $query->andWhere('`paid` <= :to_paid', [':to_paid' => $this->to_paid]);
+		if(!is_null($this->from_paid) && $this->from_paid != '') $query->andWhere('`paid` >= :from_paid', [':from_paid' => $this->from_paid]);
+		if(!is_null($this->to_paid) && $this->to_paid != '') $query->andWhere('`paid` <= :to_paid', [':to_paid' => $this->to_paid]);
+		
         return $dataProvider;
     }
 }

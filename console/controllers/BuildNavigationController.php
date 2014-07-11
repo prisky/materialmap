@@ -37,7 +37,6 @@ class BuildNavigationController extends Controller
 		],
 		'MessageField',
 		'Model',
-		'Navigation',
 		'PaymentGateway',
 		'Reseller',
 		'User'=> [

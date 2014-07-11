@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $summary_id
  * @property string $percent_promotion_id
  *
- * @property Summary $summary
- * @property PercentPromotion $percentPromotion
  * @property Account $account
+ * @property PercentPromotion $percentPromotion
+ * @property Summary $summary
  */
 class SummaryToPercentPromotion extends \common\components\ActiveRecord
 {
@@ -40,9 +40,9 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getAccount()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -56,8 +56,8 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSummary()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 }

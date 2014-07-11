@@ -21,10 +21,10 @@ use backend\components\DetailView;
 			['attribute' => 'type', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
 			['attribute' => 'created_at', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
 			['attribute' => 'updated_at', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
+			['attribute' => 'name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'description', 'type' =>  DetailView::INPUT_TEXTAREA],
 			['attribute' => 'data', 'type' =>  DetailView::INPUT_TEXTAREA],
 			['attribute' => 'rule_name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 		]
 	]);	?>
 

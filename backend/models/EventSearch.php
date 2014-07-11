@@ -10,12 +10,20 @@ use common\models\Event;
  */
 class EventSearch extends Event
 {
+    public $from_end;
+	public $to_end;
+	public $from_end;
+	public $to_end;
+	public $from_start;
+	public $to_start;
+	public $from_start;
+	public $to_start;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'event_detail_id'], 'integer'],
-            [['start', 'end', 'status'], 'safe'],
-        ];
+            [['end', 'from_end', 'to_end', 'start', 'from_start', 'to_start', 'status'], 'number'],
+			[['event_detail_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,16 +44,17 @@ class EventSearch extends Event
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'event_detail_id' => $this->event_detail_id,
-            'start' => $this->start,
-            'end' => $this->end,
-        ]);
-
-        $query->andFilterWhere(['like', 'status', $this->status]);
-
+		if(!is_null($this->from_end) && $this->from_end != '') $query->andWhere('`end` >= :from_end', [':from_end' => $this->from_end]);
+		if(!is_null($this->to_end) && $this->to_end != '') $query->andWhere('`end` <= :to_end', [':to_end' => $this->to_end]);
+		if(!is_null($this->from_end) && $this->from_end != '') $query->andWhere('`end` >= :from_end', [':from_end' => $this->from_end]);
+		if(!is_null($this->to_end) && $this->to_end != '') $query->andWhere('`end` <= :to_end', [':to_end' => $this->to_end]);
+		$query->andFilterWhere(['event_detail_id' => $this->event_detail_id]);
+		if(!is_null($this->from_start) && $this->from_start != '') $query->andWhere('`start` >= :from_start', [':from_start' => $this->from_start]);
+		if(!is_null($this->to_start) && $this->to_start != '') $query->andWhere('`start` <= :to_start', [':to_start' => $this->to_start]);
+		if(!is_null($this->from_start) && $this->from_start != '') $query->andWhere('`start` >= :from_start', [':from_start' => $this->from_start]);
+		if(!is_null($this->to_start) && $this->to_start != '') $query->andWhere('`start` <= :to_start', [':to_start' => $this->to_start]);
+		$query->andFilterWhere(['status' => $this->status]);
+		
         return $dataProvider;
     }
 }

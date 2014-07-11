@@ -32,8 +32,7 @@ class AccountSearch extends Account
         return [
             [['address_id', 'user_id'], 'integer'],
 			[['annual_charge', 'from_annual_charge', 'to_annual_charge', 'balance', 'from_balance', 'to_balance', 'booking_charge', 'from_booking_charge', 'to_booking_charge', 'rate', 'from_rate', 'to_rate', 'seat_charge', 'from_seat_charge', 'to_seat_charge', 'sms_charge', 'from_sms_charge', 'to_sms_charge', 'summary_charge', 'from_summary_charge', 'to_summary_charge', 'ticket_charge', 'from_ticket_charge', 'to_ticket_charge'], 'number'],
-			[['phone_work'], 'safe'],
-        ];
+			[['phone_work'], 'safe']        ];
     }
 
     public function scenarios()

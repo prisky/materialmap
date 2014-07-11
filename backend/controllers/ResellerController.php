@@ -2,21 +2,71 @@
 
 namespace backend\controllers;
 
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * ResellerController implements the CRUD actions for Reseller model.
  */
 class ResellerController extends \backend\components\Controller
 {
-	
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_account table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionAccountlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Account', $q, $page, $id);
+	public $excelFormats = [
+        "child_admin" => "[=0]\"No\";[=1]\"Yes\"",
+        "rate" => "0.00%"
+    ];
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getGridColumns() {
+		return [
+            [
+                "attribute" => "child_admin",
+                "class" => "kartik\\grid\\BooleanColumn",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_child_admin",
+                    "attribute2" => "to_child_admin"
+                ]
+            ],
+            [
+                "attribute" => "expiry_days"
+            ],
+            [
+                "attribute" => "rate",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_rate",
+                    "attribute2" => "to_rate",
+                    "type" => "\\kartik\\widgets\\TouchSpin",
+                    "widgetOptions1" => [
+                        "pluginOptions" => [
+                            "verticalbuttons" => TRUE,
+                            "verticalupclass" => "glyphicon glyphicon-plus",
+                            "verticaldownclass" => "glyphicon glyphicon-minus"
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "pluginOptions" => [
+                            "verticalbuttons" => TRUE,
+                            "verticalupclass" => "glyphicon glyphicon-plus",
+                            "verticaldownclass" => "glyphicon glyphicon-minus"
+                        ]
+                    ]
+                ]
+            ],
+            [
+                "attribute" => "trial_days"
+            ]
+        ];
 	}
 
 }

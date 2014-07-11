@@ -10,13 +10,14 @@ use common\models\Item;
  */
 class ItemSearch extends Item
 {
+    public $from_amount;
+	public $to_amount;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id', 'extra_id', 'inventory', 'deleted'], 'integer'],
-            [['name'], 'safe'],
-            [['amount'], 'number'],
-        ];
+            [['amount', 'from_amount', 'to_amount'], 'number'],
+			[['inventory', 'name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -37,17 +38,11 @@ class ItemSearch extends Item
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'extra_id' => $this->extra_id,
-            'amount' => $this->amount,
-            'inventory' => $this->inventory,
-            'deleted' => $this->deleted,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+		$query->andFilterWhere(['like', 'inventory', $this->inventory]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

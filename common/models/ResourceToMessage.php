@@ -13,9 +13,9 @@ namespace common\models;
  * @property string $sms_message
  * @property string $email_submect
  *
- * @property Resource $resource
- * @property Message $message
  * @property Account $account
+ * @property Message $message
+ * @property Resource $resource
  * @property ResourceToMessageToUser[] $resourceToMessageToUsers
  */
 class ResourceToMessage extends \common\components\ActiveRecord
@@ -47,9 +47,9 @@ class ResourceToMessage extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResource()
+    public function getAccount()
     {
-        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -63,9 +63,9 @@ class ResourceToMessage extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getResource()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
     }
 
     /**

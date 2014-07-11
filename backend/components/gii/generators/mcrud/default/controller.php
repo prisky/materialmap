@@ -23,7 +23,6 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
-
 use Yii;
 use kartik\helpers\Html;
 use yii\helpers\Url;

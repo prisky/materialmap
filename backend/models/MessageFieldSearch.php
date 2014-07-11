@@ -10,12 +10,11 @@ use common\models\MessageField;
  */
 class MessageFieldSearch extends MessageField
 {
+    
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'comment'], 'safe'],
-        ];
+            [['comment', 'name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,13 +35,9 @@ class MessageFieldSearch extends MessageField
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
-
+		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterWhere(['like', 'name', $this->name]);
+		
         return $dataProvider;
     }
 }

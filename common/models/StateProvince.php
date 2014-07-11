@@ -28,9 +28,10 @@ class StateProvince extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['country_id'], 'required'],
+            [['name', 'country_id'], 'required'],
             [['country_id'], 'integer'],
-            [['country_id', 'name'], 'unique', 'targetAttribute' => ['country_id', 'name'], 'message' => 'The combination of  and Country has already been taken.']
+            [['name'], 'string', 'max' => 64],
+            [['country_id', 'name'], 'unique', 'targetAttribute' => ['country_id', 'name'], 'message' => 'The combination of Name and Country has already been taken.']
         ];
     }
 

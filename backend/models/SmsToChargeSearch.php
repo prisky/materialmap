@@ -10,11 +10,11 @@ use common\models\SmsToCharge;
  */
 class SmsToChargeSearch extends SmsToCharge
 {
+    
     public function rules()
     {
         return [
-            [['id', 'account_id', 'sms_id', 'charge_id'], 'integer'],
-        ];
+            [['charge_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,13 +35,8 @@ class SmsToChargeSearch extends SmsToCharge
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'sms_id' => $this->sms_id,
-            'charge_id' => $this->charge_id,
-        ]);
-
+		$query->andFilterWhere(['charge_id' => $this->charge_id]);
+		
         return $dataProvider;
     }
 }

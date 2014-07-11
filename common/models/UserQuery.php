@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use Yii;
-
 /**
  * Scopes chained to the find method of an ActiveRecord  for table "tbl_user" .
  */
@@ -32,5 +30,4 @@ class UserQuery extends \common\components\ActiveQuery
 //			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
 			->select(["tbl_user.id id", "CONCAT_WS(' ', auth_key, password_hash, password_reset_token) text"]);
 	}
-	
 }

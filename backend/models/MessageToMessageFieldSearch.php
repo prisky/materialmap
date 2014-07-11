@@ -10,11 +10,11 @@ use common\models\MessageToMessageField;
  */
 class MessageToMessageFieldSearch extends MessageToMessageField
 {
+    
     public function rules()
     {
         return [
-            [['id', 'message_id', 'message_field_id'], 'integer'],
-        ];
+            [['message_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,12 +35,8 @@ class MessageToMessageFieldSearch extends MessageToMessageField
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'message_id' => $this->message_id,
-            'message_field_id' => $this->message_field_id,
-        ]);
-
+		$query->andFilterWhere(['message_field_id' => $this->message_field_id]);
+		
         return $dataProvider;
     }
 }

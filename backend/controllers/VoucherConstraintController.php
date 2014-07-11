@@ -2,21 +2,49 @@
 
 namespace backend\controllers;
 
+use Yii;
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use backend\components\Controller;
+use yii\helpers\Inflector;
+
 /**
  * VoucherConstraintController implements the CRUD actions for VoucherConstraint model.
  */
 class VoucherConstraintController extends \backend\components\Controller
 {
-	
 	/**
-	 * Produce widget options for a Select2 widget for the account_id foreign key attribute
-	 * referencing the tbl_voucher table
-	 * @param mixed $q The search term the user enters - sent by ajax with each keypress
-	 * @param mixed $page The page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
-	 * @param mixed $id The id of the model to load initially
+	 * @inheritdoc
 	 */
-	 public function actionVoucherlist($q = null, $page = null, $id = null) {
-		$this->foreignKeylist('Voucher', $q, $page, $id);
+	public $excelFormats = [
+        "invalid_from" => "hh:mm AM/PM on mmmm d, yy",
+        "invalid_to" => "hh:mm AM/PM on mmmm d, yy"
+    ];
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getGridColumns() {
+		return [
+            [
+                "attribute" => "invalid_from",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_invalid_from",
+                    "attribute2" => "to_invalid_from"
+                ],
+                "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "invalid_to",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_invalid_to",
+                    "attribute2" => "to_invalid_to"
+                ],
+                "filterType" => "backend\\components\\FieldRange"
+            ]
+        ];
 	}
 
 }

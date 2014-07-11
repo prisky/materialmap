@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'child', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'parent', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'account_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AuthItem')],
 		]
 	]);	?>

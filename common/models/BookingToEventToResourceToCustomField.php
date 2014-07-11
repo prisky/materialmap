@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $event_to_resource_to_custom_field_id
  * @property string $custom_value
  *
+ * @property Account $account
  * @property Booking $booking
  * @property EventToResourceToCustomField $eventToResourceToCustomField
- * @property Account $account
  */
 class BookingToEventToResourceToCustomField extends \common\components\ActiveRecord
 {
@@ -42,6 +42,14 @@ class BookingToEventToResourceToCustomField extends \common\components\ActiveRec
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getBooking()
     {
         return $this->hasOne(Booking::className(), ['id' => 'booking_id', 'account_id' => 'account_id']);
@@ -53,13 +61,5 @@ class BookingToEventToResourceToCustomField extends \common\components\ActiveRec
     public function getEventToResourceToCustomField()
     {
         return $this->hasOne(EventToResourceToCustomField::className(), ['id' => 'event_to_resource_to_custom_field_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

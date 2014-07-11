@@ -12,8 +12,8 @@ namespace common\models;
  * @property string $created
  *
  * @property Question[] $questions
- * @property Question $question
  * @property Account $account
+ * @property Question $question
  */
 class QuestionThread extends \common\components\ActiveRecord
 {
@@ -49,16 +49,16 @@ class QuestionThread extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getQuestion()
+    public function getAccount()
     {
-        return $this->hasOne(Question::className(), ['id' => 'question_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getQuestion()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id', 'account_id' => 'account_id']);
     }
 }

@@ -27,8 +27,9 @@ class MessageField extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['comment'], 'required'],
+            [['name', 'comment'], 'required'],
             [['comment'], 'string'],
+            [['name'], 'string', 'max' => 64],
             [['name'], 'unique']
         ];
     }

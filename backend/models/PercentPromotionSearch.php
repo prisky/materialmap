@@ -10,12 +10,13 @@ use common\models\PercentPromotion;
  */
 class PercentPromotionSearch extends PercentPromotion
 {
+    public $from_rate;
+	public $to_rate;
+	
     public function rules()
     {
         return [
-            [['id', 'account_id'], 'integer'],
-            [['rate'], 'number'],
-        ];
+            [['rate', 'from_rate', 'to_rate'], 'number']        ];
     }
 
     public function scenarios()
@@ -36,12 +37,9 @@ class PercentPromotionSearch extends PercentPromotion
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'account_id' => $this->account_id,
-            'rate' => $this->rate,
-        ]);
-
+		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
+		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
+		
         return $dataProvider;
     }
 }

@@ -10,12 +10,12 @@ use common\models\Address;
  */
 class AddressSearch extends Address
 {
+    
     public function rules()
     {
         return [
-            [['id', 'town_city_id'], 'integer'],
             [['address_line1', 'address_line2', 'post_code'], 'safe'],
-        ];
+			[['town_city_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,15 +36,11 @@ class AddressSearch extends Address
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'town_city_id' => $this->town_city_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'address_line1', $this->address_line1])
-            ->andFilterWhere(['like', 'address_line2', $this->address_line2])
-            ->andFilterWhere(['like', 'post_code', $this->post_code]);
-
+		$query->andFilterWhere(['like', 'address_line1', $this->address_line1]);
+		$query->andFilterWhere(['like', 'address_line2', $this->address_line2]);
+		$query->andFilterWhere(['like', 'post_code', $this->post_code]);
+		$query->andFilterWhere(['town_city_id' => $this->town_city_id]);
+		
         return $dataProvider;
     }
 }

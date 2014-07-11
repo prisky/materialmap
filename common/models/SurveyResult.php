@@ -11,8 +11,8 @@ namespace common\models;
  * @property string $custom_value
  * @property string $created
  *
- * @property SurveyToCustomField $surveyToCustomField
  * @property Account $account
+ * @property SurveyToCustomField $surveyToCustomField
  * @property SurveyResultToBooking[] $surveyResultToBookings
  * @property SurveyResultToSummary[] $surveyResultToSummaries
  * @property SurveyResultToTicket[] $surveyResultToTickets
@@ -44,17 +44,17 @@ class SurveyResult extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyToCustomField()
+    public function getAccount()
     {
-        return $this->hasOne(SurveyToCustomField::className(), ['id' => 'survey_to_custom_field_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSurveyToCustomField()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(SurveyToCustomField::className(), ['id' => 'survey_to_custom_field_id', 'account_id' => 'account_id']);
     }
 
     /**
