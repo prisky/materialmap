@@ -93,3 +93,28 @@ a.desc:after {
 .breadcrumb {
 	border: 1px solid #DDDDDD;
 }
+
+.grid-view  {
+	overflow: auto;
+}
+
+.modal-body tr {
+	display: flex;
+	align-items: center;
+}
+
+.modal-body td {
+	flex-grow: 1;
+	border: none !important;
+}
+
+.modal-body th {
+	border: none !important;
+}
+
+.modal-body .table-bordered, .modal-body tbody {
+	display: block;
+	
+}
+
+

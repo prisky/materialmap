@@ -5,55 +5,118 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-param" content="_csrf">
-    <meta name="csrf-token" content="XzJJUC5CakgUaChlRC9aLwsAFh9vAwccNlYMFmw3MgEzWQwjfCs9Kw==">
-    <title>Account</title>
+    <meta name="csrf-token" content="T1o4RF9QZDQBKQgnDRUWbR00TQMxKS9TYjB9IigfNHcpBU99NgdSXA==">
+    <title>Accounts</title>
     <link href="/bookaspot/backend/web/assets/3d44a39a/css/bootstrap.css" rel="stylesheet">
-<link href="/bookaspot/backend/web/assets/a4ac18a8/css/activeform.css" rel="stylesheet">
+<link href="/bookaspot/backend/web/assets/8d956f8e/css/kv-detail-view.css" rel="stylesheet">
 <link href="/bookaspot/backend/web/assets/a4ac18a8/css/kv-widgets.css" rel="stylesheet">
 <link href="/bookaspot/backend/web/assets/6ba824d9/select2.css" rel="stylesheet">
 <link href="/bookaspot/backend/web/assets/6ba824d9/select2-bootstrap3.css" rel="stylesheet">
+<link href="/bookaspot/backend/web/assets/a4ac18a8/css/bootstrap-touchspin.css" rel="stylesheet">
+<link href="/bookaspot/backend/web/assets/fc046e6f/css/kv-grid.css" rel="stylesheet">
+<link href="/bookaspot/backend/web/assets/a72850ce/css/field-range.css" rel="stylesheet">
 <link href="/bookaspot/backend/web/css/site.css" rel="stylesheet">
-<script type="text/javascript">var select2_2e207abc = {"allowClear":true,"ajax":{"url":"\/bookaspot\/backend\/web\/index.php?r=account%2Faccountlist","dataType":"json","data":"function (term, page) {\n\treturn {\n\t\tq: term,\n\t\tpage_limit: 10,\n\t\tpage: page,\n\t};\n}","results":"function (data, page) {\n\tvar more = (page * 10) < data.total;\n\n\treturn {\n\t\tresults: data.results,\n\t\tmore: more\n\t};\n}"},"initSelection":"function (element, callback) {\n    var id=$(element).val();\n    if (id !== \"\") {\n        $.ajax(\"\/bookaspot\/backend\/web\/index.php?r=account%2Faccountlist?id=\" + id, {dataType: \"json\"}).done(function(data) { callback(data.results);});\n    }\n}","width":"resolve"};
-</script></head>
+</head>
 <body>
         <div class="wrap">
- 
+        <nav id="w14" class="navbar-inverse navbar-fixed-top navbar" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle" data-toggle="collapse" data-target="#w14-collapse"><span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button><a class="navbar-brand" href="/bookaspot/backend/web/index.php">bookaspot</a></div><div id="w14-collapse" class="collapse navbar-collapse"><ul id="w15" class="navbar-nav navbar-right nav"><li><a href="/bookaspot/backend/web/index.php?r=site%2Flogout" data-method="post">Logout (developer)</a></li></ul></div></div></nav>
 		<div class="container">
-		<div class="update">
+		<ul class="breadcrumb"><li><a href="/bookaspot/backend/web/index.php?r=site%2Findex">Home</a></li>
+<li class="active">Accounts</li>
 
-    
-<div class="site-login">
-     <div class="row">
-        <div class="col-lg-5">
-            <form id="login-form" class="form-vertical" action="/bookaspot/backend/web/index.php?r=account%2Fupdate&amp;id=2" method="post">
-<input type="hidden" name="_csrf" value="XzJJUC5CakgUaChlRC9aLwsAFh9vAwccNlYMFmw3MgEzWQwjfCs9Kw=="><div class="form-group field-account-user_id required">
-<label class="control-label" for="account-user_id">User</label>
-<div class="kv-plugin-loading loading-account-user_id">&nbsp;</div><input type="text" id="account-user_id" class="kv-hide " name="Account[user_id]" value="1" placeholder="Select a user ..." style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_2e207abc">
+    <p>
+	
+<div id="new" class="modal" role="dialog" tabindex="-1">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title"> New Account</h4>
+</div>
+<div class="modal-body">
+    </p>
+
+	<div>
+
+	
+<div class="account-form">
+
+    <form id="w1" action="/bookaspot/backend/web/index.php?r=account%2Fcreate" method="post">
+<input type="hidden" name="_csrf" value="T1o4RF9QZDQBKQgnDRUWbR00TQMxKS9TYjB9IigfNHcpBU99NgdSXA=="><div id="w0"><div class="table-responsive"><table class="detail-view table table-hover table-bordered table-striped table-condensed"><tr><th style="width: 20%; text-align: right; vertical-align: middle;">User</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-user_id required">
+<div class="kv-plugin-loading loading-account-user_id">&nbsp;</div><input type="text" id="account-user_id" class="kv-hide " name="Account[user_id]" style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_1f77fb45">
+
 <div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Address</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-address_id required">
+<div class="kv-plugin-loading loading-account-address_id">&nbsp;</div><input type="text" id="account-address_id" class="kv-hide " name="Account[address_id]" style="width: 100%" data-plugin-name="select2" data-plugin-options="select2_abfd2b97">
 
-</div>          </form>        </div>
-    </div>
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Phone work</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-phone_work required">
+<input type="text" id="account-phone_work" class="form-control" name="Account[phone_work]" maxlength="20">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Balance</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-balance">
+<input type="text" id="account-balance-disp" class="form-control" name="account-balance-disp"><input type="hidden" id="account-balance" name="Account[balance]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Summary charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-summary_charge">
+<input type="text" id="account-summary_charge-disp" class="form-control" name="account-summary_charge-disp"><input type="hidden" id="account-summary_charge" name="Account[summary_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Booking charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-booking_charge">
+<input type="text" id="account-booking_charge-disp" class="form-control" name="account-booking_charge-disp"><input type="hidden" id="account-booking_charge" name="Account[booking_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Ticket charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-ticket_charge">
+<input type="text" id="account-ticket_charge-disp" class="form-control" name="account-ticket_charge-disp"><input type="hidden" id="account-ticket_charge" name="Account[ticket_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Seat charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-seat_charge">
+<input type="text" id="account-seat_charge-disp" class="form-control" name="account-seat_charge-disp"><input type="hidden" id="account-seat_charge" name="Account[seat_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Sms charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-sms_charge">
+<input type="text" id="account-sms_charge-disp" class="form-control" name="account-sms_charge-disp"><input type="hidden" id="account-sms_charge" name="Account[sms_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Annual charge</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-annual_charge">
+<input type="text" id="account-annual_charge-disp" class="form-control" name="account-annual_charge-disp"><input type="hidden" id="account-annual_charge" name="Account[annual_charge]">
+
+<div class="help-block"></div>
+</div></div></td></tr>
+<tr><th style="width: 20%; text-align: right; vertical-align: middle;">Rate</th><td><div class="kv-attribute"><span class="not-set">(not set)</span></div>
+<div class="kv-form-attribute kv-hide"><div class="form-group field-account-rate">
+<input type="text" id="account-rate" name="Account[rate]" data-plugin-name="TouchSpin" data-plugin-options="TouchSpin_57926292">
+
+<div class="help-block"></div>
+</div></div></td></tr></table></div></div><button type="submit" class="btn btn-success">Save</button></form>
 </div>
 
+	</div>
+	
+</div>
 
 </div>
 </div>
-		</div>
+</div>
 
-
-<script src="/bookaspot/backend/web/assets/b4cd500d/jquery.js"></script>
-<script src="/bookaspot/backend/web/assets/6ba824d9/select2.js"></script>
-<script src="/bookaspot/backend/web/assets/6939fda8/yii.js"></script>
-<script src="/bookaspot/backend/web/assets/6939fda8/yii.activeForm.js"></script>
-<script type="text/javascript">jQuery(document).ready(function () {
-$.when($('#account-user_id').select2(select2_2e207abc)).done(function(){
-    var $container = $('#account-user_id').select2('container');
-    $('#account-user_id').removeClass('kv-hide');
-    $container.removeClass('kv-hide');
-    $('.kv-plugin-loading.loading-account-user_id').remove();
-    if (Object.keys($('.kv-hide.group-account-user_id')).length > 0) {
-        $('.kv-hide.group-account-user_id').removeClass('kv-hide').removeClass('group-account-user_id');
-    }
-});
-</script></body>
+</body>
 </html>
