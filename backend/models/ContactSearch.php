@@ -35,10 +35,10 @@ class ContactSearch extends Contact
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'email', $this->email]);
-		$query->andFilterWhere(['like', 'first_name', $this->first_name]);
-		$query->andFilterWhere(['like', 'last_name', $this->last_name]);
-		$query->andFilterWhere(['like', 'phone_mobile', $this->phone_mobile]);
+		$query->andFilterGoogleStyle('email', $this->email);
+		$query->andFilterGoogleStyle('first_name', $this->first_name);
+		$query->andFilterGoogleStyle('last_name', $this->last_name);
+		$query->andFilterGoogleStyle('phone_mobile', $this->phone_mobile);
 		
         return $dataProvider;
     }

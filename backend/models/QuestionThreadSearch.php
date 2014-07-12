@@ -35,7 +35,7 @@ class QuestionThreadSearch extends QuestionThread
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterGoogleStyle('comment', $this->comment);
 		
         return $dataProvider;
     }

@@ -36,7 +36,7 @@ class TicketToSeatToEventToResourceToCustomFieldSearch extends TicketToSeatToEve
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		

@@ -42,7 +42,7 @@ class EventToResourceToExtraToTicketToSeatSearch extends EventToResourceToExtraT
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
 		$query->andFilterWhere(['event_to_resource_to_extra_id' => $this->event_to_resource_to_extra_id]);
-		$query->andFilterWhere(['like', 'quantity', $this->quantity]);
+		$query->andFilterGoogleStyle('quantity', $this->quantity);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		
         return $dataProvider;

@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\grid\GridView;
+use backend\components\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 
@@ -57,7 +57,7 @@ Yii::$app->getModule('gridview')->downloadAction = $action;
 				'options' => ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#new'],
 				'encodeLabel' => false
 			]),
-			'showFooter' => true,
+			'showFooter' => false,
 		],
 		'exportConfig' => [
 			GridView::CSV => [],

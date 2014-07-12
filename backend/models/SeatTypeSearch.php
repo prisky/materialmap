@@ -35,7 +35,7 @@ class SeatTypeSearch extends SeatType
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;
     }

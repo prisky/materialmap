@@ -35,8 +35,8 @@ class CommentSearch extends Comment
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'content', $this->content]);
-		$query->andFilterWhere(['like', 'email', $this->email]);
+		$query->andFilterGoogleStyle('content', $this->content);
+		$query->andFilterGoogleStyle('email', $this->email);
 		
         return $dataProvider;
     }

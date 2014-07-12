@@ -46,7 +46,7 @@ class BidSearch extends Bid
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterGoogleStyle('comment', $this->comment);
 		if(!is_null($this->from_deadline) && $this->from_deadline != '') $query->andWhere('`deadline` >= :from_deadline', [':from_deadline' => $this->from_deadline]);
 		if(!is_null($this->to_deadline) && $this->to_deadline != '') $query->andWhere('`deadline` <= :to_deadline', [':to_deadline' => $this->to_deadline]);
 		if(!is_null($this->from_deadline) && $this->from_deadline != '') $query->andWhere('`deadline` >= :from_deadline', [':from_deadline' => $this->from_deadline]);

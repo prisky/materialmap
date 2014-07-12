@@ -14,11 +14,11 @@ abstract class ActiveQuery extends \yii\db\ActiveQuery
 	
 	/**
 	 * Set ActiveQuery properties suitable for paging. This used in lists.
-	 * @param type $search The search term entered by the user
+	 * @param type $q The search term entered by the user
 	 * @param type $page The page number
 	 * @return ActiveQuery $this
 	 */
-	public function displayAttributes($search = null, $page = null)
+	public function displayAttributes($q = null, $page = null)
 	{
 		if(is_numeric($page)) {
 			$this->offset($page - 1);
@@ -44,6 +44,22 @@ abstract class ActiveQuery extends \yii\db\ActiveQuery
 			}
 		}
 		
+		return $this;
+	}
+	
+	/**
+	 * Filter in a google style manner i.e. an unordered search of all terms the user entered seperated by spaces
+	 * @param type $attribute the attribute
+	 * @param type $q the users search term
+	 * @return \common\components\ActiveQuery $this
+	 */
+	public function andFilterGoogleStyle($attribute, $q) {
+		if(is_string($q)) {
+			foreach(explode(' ', $q) as $like) {
+				$this->andFilterWhere(['like', $attribute, $like]);
+			}
+		}
+
 		return $this;
 	}
 

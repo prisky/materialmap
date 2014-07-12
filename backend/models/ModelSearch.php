@@ -35,10 +35,10 @@ class ModelSearch extends Model
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'auth_item_name', $this->auth_item_name]);
-		$query->andFilterWhere(['like', 'help', $this->help]);
-		$query->andFilterWhere(['like', 'label', $this->label]);
-		$query->andFilterWhere(['like', 'label_plural', $this->label_plural]);
+		$query->andFilterGoogleStyle('auth_item_name', $this->auth_item_name);
+		$query->andFilterGoogleStyle('help', $this->help);
+		$query->andFilterGoogleStyle('label', $this->label);
+		$query->andFilterGoogleStyle('label_plural', $this->label_plural);
 		
         return $dataProvider;
     }

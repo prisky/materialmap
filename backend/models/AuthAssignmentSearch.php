@@ -40,7 +40,7 @@ class AuthAssignmentSearch extends AuthAssignment
 
 		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
 		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
-		$query->andFilterWhere(['like', 'item_name', $this->item_name]);
+		$query->andFilterGoogleStyle('item_name', $this->item_name);
 		
         return $dataProvider;
     }

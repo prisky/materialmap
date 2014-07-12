@@ -40,11 +40,11 @@ class TicketTypeSearch extends TicketType
 
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		$query->andFilterWhere(['like', 'booking_max', $this->booking_max]);
-		$query->andFilterWhere(['like', 'comment', $this->comment]);
-		$query->andFilterWhere(['like', 'event_max', $this->event_max]);
-		$query->andFilterWhere(['like', 'name', $this->name]);
-		$query->andFilterWhere(['like', 'seats', $this->seats]);
+		$query->andFilterGoogleStyle('booking_max', $this->booking_max);
+		$query->andFilterGoogleStyle('comment', $this->comment);
+		$query->andFilterGoogleStyle('event_max', $this->event_max);
+		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('seats', $this->seats);
 		
         return $dataProvider;
     }

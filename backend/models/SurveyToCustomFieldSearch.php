@@ -37,7 +37,7 @@ class SurveyToCustomFieldSearch extends SurveyToCustomField
         }
 
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
-		$query->andFilterWhere(['like', 'order', $this->order]);
+		$query->andFilterGoogleStyle('order', $this->order);
 		
         return $dataProvider;
     }

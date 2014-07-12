@@ -250,7 +250,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			// geerate the ActiveQuery
             $files[] = $codeFile = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . 'Query'. '.php',
-                $this->render('ActiveQuery.php', $params)
+                $this->render('activequery.php', $params)
             );
 
 			// crud generateor expectes modelName to be namespaced
@@ -1061,7 +1061,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 						}
 						else {
 							$types['safe'][] = $attribute;
-							$searchConditions[] = "\$query->andFilterWhere(['like', '{$attribute}', \$this->{$attribute}])";
+							$searchConditions[] = "\$query->andFilterGoogleStyle('{$attribute}', \$this->{$attribute})";
 						}
 					}
 				}

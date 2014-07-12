@@ -40,12 +40,12 @@ class NewsletterSearch extends Newsletter
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'content', $this->content]);
+		$query->andFilterGoogleStyle('content', $this->content);
 		if(!is_null($this->from_sent) && $this->from_sent != '') $query->andWhere('`sent` >= :from_sent', [':from_sent' => $this->from_sent]);
 		if(!is_null($this->to_sent) && $this->to_sent != '') $query->andWhere('`sent` <= :to_sent', [':to_sent' => $this->to_sent]);
 		if(!is_null($this->from_sent) && $this->from_sent != '') $query->andWhere('`sent` >= :from_sent', [':from_sent' => $this->from_sent]);
 		if(!is_null($this->to_sent) && $this->to_sent != '') $query->andWhere('`sent` <= :to_sent', [':to_sent' => $this->to_sent]);
-		$query->andFilterWhere(['like', 'subject', $this->subject]);
+		$query->andFilterGoogleStyle('subject', $this->subject);
 		
         return $dataProvider;
     }

@@ -38,10 +38,10 @@ class MessageSearch extends Message
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'email_html', $this->email_html]);
-		$query->andFilterWhere(['like', 'email_subject', $this->email_subject]);
-		$query->andFilterWhere(['like', 'name', $this->name]);
-		$query->andFilterWhere(['like', 'sms_text', $this->sms_text]);
+		$query->andFilterGoogleStyle('email_html', $this->email_html);
+		$query->andFilterGoogleStyle('email_subject', $this->email_subject);
+		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('sms_text', $this->sms_text);
 		if(!is_null($this->from_system) && $this->from_system != '') $query->andWhere('`system` >= :from_system', [':from_system' => $this->from_system]);
 		if(!is_null($this->to_system) && $this->to_system != '') $query->andWhere('`system` <= :to_system', [':to_system' => $this->to_system]);
 		

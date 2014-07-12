@@ -36,7 +36,7 @@ class TicketToEventToResourceToCustomFieldSearch extends TicketToEventToResource
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
 		
         return $dataProvider;

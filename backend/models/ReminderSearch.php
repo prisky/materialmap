@@ -35,7 +35,7 @@ class ReminderSearch extends Reminder
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'hours_prior', $this->hours_prior]);
+		$query->andFilterGoogleStyle('hours_prior', $this->hours_prior);
 		
         return $dataProvider;
     }

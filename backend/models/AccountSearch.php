@@ -60,7 +60,7 @@ class AccountSearch extends Account
 		if(!is_null($this->to_balance) && $this->to_balance != '') $query->andWhere('`balance` <= :to_balance', [':to_balance' => $this->to_balance]);
 		if(!is_null($this->from_booking_charge) && $this->from_booking_charge != '') $query->andWhere('`booking_charge` >= :from_booking_charge', [':from_booking_charge' => $this->from_booking_charge]);
 		if(!is_null($this->to_booking_charge) && $this->to_booking_charge != '') $query->andWhere('`booking_charge` <= :to_booking_charge', [':to_booking_charge' => $this->to_booking_charge]);
-		$query->andFilterWhere(['like', 'phone_work', $this->phone_work]);
+		$query->andFilterGoogleStyle('phone_work', $this->phone_work);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
 		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
 		if(!is_null($this->from_seat_charge) && $this->from_seat_charge != '') $query->andWhere('`seat_charge` >= :from_seat_charge', [':from_seat_charge' => $this->from_seat_charge]);

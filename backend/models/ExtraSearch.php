@@ -40,9 +40,9 @@ class ExtraSearch extends Extra
 
 		if(!is_null($this->from_mandatory) && $this->from_mandatory != '') $query->andWhere('`mandatory` >= :from_mandatory', [':from_mandatory' => $this->from_mandatory]);
 		if(!is_null($this->to_mandatory) && $this->to_mandatory != '') $query->andWhere('`mandatory` <= :to_mandatory', [':to_mandatory' => $this->to_mandatory]);
-		$query->andFilterWhere(['like', 'maximum', $this->maximum]);
-		$query->andFilterWhere(['like', 'minimum', $this->minimum]);
-		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterGoogleStyle('maximum', $this->maximum);
+		$query->andFilterGoogleStyle('minimum', $this->minimum);
+		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;
     }

@@ -43,13 +43,13 @@ class CustomFieldSearch extends CustomField
 
 		if(!is_null($this->from_allow_new) && $this->from_allow_new != '') $query->andWhere('`allow_new` >= :from_allow_new', [':from_allow_new' => $this->from_allow_new]);
 		if(!is_null($this->to_allow_new) && $this->to_allow_new != '') $query->andWhere('`allow_new` <= :to_allow_new', [':to_allow_new' => $this->to_allow_new]);
-		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterGoogleStyle('comment', $this->comment);
 		$query->andFilterWhere(['data_type' => $this->data_type]);
-		$query->andFilterWhere(['like', 'label', $this->label]);
+		$query->andFilterGoogleStyle('label', $this->label);
 		if(!is_null($this->from_mandatory) && $this->from_mandatory != '') $query->andWhere('`mandatory` >= :from_mandatory', [':from_mandatory' => $this->from_mandatory]);
 		if(!is_null($this->to_mandatory) && $this->to_mandatory != '') $query->andWhere('`mandatory` <= :to_mandatory', [':to_mandatory' => $this->to_mandatory]);
-		$query->andFilterWhere(['like', 'validation_error', $this->validation_error]);
-		$query->andFilterWhere(['like', 'validation_text', $this->validation_text]);
+		$query->andFilterGoogleStyle('validation_error', $this->validation_error);
+		$query->andFilterGoogleStyle('validation_text', $this->validation_text);
 		$query->andFilterWhere(['validation_type' => $this->validation_type]);
 		
         return $dataProvider;

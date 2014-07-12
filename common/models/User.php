@@ -39,7 +39,7 @@ class User extends \common\components\ActiveRecord implements IdentityInterface
     {
         return [
             [['contact_id', 'auth_key', 'password_hash'], 'required'],
-            [['contact_id', 'deleted'], 'integer'],
+            [['contact_id'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],
             [['password_hash'], 'string', 'max' => 64],
             [['password_reset_token'], 'string', 'max' => 255],
@@ -97,7 +97,7 @@ class User extends \common\components\ActiveRecord implements IdentityInterface
             return $user;
         } else {
             return null;
-}
+		}
     }
 
     /**

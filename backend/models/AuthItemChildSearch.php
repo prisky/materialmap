@@ -35,7 +35,7 @@ class AuthItemChildSearch extends AuthItemChild
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'parent', $this->parent]);
+		$query->andFilterGoogleStyle('parent', $this->parent);
 		
         return $dataProvider;
     }

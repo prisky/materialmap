@@ -41,7 +41,7 @@ class QuestionSearch extends Question
 
 		$query->andFilterWhere(['answer' => $this->answer]);
 		$query->andFilterWhere(['bid_id' => $this->bid_id]);
-		$query->andFilterWhere(['like', 'comment', $this->comment]);
+		$query->andFilterGoogleStyle('comment', $this->comment);
 		if(!is_null($this->from_offer) && $this->from_offer != '') $query->andWhere('`offer` >= :from_offer', [':from_offer' => $this->from_offer]);
 		if(!is_null($this->to_offer) && $this->to_offer != '') $query->andWhere('`offer` <= :to_offer', [':to_offer' => $this->to_offer]);
 		

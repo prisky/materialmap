@@ -35,7 +35,7 @@ class StateProvinceSearch extends StateProvince
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;
     }

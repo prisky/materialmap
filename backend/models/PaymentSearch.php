@@ -43,7 +43,7 @@ class PaymentSearch extends Payment
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
 		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
 		$query->andFilterWhere(['summary_id' => $this->summary_id]);
-		$query->andFilterWhere(['like', 'uniqueid', $this->uniqueid]);
+		$query->andFilterGoogleStyle('uniqueid', $this->uniqueid);
 		
         return $dataProvider;
     }

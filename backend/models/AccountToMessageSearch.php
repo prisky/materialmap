@@ -36,10 +36,10 @@ class AccountToMessageSearch extends AccountToMessage
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'email_message', $this->email_message]);
-		$query->andFilterWhere(['like', 'email_submect', $this->email_submect]);
+		$query->andFilterGoogleStyle('email_message', $this->email_message);
+		$query->andFilterGoogleStyle('email_submect', $this->email_submect);
 		$query->andFilterWhere(['message_id' => $this->message_id]);
-		$query->andFilterWhere(['like', 'sms_message', $this->sms_message]);
+		$query->andFilterGoogleStyle('sms_message', $this->sms_message);
 		
         return $dataProvider;
     }

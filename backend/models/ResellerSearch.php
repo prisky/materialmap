@@ -43,10 +43,10 @@ class ResellerSearch extends Reseller
 
 		if(!is_null($this->from_child_admin) && $this->from_child_admin != '') $query->andWhere('`child_admin` >= :from_child_admin', [':from_child_admin' => $this->from_child_admin]);
 		if(!is_null($this->to_child_admin) && $this->to_child_admin != '') $query->andWhere('`child_admin` <= :to_child_admin', [':to_child_admin' => $this->to_child_admin]);
-		$query->andFilterWhere(['like', 'expiry_days', $this->expiry_days]);
+		$query->andFilterGoogleStyle('expiry_days', $this->expiry_days);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
 		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
-		$query->andFilterWhere(['like', 'trial_days', $this->trial_days]);
+		$query->andFilterGoogleStyle('trial_days', $this->trial_days);
 		
         return $dataProvider;
     }

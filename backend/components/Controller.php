@@ -104,7 +104,8 @@ abstract class Controller extends \common\components\Controller
 	{ 
 		$searchModel = new $this->modelNameSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		
+		$dataProvider->getPagination()->pageSize = 10;
+
 		if(Yii::$app->user->can($this->modelNameShort)) {
 			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'];
 		}

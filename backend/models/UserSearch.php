@@ -36,7 +36,7 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'auth_key', $this->auth_key]);
+		$query->andFilterGoogleStyle('auth_key', $this->auth_key);
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		
         return $dataProvider;

@@ -36,7 +36,7 @@ class PaypalSubCategorySearch extends PaypalSubCategory
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterWhere(['paypal_category_id' => $this->paypal_category_id]);
 		
         return $dataProvider;

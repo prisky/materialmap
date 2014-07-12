@@ -48,7 +48,7 @@ class AffiliateCategorySearch extends AffiliateCategory
 		if(!is_null($this->to_level) && $this->to_level != '') $query->andWhere('`level` <= :to_level', [':to_level' => $this->to_level]);
 		if(!is_null($this->from_lft) && $this->from_lft != '') $query->andWhere('`lft` >= :from_lft', [':from_lft' => $this->from_lft]);
 		if(!is_null($this->to_lft) && $this->to_lft != '') $query->andWhere('`lft` <= :to_lft', [':to_lft' => $this->to_lft]);
-		$query->andFilterWhere(['like', 'name', $this->name]);
+		$query->andFilterGoogleStyle('name', $this->name);
 		if(!is_null($this->from_rgt) && $this->from_rgt != '') $query->andWhere('`rgt` >= :from_rgt', [':from_rgt' => $this->from_rgt]);
 		if(!is_null($this->to_rgt) && $this->to_rgt != '') $query->andWhere('`rgt` <= :to_rgt', [':to_rgt' => $this->to_rgt]);
 		if(!is_null($this->from_root) && $this->from_root != '') $query->andWhere('`root` >= :from_root', [':from_root' => $this->from_root]);

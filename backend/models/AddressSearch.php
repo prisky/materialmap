@@ -36,9 +36,9 @@ class AddressSearch extends Address
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'address_line1', $this->address_line1]);
-		$query->andFilterWhere(['like', 'address_line2', $this->address_line2]);
-		$query->andFilterWhere(['like', 'post_code', $this->post_code]);
+		$query->andFilterGoogleStyle('address_line1', $this->address_line1);
+		$query->andFilterGoogleStyle('address_line2', $this->address_line2);
+		$query->andFilterGoogleStyle('post_code', $this->post_code);
 		$query->andFilterWhere(['town_city_id' => $this->town_city_id]);
 		
         return $dataProvider;

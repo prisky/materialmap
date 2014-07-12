@@ -35,12 +35,12 @@ class CountrySearch extends Country
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'code', $this->code]);
-		$query->andFilterWhere(['like', 'currency_code', $this->currency_code]);
-		$query->andFilterWhere(['like', 'currency_symbol', $this->currency_symbol]);
-		$query->andFilterWhere(['like', 'name', $this->name]);
-		$query->andFilterWhere(['like', 'phone_prefix', $this->phone_prefix]);
-		$query->andFilterWhere(['like', 'tax_name', $this->tax_name]);
+		$query->andFilterGoogleStyle('code', $this->code);
+		$query->andFilterGoogleStyle('currency_code', $this->currency_code);
+		$query->andFilterGoogleStyle('currency_symbol', $this->currency_symbol);
+		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('phone_prefix', $this->phone_prefix);
+		$query->andFilterGoogleStyle('tax_name', $this->tax_name);
 		
         return $dataProvider;
     }

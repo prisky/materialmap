@@ -36,7 +36,7 @@ class SurveyResultSearch extends SurveyResult
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['like', 'custom_value', $this->custom_value]);
+		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['survey_to_custom_field_id' => $this->survey_to_custom_field_id]);
 		
         return $dataProvider;
