@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use backend\components\GridView;
+use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 
@@ -18,6 +18,20 @@ $this->title = $this->context->labelPlural();
 $action = array_merge(['export'], Yii::$app->request->queryParams);
 unset($action['r']);
 Yii::$app->getModule('gridview')->downloadAction = $action;
+
+$template = <<< HTML
+<div class="panel {type}">
+	<div class="panel-heading clearfix">
+		<div class="pull-right kv-panel-pager">{pager}</div>
+		<div class="pull-right">{summary}</div>
+	   {heading}
+	</div>
+	 {before}
+	{items}
+	{after}
+</div>
+HTML;
+
 
 ?>
 <div class="index">
@@ -47,7 +61,7 @@ Yii::$app->getModule('gridview')->downloadAction = $action;
 		'responsive' => true,
 		'hover' => true,
 		'bordered' => false,
-		'floatHeader'=>true,
+		'floatHeader' => true,
 //		'floatHeaderOptions'=>['scrollingTop'=>'50'], currently causing column names to dissapear
 		'panel' => [
 			'heading'=>Html::tag('h3', Html::encode($this->title), ['class' => 'panel-title']),
@@ -58,6 +72,7 @@ Yii::$app->getModule('gridview')->downloadAction = $action;
 				'encodeLabel' => false
 			]),
 			'showFooter' => false,
+			'layout' => $template,
 		],
 		'exportConfig' => [
 			GridView::CSV => [],

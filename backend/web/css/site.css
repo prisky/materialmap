@@ -99,29 +99,6 @@ a.desc:after {
 	overflow: auto;
 }
 
-.modal-body tr {
-	display: flex; 
-	align-items: center;
-	border-bottom: 1px solid #DDD;
-}
-
-.modal .table-bordered {
-	border-bottom: none;
-}
-.modal-body td {
-	flex-grow: 1;
-	border: none !important;
-}
-
-.modal-body th {
-	border: none !important;
-}
-
-.modal-body .table-bordered, .modal-body tbody {
-	display: block;
-	
-}
-
 .grid-view .panel-title {
 	margin-top: 4px;
 	margin-bottom: 0;
@@ -146,6 +123,40 @@ a.desc:after {
 	width: inherit;
 }
 
-.modal-body .select2-container {
-	border-right: 1px solid #ccc;
+.detail-view.table-striped div.row:nth-child(odd) {
+	background-color: #f9f9f9;
+}
+
+.modal-body.row {
+	margin: 0;
+	padding: 5px 0 5px 0 ;
+	border: none;
+	border-bottom: 1px solid #ddd;
+}
+
+.detail-view {
+	border-bottom: none;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.modal-body .col-xs-3 {
+	text-align: right;
+	padding-right: 0;
+	font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+	width: 20%;
+}
+
+.modal-body .col-xs-9 {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+	width: 80%;
 }

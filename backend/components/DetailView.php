@@ -7,6 +7,9 @@ namespace backend\components;
  */
 class DetailView extends \kartik\detail\DetailView
 {
+	public $template = '<div class="modal-body row"><div class="col-xs-3">{label}</div><div class="col-xs-9">{value}</div></div>';
+	public $options = ['tag'=>'div'];
+
 	/**
 	 * @inheritdoc
 	 */
