@@ -275,5 +275,21 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			? Inflector::id2camel(preg_replace('/^' . Yii::$app->db->tablePrefix . '/', '', $keyColumnUsage[static::tableName()][$attribute]), '_')
 			: NULL;
 	}
+	
+	/**
+	 * Remove any null valued attributes if null is not allowed for the column - treat empty string as null but 0 as 0
+	 * @inheritdoc
+	 */
+	public function save($runValidation = true, $attributeNames = null)
+	{
+		if(!$attributeNames) {
+			foreach($this->attributes as $attributeName => $attribute) {
+				if(!(is_null($attribute) || $attribute == '') || $this->tableSchema->columns[$attributeName]->allowNull) {
+					$attributeNames[] = $attributeName;
+				}
+			}
+		}
 
+		return parent::save($runValidation, $attributeNames);
+	}
 }
