@@ -16,6 +16,10 @@ use backend\components\DetailView;
 		'condensed'=>true,
 		'hover'=>true,
 		'mode'=>$mode,
+		'template' => '<div class="modal-body row"><div class="col-xs-3">{label}</div><div class="col-xs-9">{value}</div></div>',
+		'options'=>[
+			'tag'=>'div',
+		],
 		'attributes'=>[
 			['attribute' => 'user_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User')],
 			['attribute' => 'address_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Address')],
