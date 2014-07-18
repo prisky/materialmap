@@ -1,0 +1,402 @@
+Array
+(
+    [0] => Array
+        (
+            [line] => 15
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No docblock for element '$closureTableName'
+        )
+
+    [1] => Array
+        (
+            [line] => 15
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No short description for element '$closureTableName'
+        )
+
+    [2] => Array
+        (
+            [line] => 18
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No docblock for element '$childAttribute'
+        )
+
+    [3] => Array
+        (
+            [line] => 18
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No short description for element '$childAttribute'
+        )
+
+    [4] => Array
+        (
+            [line] => 19
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No docblock for element '$parentAttribute'
+        )
+
+    [5] => Array
+        (
+            [line] => 19
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No short description for element '$parentAttribute'
+        )
+
+    [6] => Array
+        (
+            [line] => 20
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No docblock for element '$depthAttribute'
+        )
+
+    [7] => Array
+        (
+            [line] => 20
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => No short description for element '$depthAttribute'
+        )
+
+    [8] => Array
+        (
+            [line] => 108
+            [file] => backend/components/ClosureTableQuery.php
+            [message] => Undefined parameter documented: $primaryKey. in descendantsOf().
+        )
+
+    [9] => Array
+        (
+            [line] => 46
+            [file] => backend/components/Controller.php
+            [message] => Method __construct has no parent to inherit from in backend\components\Controller.
+        )
+
+    [10] => Array
+        (
+            [line] => 62
+            [file] => backend/components/Controller.php
+            [message] => Method behaviors has no parent to inherit from in backend\components\Controller.
+        )
+
+    [11] => Array
+        (
+            [line] => 10
+            [file] => backend/components/DetailView.php
+            [message] => No docblock for element '$template'
+        )
+
+    [12] => Array
+        (
+            [line] => 10
+            [file] => backend/components/DetailView.php
+            [message] => No short description for element '$template'
+        )
+
+    [13] => Array
+        (
+            [line] => 11
+            [file] => backend/components/DetailView.php
+            [message] => No docblock for element '$options'
+        )
+
+    [14] => Array
+        (
+            [line] => 11
+            [file] => backend/components/DetailView.php
+            [message] => No short description for element '$options'
+        )
+
+    [15] => Array
+        (
+            [line] => 16
+            [file] => backend/components/DetailView.php
+            [message] => Method init has no parent to inherit from in backend\components\DetailView.
+        )
+
+    [16] => Array
+        (
+            [line] => 50
+            [file] => backend/components/DetailView.php
+            [message] => Method run has no parent to inherit from in backend\components\DetailView.
+        )
+
+    [17] => Array
+        (
+            [line] => 9
+            [file] => backend/components/FieldRange.php
+            [message] => No docblock for element 'backend\components\FieldRange'
+        )
+
+    [18] => Array
+        (
+            [line] => 12
+            [file] => backend/components/FieldRange.php
+            [message] => No docblock for element '$attribute'
+        )
+
+    [19] => Array
+        (
+            [line] => 12
+            [file] => backend/components/FieldRange.php
+            [message] => No short description for element '$attribute'
+        )
+
+    [20] => Array
+        (
+            [line] => 10
+            [file] => backend/components/Search.php
+            [message] => No docblock for element 'rules'
+        )
+
+    [21] => Array
+        (
+            [line] => 19
+            [file] => backend/components/Search.php
+            [message] => No docblock for element 'scenarios'
+        )
+
+    [22] => Array
+        (
+            [line] => 25
+            [file] => backend/components/Search.php
+            [message] => No docblock for element 'search'
+        )
+
+    [23] => Array
+        (
+            [line] => 20
+            [file] => backend/components/Tabs.php
+            [message] => Method renderItems has no parent to inherit from in backend\components\Tabs.
+        )
+
+    [24] => Array
+        (
+            [line] => 26
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$db'
+        )
+
+    [25] => Array
+        (
+            [line] => 26
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$db'
+        )
+
+    [26] => Array
+        (
+            [line] => 27
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$ns'
+        )
+
+    [27] => Array
+        (
+            [line] => 27
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$ns'
+        )
+
+    [28] => Array
+        (
+            [line] => 28
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$tableName'
+        )
+
+    [29] => Array
+        (
+            [line] => 28
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$tableName'
+        )
+
+    [30] => Array
+        (
+            [line] => 29
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$modelClass'
+        )
+
+    [31] => Array
+        (
+            [line] => 29
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$modelClass'
+        )
+
+    [32] => Array
+        (
+            [line] => 30
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$baseClass'
+        )
+
+    [33] => Array
+        (
+            [line] => 30
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$baseClass'
+        )
+
+    [34] => Array
+        (
+            [line] => 31
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$generateRelations'
+        )
+
+    [35] => Array
+        (
+            [line] => 31
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$generateRelations'
+        )
+
+    [36] => Array
+        (
+            [line] => 32
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$useTablePrefix'
+        )
+
+    [37] => Array
+        (
+            [line] => 32
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$useTablePrefix'
+        )
+
+    [38] => Array
+        (
+            [line] => 33
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$baseControllerClass'
+        )
+
+    [39] => Array
+        (
+            [line] => 33
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$baseControllerClass'
+        )
+
+    [40] => Array
+        (
+            [line] => 34
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$controllerNs'
+        )
+
+    [41] => Array
+        (
+            [line] => 34
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$controllerNs'
+        )
+
+    [42] => Array
+        (
+            [line] => 35
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$searchModelNs'
+        )
+
+    [43] => Array
+        (
+            [line] => 35
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$searchModelNs'
+        )
+
+    [44] => Array
+        (
+            [line] => 36
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No docblock for element '$enableI18N'
+        )
+
+    [45] => Array
+        (
+            [line] => 36
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => No short description for element '$enableI18N'
+        )
+
+    [46] => Array
+        (
+            [line] => 41
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method getName has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [47] => Array
+        (
+            [line] => 49
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method getDescription has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [48] => Array
+        (
+            [line] => 58
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method rules has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [49] => Array
+        (
+            [line] => 86
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method attributeLabels has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [50] => Array
+        (
+            [line] => 103
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method hints has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [51] => Array
+        (
+            [line] => 134
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method autoCompleteData has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [52] => Array
+        (
+            [line] => 151
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method requiredTemplates has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [53] => Array
+        (
+            [line] => 163
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method stickyAttributes has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [54] => Array
+        (
+            [line] => 216
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method generate has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+    [55] => Array
+        (
+            [line] => 481
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Undefined parameter documented:  in checkPivotTable().
+        )
+
+    [56] => Array
+        (
+            [line] => 747
+            [file] => backend/components/gii/generators/mcrud/Generator.php
+            [message] => Method generateActiveField has no parent to inherit from in backend\components\gii\generators\mcrud\Generator.
+        )
+
+)

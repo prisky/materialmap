@@ -17,7 +17,7 @@ namespace common\models;
  */
 class Model extends \common\components\ActiveRecord
 {
-	use \vendor\aidask\ClosureTableActiveRecordTrait\ClosureTableActiveRecordTrait;
+	use \backend\components\ClosureTableActiveRecordTrait;
 
 	const closureTableName = 'tbl_navigation';
     const childAttribute = 'child';

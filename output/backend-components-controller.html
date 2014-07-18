@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en" />
+        <link href="./assets/70b3f94d/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/21ea916/style.css" rel="stylesheet">
+<script src="./assets/3ee98be/jquery.js"></script>
+<script src="./assets/70b3f94d/js/bootstrap.js"></script>
+<script src="./assets/a85d9681/jssearch.js"></script>    <title>Yii Framework 2.0 API Documentation</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w6" class="navbar-inverse navbar-fixed-top navbar" role="navigation"><div class="navbar-header"><button class="navbar-toggle" data-toggle="collapse" data-target="#w6-collapse"><span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button><a class="navbar-brand" href="./index.html">Yii Framework 2.0 API Documentation</a></div><div id="w6-collapse" class="collapse navbar-collapse"><ul id="w7" class="navbar-nav nav"><li><a href="./index.html">Class reference</a></li></ul><div class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+  </div>
+</div>
+</div></nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+    
+<div class="row">
+    <div class="col-md-3">
+                <div id="navigation" class="list-group"><a class="list-group-item active" href="#navigation-4" data-toggle="collapse" data-parent="#navigation">backend\components <b class="caret"></b></a><div id="navigation-4" class="submenu panel-collapse collapse in"><a class="list-group-item" href="./backend-components-closuretableactiverecordtrait.html">ClosureTableActiveRecordTrait</a>
+<a class="list-group-item" href="./backend-components-closuretablequery.html">ClosureTableQuery</a>
+<a class="list-group-item active" href="./backend-components-controller.html">Controller</a>
+<a class="list-group-item" href="./backend-components-detailview.html">DetailView</a>
+<a class="list-group-item" href="./backend-components-fieldrange.html">FieldRange</a>
+<a class="list-group-item" href="./backend-components-search.html">Search</a>
+<a class="list-group-item" href="./backend-components-tabs.html">Tabs</a></div>
+<a class="list-group-item" href="#navigation-5" data-toggle="collapse" data-parent="#navigation">backend\components\gii\generators\mcrud <b class="caret"></b></a><div id="navigation-5" class="submenu panel-collapse collapse"><a class="list-group-item" href="./backend-components-gii-generators-mcrud-generator.html">Generator</a></div></div>    </div>
+    <div class="col-md-9 api-content" role="main">
+        <h1>Abstract Class backend\components\Controller</h1>
+<div id="nav">
+    <a href="index.html">All Classes</a>
+            | <a href="#properties">Properties</a>
+                | <a href="#methods">Methods</a>
+            </div>
+
+<table class="summaryTable docClass table table-bordered">
+    <colgroup>
+        <col class="col-name" />
+        <col class="col-value" />
+    </colgroup>
+            <tr><th>Inheritance</th><td><a href="backend-components-controller.html">backend\components\Controller</a> &raquo;
+common\components\Controller</td></tr>
+                                </table>
+
+<div id="classDescription">
+    <p><strong>Controller is the base class of app controllers and implements the CRUD actions for a model.</strong></p>
+    
+    </div>
+
+<a name="properties"></a>
+
+<div class="summary doc-property">
+<h2>Public Properties</h2>
+
+<p><a href="#" class="toggle">Hide inherited properties</a></p>
+
+<table class="summary-table table table-striped table-bordered table-hover">
+<colgroup>
+    <col class="col-property" />
+    <col class="col-type" />
+    <col class="col-description" />
+    <col class="col-defined" />
+</colgroup>
+<tr>
+  <th>Property</th><th>Type</th><th>Description</th><th>Defined By</th>
+</tr>
+        <tr id="$excelFormats">
+        <td><a href="backend-components-controller.html#$excelFormats-detail">$excelFormats</a></td>
+        <td><a href="http://www.php.net/language.types.array">array</a></td>
+        <td>Of Excel format strings indexed by attribute</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="$modelNameSearch">
+        <td><a href="backend-components-controller.html#$modelNameSearch-detail">$modelNameSearch</a></td>
+        <td><a href="http://www.php.net/language.types.string">string</a></td>
+        <td>The model name of the search class with namespace</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+    </table>
+</div>
+
+<a name="methods"></a>
+
+<div class="summary doc-method">
+<h2>Public Methods</h2>
+
+<p><a href="#" class="toggle">Hide inherited methods</a></p>
+
+<table class="summary-table table table-striped table-bordered table-hover">
+<colgroup>
+    <col class="col-method" />
+    <col class="col-description" />
+    <col class="col-defined" />
+</colgroup>
+<tr>
+  <th>Method</th><th>Description</th><th>Defined By</th>
+</tr>
+        <tr id="__construct()">
+        <td><a href="backend-components-controller.html#__construct()-detail">__construct()</a></td>
+        <td></td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionCreate()">
+        <td><a href="backend-components-controller.html#actionCreate()-detail">actionCreate()</a></td>
+        <td>Creates a new model.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionDelete()">
+        <td><a href="backend-components-controller.html#actionDelete()-detail">actionDelete()</a></td>
+        <td>Deletes an existing model.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionExport()">
+        <td><a href="backend-components-controller.html#actionExport()-detail">actionExport()</a></td>
+        <td>Download the exported file</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionIndex()">
+        <td><a href="backend-components-controller.html#actionIndex()-detail">actionIndex()</a></td>
+        <td>Lists all models.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionList()">
+        <td><a href="backend-components-controller.html#actionList()-detail">actionList()</a></td>
+        <td>Produce list data for ajax return in Select2 widget</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionUpdate()">
+        <td><a href="backend-components-controller.html#actionUpdate()-detail">actionUpdate()</a></td>
+        <td>Updates an existing model.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="actionView()">
+        <td><a href="backend-components-controller.html#actionView()-detail">actionView()</a></td>
+        <td>Displays a single model.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="behaviors()">
+        <td><a href="backend-components-controller.html#behaviors()-detail">behaviors()</a></td>
+        <td></td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="fKWidgetOptions()">
+        <td><a href="backend-components-controller.html#fKWidgetOptions()-detail">fKWidgetOptions()</a></td>
+        <td>Produce widget options for a Select2 widget for a foreign key field.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+                <tr id="getBreadCrumbs()">
+        <td><a href="backend-components-controller.html#getBreadCrumbs()-detail">getBreadCrumbs()</a></td>
+        <td>Builds breadcrumbs using the tbl_navigation closure table and working back from the current url.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="getGridColumns()">
+        <td><a href="backend-components-controller.html#getGridColumns()-detail">getGridColumns()</a></td>
+        <td>Build array of grid columns for  use in grid view
+return array grid columns</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+            <tr id="tabs()">
+        <td><a href="backend-components-controller.html#tabs()-detail">tabs()</a></td>
+        <td>Get the tabs which are the current pages content as active and inactive tabs are the sibling options in navigation</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+    </table>
+</div>
+
+<div class="summary doc-method">
+<h2>Protected Methods</h2>
+
+<p><a href="#" class="toggle">Hide inherited methods</a></p>
+
+<table class="summary-table table table-striped table-bordered table-hover">
+<colgroup>
+    <col class="col-method" />
+    <col class="col-description" />
+    <col class="col-defined" />
+</colgroup>
+<tr>
+  <th>Method</th><th>Description</th><th>Defined By</th>
+</tr>
+                                                <tr id="findModel()">
+        <td><a href="backend-components-controller.html#findModel()-detail">findModel()</a></td>
+        <td>Finds the model based on its primary key value.</td>
+        <td><a href="backend-components-controller.html">backend\components\Controller</a></td>
+    </tr>
+                </table>
+</div>
+
+<a name="events"></a>
+
+<a name="constants"></a>
+
+<h2>Property Details</h2>
+
+<div class="property-doc">
+
+    <div class="detail-header h3" id="$excelFormats-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#$excelFormats-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        $excelFormats        <span class="detailHeaderTag small">
+            public                                    property
+                    </span>
+    </div>
+
+    <div class="signature"><a href="http://www.php.net/language.types.array">array</a> <a href="backend-components-controller.html#$excelFormats-detail">$excelFormats</a> <span style="color: #0000BB"></span><span style="color: #007700">=&nbsp;[]</span></div>
+
+    <p>Of Excel format strings indexed by attribute</p>
+
+    
+
+    <div class="detail-header h3" id="$modelNameSearch-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#$modelNameSearch-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        $modelNameSearch        <span class="detailHeaderTag small">
+            public                                    property
+                    </span>
+    </div>
+
+    <div class="signature"><a href="http://www.php.net/language.types.string">string</a> <a href="backend-components-controller.html#$modelNameSearch-detail">$modelNameSearch</a> <span style="color: #0000BB"></span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span></div>
+
+    <p>The model name of the search class with namespace</p>
+
+    
+</div>
+<h2>Method Details</h2>
+
+<div class="method-doc">
+
+    <div class="detail-header h3" id="__construct()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#__construct()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        __construct()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong></strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">void <strong><a href="backend-components-controller.html#__construct()-detail">__construct</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$module</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$config&nbsp;</span><span style="color: #007700">=&nbsp;[]&nbsp;)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$id</span></td>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                            <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$module</span></td>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                            <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$config</span></td>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                                </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionCreate()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionCreate()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionCreate()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Creates a new model.</strong></p>
+
+        <p>If creation is successful, the browser will be redirected to the 'view' page.</p>
+
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">mixed <strong><a href="backend-components-controller.html#actionCreate()-detail">actionCreate</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionDelete()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionDelete()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionDelete()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Deletes an existing model.</strong></p>
+
+        <p>If deletion is successful, the browser will be redirected to the 'index' page.</p>
+
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">mixed <strong><a href="backend-components-controller.html#actionDelete()-detail">actionDelete</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$id</span></td>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.string">string</a></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                                </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionExport()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionExport()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionExport()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Download the exported file</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">void <strong><a href="backend-components-controller.html#actionExport()-detail">actionExport</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionIndex()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionIndex()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionIndex()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Lists all models.</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">mixed <strong><a href="backend-components-controller.html#actionIndex()-detail">actionIndex</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionList()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionList()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionList()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Produce list data for ajax return in Select2 widget</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">void <strong><a href="backend-components-controller.html#actionList()-detail">actionList</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$q&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$page&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">null&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$q</span></td>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.string">string</a></td>
+                  <td class="param-desc-col"><p>Search term the user enters - sent by ajax with each keypress</p>
+</td>
+                </tr>
+                            <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$page</span></td>
+                  <td class="param-type-col">int</td>
+                  <td class="param-desc-col"><p>Page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10</p>
+</td>
+                </tr>
+                            <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$id</span></td>
+                  <td class="param-type-col">int</td>
+                  <td class="param-desc-col"><p>Id of the model to load initially</p>
+</td>
+                </tr>
+                                                </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionUpdate()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionUpdate()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionUpdate()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Updates an existing model.</strong></p>
+
+        <p>If update is successful, the browser will be redirected to the 'view' page.</p>
+
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">mixed <strong><a href="backend-components-controller.html#actionUpdate()-detail">actionUpdate</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$id</span></td>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.string">string</a></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                                </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="actionView()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#actionView()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        actionView()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Displays a single model.</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">mixed <strong><a href="backend-components-controller.html#actionView()-detail">actionView</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$id</span></td>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.string">string</a></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                                </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="behaviors()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#behaviors()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        behaviors()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong></strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">void <strong><a href="backend-components-controller.html#behaviors()-detail">behaviors</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="fKWidgetOptions()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#fKWidgetOptions()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        fKWidgetOptions()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Produce widget options for a Select2 widget for a foreign key field.</strong></p>
+
+        <p>@see kartik\detail\DetailView and
+described at @link <a href="http://ivaynberg.github.io/select2/">http://ivaynberg.github.io/select2/</a>. These options provide infinite scrolling via ajax and require a
+controller action in the child class to handle the ajax request.</p>
+
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature"><a href="http://www.php.net/language.types.array">array</a> <strong><a href="backend-components-controller.html#fKWidgetOptions()-detail">fKWidgetOptions</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$shortModelName&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$shortModelName</span></td>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                        <tr>
+                  <th class="param-name-col">return</th>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.array">array</a></td>
+                  <td class="param-desc-col"><p>Widget options</p>
+</td>
+                </tr>
+                                    </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="findModel()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#findModel()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        findModel()
+        <span class="detail-header-tag small">
+            protected            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Finds the model based on its primary key value.</strong></p>
+
+        <p>If the model not found, a 404 HTTP exception will be thrown.</p>
+
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">\backend\components\ActiveRecord <strong><a href="backend-components-controller.html#findModel()-detail">findModel</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$id</span></td>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.string">string</a></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                        <tr>
+                  <th class="param-name-col">return</th>
+                  <td class="param-type-col">\backend\components\ActiveRecord</td>
+                  <td class="param-desc-col"><p>The loaded model</p>
+</td>
+                </tr>
+                                        <tr>
+                  <th class="param-name-col">throws</th>
+                  <td class="param-type-col">\yii\web\NotFoundHttpException</td>
+                  <td class="param-desc-col"><p>if the model cannot be found</p>
+</td>
+                </tr>
+                        </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="getBreadCrumbs()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#getBreadCrumbs()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        getBreadCrumbs()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Builds breadcrumbs using the tbl_navigation closure table and working back from the current url.</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature"><a href="http://www.php.net/language.types.array">array</a> <strong><a href="backend-components-controller.html#getBreadCrumbs()-detail">getBreadCrumbs</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$home&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">false&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$home</span></td>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                        <tr>
+                  <th class="param-name-col">return</th>
+                  <td class="param-type-col"><a href="http://www.php.net/language.types.array">array</a></td>
+                  <td class="param-desc-col"><p>The breadcrumbs</p>
+</td>
+                </tr>
+                                    </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="getGridColumns()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#getGridColumns()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        getGridColumns()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Build array of grid columns for  use in grid view
+return array grid columns</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature">void <strong><a href="backend-components-controller.html#getGridColumns()-detail">getGridColumns</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="tabs()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="backend-components-controller.html#tabs()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        tabs()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+    </div>
+
+    <div class="doc-description">
+        <p><strong>Get the tabs which are the current pages content as active and inactive tabs are the sibling options in navigation</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature"> <strong><a href="backend-components-controller.html#tabs()-detail">tabs</a></strong><span style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$content&nbsp;</span><span style="color: #007700">)</span></td></tr>
+                                    <tr>
+                  <td class="param-name-col"><span style="color: #0000BB">$content</span></td>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"></td>
+                </tr>
+                                        <tr>
+                  <th class="param-name-col">return</th>
+                  <td class="param-type-col"></td>
+                  <td class="param-desc-col"><p>The</p>
+</td>
+                </tr>
+                                    </table>
+
+<!--	-->
+</div>
+        </div>
+</div>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+    $("a.toggle").on('click', function () {
+        var $this = $(this);
+        if ($this.hasClass('properties-hidden')) {
+            $this.text($this.text().replace(/Show/,'Hide'));
+            $this.parents(".summary").find(".inherited").show();
+            $this.removeClass('properties-hidden');
+        } else {
+            $this.text($this.text().replace(/Hide/,'Show'));
+            $this.parents(".summary").find(".inherited").hide();
+            $this.addClass('properties-hidden');
+        }
+
+        return false;
+    });
+    /*
+     $(".sourceCode a.show").toggle(function () {
+     $(this).text($(this).text().replace(/show/,'hide'));
+     $(this).parents(".sourceCode").find("div.code").show();
+     },function () {
+     $(this).text($(this).text().replace(/hide/,'show'));
+     $(this).parents(".sourceCode").find("div.code").hide();
+     });
+     $("a.sourceLink").click(function () {
+     $(this).attr('target','_blank');
+     });
+     */
+    /*]]>*/
+</script>
+
+
+</div>
+
+<footer class="footer">
+        <p class="pull-right"><small>Page generated on Fri, 18 Jul 2014 04:44:32 +0000</small></p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script type="text/javascript">jQuery(document).ready(function () {
+    var shiftWindow = function () { scrollBy(0, -50) };
+    if (location.hash) shiftWindow();
+    window.addEventListener("hashchange", shiftWindow);
+var element = document.createElement("script");
+element.src = "./jssearch.index.js";
+document.body.appendChild(element);
+
+var searchBox = $('#searchbox');
+
+// focus the search field
+searchBox.focus();
+
+// search when typing in search field
+searchBox.on("keyup", function(event) {
+    var query = $(this).val();
+
+    if (query == '' || event.which == 27) {
+        $('#search-resultbox').hide();
+        return;
+    } else if (event.which == 13) {
+        var selectedLink = $('#search-resultbox a.selected');
+        if (selectedLink.length != 0) {
+            document.location = selectedLink.attr('href');
+            return;
+        }
+    } else if (event.which == 38 || event.which == 40) {
+        $('#search-resultbox').show();
+
+        var selected = $('#search-resultbox a.selected');
+        if (selected.length == 0) {
+            $('#search-results').find('a').first().addClass('selected');
+        } else {
+            var next;
+            if (event.which == 40) {
+                next = selected.parent().next().find('a').first();
+            } else {
+                next = selected.parent().prev().find('a').first();
+            }
+            if (next.length != 0) {
+                var resultbox = $('#search-results');
+                var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                selected.removeClass('selected');
+                next.addClass('selected');
+            }
+        }
+
+        return;
+    }
+    $('#search-resultbox').show();
+    $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+    var result = jssearch.search(query);
+
+    if (result.length > 0) {
+        var i = 0;
+        var resHtml = '';
+
+        for (var key in result) {
+            if (i++ > 20) {
+                break;
+            }
+            resHtml = resHtml +
+            '<li><a href="' + result[key].file.u.substr(3) +'"><span class="title">' + result[key].file.t + '</span>' +
+            '<span class="description">' + result[key].file.d + '</span></a></li>';
+        }
+        $('#search-results').html(resHtml);
+    }
+});
+
+// hide the search results on ESC
+$(document).on("keyup", function(event) { if (event.which == 27) { $('#search-resultbox').hide(); } });
+// hide search results on click to document
+$(document).bind('click', function (e) { $('#search-resultbox').hide(); });
+// except the following:
+searchBox.bind('click', function(e) { e.stopPropagation(); });
+$('#search-resultbox').bind('click', function(e) { e.stopPropagation(); });
+
+});</script></body>
+</html>
