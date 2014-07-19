@@ -12,7 +12,7 @@ namespace common\models;
  * @property string $amount
  * @property integer $quantity
  *
- * @property EventToResourceToExtra $account
+ * @property Account $account
  * @property Summary $summary
  */
 class EventToResourceToExtraToSummary extends \common\components\ActiveRecord
@@ -44,7 +44,7 @@ class EventToResourceToExtraToSummary extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(EventToResourceToExtra::className(), ['account_id' => 'account_id', 'id' => 'event_to_resource_to_extra_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

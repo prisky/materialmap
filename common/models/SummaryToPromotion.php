@@ -10,8 +10,8 @@ namespace common\models;
  * @property string $summary_id
  * @property string $promotion_id
  *
- * @property Promotion $promotion
  * @property Summary $summary
+ * @property Promotion $promotion
  * @property Account $account
  */
 class SummaryToPromotion extends \common\components\ActiveRecord
@@ -40,17 +40,17 @@ class SummaryToPromotion extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPromotion()
+    public function getSummary()
     {
-        return $this->hasOne(Promotion::className(), ['id' => 'promotion_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getPromotion()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Promotion::className(), ['id' => 'promotion_id', 'account_id' => 'account_id']);
     }
 
     /**

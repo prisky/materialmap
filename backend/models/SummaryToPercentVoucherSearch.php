@@ -14,7 +14,7 @@ class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
     public function rules()
     {
         return [
-            [['percent_voucher_id'], 'integer']        ];
+            [['percent_voucher_id', 'summary_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
         }
 
 		$query->andFilterWhere(['percent_voucher_id' => $this->percent_voucher_id]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

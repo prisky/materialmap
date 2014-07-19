@@ -29,7 +29,11 @@ class Column extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['model_id', 'name'], 'unique', 'targetAttribute' => ['model_id', 'name'], 'message' => 'The combination of  and  has already been taken.']
+            [['model_id', 'name', 'label'], 'required'],
+            [['model_id'], 'integer'],
+            [['help'], 'string'],
+            [['name', 'label'], 'string', 'max' => 64],
+            [['model_id', 'name'], 'unique', 'targetAttribute' => ['model_id', 'name'], 'message' => 'The combination of Model and Name has already been taken.']
         ];
     }
 

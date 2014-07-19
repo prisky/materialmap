@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $event_to_resource_to_custom_field_id
  * @property string $custom_value
  *
- * @property Account $account
- * @property EventToResourceToCustomField $eventToResourceToCustomField
  * @property Summary $summary
+ * @property EventToResourceToCustomField $eventToResourceToCustomField
+ * @property Account $account
  */
 class SummaryToEventToResourceToCustomField extends \common\components\ActiveRecord
 {
@@ -42,9 +42,9 @@ class SummaryToEventToResourceToCustomField extends \common\components\ActiveRec
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSummary()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -58,8 +58,8 @@ class SummaryToEventToResourceToCustomField extends \common\components\ActiveRec
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getAccount()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

@@ -13,9 +13,9 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property SurveyResult[] $surveyResults
- * @property Account $account
- * @property CustomField $customField
  * @property Survey $survey
+ * @property CustomField $customField
+ * @property Account $account
  */
 class SurveyToCustomField extends \common\components\ActiveRecord
 {
@@ -52,9 +52,9 @@ class SurveyToCustomField extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSurvey()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Survey::className(), ['id' => 'survey_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -68,8 +68,8 @@ class SurveyToCustomField extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurvey()
+    public function getAccount()
     {
-        return $this->hasOne(Survey::className(), ['id' => 'survey_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

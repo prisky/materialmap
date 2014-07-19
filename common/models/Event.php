@@ -14,8 +14,8 @@ namespace common\models;
  *
  * @property Booking[] $bookings
  * @property Comment[] $comments
- * @property Account $account
  * @property EventDetail $eventDetail
+ * @property Account $account
  * @property EventToResourceToCustomField[] $eventToResourceToCustomFields
  * @property EventToResourceToExtra[] $eventToResourceToExtras
  */
@@ -62,17 +62,17 @@ class Event extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getEventDetail()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(EventDetail::className(), ['id' => 'event_detail_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventDetail()
+    public function getAccount()
     {
-        return $this->hasOne(EventDetail::className(), ['id' => 'event_detail_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

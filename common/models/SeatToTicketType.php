@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $ticket_type_id
  * @property integer $deleted
  *
- * @property Account $account
- * @property Seat $seat
  * @property TicketType $ticketType
+ * @property Seat $seat
+ * @property Account $account
  */
 class SeatToTicketType extends \common\components\ActiveRecord
 {
@@ -39,9 +39,9 @@ class SeatToTicketType extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getTicketType()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -55,8 +55,8 @@ class SeatToTicketType extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketType()
+    public function getAccount()
     {
-        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

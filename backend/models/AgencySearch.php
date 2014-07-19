@@ -14,7 +14,7 @@ class AgencySearch extends Agency
     public function rules()
     {
         return [
-                    ];
+            [['supplier_account_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class AgencySearch extends Agency
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['supplier_account_id' => $this->supplier_account_id]);
 		
         return $dataProvider;
     }

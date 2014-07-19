@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $survey_result_id
  * @property string $booking_id
  *
- * @property Account $account
- * @property Booking $booking
  * @property SurveyResult $surveyResult
+ * @property Booking $booking
+ * @property Account $account
  */
 class SurveyResultToBooking extends \common\components\ActiveRecord
 {
@@ -40,9 +40,9 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSurveyResult()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -56,8 +56,8 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyResult()
+    public function getAccount()
     {
-        return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

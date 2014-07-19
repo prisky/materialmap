@@ -14,7 +14,7 @@ class SmsToChargeSearch extends SmsToCharge
     public function rules()
     {
         return [
-            [['charge_id'], 'integer']        ];
+            [['charge_id', 'sms_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class SmsToChargeSearch extends SmsToCharge
         }
 
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
+		$query->andFilterWhere(['sms_id' => $this->sms_id]);
 		
         return $dataProvider;
     }

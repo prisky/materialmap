@@ -17,9 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'summary_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
-			['attribute' => 'status', 'type' =>  DetailView::INPUT_DROPDOWN_LIST,
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
+			['attribute' => 'event_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Event')],
+			['attribute' => 'summary_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
+			['attribute' => 'status', 'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],
 				'items' => [ "processing" => "Processing", "booked" => "Booked", "canceled" => "Canceled", "wait_listed" => "Wait listed" ]],
 		]

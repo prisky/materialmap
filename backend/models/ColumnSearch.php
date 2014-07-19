@@ -14,7 +14,8 @@ class ColumnSearch extends Column
     public function rules()
     {
         return [
-                    ];
+            [['help', 'label', 'name'], 'safe'],
+			[['model_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +36,10 @@ class ColumnSearch extends Column
             return $dataProvider;
         }
 
+		$query->andFilterGoogleStyle('help', $this->help);
+		$query->andFilterGoogleStyle('label', $this->label);
+		$query->andFilterWhere(['model_id' => $this->model_id]);
+		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;
     }

@@ -47,6 +47,23 @@ class ItemController extends \backend\components\Controller
                 ]
             ],
             [
+                "attribute" => "extra_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Extra'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->extra->label, Url::toRoute([strtolower('Extra') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->extra->label, Url::toRoute([strtolower('Extra') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "inventory"
             ],
             [

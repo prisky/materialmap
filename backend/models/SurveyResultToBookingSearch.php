@@ -14,7 +14,7 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
     public function rules()
     {
         return [
-            [['booking_id'], 'integer']        ];
+            [['booking_id', 'survey_result_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
         }
 
 		$query->andFilterWhere(['booking_id' => $this->booking_id]);
+		$query->andFilterWhere(['survey_result_id' => $this->survey_result_id]);
 		
         return $dataProvider;
     }

@@ -19,8 +19,8 @@ namespace common\models;
  * @property string $rate
  * @property string $created
  *
- * @property Address $address
  * @property User $user
+ * @property Address $address
  * @property AccountToAffiliateCategory[] $accountToAffiliateCategories
  * @property AccountToMessage[] $accountToMessages
  * @property AccountToMessageToUser[] $accountToMessageToUsers
@@ -131,17 +131,17 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAddress()
+    public function getUser()
     {
-        return $this->hasOne(Address::className(), ['id' => 'address_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getAddress()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Address::className(), ['id' => 'address_id']);
     }
 
     /**

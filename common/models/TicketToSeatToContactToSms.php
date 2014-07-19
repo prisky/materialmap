@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $ticket_to_seat_to_contact_id
  * @property string $sms_id
  *
- * @property Account $account
- * @property Sms $sms
  * @property TicketToSeatToContact $ticketToSeatToContact
+ * @property Sms $sms
+ * @property Account $account
  */
 class TicketToSeatToContactToSms extends \common\components\ActiveRecord
 {
@@ -40,9 +40,9 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getTicketToSeatToContact()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(TicketToSeatToContact::className(), ['id' => 'ticket_to_seat_to_contact_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -56,8 +56,8 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToSeatToContact()
+    public function getAccount()
     {
-        return $this->hasOne(TicketToSeatToContact::className(), ['id' => 'ticket_to_seat_to_contact_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

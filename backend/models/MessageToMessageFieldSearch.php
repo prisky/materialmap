@@ -14,7 +14,7 @@ class MessageToMessageFieldSearch extends MessageToMessageField
     public function rules()
     {
         return [
-            [['message_field_id'], 'integer']        ];
+            [['message_field_id', 'message_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class MessageToMessageFieldSearch extends MessageToMessageField
         }
 
 		$query->andFilterWhere(['message_field_id' => $this->message_field_id]);
+		$query->andFilterWhere(['message_id' => $this->message_id]);
 		
         return $dataProvider;
     }

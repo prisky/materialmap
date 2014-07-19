@@ -16,7 +16,7 @@ class SmsSearch extends Sms
     public function rules()
     {
         return [
-            [['contact_id'], 'integer'],
+            [['contact_id', 'sms_thread_id'], 'integer'],
 			[['outgoing'], 'boolean'],
 			[['sms_message'], 'safe']        ];
     }
@@ -43,6 +43,7 @@ class SmsSearch extends Sms
 		if(!is_null($this->from_outgoing) && $this->from_outgoing != '') $query->andWhere('`outgoing` >= :from_outgoing', [':from_outgoing' => $this->from_outgoing]);
 		if(!is_null($this->to_outgoing) && $this->to_outgoing != '') $query->andWhere('`outgoing` <= :to_outgoing', [':to_outgoing' => $this->to_outgoing]);
 		$query->andFilterGoogleStyle('sms_message', $this->sms_message);
+		$query->andFilterWhere(['sms_thread_id' => $this->sms_thread_id]);
 		
         return $dataProvider;
     }

@@ -10,8 +10,8 @@ namespace common\models;
  * @property string $address_id
  * @property string $resource_id
  *
- * @property Address $address
  * @property Resource $resource
+ * @property Address $address
  * @property Account $account
  */
 class ResourceToAddress extends \common\components\ActiveRecord
@@ -40,17 +40,17 @@ class ResourceToAddress extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAddress()
+    public function getResource()
     {
-        return $this->hasOne(Address::className(), ['id' => 'address_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResource()
+    public function getAddress()
     {
-        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Address::className(), ['id' => 'address_id']);
     }
 
     /**

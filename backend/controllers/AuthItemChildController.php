@@ -26,6 +26,9 @@ class AuthItemChildController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
+                "attribute" => "child"
+            ],
+            [
                 "attribute" => "parent"
             ]
         ];

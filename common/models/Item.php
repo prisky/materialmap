@@ -13,8 +13,8 @@ namespace common\models;
  * @property integer $inventory
  * @property integer $deleted
  *
- * @property Account $account
  * @property Extra $extra
+ * @property Account $account
  */
 class Item extends \common\components\ActiveRecord
 {
@@ -44,16 +44,16 @@ class Item extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getExtra()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Extra::className(), ['id' => 'extra_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getExtra()
+    public function getAccount()
     {
-        return $this->hasOne(Extra::className(), ['id' => 'extra_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

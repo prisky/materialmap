@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $event_detail_id
  * @property string $ticket_type_id
  *
- * @property Account $account
  * @property EventDetail $eventDetail
  * @property TicketType $ticketType
+ * @property Account $account
  */
 class EventDetailToTicketType extends \common\components\ActiveRecord
 {
@@ -40,14 +40,6 @@ class EventDetailToTicketType extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEventDetail()
     {
         return $this->hasOne(EventDetail::className(), ['id' => 'event_detail_id', 'account_id' => 'account_id']);
@@ -59,5 +51,13 @@ class EventDetailToTicketType extends \common\components\ActiveRecord
     public function getTicketType()
     {
         return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

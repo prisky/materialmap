@@ -14,7 +14,7 @@ class SummaryToPromotionSearch extends SummaryToPromotion
     public function rules()
     {
         return [
-            [['promotion_id'], 'integer']        ];
+            [['promotion_id', 'summary_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class SummaryToPromotionSearch extends SummaryToPromotion
         }
 
 		$query->andFilterWhere(['promotion_id' => $this->promotion_id]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

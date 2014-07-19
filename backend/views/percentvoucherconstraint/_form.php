@@ -17,9 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'invalid_from', 'type' =>  DetailView::INPUT_DATETIME],
-			['attribute' => 'invalaid_to', 'type' =>  DetailView::INPUT_DATETIME],
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PercentVoucher')],
+			['attribute' => 'percent_voucher_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PercentVoucher')],
+			['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
+			['attribute' => 'invalaid_to', 'type' => DetailView::INPUT_DATETIME],
 		]
 	]);	?>
 

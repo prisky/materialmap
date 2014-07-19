@@ -43,6 +43,23 @@ class PercentPromotionConstraintController extends \backend\components\Controlle
                     "attribute2" => "to_invalid_to"
                 ],
                 "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "percent_promotion_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('PercentPromotion'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->percentPromotion->label, Url::toRoute([strtolower('PercentPromotion') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->percentPromotion->label, Url::toRoute([strtolower('PercentPromotion') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ]
         ];
 	}

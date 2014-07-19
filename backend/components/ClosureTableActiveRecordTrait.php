@@ -19,14 +19,22 @@ trait ClosureTableActiveRecordTrait
      */
     public static function find()
     {
-        return new ClosureTableQuery(get_called_class(), [
-			'closureTableName' => static::closureTableName,
-			'childAttribute' => static::childAttribute,
-			'parentAttribute' => static::parentAttribute,
-			'depthAttribute' => static::depthAttribute,
-		]);
+		$modelNameQuery = static::modelName() . 'Query';
+		
+		if(class_exists($modelNameQuery)) {
+			$modelNameQuery = new $modelNameQuery(get_called_class());
+			$modelNameQuery->attachBehavior(NULL, new ClosureTableQueryBehavior(get_called_class(), [
+				'modelClass' => get_called_class(),
+				'closureTableName' => static::closureTableName,
+				'childAttribute' => static::childAttribute,
+				'parentAttribute' => static::parentAttribute,
+				'depthAttribute' => static::depthAttribute,
+			]));
+
+			return $modelNameQuery;
+		}
     }
-	
+
 	/**
 	 * 
 	 * @param type $modelClass

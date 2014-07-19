@@ -17,10 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'first_name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'last_name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'email', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'phone_mobile', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 20]],
+			['attribute' => 'first_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'last_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'email', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'phone_mobile', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 20]],
 		]
 	]);	?>
 

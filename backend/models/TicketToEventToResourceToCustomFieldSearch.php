@@ -15,7 +15,7 @@ class TicketToEventToResourceToCustomFieldSearch extends TicketToEventToResource
     {
         return [
             [['custom_value'], 'safe'],
-			[['event_to_resource_to_custom_field_id'], 'integer']        ];
+			[['event_to_resource_to_custom_field_id', 'ticket_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -38,6 +38,7 @@ class TicketToEventToResourceToCustomFieldSearch extends TicketToEventToResource
 
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
+		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);
 		
         return $dataProvider;
     }

@@ -10,9 +10,9 @@ namespace common\models;
  * @property string $ticket_id
  * @property string $charge_id
  *
- * @property Account $account
- * @property Charge $charge
  * @property Ticket $ticket
+ * @property Charge $charge
+ * @property Account $account
  */
 class TicketToCharge extends \common\components\ActiveRecord
 {
@@ -41,9 +41,9 @@ class TicketToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getTicket()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -57,8 +57,8 @@ class TicketToCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicket()
+    public function getAccount()
     {
-        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

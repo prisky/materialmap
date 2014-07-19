@@ -14,7 +14,7 @@ class BookingToChargeSearch extends BookingToCharge
     public function rules()
     {
         return [
-            [['charge_id'], 'integer']        ];
+            [['booking_id', 'charge_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class BookingToChargeSearch extends BookingToCharge
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['booking_id' => $this->booking_id]);
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		
         return $dataProvider;

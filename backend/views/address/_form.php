@@ -17,10 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'town_city_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TownCity')],
-			['attribute' => 'address_line1', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'address_line2', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'post_code', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 16]],
+			['attribute' => 'town_city_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TownCity')],
+			['attribute' => 'address_line1', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'address_line2', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'post_code', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 16]],
 		]
 	]);	?>
 

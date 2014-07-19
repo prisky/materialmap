@@ -43,6 +43,23 @@ class PercentVoucherConstraintController extends \backend\components\Controller
                     "attribute2" => "to_invalid_from"
                 ],
                 "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "percent_voucher_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('PercentVoucher'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->percentVoucher->label, Url::toRoute([strtolower('PercentVoucher') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->percentVoucher->label, Url::toRoute([strtolower('PercentVoucher') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ]
         ];
 	}

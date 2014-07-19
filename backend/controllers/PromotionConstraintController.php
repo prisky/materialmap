@@ -43,6 +43,23 @@ class PromotionConstraintController extends \backend\components\Controller
                     "attribute2" => "to_invalid_to"
                 ],
                 "filterType" => "backend\\components\\FieldRange"
+            ],
+            [
+                "attribute" => "promotion_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Promotion'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->promotion->label, Url::toRoute([strtolower('Promotion') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->promotion->label, Url::toRoute([strtolower('Promotion') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ]
         ];
 	}

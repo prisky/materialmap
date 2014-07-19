@@ -18,8 +18,8 @@ namespace common\models;
  * @property string $tooltip
  *
  * @property Event[] $events
- * @property Account $account
  * @property Resource $resource
+ * @property Account $account
  * @property EventDetailToTicketType[] $eventDetailToTicketTypes
  */
 class EventDetail extends \common\components\ActiveRecord
@@ -58,17 +58,17 @@ class EventDetail extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getResource()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResource()
+    public function getAccount()
     {
-        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

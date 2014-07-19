@@ -14,7 +14,8 @@ class QuestionThreadSearch extends QuestionThread
     public function rules()
     {
         return [
-            [['comment'], 'safe']        ];
+            [['comment'], 'safe'],
+			[['question_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +37,7 @@ class QuestionThreadSearch extends QuestionThread
         }
 
 		$query->andFilterGoogleStyle('comment', $this->comment);
+		$query->andFilterWhere(['question_id' => $this->question_id]);
 		
         return $dataProvider;
     }

@@ -26,6 +26,23 @@ class EventToResourceToCustomFieldController extends \backend\components\Control
 	public function getGridColumns() {
 		return [
             [
+                "attribute" => "event_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Event'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->event->label, Url::toRoute([strtolower('Event') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->event->label, Url::toRoute([strtolower('Event') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "resource_to_custom_field_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('ResourceToCustomField'),

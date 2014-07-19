@@ -12,9 +12,9 @@ namespace common\models;
  * @property string $amount
  * @property string $uniqueid
  *
- * @property Account $account
- * @property PaymentGateway $paymentGateway
  * @property Summary $summary
+ * @property PaymentGateway $paymentGateway
+ * @property Account $account
  */
 class Payment extends \common\components\ActiveRecord
 {
@@ -44,9 +44,9 @@ class Payment extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSummary()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -60,8 +60,8 @@ class Payment extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummary()
+    public function getAccount()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

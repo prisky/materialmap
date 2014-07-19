@@ -105,15 +105,14 @@ abstract class Controller extends \common\components\Controller
 		$searchModel = new $this->modelNameSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->getPagination()->pageSize = 10;
+		$gridColumns = $this->gridColumns;
 
 		if(Yii::$app->user->can($this->modelNameShort)) {
-			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'];
+			array_unshift($gridColumns, ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}']);
 		}
 		elseif(Yii::$app->user->can($this->modelNameShort . 'Read')) {
-			$gridColumns[] = ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'];
+			array_unshift($gridColumns, ['class' => 'yii\grid\ActionColumn', 'template' => '{view}']);
 		}
-
-		$gridColumns += $this->gridColumns;
 
 		return $this->render('@app/views/index', [
 				'dataProvider' => $dataProvider,

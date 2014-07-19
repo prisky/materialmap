@@ -26,6 +26,9 @@ class StateProvinceController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
+                "attribute" => "country_id"
+            ],
+            [
                 "attribute" => "name"
             ]
         ];

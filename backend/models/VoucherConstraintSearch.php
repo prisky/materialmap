@@ -22,7 +22,8 @@ class VoucherConstraintSearch extends VoucherConstraint
     public function rules()
     {
         return [
-            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number']        ];
+            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number'],
+			[['voucher_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -51,6 +52,7 @@ class VoucherConstraintSearch extends VoucherConstraint
 		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
 		if(!is_null($this->from_invalid_to) && $this->from_invalid_to != '') $query->andWhere('`invalid_to` >= :from_invalid_to', [':from_invalid_to' => $this->from_invalid_to]);
 		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
+		$query->andFilterWhere(['voucher_id' => $this->voucher_id]);
 		
         return $dataProvider;
     }

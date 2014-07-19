@@ -9,8 +9,8 @@ namespace common\models;
  * @property string $account_id
  * @property string $charge_id
  *
- * @property Account $account
  * @property Charge $charge
+ * @property Account $account
  */
 class AnnualCharge extends \common\components\ActiveRecord
 {
@@ -38,16 +38,16 @@ class AnnualCharge extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getCharge()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCharge()
+    public function getAccount()
     {
-        return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

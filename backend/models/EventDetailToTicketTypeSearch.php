@@ -14,7 +14,7 @@ class EventDetailToTicketTypeSearch extends EventDetailToTicketType
     public function rules()
     {
         return [
-            [['ticket_type_id'], 'integer']        ];
+            [['event_detail_id', 'ticket_type_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class EventDetailToTicketTypeSearch extends EventDetailToTicketType
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['event_detail_id' => $this->event_detail_id]);
 		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
 		
         return $dataProvider;

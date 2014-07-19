@@ -44,6 +44,23 @@ class SurveyToCustomFieldController extends \backend\components\Controller
             ],
             [
                 "attribute" => "order"
+            ],
+            [
+                "attribute" => "survey_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Survey'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->survey->label, Url::toRoute([strtolower('Survey') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->survey->label, Url::toRoute([strtolower('Survey') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ]
         ];
 	}

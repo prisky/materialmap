@@ -14,8 +14,8 @@ class BookingToEventToResourceToCustomFieldSearch extends BookingToEventToResour
     public function rules()
     {
         return [
-            [['custom_value'], 'safe'],
-			[['event_to_resource_to_custom_field_id'], 'integer']        ];
+            [['booking_id', 'event_to_resource_to_custom_field_id'], 'integer'],
+			[['custom_value'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class BookingToEventToResourceToCustomFieldSearch extends BookingToEventToResour
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['booking_id' => $this->booking_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
 		

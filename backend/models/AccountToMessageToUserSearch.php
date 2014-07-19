@@ -16,7 +16,7 @@ class AccountToMessageToUserSearch extends AccountToMessageToUser
     public function rules()
     {
         return [
-            [['user_id'], 'integer']        ];
+            [['account_to_message', 'user_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -37,6 +37,7 @@ class AccountToMessageToUserSearch extends AccountToMessageToUser
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['account_to_message' => $this->account_to_message]);
 		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);
 		if(!is_null($this->to_user_id) && $this->to_user_id != '') $query->andWhere('`user_id` <= :to_user_id', [':to_user_id' => $this->to_user_id]);
 		

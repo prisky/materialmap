@@ -14,7 +14,7 @@ class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
     public function rules()
     {
         return [
-            [['percent_promotion_id'], 'integer']        ];
+            [['percent_promotion_id', 'summary_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
         }
 
 		$query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

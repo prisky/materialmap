@@ -54,6 +54,23 @@ class SmsController extends \backend\components\Controller
             ],
             [
                 "attribute" => "sms_message"
+            ],
+            [
+                "attribute" => "sms_thread_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('SmsThread'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->smsThread->label, Url::toRoute([strtolower('SmsThread') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->smsThread->label, Url::toRoute([strtolower('SmsThread') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ]
         ];
 	}

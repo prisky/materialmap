@@ -3,14 +3,14 @@
 namespace backend\components;
 
 /**
- * ClosureTableBehavior class file.
+ * ClosureTableQueryBehavior class file.
  * Provides tree set functionality for a model.
  *
  * @author Aidas Klimas, Andrew Blake ported yii2
  * @link https://github.com/AidasK/yii-closure-table-behavior/
  * @version 2.0.0
  */
-class ClosureTableQuery extends \common\components\ActiveQuery
+class ClosureTableQueryBehavior extends \yii\base\Behavior
 {
     public $closureTableName;
     private $tableName;
@@ -18,6 +18,7 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 	public $childAttribute;
     public $parentAttribute;
     public $depthAttribute;
+	public $modelClass;
 
      /**
      * Constructor.
@@ -26,7 +27,7 @@ class ClosureTableQuery extends \common\components\ActiveQuery
      */
     public function __construct($modelClass, $config = [])
     {
-        parent::__construct($modelClass, $config);
+        parent::__construct($config);
 		
 		$connection = \Yii::$app->db;
  		$modelName = $this->modelClass;
@@ -52,13 +53,13 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 		$this->unorderedPathOf($primaryKey);
 
         if($depth === null) {
-			$this->andWhere("{$this->closureTableName}.{$this->childAttribute} != {$this->closureTableName}.{$this->parentAttribute}");
+			$this->owner->andWhere("{$this->closureTableName}.{$this->childAttribute} != {$this->closureTableName}.{$this->parentAttribute}");
 		} else
 		{
-			$this->andWhere(['BETWEEN', "{$this->closureTableName}.{$this->depthAttribute}", 1, $depth]);
+			$this->owner->andWhere(['BETWEEN', "{$this->closureTableName}.{$this->depthAttribute}", 1, $depth]);
         }
 		
-		return $this;
+		return $this->owner;
     }
 	
     /**
@@ -72,7 +73,7 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 		$tableName = $modelName::tableName();
 		$primaryKeyName = $modelName::primaryKey()[0];
 
-		return $this
+		return $this->owner
 			->join('JOIN', $this->closureTableName, "$tableName.$primaryKeyName = {$this->closureTableName}.{$this->parentAttribute}")
 			->where(["{$this->closureTableName}.{$this->childAttribute}" => $primaryKey]);
     }
@@ -111,18 +112,18 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 		$tableName = $modelName::tableName();
 		$primaryKeyName = $modelName::primaryKey()[0];
 
-		$this
+		$this->owner
 			->join('JOIN', $this->closureTableName, "$tableName.$primaryKeyName = {$this->closureTableName}.{$this->childAttribute}")
 			->where(["{$this->closureTableName}.{$this->parentAttribute}" => $primaryKey]);
 
         if($depth === null) {
-			$this->andWhere("{$this->closureTableName}.{$this->childAttribute} != {$this->closureTableName}.{$this->parentAttribute}");
+			$this->owner->andWhere("{$this->closureTableName}.{$this->childAttribute} != {$this->closureTableName}.{$this->parentAttribute}");
 		}
 		else {
-			$this->andWhere(['BETWEEN', "{$this->closureTableName}.{$this->depthAttribute}", 1, $depth]);
+			$this->owner->andWhere(['BETWEEN', "{$this->closureTableName}.{$this->depthAttribute}", 1, $depth]);
         }
 		
-		return $this;
+		return $this->owner;
     }
 
     /**
@@ -154,7 +155,7 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 		$union = new \yii\db\Query;
 		
 		// if node is not a root
-		$this
+		$this->owner
 			->select("t.*")
 			->from("$table t")
 			->join("JOIN", "$closure c", "t.$pk = c.$child")
@@ -176,10 +177,10 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 		// exclude the node?
 		if($include === FALSE) {
 			$union->andWhere( "t.$pk != :primaryKey", [':primaryKey' => $primaryKey]);
-			$this->andWhere( "t.$pk != :primaryKey", [':primaryKey' => $primaryKey]);
+			$this->owner->andWhere( "t.$pk != :primaryKey", [':primaryKey' => $primaryKey]);
 		}
 
-		return $this->union($union);
+		return $this->owner->union($union);
 	}
 
     /**
@@ -195,11 +196,9 @@ class ClosureTableQuery extends \common\components\ActiveQuery
 		$parent = $this->parentAttribute;
 		$child = $this->childAttribute;
 
-		$this
+		return $this->owner
 			->join("JOIN", "$closure c1", "$t.$pk = c1.$child")
 			->join("LEFT JOIN", "$closure c2", "c1.$child = c2.$child AND c1.$parent != c2.$parent")
 			->where("c2.$parent IS NULL");
-		
-		return $this;
 	}
 }

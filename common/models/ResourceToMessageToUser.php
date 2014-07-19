@@ -10,8 +10,8 @@ namespace common\models;
  * @property string $resource_to_message
  * @property string $user_id
  *
- * @property Account $account
  * @property ResourceToMessage $resourceToMessage
+ * @property Account $account
  */
 class ResourceToMessageToUser extends \common\components\ActiveRecord
 {
@@ -39,16 +39,16 @@ class ResourceToMessageToUser extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getResourceToMessage()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(ResourceToMessage::className(), ['id' => 'resource_to_message', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceToMessage()
+    public function getAccount()
     {
-        return $this->hasOne(ResourceToMessage::className(), ['id' => 'resource_to_message', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

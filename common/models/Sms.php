@@ -13,8 +13,8 @@ namespace common\models;
  * @property integer $outgoing
  * @property string $created
  *
- * @property Account $account
  * @property Contact $contact
+ * @property Account $account
  * @property SmsThread $smsThread
  * @property SmsToCharge[] $smsToCharges
  * @property TicketToSeatToContactToSms[] $ticketToSeatToContactToSms
@@ -45,17 +45,17 @@ class Sms extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getContact()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getContact()
+    public function getAccount()
     {
-        return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

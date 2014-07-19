@@ -10,7 +10,7 @@ namespace common\models;
  * @property string $ticket_to_seat_id
  * @property string $contact_id
  *
- * @property TicketToSeat $account
+ * @property Account $account
  * @property Contact $contact
  * @property TicketToSeatToContactToSms[] $ticketToSeatToContactToSms
  */
@@ -42,7 +42,7 @@ class TicketToSeatToContact extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(TicketToSeat::className(), ['account_id' => 'account_id', 'id' => 'ticket_to_seat_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

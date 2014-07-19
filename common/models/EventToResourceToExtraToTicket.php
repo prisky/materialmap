@@ -12,9 +12,9 @@ namespace common\models;
  * @property string $amount
  * @property integer $quantity
  *
- * @property Account $account
  * @property EventToResourceToExtra $eventToResourceToExtra
  * @property Ticket $ticket
+ * @property Account $account
  */
 class EventToResourceToExtraToTicket extends \common\components\ActiveRecord
 {
@@ -43,14 +43,6 @@ class EventToResourceToExtraToTicket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEventToResourceToExtra()
     {
         return $this->hasOne(EventToResourceToExtra::className(), ['id' => 'event_to_resource_to_extra_id', 'account_id' => 'account_id']);
@@ -62,5 +54,13 @@ class EventToResourceToExtraToTicket extends \common\components\ActiveRecord
     public function getTicket()
     {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

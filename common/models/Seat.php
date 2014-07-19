@@ -19,8 +19,8 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property Resource $resource
- * @property Account $account
  * @property SeatType $seatType
+ * @property Account $account
  * @property SeatToTicketType[] $seatToTicketTypes
  * @property TicketToSeat[] $ticketToSeats
  */
@@ -59,17 +59,17 @@ class Seat extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSeatType()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSeatType()
+    public function getAccount()
     {
-        return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

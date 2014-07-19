@@ -28,13 +28,13 @@ class ReferralController extends \backend\components\Controller
             [
                 "attribute" => "account_to_user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser'),
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Invoice'),
                 "value" => function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/update", "id" => $key]));
+									return Html::a($model->invoice->label, Url::toRoute([strtolower('Invoice') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/read", "id" => $key]));
+									return Html::a($model->invoice->label, Url::toRoute([strtolower('Invoice') . "/read", "id" => $key]));
 								}
 								else {
 									return $model->label($key);
@@ -45,13 +45,13 @@ class ReferralController extends \backend\components\Controller
             [
                 "attribute" => "first_referrer_user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Account'),
+                "filterWidgetOptions" => Controller::fKWidgetOptions('SummaryToAccountToUser'),
                 "value" => function ($model, $key, $index, $widget) {
 								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->account->label, Url::toRoute([strtolower('Account') . "/update", "id" => $key]));
+									return Html::a($model->summaryToAccountToUser->label, Url::toRoute([strtolower('SummaryToAccountToUser') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->account->label, Url::toRoute([strtolower('Account') . "/read", "id" => $key]));
+									return Html::a($model->summaryToAccountToUser->label, Url::toRoute([strtolower('SummaryToAccountToUser') . "/read", "id" => $key]));
 								}
 								else {
 									return $model->label($key);

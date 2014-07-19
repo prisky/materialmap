@@ -97,7 +97,7 @@ class User extends \common\components\ActiveRecord implements IdentityInterface
             return $user;
         } else {
             return null;
-		}
+}
     }
 
     /**

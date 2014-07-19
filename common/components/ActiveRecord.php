@@ -47,7 +47,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		return $reflect->getShortName();
 	}
 
-	private static function modelName() {
+	protected static function modelName() {
 		return "\\common\\models\\" . static::modelNameShort();
 	}
 
@@ -69,7 +69,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			return $modelNameQuery->defaultScope();
 		}
 	
-		return  parent::find();
+		return parent::find();
     }
 
     /**

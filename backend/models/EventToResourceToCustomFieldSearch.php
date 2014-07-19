@@ -14,7 +14,7 @@ class EventToResourceToCustomFieldSearch extends EventToResourceToCustomField
     public function rules()
     {
         return [
-            [['resource_to_custom_field_id'], 'integer']        ];
+            [['event_id', 'resource_to_custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class EventToResourceToCustomFieldSearch extends EventToResourceToCustomField
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['event_id' => $this->event_id]);
 		$query->andFilterWhere(['resource_to_custom_field_id' => $this->resource_to_custom_field_id]);
 		
         return $dataProvider;

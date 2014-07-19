@@ -41,6 +41,23 @@ class MessageToMessageFieldController extends \backend\components\Controller
 								}
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "message_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Message'),
+                "value" => function ($model, $key, $index, $widget) {
+								if(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->message->label, Url::toRoute([strtolower('Message') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->message->label, Url::toRoute([strtolower('Message') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ]
         ];
 	}

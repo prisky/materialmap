@@ -75,7 +75,7 @@ class AuthItem extends \common\components\ActiveRecord
      */
     public function getAuthItemChildren()
     {
-        return $this->hasMany(AuthItemChild::className(), ['parent' => 'name', 'account_id' => 'account_id']);
+        return $this->hasMany(AuthItemChild::className(), ['child' => 'name', 'account_id' => 'account_id']);
     }
 
     /**

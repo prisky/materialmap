@@ -14,7 +14,7 @@ class ResourceToAddressSearch extends ResourceToAddress
     public function rules()
     {
         return [
-            [['address_id'], 'integer']        ];
+            [['address_id', 'resource_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class ResourceToAddressSearch extends ResourceToAddress
         }
 
 		$query->andFilterWhere(['address_id' => $this->address_id]);
+		$query->andFilterWhere(['resource_id' => $this->resource_id]);
 		
         return $dataProvider;
     }

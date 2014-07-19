@@ -26,9 +26,6 @@ class ModelController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
-                "attribute" => "auth_item_name"
-            ],
-            [
                 "attribute" => "help"
             ],
             [

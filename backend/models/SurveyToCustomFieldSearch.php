@@ -14,7 +14,7 @@ class SurveyToCustomFieldSearch extends SurveyToCustomField
     public function rules()
     {
         return [
-            [['custom_field_id'], 'integer'],
+            [['custom_field_id', 'survey_id'], 'integer'],
 			[['order'], 'safe']        ];
     }
 
@@ -38,6 +38,7 @@ class SurveyToCustomFieldSearch extends SurveyToCustomField
 
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('order', $this->order);
+		$query->andFilterWhere(['survey_id' => $this->survey_id]);
 		
         return $dataProvider;
     }

@@ -11,9 +11,9 @@ namespace common\models;
  * @property string $event_to_resource_to_custom_field_id
  * @property string $custom_value
  *
- * @property Account $account
- * @property EventToResourceToCustomField $eventToResourceToCustomField
  * @property Ticket $ticket
+ * @property EventToResourceToCustomField $eventToResourceToCustomField
+ * @property Account $account
  */
 class TicketToEventToResourceToCustomField extends \common\components\ActiveRecord
 {
@@ -42,9 +42,9 @@ class TicketToEventToResourceToCustomField extends \common\components\ActiveReco
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getTicket()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -58,8 +58,8 @@ class TicketToEventToResourceToCustomField extends \common\components\ActiveReco
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicket()
+    public function getAccount()
     {
-        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

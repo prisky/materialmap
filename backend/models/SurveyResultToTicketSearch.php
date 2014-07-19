@@ -14,7 +14,7 @@ class SurveyResultToTicketSearch extends SurveyResultToTicket
     public function rules()
     {
         return [
-            [['ticket_id'], 'integer']        ];
+            [['survey_result_id', 'ticket_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class SurveyResultToTicketSearch extends SurveyResultToTicket
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['survey_result_id' => $this->survey_result_id]);
 		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);
 		
         return $dataProvider;
