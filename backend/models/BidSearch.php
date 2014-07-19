@@ -25,8 +25,7 @@ class BidSearch extends Bid
     {
         return [
             [['comment'], 'safe'],
-			[['deadline', 'from_deadline', 'to_deadline', 'offer', 'updated', 'from_updated', 'to_updated'], 'number'],
-			[['question_id'], 'integer']        ];
+			[['deadline', 'from_deadline', 'to_deadline', 'offer', 'updated', 'from_updated', 'to_updated'], 'number']        ];
     }
 
     public function scenarios()
@@ -54,7 +53,6 @@ class BidSearch extends Bid
 		if(!is_null($this->to_deadline) && $this->to_deadline != '') $query->andWhere('`deadline` <= :to_deadline', [':to_deadline' => $this->to_deadline]);
 		if(!is_null($this->from_offer) && $this->from_offer != '') $query->andWhere('`offer` >= :from_offer', [':from_offer' => $this->from_offer]);
 		if(!is_null($this->to_offer) && $this->to_offer != '') $query->andWhere('`offer` <= :to_offer', [':to_offer' => $this->to_offer]);
-		$query->andFilterWhere(['question_id' => $this->question_id]);
 		if(!is_null($this->from_updated) && $this->from_updated != '') $query->andWhere('`updated` >= :from_updated', [':from_updated' => $this->from_updated]);
 		if(!is_null($this->to_updated) && $this->to_updated != '') $query->andWhere('`updated` <= :to_updated', [':to_updated' => $this->to_updated]);
 		if(!is_null($this->from_updated) && $this->from_updated != '') $query->andWhere('`updated` >= :from_updated', [':from_updated' => $this->from_updated]);

@@ -41,23 +41,6 @@ class SmsToChargeController extends \backend\components\Controller
 								}
 							},
                 "format" => "raw"
-            ],
-            [
-                "attribute" => "sms_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Sms'),
-                "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->sms->label, Url::toRoute([strtolower('Sms') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->sms->label, Url::toRoute([strtolower('Sms') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
             ]
         ];
 	}

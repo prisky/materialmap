@@ -14,7 +14,7 @@ class ResourceToCustomFieldSearch extends ResourceToCustomField
     public function rules()
     {
         return [
-            [['custom_field_id', 'resource_id'], 'integer']        ];
+            [['custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class ResourceToCustomFieldSearch extends ResourceToCustomField
         }
 
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
-		$query->andFilterWhere(['resource_id' => $this->resource_id]);
 		
         return $dataProvider;
     }

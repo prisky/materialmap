@@ -22,8 +22,7 @@ class PromotionConstraintSearch extends PromotionConstraint
     public function rules()
     {
         return [
-            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number'],
-			[['promotion_id'], 'integer']        ];
+            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number']        ];
     }
 
     public function scenarios()
@@ -52,7 +51,6 @@ class PromotionConstraintSearch extends PromotionConstraint
 		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
 		if(!is_null($this->from_invalid_to) && $this->from_invalid_to != '') $query->andWhere('`invalid_to` >= :from_invalid_to', [':from_invalid_to' => $this->from_invalid_to]);
 		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
-		$query->andFilterWhere(['promotion_id' => $this->promotion_id]);
 		
         return $dataProvider;
     }

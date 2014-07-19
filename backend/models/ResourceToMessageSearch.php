@@ -15,7 +15,7 @@ class ResourceToMessageSearch extends ResourceToMessage
     {
         return [
             [['email_message', 'email_submect', 'sms_message'], 'safe'],
-			[['message_id', 'resource_id'], 'integer']        ];
+			[['message_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -39,7 +39,6 @@ class ResourceToMessageSearch extends ResourceToMessage
 		$query->andFilterGoogleStyle('email_message', $this->email_message);
 		$query->andFilterGoogleStyle('email_submect', $this->email_submect);
 		$query->andFilterWhere(['message_id' => $this->message_id]);
-		$query->andFilterWhere(['resource_id' => $this->resource_id]);
 		$query->andFilterGoogleStyle('sms_message', $this->sms_message);
 		
         return $dataProvider;

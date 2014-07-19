@@ -14,8 +14,7 @@ class TownCitySearch extends TownCity
     public function rules()
     {
         return [
-            [['name'], 'safe'],
-			[['state_province_id'], 'integer']        ];
+            [['name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -37,7 +36,6 @@ class TownCitySearch extends TownCity
         }
 
 		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterWhere(['state_province_id' => $this->state_province_id]);
 		
         return $dataProvider;
     }

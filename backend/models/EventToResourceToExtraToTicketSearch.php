@@ -17,8 +17,8 @@ class EventToResourceToExtraToTicketSearch extends EventToResourceToExtraToTicke
     {
         return [
             [['amount', 'from_amount', 'to_amount'], 'number'],
-			[['event_to_resource_to_extra_id', 'ticket_id'], 'integer'],
-			[['quantity'], 'safe']        ];
+			[['quantity'], 'safe'],
+			[['ticket_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -41,7 +41,6 @@ class EventToResourceToExtraToTicketSearch extends EventToResourceToExtraToTicke
 
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		$query->andFilterWhere(['event_to_resource_to_extra_id' => $this->event_to_resource_to_extra_id]);
 		$query->andFilterGoogleStyle('quantity', $this->quantity);
 		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);
 		

@@ -14,7 +14,7 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
     public function rules()
     {
         return [
-            [['survey_result_id'], 'integer']        ];
+                    ];
     }
 
     public function scenarios()
@@ -35,7 +35,6 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['survey_result_id' => $this->survey_result_id]);
 		
         return $dataProvider;
     }

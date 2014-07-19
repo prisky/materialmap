@@ -15,7 +15,7 @@ class SummaryToEventToResourceToCustomFieldSearch extends SummaryToEventToResour
     {
         return [
             [['custom_value'], 'safe'],
-			[['event_to_resource_to_custom_field_id', 'summary_id'], 'integer']        ];
+			[['event_to_resource_to_custom_field_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -38,7 +38,6 @@ class SummaryToEventToResourceToCustomFieldSearch extends SummaryToEventToResour
 
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['event_to_resource_to_custom_field_id' => $this->event_to_resource_to_custom_field_id]);
-		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

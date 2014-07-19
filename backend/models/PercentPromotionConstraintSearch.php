@@ -22,8 +22,7 @@ class PercentPromotionConstraintSearch extends PercentPromotionConstraint
     public function rules()
     {
         return [
-            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number'],
-			[['percent_promotion_id'], 'integer']        ];
+            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number']        ];
     }
 
     public function scenarios()
@@ -52,7 +51,6 @@ class PercentPromotionConstraintSearch extends PercentPromotionConstraint
 		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
 		if(!is_null($this->from_invalid_to) && $this->from_invalid_to != '') $query->andWhere('`invalid_to` >= :from_invalid_to', [':from_invalid_to' => $this->from_invalid_to]);
 		if(!is_null($this->to_invalid_to) && $this->to_invalid_to != '') $query->andWhere('`invalid_to` <= :to_invalid_to', [':to_invalid_to' => $this->to_invalid_to]);
-		$query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
 		
         return $dataProvider;
     }

@@ -27,9 +27,6 @@ class AuthItemChildController extends \backend\components\Controller
 		return [
             [
                 "attribute" => "child"
-            ],
-            [
-                "attribute" => "parent"
             ]
         ];
 	}

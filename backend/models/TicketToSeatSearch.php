@@ -14,7 +14,7 @@ class TicketToSeatSearch extends TicketToSeat
     public function rules()
     {
         return [
-            [['seat_id', 'ticket_id'], 'integer']        ];
+            [['seat_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class TicketToSeatSearch extends TicketToSeat
         }
 
 		$query->andFilterWhere(['seat_id' => $this->seat_id]);
-		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);
 		
         return $dataProvider;
     }

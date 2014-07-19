@@ -14,7 +14,7 @@ class StateProvinceSearch extends StateProvince
     public function rules()
     {
         return [
-            [['country_id', 'name'], 'safe']        ];
+            [['name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -35,7 +35,6 @@ class StateProvinceSearch extends StateProvince
             return $dataProvider;
         }
 
-		$query->andFilterGoogleStyle('country_id', $this->country_id);
 		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;

@@ -14,7 +14,7 @@ class SurveyToResourceSearch extends SurveyToResource
     public function rules()
     {
         return [
-            [['resource_id', 'survey_id'], 'integer']        ];
+            [['resource_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class SurveyToResourceSearch extends SurveyToResource
         }
 
 		$query->andFilterWhere(['resource_id' => $this->resource_id]);
-		$query->andFilterWhere(['survey_id' => $this->survey_id]);
 		
         return $dataProvider;
     }

@@ -18,7 +18,6 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'percent_promotion_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PercentPromotion')],
 			['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'invalid_to', 'type' => DetailView::INPUT_DATETIME],
 		]

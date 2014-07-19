@@ -18,7 +18,6 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventToResourceToExtra')],
-			['attribute' => 'event_to_resource_to_extra_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventToResourceToExtra')],
 			['attribute' => 'ticket_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Ticket')],
 			['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],

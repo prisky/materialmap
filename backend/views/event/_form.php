@@ -17,7 +17,6 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventDetail')],
 			['attribute' => 'event_detail_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventDetail')],
 			['attribute' => 'start', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'end', 'type' => DetailView::INPUT_DATETIME],

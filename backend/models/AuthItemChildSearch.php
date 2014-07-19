@@ -14,7 +14,7 @@ class AuthItemChildSearch extends AuthItemChild
     public function rules()
     {
         return [
-            [['child', 'parent'], 'safe']        ];
+            [['child'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class AuthItemChildSearch extends AuthItemChild
         }
 
 		$query->andFilterGoogleStyle('child', $this->child);
-		$query->andFilterGoogleStyle('parent', $this->parent);
 		
         return $dataProvider;
     }

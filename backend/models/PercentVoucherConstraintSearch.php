@@ -22,8 +22,7 @@ class PercentVoucherConstraintSearch extends PercentVoucherConstraint
     public function rules()
     {
         return [
-            [['invalaid_to', 'from_invalaid_to', 'to_invalaid_to', 'invalid_from', 'from_invalid_from', 'to_invalid_from'], 'number'],
-			[['percent_voucher_id'], 'integer']        ];
+            [['invalaid_to', 'from_invalaid_to', 'to_invalaid_to', 'invalid_from', 'from_invalid_from', 'to_invalid_from'], 'number']        ];
     }
 
     public function scenarios()
@@ -52,7 +51,6 @@ class PercentVoucherConstraintSearch extends PercentVoucherConstraint
 		if(!is_null($this->to_invalid_from) && $this->to_invalid_from != '') $query->andWhere('`invalid_from` <= :to_invalid_from', [':to_invalid_from' => $this->to_invalid_from]);
 		if(!is_null($this->from_invalid_from) && $this->from_invalid_from != '') $query->andWhere('`invalid_from` >= :from_invalid_from', [':from_invalid_from' => $this->from_invalid_from]);
 		if(!is_null($this->to_invalid_from) && $this->to_invalid_from != '') $query->andWhere('`invalid_from` <= :to_invalid_from', [':to_invalid_from' => $this->to_invalid_from]);
-		$query->andFilterWhere(['percent_voucher_id' => $this->percent_voucher_id]);
 		
         return $dataProvider;
     }

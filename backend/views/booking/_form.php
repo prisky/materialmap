@@ -18,7 +18,6 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
-			['attribute' => 'event_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Event')],
 			['attribute' => 'summary_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
 			['attribute' => 'status', 'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],

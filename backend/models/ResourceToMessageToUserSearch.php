@@ -16,7 +16,7 @@ class ResourceToMessageToUserSearch extends ResourceToMessageToUser
     public function rules()
     {
         return [
-            [['resource_to_message', 'user_id'], 'integer']        ];
+            [['user_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -37,7 +37,6 @@ class ResourceToMessageToUserSearch extends ResourceToMessageToUser
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['resource_to_message' => $this->resource_to_message]);
 		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);
 		if(!is_null($this->to_user_id) && $this->to_user_id != '') $query->andWhere('`user_id` <= :to_user_id', [':to_user_id' => $this->to_user_id]);
 		

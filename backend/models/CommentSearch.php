@@ -14,8 +14,7 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['content', 'email'], 'safe'],
-			[['event_id'], 'integer']        ];
+            [['content', 'email'], 'safe']        ];
     }
 
     public function scenarios()
@@ -38,7 +37,6 @@ class CommentSearch extends Comment
 
 		$query->andFilterGoogleStyle('content', $this->content);
 		$query->andFilterGoogleStyle('email', $this->email);
-		$query->andFilterWhere(['event_id' => $this->event_id]);
 		
         return $dataProvider;
     }

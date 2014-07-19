@@ -25,23 +25,7 @@ class SurveyResultToSummaryController extends \backend\components\Controller
 	 */
 	public function getGridColumns() {
 		return [
-            [
-                "attribute" => "survey_result_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('SurveyResult'),
-                "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->surveyResult->label, Url::toRoute([strtolower('SurveyResult') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->surveyResult->label, Url::toRoute([strtolower('SurveyResult') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ]
+
         ];
 	}
 

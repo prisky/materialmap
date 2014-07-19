@@ -27,23 +27,6 @@ class TownCityController extends \backend\components\Controller
 		return [
             [
                 "attribute" => "name"
-            ],
-            [
-                "attribute" => "state_province_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('StateProvince'),
-                "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->stateProvince->label, Url::toRoute([strtolower('StateProvince') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->stateProvince->label, Url::toRoute([strtolower('StateProvince') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
             ]
         ];
 	}

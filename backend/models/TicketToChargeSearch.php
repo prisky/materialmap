@@ -14,7 +14,7 @@ class TicketToChargeSearch extends TicketToCharge
     public function rules()
     {
         return [
-            [['charge_id', 'ticket_id'], 'integer']        ];
+            [['charge_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class TicketToChargeSearch extends TicketToCharge
         }
 
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
-		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);
 		
         return $dataProvider;
     }

@@ -18,7 +18,6 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Voucher')],
-			['attribute' => 'voucher_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Voucher')],
 			['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'invalid_to', 'type' => DetailView::INPUT_DATETIME],
 		]

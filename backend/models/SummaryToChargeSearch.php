@@ -14,7 +14,7 @@ class SummaryToChargeSearch extends SummaryToCharge
     public function rules()
     {
         return [
-            [['charge_id', 'summary_id'], 'integer']        ];
+            [['charge_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class SummaryToChargeSearch extends SummaryToCharge
         }
 
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
-		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

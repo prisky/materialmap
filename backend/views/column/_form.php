@@ -17,8 +17,14 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'model_id', 'type' =>  DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model')],
-			['attribute' => 'name', 'type' =>  DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
+				'widgetOptions' => [
+					'class' => 'kartik\markdown\MarkdownEditor',
+					'showExport' => false,
+				],
+			],
 		]
 	]);	?>
 

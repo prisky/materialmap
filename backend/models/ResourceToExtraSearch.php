@@ -14,7 +14,7 @@ class ResourceToExtraSearch extends ResourceToExtra
     public function rules()
     {
         return [
-            [['extra_id', 'resource_id'], 'integer']        ];
+            [['extra_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -36,7 +36,6 @@ class ResourceToExtraSearch extends ResourceToExtra
         }
 
 		$query->andFilterWhere(['extra_id' => $this->extra_id]);
-		$query->andFilterWhere(['resource_id' => $this->resource_id]);
 		
         return $dataProvider;
     }
