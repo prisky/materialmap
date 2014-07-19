@@ -36,7 +36,9 @@ class BuildNavigationController extends Controller
 			'MessageToMessageField',
 		],
 		'MessageField',
-		'Model',
+		'Model' => [
+			'Column',
+		],
 		'PaymentGateway',
 		'Reseller',
 		'User'=> [

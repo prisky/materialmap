@@ -10,7 +10,7 @@ namespace backend\components;
  * @link https://github.com/AidasK/yii-closure-table-behavior/
  * @version 2.0.0
  */
-class ClosureTableQuery extends \yii\db\ActiveQuery
+class ClosureTableQuery extends \common\components\ActiveQuery
 {
     public $closureTableName;
     private $tableName;

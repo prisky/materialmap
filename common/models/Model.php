@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use backend\components\ClosureTableQuery;
+
 /**
  * This is the model class for table "tbl_model".
  *
@@ -77,4 +79,5 @@ class Model extends \common\components\ActiveRecord
     {
         return $this->hasMany(Navigation::className(), ['child' => 'auth_item_name']);
 	}
+	
 }

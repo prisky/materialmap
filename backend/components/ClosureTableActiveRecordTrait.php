@@ -15,7 +15,7 @@ trait ClosureTableActiveRecordTrait
 {
     /**
      * @inheritdoc
-     * @return CommentQuery
+     * @return Query
      */
     public static function find()
     {

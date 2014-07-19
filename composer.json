@@ -29,7 +29,8 @@
 		"phpoffice/phpexcel": "dev-develop",
 		"kartik-v/yii2-label-inplace": "*",
 		"yiisoft/yii2-apidoc": "dev-master",
-		"cebe/markdown": "dev-master as 0.9.0"
+		"cebe/markdown": "dev-master as 0.9.0",
+		"kartik-v/yii2-markdown": "*"
 	},
 	"require-dev": {
 		"yiisoft/yii2-codeception": "*",

@@ -808,7 +808,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 		}
 
-        return "\t\t\t['attribute' => '$attribute', 'type' =>  $inputType],";
+        return "\t\t\t['attribute' => '$attribute', 'type' => $inputType],";
 	}
 	
 	/**
