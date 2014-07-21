@@ -4,12 +4,15 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use yii\helpers\Url;
 
 /**
  * @var \yii\web\View $this
  * @var string $content
  */
+yii\apidoc\templates\bootstrap\assets\AssetBundle::register($this);
 AppAsset::register($this);
+$menuItems = [];
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,9 +35,35 @@ AppAsset::register($this);
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
-            $menuItems = [
-            ];
+		?>
 
+		<div class="navbar-form navbar-left" role="search">
+		  <div class="form-group">
+			  <input id="searchbox" type="text" class="form-control" placeholder="Search">
+		  </div>
+		</div>
+		
+		<?php
+			$this->registerJs("
+				$('#searchbox')
+					// when text is changed in search box
+					.on('change paste keyup click', function() {
+						// load help from server - if empty then show help for the current context otherwise scanning for results
+						$('#search-resultbox').load('" . Url::toRoute('search') . "&q=' + encodeURIComponent($(this).val()))
+					})
+					// block bubbling of keypress event for search box
+					.click(function(e) { e.stopPropagation() })
+					// on focus show the modal and allow a click in modal with no bubbling
+					.focus(function() { $('#search-resultbox')
+						.show()
+						.click(function(e) { e.stopPropagation() })
+					});
+				// any click outside of search box or modal should bubble to doc and hide the search results
+				$(document).click(function (e) { $('#search-resultbox').hide() });
+				// hide the search results on ESC
+				$(document).on('keyup', function(e) { if (e.which == 27) { $('#search-resultbox').hide(); } });
+			");		
+			
 			// TODO: probably should have different layout for login rather than these conidtions hard coded in
 			if($this->context->action->id != 'login') {
 				if(Yii::$app->user->isGuest) {
@@ -55,6 +84,7 @@ AppAsset::register($this);
             NavBar::end();
         ?>
 
+		<div id="search-resultbox" style="display: none;" class="modal-content"></div>
 		<div class="container">
 		<?php
 			if($this->context->action->id != 'login' && isset($this->context->action->controller->breadCrumbs)) {

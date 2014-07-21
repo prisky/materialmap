@@ -13,6 +13,7 @@ use common\models\Column;
 use kartik\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
+use kartik\markdown\Markdown;
 use backend\components\FieldRange;
 /**
  * Controller is the base class of app controllers and implements the CRUD actions for a model.
@@ -66,13 +67,17 @@ abstract class Controller extends \common\components\Controller
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
+                        'actions' => ['search'],
+                        'allow' => true,
+                    ],
+                    [
                         'allow' => true,
                         'actions' => ['login'],
                         'roles' => ['?'],	// guests
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'search'],
                         'roles' => ['@'],	// authorized
                     ],
                     [
@@ -286,6 +291,45 @@ abstract class Controller extends \common\components\Controller
 	
 		echo \yii\helpers\Json::encode($out);
 	}
+	
+	/**
+	 * Produce the list contents for the search box results - called by ajax
+	 * @param string $q Search term the user enters - sent by ajax with each keypress
+	 */
+	public function actionSearch($q) {
+		// if the search term is not empty
+		if($q) {
+			// loop through all models
+			foreach(Model::find()->asArray()->all() as $model) {
+				$modelName = "\\common\models\\" . $model['auth_item_name'];
+				$query = $modelName::find()->displayAttributes($q);
+				$command = $query->createCommand();
+				$data = $command->queryAll();
+				echo $query->count();
+				echo ' sfgd';
+			}
+		}
+		// otherwise empty so returning help for current context
+		else {
+			$model = Model::findOne(['auth_item_name' => $this->modelNameShort]);
+			// heading - model
+			echo '<div class="table-responsive modal-body">';
+			echo '<h1> '. Markdown::convert($model->label) . '</h1>';
+			echo '<p>' . Markdown::convert($model->help) . '</p>';
+			echo '<table class="detail-view table table-hover table-bordered table-striped">';
+			echo '<tbody>';
+			// table of attributes
+			foreach($model->columns as $column) {
+				echo "<tr>";
+				echo "<th>{$column->label}</th>";
+				echo "<td>" . Markdown::convert($column->help) . "</td";
+				echo "/<tr>";
+			}
+			echo "</tbody>";
+			echo "</table>";
+			echo "</div>";
+		}
+	}
 
     /**
      * Sets the HTTP headers needed by file download action.
@@ -481,7 +525,7 @@ abstract class Controller extends \common\components\Controller
 	public static function fKWidgetOptions ($shortModelName)
 	{
 		// The controller action that will render the list
-		$url = \yii\helpers\BaseUrl::toRoute(strtolower($shortModelName) . '/list');
+		$url = Url::toRoute(strtolower($shortModelName) . '/list');
 
 // Script to initialize the selection based on the value of the select2 element
 $initScript = <<< SCRIPT

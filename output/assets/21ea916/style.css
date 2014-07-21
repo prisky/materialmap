@@ -162,7 +162,7 @@ h1:hover .hashlink, h2:hover .hashlink, h3:hover .hashlink, h4:hover .hashlink, 
     list-style: none;
 
     overflow: auto;
-    max-height: 100%;
+    /* max-height: 100%; */
 }
 
 #search-results li, #search-results li a {
