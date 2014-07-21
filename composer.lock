@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cebe/markdown.git",
-                "reference": "8a579225847571d9e85f98540d44f7d99f974a5e"
+                "reference": "c43bb28428c7160504ea7d6cc586418a5351c9fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cebe/markdown/zipball/8a579225847571d9e85f98540d44f7d99f974a5e",
-                "reference": "8a579225847571d9e85f98540d44f7d99f974a5e",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/c43bb28428c7160504ea7d6cc586418a5351c9fd",
+                "reference": "c43bb28428c7160504ea7d6cc586418a5351c9fd",
                 "shasum": ""
             },
             "require": {
@@ -93,7 +93,7 @@
                     "name": "Carsten Brandt",
                     "email": "mail@cebe.cc",
                     "homepage": "http://cebe.cc/",
-                    "role": "Core framework development"
+                    "role": "Creator"
                 }
             ],
             "description": "A super fast highly extensible markdown parser for PHP",
@@ -105,7 +105,7 @@
                 "markdown",
                 "markdown-extra"
             ],
-            "time": "2014-06-28 18:06:08"
+            "time": "2014-07-19 11:19:09"
         },
         {
             "name": "cebe/markdown-latex",
@@ -266,12 +266,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-checkbox-x.git",
-                "reference": "4d45c68f7171281c3f284dfe46e5615dfc989bed"
+                "reference": "1c77f7d4b0663533ad6c6fe3f6fe4489c7703695"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-checkbox-x/zipball/4d45c68f7171281c3f284dfe46e5615dfc989bed",
-                "reference": "4d45c68f7171281c3f284dfe46e5615dfc989bed",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-checkbox-x/zipball/1c77f7d4b0663533ad6c6fe3f6fe4489c7703695",
+                "reference": "1c77f7d4b0663533ad6c6fe3f6fe4489c7703695",
                 "shasum": ""
             },
             "type": "library",
@@ -302,7 +302,7 @@
                 "state",
                 "three"
             ],
-            "time": "2014-06-14 06:39:06"
+            "time": "2014-07-19 17:37:41"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -310,12 +310,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "05d02d9b8a1a0980af2417581511c594a140d632"
+                "reference": "2e6a2aba8c1321747168f32f21c5d03665c47b92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/05d02d9b8a1a0980af2417581511c594a140d632",
-                "reference": "05d02d9b8a1a0980af2417581511c594a140d632",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/2e6a2aba8c1321747168f32f21c5d03665c47b92",
+                "reference": "2e6a2aba8c1321747168f32f21c5d03665c47b92",
                 "shasum": ""
             },
             "type": "library",
@@ -346,7 +346,7 @@
                 "preview",
                 "upload"
             ],
-            "time": "2014-07-15 13:50:55"
+            "time": "2014-07-20 19:14:43"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "592dfb6d5fa6fe2303094c3b30410b516655d456"
+                "reference": "9edb05ed0b78e8b3dc59163680f362e4e2200e1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/592dfb6d5fa6fe2303094c3b30410b516655d456",
-                "reference": "592dfb6d5fa6fe2303094c3b30410b516655d456",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/9edb05ed0b78e8b3dc59163680f362e4e2200e1b",
+                "reference": "9edb05ed0b78e8b3dc59163680f362e4e2200e1b",
                 "shasum": ""
             },
             "type": "library",
@@ -387,7 +387,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2014-06-18 11:06:34"
+            "time": "2014-07-21 06:20:57"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -485,12 +485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "16795776b840135c5e3bdf9ed6179bdc4dd1df5b"
+                "reference": "e33054f483c2b594932a3d548eb6a6e50de4391e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/16795776b840135c5e3bdf9ed6179bdc4dd1df5b",
-                "reference": "16795776b840135c5e3bdf9ed6179bdc4dd1df5b",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/e33054f483c2b594932a3d548eb6a6e50de4391e",
+                "reference": "e33054f483c2b594932a3d548eb6a6e50de4391e",
                 "shasum": ""
             },
             "require": {
@@ -528,7 +528,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-07-16 12:25:16"
+            "time": "2014-07-19 15:15:26"
         },
         {
             "name": "kartik-v/yii2-field-range",
@@ -587,12 +587,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "87a66d04df3167d67fb3534bf1be6aeb4324982f"
+                "reference": "222e4c523e63acb2bc13487775d170b606bc8fdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/87a66d04df3167d67fb3534bf1be6aeb4324982f",
-                "reference": "87a66d04df3167d67fb3534bf1be6aeb4324982f",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/222e4c523e63acb2bc13487775d170b606bc8fdb",
+                "reference": "222e4c523e63acb2bc13487775d170b606bc8fdb",
                 "shasum": ""
             },
             "require": {
@@ -626,7 +626,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-07-16 11:05:39"
+            "time": "2014-07-21 06:14:30"
         },
         {
             "name": "kartik-v/yii2-helpers",
@@ -1215,12 +1215,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "07b195e1eee19ee99cd9432983e1fb39adacdde1"
+                "reference": "2281569ebc146c3844a9a1b4e31032aa512c2c78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/07b195e1eee19ee99cd9432983e1fb39adacdde1",
-                "reference": "07b195e1eee19ee99cd9432983e1fb39adacdde1",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2281569ebc146c3844a9a1b4e31032aa512c2c78",
+                "reference": "2281569ebc146c3844a9a1b4e31032aa512c2c78",
                 "shasum": ""
             },
             "require": {
@@ -1256,7 +1256,7 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "time": "2014-04-26 10:10:44"
+            "time": "2014-07-19 06:49:33"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -1418,12 +1418,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "541a75f92c9b9e5b13fe1c331f9d10ba2e12b4de"
+                "reference": "a035ee59ae73510ebdb1064e59b4b16f1da9fc66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/541a75f92c9b9e5b13fe1c331f9d10ba2e12b4de",
-                "reference": "541a75f92c9b9e5b13fe1c331f9d10ba2e12b4de",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a035ee59ae73510ebdb1064e59b4b16f1da9fc66",
+                "reference": "a035ee59ae73510ebdb1064e59b4b16f1da9fc66",
                 "shasum": ""
             },
             "replace": {
@@ -1461,7 +1461,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-07-17 04:56:13"
+            "time": "2014-07-20 05:11:07"
         },
         {
             "name": "yiisoft/jquery",
@@ -1518,12 +1518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "e6cf9fc6d316eec693284ab30a6929bbbb0ec0f4"
+                "reference": "e8e1e41581e31edc0d921e2ef0722fb838345820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e6cf9fc6d316eec693284ab30a6929bbbb0ec0f4",
-                "reference": "e6cf9fc6d316eec693284ab30a6929bbbb0ec0f4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e8e1e41581e31edc0d921e2ef0722fb838345820",
+                "reference": "e8e1e41581e31edc0d921e2ef0722fb838345820",
                 "shasum": ""
             },
             "require": {
@@ -1591,7 +1591,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-07-18 01:51:37"
+            "time": "2014-07-21 19:23:05"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -1654,12 +1654,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "5517eeac747ad628a79ed8b16f05ec1966ef1c12"
+                "reference": "5e10e2833b960662f74c591cebb7506095baea7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5517eeac747ad628a79ed8b16f05ec1966ef1c12",
-                "reference": "5517eeac747ad628a79ed8b16f05ec1966ef1c12",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5e10e2833b960662f74c591cebb7506095baea7b",
+                "reference": "5e10e2833b960662f74c591cebb7506095baea7b",
                 "shasum": ""
             },
             "require": {
@@ -1679,9 +1679,7 @@
             "authors": [
                 {
                     "name": "Qiang Xue",
-                    "email": "qiang.xue@gmail.com",
-                    "homepage": "http://www.yiiframework.com/",
-                    "role": "Founder and project lead"
+                    "email": "qiang.xue@gmail.com"
                 }
             ],
             "description": "The Twitter Bootstrap extension for the Yii framework",
@@ -1689,7 +1687,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2014-06-30 11:04:22"
+            "time": "2014-07-19 23:15:23"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1697,12 +1695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "47dbc7c4a323086ba96dc4a9c3ff85c9f08d2615"
+                "reference": "e5614b13ee4c30c1e322aaf95855140580bc109a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/47dbc7c4a323086ba96dc4a9c3ff85c9f08d2615",
-                "reference": "47dbc7c4a323086ba96dc4a9c3ff85c9f08d2615",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/e5614b13ee4c30c1e322aaf95855140580bc109a",
+                "reference": "e5614b13ee4c30c1e322aaf95855140580bc109a",
                 "shasum": ""
             },
             "require": {
@@ -1724,9 +1722,7 @@
             "authors": [
                 {
                     "name": "Qiang Xue",
-                    "email": "qiang.xue@gmail.com",
-                    "homepage": "http://www.yiiframework.com/",
-                    "role": "Founder and project lead"
+                    "email": "qiang.xue@gmail.com"
                 }
             ],
             "description": "The composer plugin for Yii extension installer",
@@ -1735,7 +1731,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2014-07-03 12:33:09"
+            "time": "2014-07-19 19:39:03"
         },
         {
             "name": "yiisoft/yii2-jui",
@@ -1828,45 +1824,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "aidask/yii-closure-table-behavior",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/AidasK/yii-closure-table-behavior.git",
-                "reference": "58acc0b62e0f6a79715705c5e0b827baf68cd546"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/AidasK/yii-closure-table-behavior/zipball/58acc0b62e0f6a79715705c5e0b827baf68cd546",
-                "reference": "58acc0b62e0f6a79715705c5e0b827baf68cd546",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.1.0",
-                "yiisoft/yii": "1.*@dev"
-            },
-            "type": "yii-extension",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Aidas Klimas"
-                }
-            ],
-            "description": "ActiveRecord model behavior that allows to work with tree data.",
-            "homepage": "https://github.com/AidasK/yii-closure-table-behavior",
-            "keywords": [
-                "closure table",
-                "extension",
-                "nested set",
-                "tree",
-                "yii"
-            ],
-            "time": "2013-08-16 08:45:29"
-        },
         {
             "name": "codeception/codeception",
             "version": "dev-master",
@@ -2104,17 +2061,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "012b2aecbda4e38f119c19580898685851015fa7"
+                "reference": "5ab8c29546e5669fc6ce8545b166c9f0ceda088b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/012b2aecbda4e38f119c19580898685851015fa7",
-                "reference": "012b2aecbda4e38f119c19580898685851015fa7",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/5ab8c29546e5669fc6ce8545b166c9f0ceda088b",
+                "reference": "5ab8c29546e5669fc6ce8545b166c9f0ceda088b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/streams": "~1.3",
+                "guzzlehttp/streams": "~1.4",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -2161,20 +2118,20 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-07-16 03:01:02"
+            "time": "2014-07-19 19:17:17"
         },
         {
             "name": "guzzlehttp/streams",
-            "version": "1.3.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "d6aaa91cfdbae86355dd2a168a3ca536755898a2"
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/d6aaa91cfdbae86355dd2a168a3ca536755898a2",
-                "reference": "d6aaa91cfdbae86355dd2a168a3ca536755898a2",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894",
                 "shasum": ""
             },
             "require": {
@@ -2186,7 +2143,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.4.x-dev"
                 }
             },
             "autoload": {
@@ -2214,7 +2171,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-07-15 22:02:02"
+            "time": "2014-07-19 18:43:42"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2659,12 +2616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "39989b72a0ef50405307288a1493cbe0e7e5a605"
+                "reference": "c2d153e70aa85b51fbc77cd0404ffca180f341f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/39989b72a0ef50405307288a1493cbe0e7e5a605",
-                "reference": "39989b72a0ef50405307288a1493cbe0e7e5a605",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c2d153e70aa85b51fbc77cd0404ffca180f341f2",
+                "reference": "c2d153e70aa85b51fbc77cd0404ffca180f341f2",
                 "shasum": ""
             },
             "require": {
@@ -2725,7 +2682,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-07-07 11:51:41"
+            "time": "2014-07-21 02:45:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3433,90 +3390,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2014-07-09 09:06:26"
-        },
-        {
-            "name": "yiisoft/yii",
-            "version": "1.1.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii.git",
-                "reference": "022a51d34ad2c95db2b77b2075e98f5dd78b08e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii/zipball/022a51d34ad2c95db2b77b2075e98f5dd78b08e0",
-                "reference": "022a51d34ad2c95db2b77b2075e98f5dd78b08e0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.1.0"
-            },
-            "bin": [
-                "framework/yiic"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Qiang Xue",
-                    "email": "qiang.xue@gmail.com",
-                    "homepage": "http://www.yiiframework.com/",
-                    "role": "Founder and project lead"
-                },
-                {
-                    "name": "Alexander Makarov",
-                    "email": "sam@rmcreative.ru",
-                    "homepage": "http://rmcreative.ru/",
-                    "role": "Core framework development"
-                },
-                {
-                    "name": "Maurizio Domba",
-                    "homepage": "http://mdomba.info/",
-                    "role": "Core framework development"
-                },
-                {
-                    "name": "Carsten Brandt",
-                    "email": "mail@cebe.cc",
-                    "homepage": "http://cebe.cc/",
-                    "role": "Core framework development"
-                },
-                {
-                    "name": "Wei Zhuo",
-                    "email": "weizhuo@gmail.com",
-                    "role": "Project site maintenance and development"
-                },
-                {
-                    "name": "Sebastián Thierer",
-                    "email": "sebas@artfos.com",
-                    "role": "Component development"
-                },
-                {
-                    "name": "Jeffrey Winesett",
-                    "email": "jefftulsa@gmail.com",
-                    "role": "Documentation and marketing"
-                },
-                {
-                    "name": "Timur Ruziev",
-                    "email": "resurtm@gmail.com",
-                    "homepage": "http://resurtm.com/",
-                    "role": "Core framework development"
-                },
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com",
-                    "role": "Core framework development"
-                }
-            ],
-            "description": "Yii Web Programming Framework",
-            "homepage": "http://www.yiiframework.com/",
-            "keywords": [
-                "framework",
-                "yii"
-            ],
-            "time": "2014-06-30 00:14:27"
         },
         {
             "name": "yiisoft/yii2-codeception",

@@ -3,7 +3,7 @@
 namespace console\controllers;
  
 use yii\console\Controller;
-use common\models\Model;
+use console\models\Model;
  
 /**
  * Build Navigation controller
@@ -85,7 +85,9 @@ class BuildNavigationController extends Controller
 				'ResourceToExtra'
 			],
 			'SeatType',
-			'Seat',
+			'Seat' => [
+				'SeatToTicketType',
+			],
 			'Survey' => [
 				'SurveyResult' => [
 					'SurveyResultToBooking',
@@ -103,9 +105,7 @@ class BuildNavigationController extends Controller
 			],
 			'StandardSetup',
 			'Payment',
-			'TicketType' => [
-				'TicketTypeToSeat'
-			],
+			'TicketType',
 			'Voucher' => [
 				'VoucherConstraint'
 			],

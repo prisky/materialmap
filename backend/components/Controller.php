@@ -299,15 +299,18 @@ abstract class Controller extends \common\components\Controller
 	public function actionSearch($q) {
 		// if the search term is not empty
 		if($q) {
+			echo '<ul id="search-results">';
 			// loop through all models
 			foreach(Model::find()->asArray()->all() as $model) {
 				$modelName = "\\common\models\\" . $model['auth_item_name'];
 				$query = $modelName::find()->displayAttributes($q);
 				$command = $query->createCommand();
-				$data = $command->queryAll();
-				echo $query->count();
-				echo ' sfgd';
+				foreach($command->queryAll() as $result) {
+					echo "<li><a href='" . Url::toRoute(["{$model['auth_item_name']}/update", 'id'=>$result['id']]) . "'><span class='description'>{$result['text']}</span></a></li>";
+				}
+//				echo $query->count();
 			}
+			echo '</ul>';
 		}
 		// otherwise empty so returning help for current context
 		else {

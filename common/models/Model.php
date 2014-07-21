@@ -68,6 +68,7 @@ class Model extends \common\components\ActiveRecord
 			return $modelNameQuery->defaultScope();
 		}
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
