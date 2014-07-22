@@ -52,8 +52,7 @@ HTML;
 
 	</div>
 	<?php Modal::end(); ?>
-
-
+	
     <?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,

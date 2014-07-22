@@ -30,7 +30,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 * @var string The concatenated label returned when the models ActiveQuery::displayAttributes method is used 
 
 	 */
-//	public $text;
+	public $text;
 	
 	/*
 	 * @inheritdoc

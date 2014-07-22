@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b5fdf67026dcf06a59735fe405e46a08",
+    "hash": "d2abe6de9e0ca35dd8b9fef85f4f6978",
     "packages": [
         {
             "name": "cebe/js-search",
@@ -965,6 +965,56 @@
                 "yii2"
             ],
             "time": "2014-07-17 18:48:02"
+        },
+        {
+            "name": "kop/yii2-scroll-pager",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kop/yii2-scroll-pager.git",
+                "reference": "eee050ff9b90898e7c465923260b475ef740c513"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/eee050ff9b90898e7c465923260b475ef740c513",
+                "reference": "eee050ff9b90898e7c465923260b475ef740c513",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "codeception/codeception": "~2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kop\\y2sp\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Koptiev",
+                    "email": "ikoptev@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Infinite AJAX scrolling for Yii2 ListView widget",
+            "homepage": "http://kop.github.io/yii2-scroll-pager/",
+            "keywords": [
+                "pager",
+                "pagination",
+                "scroll",
+                "scrolling",
+                "yii",
+                "yii2"
+            ],
+            "time": "2014-06-26 20:47:33"
         },
         {
             "name": "michelf/php-markdown",
@@ -3577,7 +3627,8 @@
         "kartik-v/yii2-icons": 20,
         "phpoffice/phpexcel": 20,
         "yiisoft/yii2-apidoc": 20,
-        "cebe/markdown": 20
+        "cebe/markdown": 20,
+        "kop/yii2-scroll-pager": 20
     },
     "platform": {
         "php": ">=5.4.0"

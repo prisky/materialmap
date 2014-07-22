@@ -202,3 +202,64 @@ a.desc:after {
 .grid-view span.input-group-addon.kv-field-separator {
 	display: none;
 }
+
+#search-resultbox li, #search-resultbox li a {
+	min-height: 0;
+}
+
+.modal-content {
+	overflow: auto;
+}
+
+.modal-content h3 {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#search-resultbox {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    overflow: auto;
+    max-height: 100%;
+}
+
+#search-resultbox ul {
+	padding-left: 0;
+    margin: 0;
+}
+
+
+#search-resultbox li, #search-resultbox li a {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+
+    color: #333333;
+}
+
+#search-resultbox li a .title, #search-resultbox li .no-results {
+    padding: 10px 20px 5px 20px;
+    display: block;
+
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+#search-resultbox li a .description {
+    padding: 10px 20px 10px 20px;
+    display: block;
+
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 90%;
+    border-bottom: solid 1px #dddddd;
+}
+
+#search-resultbox li a:hover, #search-resultbox li a.selected {
+    background: #44B5F6;
+    text-decoration: none;
+}
