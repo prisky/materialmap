@@ -15,6 +15,7 @@ use yii\helpers\Url;
 use kartik\grid\GridView;
 use kartik\markdown\Markdown;
 use backend\components\FieldRange;
+use backend\components\DetailView;
 /**
  * Controller is the base class of app controllers and implements the CRUD actions for a model.
  *
@@ -135,7 +136,7 @@ abstract class Controller extends \common\components\Controller
 	{
 		return $this->render('//' . $this->id . '/_form', [
 			'model' => $this->findModel($id),
-			'mode' => \backend\components\DetailView::MODE_VIEW,
+			'mode' => DetailView::MODE_VIEW,
 		]);
 	}
 
@@ -163,6 +164,12 @@ abstract class Controller extends \common\components\Controller
 				return $this->redirect(['update', 'id' => $model->id]);
 			}
 		}
+		
+		// from http://www.yiiframework.com/wiki/690/render-a-form-in-a-modal-popup-using-ajax/
+        return $this->renderAjax('//' . $this->id . '/_form', [
+			'model' => new $this->modelName,
+			'mode' => DetailView::MODE_EDIT,
+		]);
 	}
 
 	/**
@@ -189,7 +196,7 @@ abstract class Controller extends \common\components\Controller
 		else
 		{
 			return $this->render('@app/views/update', [
-					'model' => $model,
+				'model' => $model,
 			]);
 		}
 	}
@@ -348,7 +355,7 @@ abstract class Controller extends \common\components\Controller
 						if($lineNumber < $upperLimit && $lineNumber >= $lowerLimit) {
 							// only show header if start of a new model
 							if(!$offset) {
-								echo "<h3>{$model['label']}</h3>\n";
+								echo "<h3 data-page='$page'>{$model['label']}</h3>\n";
 							}
 						}
 
@@ -378,9 +385,9 @@ abstract class Controller extends \common\components\Controller
 			}
 			
 			if($output = ob_get_clean()) {
-				$nextPage = $page + 1;
+				$url = Url::toRoute('search') . '&q=' . Html::encode($q) . '&page=' . ($page + 1);
 				echo "$output
-					<a id='next' class='hidden' data-page='$page' href='" . Url::toRoute('search') . "&q=" . Html::encode($q) . "&page=$nextPage'></a>
+					<a id='next' class='hidden' data-page='$page' href='$url' ></a>
 					<script type='text/javascript' charset='utf-8'>
 						$('#search-resultbox').jscroll();
 					</script>";

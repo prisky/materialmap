@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
+use yii\bootstrap\Button;
 
 /**
  * @var yii\web\View $this
@@ -36,21 +38,14 @@ HTML;
 ?>
 <div class="index">
 
-    <p>
+
 	<?php Modal::begin([
-		'id' => 'new',
+		'id' => 'modal',
 		'header' => '<h4 class="modal-title">' . Html::encode(Yii::t('app', ' New') . ' ' . $this->context->label()) . '</h4>',
 	]);?>
-    </p>
 
-	<div>
+	<div id='modalContent'></div>
 
-	<?= $this->render('//' . $this->context->id . '/_form', [
-		'model' => new $this->context->modelName,
-		'mode' => \backend\components\DetailView::MODE_EDIT,
-	]) ?>
-
-	</div>
 	<?php Modal::end(); ?>
 	
     <?= GridView::widget([
@@ -67,7 +62,11 @@ HTML;
 			'type'=>'default',
 			'before'=>  \yii\bootstrap\Button::widget([
 				'label' => '<i class="glyphicon glyphicon-plus"></i>' . Yii::t('app', ' New'),
-				'options' => ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#new'],
+				'options' => [
+					'class' => 'btn btn-success',
+					'id' => 'modalButton',
+					'value' => Url::to(["{$this->context->id}/create"]),
+				],
 				'encodeLabel' => false
 			]),
 			'showFooter' => false,
