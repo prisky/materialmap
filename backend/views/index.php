@@ -38,7 +38,6 @@ HTML;
 ?>
 <div class="index">
 
-
 	<?php Modal::begin([
 		'id' => 'modal',
 		'header' => '<h4 class="modal-title">' . Html::encode(Yii::t('app', ' New') . ' ' . $this->context->label()) . '</h4>',
@@ -63,8 +62,8 @@ HTML;
 			'before'=>  \yii\bootstrap\Button::widget([
 				'label' => '<i class="glyphicon glyphicon-plus"></i>' . Yii::t('app', ' New'),
 				'options' => [
-					'class' => 'btn btn-success',
 					'id' => 'modalButton',
+					'class' => 'btn btn-success',
 					'value' => Url::to(["{$this->context->id}/create"]),
 				],
 				'encodeLabel' => false

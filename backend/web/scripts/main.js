@@ -1,6 +1,6 @@
-
-// from http://www.yiiframework.com/wiki/690/render-a-form-in-a-modal-popup-using-ajax/
-
+/* 
+ * Copyright Andrew Blake 2014.
+ */
 // listen click, open modal and .load content
 $('#modalButton').click(function (){
     $('#modal').modal('show')
@@ -10,17 +10,16 @@ $('#modalButton').click(function (){
  
 // serialize form, render response and close modal
 function submitForm($form) {
-    $.post(
-        $form.attr("action"), // serialize Yii2 form
-        $form.serialize()
-    ).done(function(result) {
-		$form.parent().html(result.message);
-		$('#modal').modal('hide');
-	}).fail(function() {
+	$.post(
+		$form.attr("action"),
+		$form.serialize()
+	)
+	.done(function(result) {
+		$form.parent().html(result);
+	})
+	.fail(function() {
 		console.log("server error");
-		$form.replaceWith('<button class="newType">Fail</button>').fadeOut()
 	});
-
-    return false;
+	return false;
 }
 

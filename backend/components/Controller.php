@@ -167,7 +167,7 @@ abstract class Controller extends \common\components\Controller
 		
 		// from http://www.yiiframework.com/wiki/690/render-a-form-in-a-modal-popup-using-ajax/
         return $this->renderAjax('//' . $this->id . '/_form', [
-			'model' => new $this->modelName,
+			'model' => $model,
 			'mode' => DetailView::MODE_EDIT,
 		]);
 	}
