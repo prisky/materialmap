@@ -38,11 +38,10 @@ class Country extends \common\components\ActiveRecord
             [['currency_symbol'], 'string', 'max' => 1],
             [['phone_prefix'], 'string', 'max' => 6],
             [['tax_name'], 'string', 'max' => 256],
-            [['name'], 'unique'],
-            [['code'], 'unique']
+//            [['name'], 'unique'],
+//            [['code'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -42,6 +42,14 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		parent::__construct($config);
 	}
 	
+    public function transactions()
+    {
+        return [
+			'admin' => self::OP_ALL,
+			self::SCENARIO_DEFAULT => self::OP_ALL,
+		];
+    }
+
 	private static function modelNameShort() {
 		$reflect = new \ReflectionClass(get_called_class());
 		return $reflect->getShortName();
@@ -282,14 +290,45 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 */
 	public function save($runValidation = true, $attributeNames = null)
 	{
-		if(!$attributeNames) {
-			foreach($this->attributes as $attributeName => $attribute) {
-				if(!(is_null($attribute) || $attribute == '') || $this->tableSchema->columns[$attributeName]->allowNull) {
-					$attributeNames[] = $attributeName;
+		$messages = array('1062' => 'Duplicates are not allowed');
+
+		try {
+			if(!$attributeNames) {
+				foreach($this->attributes as $attributeName => $attribute) {
+					if(!(is_null($attribute) || $attribute == '') || $this->tableSchema->columns[$attributeName]->allowNull) {
+						$attributeNames[] = $attributeName;
+					}
 				}
 			}
-		}
 
-		return parent::save($runValidation, $attributeNames);
+			return parent::save($runValidation, $attributeNames);
+		}
+		catch (\Exception $e) {
+			$msg = $e->getMessage();
+
+			// special handling if forcing trigger failures to block an operation
+			if(strpos($msg, 'forced_trigger_error'))
+			{
+				// extact the message which is the incorrect column name - the bad table name is forced_trigger_error
+				preg_match("/1054 Unknown column 'forced_trigger_error\.(.*)' in 'where clause'/", $msg, $matches);
+				$msg = $matches[1];
+			}
+			else
+			{
+				// special handling to block parents being set to children - forcing a trigger fail on bad column name
+				foreach ($messages as $needle => &$message)
+				{
+					// NB: do not remove the speech marks around needle - converting to string
+					if(strpos($msg, "$needle") !== FALSE)
+					{
+						$msg = $message;
+						break;
+					}
+				}
+			}
+				
+			$this->addError(null, $msg);
+		}
 	}
 }
+		

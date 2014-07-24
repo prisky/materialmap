@@ -2,6 +2,8 @@
 
 namespace backend\components;
 
+use kartik\helpers\Html;
+
 /**
  * @inheritdoc
  */
@@ -14,6 +16,7 @@ class DetailView extends \kartik\detail\DetailView
 	public $formOptions = [
 		'beforeSubmit' => 'submitForm',
 	];
+	
 	/**
 	 * @inheritdoc
 	 */
@@ -64,7 +67,19 @@ class DetailView extends \kartik\detail\DetailView
 		if($this->mode == static::MODE_EDIT) {
 			$output .= \yii\helpers\Html::submitButton('Save', ['class' => 'btn btn-success']);
 		}
-		
+
+		// if there is errors but not specific attribute errors - maybe trigger related
+		$errors = $this->model->errors;
+		if(isset($errors[null])) {
+			foreach($errors as $error) {
+				$items[] = ['content' => $error[0]];
+			}
+			
+			$output = 
+				Html::listGroup($items, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"')
+				. $output;
+		}
+	
 		echo $output;
 
         \yii\widgets\ActiveForm::end();

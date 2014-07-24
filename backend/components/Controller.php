@@ -193,12 +193,10 @@ abstract class Controller extends \common\components\Controller
 			
 			return $this->redirect($params);
 		}
-		else
-		{
-			return $this->render('@app/views/update', [
-				'model' => $model,
-			]);
-		}
+		
+		return $this->render('@app/views/update', [
+			'model' => $model,
+		]);
 	}
 
 	/**
@@ -302,21 +300,27 @@ abstract class Controller extends \common\components\Controller
 	/**
 	 * Produce the list contents for the search box results - called by ajax
 	 * @param string $q Search term the user enters - sent by ajax with each keypress
-	 * @param int $page Page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
+	 * @param int $p Page number of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
 	 */
-	public function actionSearch($q, $page = 1) {
+	public function actionSearch($q, $p = 1, $m = null, $l = 0, $o = 0) {
 		// if the search term is not empty
 		if($q) {
 			ob_start();
 			$pageSize = 15;
-			$upperLimit = $pageSize * $page;
+			$upperLimit = $pageSize * $p;
 			$lowerLimit = $upperLimit - $pageSize;
-			$lineNumber = 0;
+			$lineNumber = $l;
 
 			// loop through all models
 			foreach(Model::find()->asArray()->all() as $model) {
 				$hasOpenUl = false;
 				$modelNameShort = $model['auth_item_name'];
+				// if auto next - i.e. a starting point model has been passed in
+				if($m) {
+					// skip to our correct starting model
+					if($modelNameShort != $m) continue;
+					$m = null;
+				}
 
 				if(Yii::$app->user->can($modelNameShort)) {
 					$action = strtolower($modelNameShort) . '/update';
@@ -330,8 +334,13 @@ abstract class Controller extends \common\components\Controller
 
 				if($action) {
 					$modelName = "\\common\models\\$modelNameShort";
-					// calculate how many we are going to jump over to save having to iterate through those records
-					if(($offset = ($lowerLimit - $lineNumber)) < 0) {
+					// continue we we presiously left off if possible i.e. this from auto next
+					if($o) {
+						$offset = $o;
+						$o = 0;
+					}
+					// otherwise calculate how many we are going to jump over to save having to iterate through those records
+					elseif(($offset = ($lowerLimit - $lineNumber)) < 0) {
 						$offset = 0;
 					}
 					// calculate the maximum rows needed
@@ -339,37 +348,30 @@ abstract class Controller extends \common\components\Controller
 						$limit = $pageSize;
 					}
 					$query = $modelName::find()->displayAttributes($q);
-					if($searchResults = $query->limit($limit)->offset($offset)->createCommand()->queryAll()) {
-						// since we have some results we can assume offset worked
-						$lineNumber += $offset;
-					}
-					// otherwise there wern't enough but we need to know how many there were to advance the counter
-					else {
-						$lineNumber += $query->count();
-					}
-						
+					$searchResults = $query->limit($limit)->offset($offset)->createCommand()->queryAll();
+					
+					$showHeader = !$offset;
+
 					if($searchResults) {
+						// keep running total of offset for next link
+						$offset++;
 						// if at end
 						if(++$lineNumber == $upperLimit) break 1;
-						// if in page
-						if($lineNumber < $upperLimit && $lineNumber >= $lowerLimit) {
-							// only show header if start of a new model
-							if(!$offset) {
-								echo "<h3 data-page='$page'>{$model['label']}</h3>\n";
-							}
+						// only show header if start of a new model
+						if($showHeader) {
+							echo "<h3 data-page='$p'>{$model['label']}</h3>\n";
 						}
 
 						foreach($searchResults as $searchResult) {
+							$offset++;
 							// if hitting upper limit
 							if(++$lineNumber == $upperLimit) break 2;
-							// if in page
-							if($lineNumber < $upperLimit && $lineNumber >= $lowerLimit) {
-								if(!$hasOpenUl) {
-									echo "<ul>\n";
-									$hasOpenUl = true;
-								}
-								echo "\t<li data-page='$page'><a href='" . Url::toRoute([$action, 'id'=>$searchResult['id']]) . "'><span class='description'>{$searchResult['text']}</span></a></li>\n";
+
+							if(!$hasOpenUl) {
+								echo "<ul>\n";
+								$hasOpenUl = true;
 							}
+							echo "\t<li data-page='$p'><a href='" . Url::toRoute([$action, 'id'=>$searchResult['id']]) . "'><span class='description'>{$searchResult['text']}</span></a></li>\n";
 						}
 
 						if($hasOpenUl) {
@@ -385,9 +387,15 @@ abstract class Controller extends \common\components\Controller
 			}
 			
 			if($output = ob_get_clean()) {
-				$url = Url::toRoute('search') . '&q=' . Html::encode($q) . '&page=' . ($page + 1);
+				$url = Url::toRoute('search')
+					. '&q=' . Html::encode($q)
+					. '&p=' . ($p + 1)
+					. "&m=$modelNameShort"
+					. "&l=$lineNumber"
+					. "&o=$offset";
+
 				echo "$output
-					<a id='next' class='hidden' data-page='$page' href='$url' ></a>
+					<a id='next' class='hidden' data-page='$p' href='$url'></a>
 					<script type='text/javascript' charset='utf-8'>
 						$('#search-resultbox').jscroll();
 					</script>";

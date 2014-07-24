@@ -11,7 +11,7 @@ $this->title = $this->context->label($model->id);
 
     <h1><?= \yii\helpers\Html::encode($this->title) ?></h1>
 
-    <?= $this->render('//' . $this->context->id . '/_form', [
+    <?= $this->renderAjax('//' . $this->context->id . '/_form', [
         'model' => $model,
 		'mode' => \backend\components\DetailView::MODE_EDIT,
     ]) ?>
