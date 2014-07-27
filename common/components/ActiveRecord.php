@@ -74,7 +74,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		
 		if(class_exists($modelNameQuery)) {
 			$modelNameQuery = new $modelNameQuery(get_called_class());
-			return $modelNameQuery->defaultScope();
+			return $modelNameQuery->accountScope()->softDeleteScope();
 		}
 	
 		return parent::find();
@@ -330,5 +330,124 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			$this->addError(null, $msg);
 		}
 	}
-}
+	
+	/**
+	 * Soft delete
+	 * @inheritdoc
+	 */
+    public static function deleteAll($condition = '', $params = [])
+    {
+        $command = static::getDb()->createCommand();
+
+		// if this model has a deleted attribute
+		if(isset(static::getTableSchema()->columns['deleted'])) {
+			// soft delete
+			$command->update(static::tableName(), ['deleted'=>1], $condition, $params);
+		} else {
+			// make it gone forever
+			$command->delete(static::tableName(), $condition, $params);
+		}
+ 
+        return $command->execute();
+    }
+
+    protected function insertInternal($attributes = null)
+    {
+        if (!$this->beforeSave(true)) {
+            return false;
+        }
+        $values = $this->getDirtyAttributes($attributes);
+        if (empty($values)) {
+            foreach ($this->getPrimaryKey(true) as $key => $value) {
+                $values[$key] = $value;
+            }
+        }
+        $db = static::getDb();
+        $command = $db->createCommand()->insert($this->tableName(), $values);
 		
+ 		try {
+			if (!$command->execute()) {
+				return false;
+			}
+		}
+		catch (\Exception $e) {
+			if(isset($this->deleted))
+			{
+				$primaryKeyName = $this->primaryKey();
+				$tableName = $this->tableName();
+				unset($values['deleted']);
+				if(array_key_exists($primaryKeyName, $values)) {
+					unset($values[$primaryKeyName]);
+				}
+				// get the matching row. Need to get list of attributes for search as the constraint violation columns
+				// only - otherwise the other attributes will stop us from finding a match
+				preg_match("/for key '(.*)'. The /", $e->message, $matches);
+				if(isset($matches[1])) {
+					$databaseName = Yii::$app->params['defaultSchema'];
+					$results = $db->createCommand("
+						SELECT COLUMN_NAME
+						FROM information_schema.KEY_COLUMN_USAGE
+						WHERE TABLE_SCHEMA = '$databaseName'
+							AND TABLE_NAME = '$tableName'
+							AND CONSTRAINT_NAME = '{$matches[1]}'")->all();
+					// convert to array so we can use the keys to intersect with attributes
+					$keyColumns = array();
+					foreach($results as $keyColumn) {
+						$keyColumns[$keyColumn['COLUMN_NAME']] = $keyColumn['COLUMN_NAME'];
+					}
+
+					$values = array_intersect_key($values, $keyColumns);
+				}
+				// try without the deleted attribute - using parent::find to avoid the soft delete scope applied in find
+				if(!$values || !$model = parent::find($values)->one()) {
+					// unknown error i.e. not todo with already being deleted
+					throw($e);
+				}
+
+				// if deleted
+				if($model->deleted) {
+					$this->$primaryKeyName = $model->$primaryKeyName;
+					// attempt undelete
+					$this->deleted = 0;
+					$this->isNewRecord = FALSE;
+					if($result=$this->update()) {
+						// similalate setting of other properties that insert sets
+						$this->isNewRecord = TRUE;
+//						$this->scenario = 'update';
+					}
+					else {
+						// not handled so re-throw
+						throw($e);
+					}
+				}
+				else {
+					// not handled so re-throw
+					throw($e);
+				}
+			}
+			else {
+				// not handled so re-throw
+				throw($e);
+			}
+		}
+
+        $table = $this->getTableSchema();
+        if ($table->sequenceName !== null) {
+            foreach ($table->primaryKey as $name) {
+                if ($this->getAttribute($name) === null) {
+                    $id = $table->columns[$name]->phpTypecast($db->getLastInsertID($table->sequenceName));
+                    $this->setAttribute($name, $id);
+                    $values[$name] = $id;
+                    break;
+                }
+            }
+        }
+
+        $changedAttributes = array_fill_keys(array_keys($values), null);
+        $this->setOldAttributes($values);
+        $this->afterSave(true, $changedAttributes);
+
+        return true;
+    }
+
+}

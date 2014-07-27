@@ -301,8 +301,22 @@ abstract class Controller extends \common\components\Controller
 	 * Produce the list contents for the search box results - called by ajax
 	 * @param string $q Search term the user enters - sent by ajax with each keypress
 	 * @param int $p Page number of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
+	 * @param string $m The short name of the model to continue from
+	 * @param type $l The overall line number to continue from - including headings
+	 * @param int $o The offset for the next select to continue from
 	 */
-	public function actionSearch($q, $p = 1, $m = null, $l = 0, $o = 0) {
+	public function actionSearch($q, $p = 1, $m = '', $l = 0, $o = 0) {
+		
+//TODO: the little code below is an attempt to cancel the connection by echoing output - however script refuses to cancel - not sure if
+// mamp problem. This needs to cancel to save overhead of fast typing meaning severals requests live the abort sent by ajax
+/*		ignore_user_abort(false); // just to be safe
+
+		ob_start();
+		echo 'sdgf ';
+		flush();
+		ob_flush();
+
+		$t = connection_status();*/
 		// if the search term is not empty
 		if($q) {
 			ob_start();
@@ -400,6 +414,9 @@ abstract class Controller extends \common\components\Controller
 						$('#search-resultbox').jscroll();
 					</script>";
 			}
+			elseif(!$lineNumber) {
+				echo "<h3>Nothing found</h3>";
+			}
 		}
 		// otherwise empty so returning help for current context
 		else {
@@ -420,6 +437,11 @@ abstract class Controller extends \common\components\Controller
 			echo "</tbody>";
 			echo "</table>";
 			echo "</div>";
+			// need to unbind jscroll which happens if no link for jscroll to take next url from
+			echo "
+				<script type='text/javascript' charset='utf-8'>
+					$('#search-resultbox').unbind('.jscroll');
+				</script>";
 		}
 	}
 

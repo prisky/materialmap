@@ -28,10 +28,10 @@ abstract class ActiveQuery extends \yii\db\ActiveQuery
 	}
 	
 	/**
-	 * Set default query paramters when using find
+	 * Set default query paramters when using find. Restrict users access by account.
 	 * @return \common\components\ActiveQuery
 	 */
-	public function defaultScope() {
+	public function accountScope() {
 		// filter by account if user doesn't have AccountRead access - in which case can see all accounts
 		if(isset(Yii::$app->user->id) && !Yii::$app->user->can('AccountRead')) {
 			// if the model has an account_id attribute then filter by it
@@ -61,6 +61,14 @@ abstract class ActiveQuery extends \yii\db\ActiveQuery
 		}
 
 		return $this;
+	}
+	
+	/**
+	 * Soft delete scope
+	 * @return \common\components\ActiveQuery
+	 */
+	public function softDeleteScope() {
+		return $this->andFilterWhere(['deleted' => 0]);
 	}
 
 }

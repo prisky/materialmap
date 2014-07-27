@@ -46,10 +46,24 @@ $menuItems = [];
 		<?php
 			$this->registerJs("
 				$('#searchbox')
-					// when text is changed in search box
-					.on('change paste keyup click', function() {
+					.on('click', function(e) {
 						// load help from server - if empty then show help for the current context otherwise scanning for results
-						$('#search-resultbox').load('" . Url::toRoute('search') . "&q=' + encodeURIComponent($(this).val()))
+						$('#search-resultbox').load('" . Url::toRoute('search') . "&q=' + encodeURIComponent($(this).val()));
+					})
+					// when text is changed in search box
+					.on('paste keyup', function(e) {
+						// load help from server - if empty then show help for the current context otherwise scanning for results - allow abort
+						// hence not using jquery load
+						if (typeof this.xhr !== 'undefined')
+							this.xhr.abort();
+						this.xhr = $.ajax({
+							url: '" . Url::toRoute('search') . "&q=' + encodeURIComponent($(this).val()),
+							type: 'GET',
+							success: function (data) {
+								//process response
+								$('#search-resultbox').html(data);
+							}
+						});
 					})
 					// block bubbling of keypress event for search box
 					.click(function(e) { e.stopPropagation() })
