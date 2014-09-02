@@ -65,7 +65,7 @@ class Model extends \common\components\ActiveRecord
 				'depthAttribute' => static::depthAttribute,
 			]));
 
-			return $modelNameQuery->defaultScope();
+			return $modelNameQuery->accountScope()->softDeleteScope();
 		}
     }
 

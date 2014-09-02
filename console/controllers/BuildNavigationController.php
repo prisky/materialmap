@@ -76,13 +76,14 @@ class BuildNavigationController extends Controller
 				'Bid'
 			],
 			'Reminder',
-			'Resource' => [
-				'ResourceToMessage' => [
-					'ResourceToMessageToUser'
+			'ResourceType' => [
+				'Resource',
+				'ResourceTypeToMessage' => [
+					'ResourceTypeToMessageToUser'
 				],
-				'ResourceToAddress',
-				'ResourceToCustomField',
-				'ResourceToExtra'
+				'ResourceTypeToAddress',
+				'ResourceTypeToCustomField',
+				'ResourceTypeToExtra'
 			],
 			'SeatType',
 			'Seat' => [
@@ -112,33 +113,33 @@ class BuildNavigationController extends Controller
 			'Event' => [
 				'Booking' => [
 					'BookingToCharge',
-					'BookingToEventToResourceToCustomField',
-					'BookingToEventToResourceToExtra'
+					'BookingToEventTypeToResourceTypeToCustomField',
+					'BookingToEventTypeToResourceTypeToExtra'
 				],
 				'Ticket' => [
 					'TicketToCharge',
-					'TicketToEventToResourceToCustomField',
+					'TicketToEventTypeToResourceTypeToCustomField',
 					'TicketToSeat',
 					'TicketToSeatToCharge',
 					'TicketToSeatToContact',
 					'TicketToSeatToContactToSms',
-					'TicketToSeatToEventToResourceToCustomField'
+					'TicketToSeatToEventTypeToResourceTypeToCustomField'
 				],
 				'Comment',
-				'EventDetail' => [
-					'EventDetailToTicketType'
+				'EventType' => [
+					'EventTypeToTicketType'
 				],
-				'EventToResourceToCustomField',
-				'EventToResourceToExtra' => [
-					'EventToResourceToExtraToSummary',
-					'EventToResourceToExtraToTicket' => [
-						'EventToResourceToExtraToTicketToSeat'
+				'EventTypeToResourceTypeToCustomField',
+				'EventTypeToResourceTypeToExtra' => [
+					'EventTypeToResourceTypeToExtraToSummary',
+					'EventTypeToResourceTypeToExtraToTicket' => [
+						'EventTypeToResourceTypeToExtraToTicketToSeat'
 					],
 				],
 				'Summary' => [
 					'SummaryToAccountToUser',
 					'SummaryToCharge',
-					'SummaryToEventToResourceToCustomField',
+					'SummaryToEventTypeToResourceTypeToCustomField',
 					'SummaryToPercentPromotion',
 					'SummaryToPercentVoucher',
 					'SummaryToPromotion',

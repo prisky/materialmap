@@ -26,9 +26,9 @@ $template = <<< HTML
 	<div class="panel-heading clearfix">
 		<div class="pull-right kv-panel-pager">{pager}</div>
 		<div class="pull-right">{summary}</div>
-	   {heading}
+		{heading}
 	</div>
-	 {before}
+	{before}
 	{items}
 	{after}
 </div>
@@ -64,7 +64,7 @@ HTML;
 				'options' => [
 					'id' => 'modalButton',
 					'class' => 'btn btn-success',
-					'value' => Url::to(["{$this->context->id}/create"]),
+					'value' => Url::to(array_merge(['create'], $parentParam)),
 				],
 				'encodeLabel' => false
 			]),

@@ -12,6 +12,11 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+		'request' => [
+			'enableCookieValidation' => true,
+			'enableCsrfValidation' => true,
+			'cookieValidationKey' => 'as43bvfd234',
+		],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

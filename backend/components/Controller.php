@@ -121,9 +121,10 @@ abstract class Controller extends \common\components\Controller
 		}
 
 		return $this->render('@app/views/index', [
-				'dataProvider' => $dataProvider,
-				'searchModel' => $searchModel,
-				'gridColumns' => $gridColumns,
+			'dataProvider' => $dataProvider,
+			'searchModel' => $searchModel,
+			'gridColumns' => $gridColumns,
+			'parentParam' => $this->parentParam
 		]);
 	}
 
@@ -287,7 +288,7 @@ abstract class Controller extends \common\components\Controller
 			$out['total'] = $query->count();
 		}
 		elseif ($id > 0) {
-			$model = $modelName::find($id)->displayAttributes()->one();
+			$model = $modelName::find()->where(['id' => $id])->displayAttributes()->one();
 			$out['results'] = ['id' => $id, 'text' => $model->text];
 		}
 		else {
@@ -445,6 +446,23 @@ abstract class Controller extends \common\components\Controller
 		}
 	}
 
+	/**
+	 * Calculate the parent parameter from a get variable
+	 * @return array The get paramter of the parent if possible
+	 */
+	public function getParentParam()
+	{
+		$fullModelName = $this->modelName;
+	
+		// if not a root node in navigation
+		if($parentForeignKeyName = $fullModelName::getParentForeignKeyName()) {
+			$parentForeignKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
+			return [$parentForeignKeyName => $parentForeignKey];
+		}
+		
+		return [];
+	}
+
     /**
      * Sets the HTTP headers needed by file download action.
      */
@@ -529,7 +547,7 @@ abstract class Controller extends \common\components\Controller
 			// Prepare for next iteration. Primary key should be set to the foreign key in this models parent to the grandparent
 			if(sizeof($models) > $key + 2) {
 				$parentModel = $models[$key + 1];
-				$parentModelName = "\\common\models\\" . $model['auth_item_name'];
+				$parentModelName = "\\common\models\\" . $parentModel['auth_item_name'];
 				$grandparentForeignKeyName = $parentModelName::getParentForeignKeyName();
 				$parentKey = $parentModelName::findOne($parentKey)->$grandparentForeignKeyName;
 			}

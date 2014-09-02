@@ -68,7 +68,12 @@ abstract class ActiveQuery extends \yii\db\ActiveQuery
 	 * @return \common\components\ActiveQuery
 	 */
 	public function softDeleteScope() {
-		return $this->andFilterWhere(['deleted' => 0]);
+		$modelClass = $this->modelClass;
+		$tableName = $modelClass::tableName();
+		$tableSchema =  Yii::$app->db->getTableSchema($tableName);
+		return isset($tableSchema->columns['deleted'])
+			?  $this->andFilterWhere(['deleted' => 0])
+			: $this;
 	}
 
 }

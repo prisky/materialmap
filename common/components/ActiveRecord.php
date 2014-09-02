@@ -76,7 +76,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			$modelNameQuery = new $modelNameQuery(get_called_class());
 			return $modelNameQuery->accountScope()->softDeleteScope();
 		}
-	
+
 		return parent::find();
     }
 
@@ -182,7 +182,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
 		if($primaryKey) {
 			$modelName = static::modelName();
-			$model = $modelName::find()->where(['id' => $primaryKey])->displayAttributes()->one();
+			$model = $modelName::find()->where([static::tableName() . '.id' => $primaryKey])->displayAttributes()->one();
 			$label = $model->text;
 		}
 		// otherwise if not cached

@@ -3,6 +3,8 @@
 namespace backend\components;
 
 use kartik\helpers\Html;
+use yii\helpers\Url;
+use Yii;
 
 /**
  * @inheritdoc
@@ -31,23 +33,17 @@ class DetailView extends \kartik\detail\DetailView
 		else {
 			$params[] = 'create';
 		}
-	
-		$fullModelName = $this->model->className();
-
-		// if not a root node in navigation
-		if($parentForeignKeyName = $fullModelName::getParentForeignKeyName()) {
-			$this->model->$parentForeignKeyName = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
-			$params[$parentForeignKeyName] = $this->model->$parentForeignKeyName;
-		}
 		
-		$this->formOptions['action'] = \yii\helpers\Url::toRoute($params);
+		$parentParam = Yii::$app->controller->parentParam;
+		$this->formOptions['action'] = Url::to(array_merge($params, $parentParam));
 		
 		// this starts the active form
 		parent::init();
 		
 		// place hidden field to parent if not root
-		if($parentForeignKeyName) {
-			echo \yii\helpers\Html::activeHiddenInput($this->model, $parentForeignKeyName);
+		foreach($parentParam as $parentForeignKeyName => $value) {
+			$this->model->$parentForeignKeyName = $value;
+			echo Html::activeHiddenInput($this->model, $parentForeignKeyName);
 		}
 	}
 
@@ -65,7 +61,7 @@ class DetailView extends \kartik\detail\DetailView
         ]);
         
 		if($this->mode == static::MODE_EDIT) {
-			$output .= \yii\helpers\Html::submitButton('Save', ['class' => 'btn btn-success']);
+			$output .= Html::submitButton('Save', ['class' => 'btn btn-success']);
 		}
 
 		// if there is errors but not specific attribute errors - maybe trigger related
