@@ -30,7 +30,11 @@ class SummaryToAccountToUserController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->accountToUser) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -47,7 +51,11 @@ class SummaryToAccountToUserController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Invoice'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->invoice) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->invoice->label, Url::toRoute([strtolower('Invoice') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -88,7 +96,11 @@ class SummaryToAccountToUserController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->accountToUser) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

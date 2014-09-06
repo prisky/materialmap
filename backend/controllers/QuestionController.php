@@ -30,7 +30,11 @@ class QuestionController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('QuestionThread'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->questionThread) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->questionThread->label, Url::toRoute([strtolower('QuestionThread') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -47,7 +51,11 @@ class QuestionController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Bid'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->bid) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->bid->label, Url::toRoute([strtolower('Bid') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

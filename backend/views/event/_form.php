@@ -17,7 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'event_detail_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventDetail')],
+			['attribute' => 'event_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventType')],
+			['attribute' => 'resource_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Resource')],
 			['attribute' => 'start', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'end', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'status', 'type' => DetailView::INPUT_DROPDOWN_LIST,

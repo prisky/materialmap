@@ -30,7 +30,11 @@ class SummaryToPromotionController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Promotion'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->promotion) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->promotion->label, Url::toRoute([strtolower('Promotion') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

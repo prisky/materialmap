@@ -18,7 +18,6 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User')],
-			['attribute' => 'address_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Address')],
 			['attribute' => 'phone_work', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 20]],
 			['attribute' => 'balance', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'summary_charge', 'type' => DetailView::INPUT_MONEY],
@@ -28,6 +27,9 @@ use backend\components\DetailView;
 			['attribute' => 'sms_charge', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],
+			['attribute' => 'optimisation', 'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'options' => ['prompt' => ''],
+				'items' => [ "None" => "None", "Compress" => "Compress", "Spread" => "Spread" ]],
 		]
 	]);	?>
 

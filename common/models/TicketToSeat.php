@@ -10,14 +10,14 @@ namespace common\models;
  * @property string $ticket_id
  * @property string $seat_id
  *
- * @property EventToResourceToExtraToTicketToSeat[] $eventToResourceToExtraToTicketToSeats
+ * @property EventTypeToResourceTypeToExtraToTicketToSeat[] $eventTypeToResourceTypeToExtraToTicketToSeats
  * @property SurveyResultToTicketToSeat[] $surveyResultToTicketToSeats
  * @property Ticket $ticket
  * @property Seat $seat
  * @property Account $account
  * @property TicketToSeatToCharge[] $ticketToSeatToCharges
  * @property TicketToSeatToContact[] $ticketToSeatToContacts
- * @property TicketToSeatToEventToResourceToCustomField[] $ticketToSeatToEventToResourceToCustomFields
+ * @property TicketToSeatToEventTypeToResourceTypeToCustomFie[] $ticketToSeatToEventTypeToResourceTypeToCustomFies
  */
 class TicketToSeat extends \common\components\ActiveRecord
 {
@@ -45,9 +45,9 @@ class TicketToSeat extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventToResourceToExtraToTicketToSeats()
+    public function getEventTypeToResourceTypeToExtraToTicketToSeats()
     {
-        return $this->hasMany(EventToResourceToExtraToTicketToSeat::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(EventTypeToResourceTypeToExtraToTicketToSeat::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -101,8 +101,8 @@ class TicketToSeat extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToSeatToEventToResourceToCustomFields()
+    public function getTicketToSeatToEventTypeToResourceTypeToCustomFies()
     {
-        return $this->hasMany(TicketToSeatToEventToResourceToCustomField::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToSeatToEventTypeToResourceTypeToCustomFie::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
     }
 }

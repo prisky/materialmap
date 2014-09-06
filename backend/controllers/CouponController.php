@@ -27,19 +27,36 @@ class CouponController extends \backend\components\Controller
 		return [
             [
                 "attribute" => "expiry",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_expiry",
-                    "attribute2" => "to_expiry"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_expiry",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ],
             [
                 "attribute" => "reseller_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Reseller'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->reseller) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->reseller->label, Url::toRoute([strtolower('Reseller') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

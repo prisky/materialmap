@@ -28,23 +28,61 @@ class EventController extends \backend\components\Controller
 		return [
             [
                 "attribute" => "end",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_end",
-                    "attribute2" => "to_end"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_end",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ],
             [
-                "attribute" => "event_detail_id",
+                "attribute" => "event_type_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('EventDetail'),
+                "filterWidgetOptions" => Controller::fKWidgetOptions('EventType'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->eventDetail->label, Url::toRoute([strtolower('EventDetail') . "/update", "id" => $key]));
+								// if null foreign key
+								if(!$model->eventType) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->eventType->label, Url::toRoute([strtolower('EventType') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->eventDetail->label, Url::toRoute([strtolower('EventDetail') . "/read", "id" => $key]));
+									return Html::a($model->eventType->label, Url::toRoute([strtolower('EventType') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "resource_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource'),
+                "value" => function ($model, $key, $index, $widget) {
+								// if null foreign key
+								if(!$model->resource) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->resource->label, Url::toRoute([strtolower('Resource') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->resource->label, Url::toRoute([strtolower('Resource') . "/read", "id" => $key]));
 								}
 								else {
 									return $model->label($key);
@@ -54,21 +92,32 @@ class EventController extends \backend\components\Controller
             ],
             [
                 "attribute" => "start",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_start",
-                    "attribute2" => "to_start"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_start",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ],
             [
                 "attribute" => "status",
-                "class" => "dropDownList",
-                "filterWidgetOptions" => [
-                    "options" => [
-                        "prompt" => ""
-                    ],
-                    "items" => "[ 'confirmed' => 'Confirmed' 'canceled' => 'Canceled' 'awaiting_mimimum' => 'Awaiting mimimum' ]"
+                "filter" => [
+                    "confirmed" => "confirmed",
+                    "canceled" => "canceled",
+                    "awaiting_mimimum" => "awaiting_mimimum"
                 ]
             ]
         ];

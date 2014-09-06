@@ -9,12 +9,12 @@ namespace common\models;
  * @property string $name
  * @property integer $system
  * @property string $email_html
- * @property string $sms_text
  * @property string $email_subject
+ * @property string $sms_text
  *
  * @property AccountToMessage[] $accountToMessages
  * @property MessageToMessageField[] $messageToMessageFields
- * @property ResourceToMessage[] $resourceToMessages
+ * @property ResourceTypeToMessage[] $resourceTypeToMessages
  */
 class Message extends \common\components\ActiveRecord
 {
@@ -36,8 +36,8 @@ class Message extends \common\components\ActiveRecord
             [['system'], 'integer'],
             [['email_html'], 'string'],
             [['name'], 'string', 'max' => 255],
-            [['sms_text'], 'string', 'max' => 140],
             [['email_subject'], 'string', 'max' => 100],
+            [['sms_text'], 'string', 'max' => 140],
             [['name'], 'unique']
         ];
     }
@@ -62,8 +62,8 @@ class Message extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceToMessages()
+    public function getResourceTypeToMessages()
     {
-        return $this->hasMany(ResourceToMessage::className(), ['message_id' => 'id']);
+        return $this->hasMany(ResourceTypeToMessage::className(), ['message_id' => 'id']);
     }
 }

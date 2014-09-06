@@ -30,7 +30,11 @@ class SurveyResultToTicketController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Ticket'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->ticket) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->ticket->label, Url::toRoute([strtolower('Ticket') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

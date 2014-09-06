@@ -28,21 +28,47 @@ class PercentPromotionConstraintController extends \backend\components\Controlle
 		return [
             [
                 "attribute" => "invalid_from",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_invalid_from",
-                    "attribute2" => "to_invalid_from"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_invalid_from",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ],
             [
                 "attribute" => "invalid_to",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_invalid_to",
-                    "attribute2" => "to_invalid_to"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_invalid_to",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ]
         ];
 	}

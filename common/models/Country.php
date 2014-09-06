@@ -13,7 +13,7 @@ namespace common\models;
  * @property string $phone_prefix
  * @property string $tax_name
  *
- * @property StateProvince[] $stateProvinces
+ * @property StateProvinceRegion[] $stateProvinceRegions
  */
 class Country extends \common\components\ActiveRecord
 {
@@ -43,11 +43,12 @@ class Country extends \common\components\ActiveRecord
         ];
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStateProvinces()
+    public function getStateProvinceRegions()
     {
-        return $this->hasMany(StateProvince::className(), ['country_id' => 'id']);
+        return $this->hasMany(StateProvinceRegion::className(), ['country_id' => 'id']);
     }
 }

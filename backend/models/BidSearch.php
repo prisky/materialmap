@@ -12,12 +12,8 @@ class BidSearch extends Bid
 {
     public $from_deadline;
 	public $to_deadline;
-	public $from_deadline;
-	public $to_deadline;
 	public $from_offer;
 	public $to_offer;
-	public $from_updated;
-	public $to_updated;
 	public $from_updated;
 	public $to_updated;
 	
@@ -49,12 +45,8 @@ class BidSearch extends Bid
 		$query->andFilterGoogleStyle('comment', $this->comment);
 		if(!is_null($this->from_deadline) && $this->from_deadline != '') $query->andWhere('`deadline` >= :from_deadline', [':from_deadline' => $this->from_deadline]);
 		if(!is_null($this->to_deadline) && $this->to_deadline != '') $query->andWhere('`deadline` <= :to_deadline', [':to_deadline' => $this->to_deadline]);
-		if(!is_null($this->from_deadline) && $this->from_deadline != '') $query->andWhere('`deadline` >= :from_deadline', [':from_deadline' => $this->from_deadline]);
-		if(!is_null($this->to_deadline) && $this->to_deadline != '') $query->andWhere('`deadline` <= :to_deadline', [':to_deadline' => $this->to_deadline]);
 		if(!is_null($this->from_offer) && $this->from_offer != '') $query->andWhere('`offer` >= :from_offer', [':from_offer' => $this->from_offer]);
 		if(!is_null($this->to_offer) && $this->to_offer != '') $query->andWhere('`offer` <= :to_offer', [':to_offer' => $this->to_offer]);
-		if(!is_null($this->from_updated) && $this->from_updated != '') $query->andWhere('`updated` >= :from_updated', [':from_updated' => $this->from_updated]);
-		if(!is_null($this->to_updated) && $this->to_updated != '') $query->andWhere('`updated` <= :to_updated', [':to_updated' => $this->to_updated]);
 		if(!is_null($this->from_updated) && $this->from_updated != '') $query->andWhere('`updated` >= :from_updated', [':from_updated' => $this->from_updated]);
 		if(!is_null($this->to_updated) && $this->to_updated != '') $query->andWhere('`updated` <= :to_updated', [':to_updated' => $this->to_updated]);
 		

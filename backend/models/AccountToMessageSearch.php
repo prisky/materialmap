@@ -14,7 +14,7 @@ class AccountToMessageSearch extends AccountToMessage
     public function rules()
     {
         return [
-            [['email_message', 'email_submect', 'sms_message'], 'safe'],
+            [['email_message', 'email_subject', 'sms_message'], 'safe'],
 			[['message_id'], 'integer']        ];
     }
 
@@ -37,7 +37,7 @@ class AccountToMessageSearch extends AccountToMessage
         }
 
 		$query->andFilterGoogleStyle('email_message', $this->email_message);
-		$query->andFilterGoogleStyle('email_submect', $this->email_submect);
+		$query->andFilterGoogleStyle('email_subject', $this->email_subject);
 		$query->andFilterWhere(['message_id' => $this->message_id]);
 		$query->andFilterGoogleStyle('sms_message', $this->sms_message);
 		

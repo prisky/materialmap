@@ -17,7 +17,6 @@ class UserController extends \backend\components\Controller
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-
     ];
 
 	/**
@@ -44,7 +43,7 @@ class UserController extends \backend\components\Controller
 								}
 							},
                 "format" => "raw"
-            ]
+                        ]
         ];
 	}
 

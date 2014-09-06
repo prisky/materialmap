@@ -7,17 +7,16 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
- * @property string $event_detail_id
+ * @property string $event_type_id
+ * @property string $resource_id
  * @property string $start
  * @property string $end
  * @property string $status
  *
  * @property Booking[] $bookings
  * @property Comment[] $comments
- * @property EventDetail $eventDetail
- * @property Account $account
- * @property EventToResourceToCustomField[] $eventToResourceToCustomFields
- * @property EventToResourceToExtra[] $eventToResourceToExtras
+ * @property EventType $eventType
+ * @property Resource $account
  */
 class Event extends \common\components\ActiveRecord
 {
@@ -35,8 +34,8 @@ class Event extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'event_detail_id', 'start', 'end', 'status'], 'required'],
-            [['account_id', 'event_detail_id'], 'integer'],
+            [['account_id', 'event_type_id', 'resource_id', 'start', 'end', 'status'], 'required'],
+            [['account_id', 'event_type_id', 'resource_id'], 'integer'],
             [['start', 'end'], 'safe'],
             [['status'], 'string']
         ];
@@ -62,9 +61,9 @@ class Event extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventDetail()
+    public function getEventType()
     {
-        return $this->hasOne(EventDetail::className(), ['id' => 'event_detail_id', 'account_id' => 'account_id']);
+        return $this->hasOne(EventType::className(), ['id' => 'event_type_id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -72,22 +71,6 @@ class Event extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventToResourceToCustomFields()
-    {
-        return $this->hasMany(EventToResourceToCustomField::className(), ['event_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventToResourceToExtras()
-    {
-        return $this->hasMany(EventToResourceToExtra::className(), ['event_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasOne(Resource::className(), ['account_id' => 'account_id', 'id' => 'resource_id']);
     }
 }

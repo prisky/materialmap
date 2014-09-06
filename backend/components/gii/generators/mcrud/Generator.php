@@ -916,16 +916,11 @@ class Generator extends \yii\gii\generators\crud\Generator
 				$excelFormats[$attribute] = '0.00%';
 			}
 			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
-				$dropDownOptions = [];
 				foreach ($column->enumValues as $enumValue) {
-					$dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+					$dropDownOptions[$enumValue] = $enumValue;
 				}
-				$gridColumn['class'] = 'dropDownList';
-				$gridColumn['filterWidgetOptions'] = [
-					'options' => ['prompt' => ''],
-					'items' => preg_replace("/\n\s*/", ' ', \yii\helpers\VarDumper::dumpAsString($dropDownOptions))
-				];
-				$types['number'][] = $attribute;
+				$gridColumn['filter'] = $dropDownOptions;
+				$types['string'][] = $attribute;
 				$searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
 			}
 			else {
@@ -939,7 +934,11 @@ class Generator extends \yii\gii\generators\crud\Generator
 							$gridColumn['filterWidgetOptions'] =
 								'|Controller::fKWidgetOptions(\''. $foreignKeyModelNameShort . '\')';
 							$gridColumn['value'] = '|function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->'. $foreignKeyRelationName . ') {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->'. $foreignKeyRelationName . '->label, Url::toRoute([strtolower(\'' . $foreignKeyModelNameShort . '\') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -988,6 +987,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 							$excelFormats[$attribute] = 'mmmm d", "yy';
 							break;
 						case 'time' :
+							$gridColumn['filterType'] = 'backend\components\FieldRange';
 							$gridColumn['filterWidgetOptions'] = [
 								'separator' => null,
 								'attribute1' => "from_$attribute",
@@ -1011,6 +1011,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 							break;
 						case 'datetime' :
 						case 'timestamp' :
+							$gridColumn['filterType'] = 'backend\components\FieldRange';
 							$gridColumn['filterWidgetOptions'] = [
 								'separator' => null,
 								'attribute1' => "from_$attribute",

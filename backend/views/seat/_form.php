@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Resource')],
 			['attribute' => 'resource_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Resource')],
-			['attribute' => 'seat_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('SeatType')],
 			['attribute' => 'root', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 			['attribute' => 'lft', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 			['attribute' => 'rgt', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],

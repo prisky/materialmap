@@ -30,12 +30,25 @@ class NewsletterController extends \backend\components\Controller
             ],
             [
                 "attribute" => "sent",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_sent",
-                    "attribute2" => "to_sent"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_sent",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ],
             [
                 "attribute" => "subject"

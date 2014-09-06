@@ -20,7 +20,7 @@ class CustomFieldSearch extends CustomField
         return [
             [['allow_new', 'mandatory'], 'boolean'],
 			[['comment', 'label', 'validation_error', 'validation_text'], 'safe'],
-			[['data_type', 'validation_type'], 'number']        ];
+			[['data_type', 'validation_type'], 'string']        ];
     }
 
     public function scenarios()

@@ -15,8 +15,8 @@ namespace common\models;
  * @property Event $event
  * @property Account $account
  * @property BookingToCharge[] $bookingToCharges
- * @property BookingToEventToResourceToCustomField[] $bookingToEventToResourceToCustomFields
- * @property BookingToEventToResourceToExtra[] $bookingToEventToResourceToExtras
+ * @property BookingToEventTypeToResourceTypeToCustomField[] $bookingToEventTypeToResourceTypeToCustomFields
+ * @property BookingToEventTypeToResourceTypeToExtra[] $bookingToEventTypeToResourceTypeToExtras
  * @property SurveyResultToBooking[] $surveyResultToBookings
  * @property Ticket[] $tickets
  */
@@ -79,17 +79,17 @@ class Booking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBookingToEventToResourceToCustomFields()
+    public function getBookingToEventTypeToResourceTypeToCustomFields()
     {
-        return $this->hasMany(BookingToEventToResourceToCustomField::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToEventTypeToResourceTypeToCustomField::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBookingToEventToResourceToExtras()
+    public function getBookingToEventTypeToResourceTypeToExtras()
     {
-        return $this->hasMany(BookingToEventToResourceToExtra::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToEventTypeToResourceTypeToExtra::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**

@@ -11,13 +11,13 @@ namespace common\models;
  * @property string $ticket_type_id
  * @property string $amount
  *
- * @property EventToResourceToExtraToTicket[] $eventToResourceToExtraToTickets
+ * @property EventTypeToResourceTypeToExtraToTicket[] $eventTypeToResourceTypeToExtraToTickets
  * @property SurveyResultToTicket[] $surveyResultToTickets
  * @property TicketType $ticketType
  * @property Booking $booking
  * @property Account $account
  * @property TicketToCharge[] $ticketToCharges
- * @property TicketToEventToResourceToCustomField[] $ticketToEventToResourceToCustomFields
+ * @property TicketToEventTypeToResourceTypeToCustomField[] $ticketToEventTypeToResourceTypeToCustomFields
  * @property TicketToSeat[] $ticketToSeats
  */
 class Ticket extends \common\components\ActiveRecord
@@ -47,9 +47,9 @@ class Ticket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventToResourceToExtraToTickets()
+    public function getEventTypeToResourceTypeToExtraToTickets()
     {
-        return $this->hasMany(EventToResourceToExtraToTicket::className(), ['ticket_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(EventTypeToResourceTypeToExtraToTicket::className(), ['ticket_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**
@@ -95,9 +95,9 @@ class Ticket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToEventToResourceToCustomFields()
+    public function getTicketToEventTypeToResourceTypeToCustomFields()
     {
-        return $this->hasMany(TicketToEventToResourceToCustomField::className(), ['ticket_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToEventTypeToResourceTypeToCustomField::className(), ['ticket_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**

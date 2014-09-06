@@ -7,18 +7,13 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
+ * @property string $resource_type_id
  * @property string $name
- * @property string $comment
  * @property integer $deleted
  *
- * @property EventDetail[] $eventDetails
- * @property Account $account
- * @property ResourceToAddress[] $resourceToAddresses
- * @property ResourceToCustomField[] $resourceToCustomFields
- * @property ResourceToExtra[] $resourceToExtras
- * @property ResourceToMessage[] $resourceToMessages
+ * @property Event[] $events
+ * @property ResourceType $account
  * @property Seat[] $seats
- * @property SurveyToResource[] $surveyToResources
  */
 class Resource extends \common\components\ActiveRecord
 {
@@ -36,9 +31,8 @@ class Resource extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'name'], 'required'],
-            [['account_id'], 'integer'],
-            [['comment'], 'string'],
+            [['account_id', 'resource_type_id', 'name'], 'required'],
+            [['account_id', 'resource_type_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and Name has already been taken.']
         ];
@@ -48,9 +42,9 @@ class Resource extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventDetails()
+    public function getEvents()
     {
-        return $this->hasMany(EventDetail::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Event::className(), ['account_id' => 'account_id', 'resource_id' => 'id']);
     }
 
     /**
@@ -58,39 +52,7 @@ class Resource extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResourceToAddresses()
-    {
-        return $this->hasMany(ResourceToAddress::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResourceToCustomFields()
-    {
-        return $this->hasMany(ResourceToCustomField::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResourceToExtras()
-    {
-        return $this->hasMany(ResourceToExtra::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResourceToMessages()
-    {
-        return $this->hasMany(ResourceToMessage::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasOne(ResourceType::className(), ['account_id' => 'account_id', 'id' => 'resource_type_id']);
     }
 
     /**
@@ -99,13 +61,5 @@ class Resource extends \common\components\ActiveRecord
     public function getSeats()
     {
         return $this->hasMany(Seat::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurveyToResources()
-    {
-        return $this->hasMany(SurveyToResource::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
     }
 }

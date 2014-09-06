@@ -14,7 +14,7 @@ class PaymentGatewaySearch extends PaymentGateway
     public function rules()
     {
         return [
-            [['name'], 'safe']        ];
+            [['api_url', 'api_username', 'name'], 'safe']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,8 @@ class PaymentGatewaySearch extends PaymentGateway
             return $dataProvider;
         }
 
+		$query->andFilterGoogleStyle('api_url', $this->api_url);
+		$query->andFilterGoogleStyle('api_username', $this->api_username);
 		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;

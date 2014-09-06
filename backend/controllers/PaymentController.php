@@ -47,11 +47,36 @@ class PaymentController extends \backend\components\Controller
                 ]
             ],
             [
+                "attribute" => "contact_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Contact'),
+                "value" => function ($model, $key, $index, $widget) {
+								// if null foreign key
+								if(!$model->contact) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->contact->label, Url::toRoute([strtolower('Contact') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->contact->label, Url::toRoute([strtolower('Contact') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "payment_gateway_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('PaymentGateway'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->paymentGateway) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->paymentGateway->label, Url::toRoute([strtolower('PaymentGateway') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -68,7 +93,11 @@ class PaymentController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Summary'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->summary) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->summary->label, Url::toRoute([strtolower('Summary') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -79,9 +108,6 @@ class PaymentController extends \backend\components\Controller
 								}
 							},
                 "format" => "raw"
-            ],
-            [
-                "attribute" => "uniqueid"
             ]
         ];
 	}

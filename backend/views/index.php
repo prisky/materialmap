@@ -3,9 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
-use yii\widgets\Pjax;
-use yii\helpers\Url;
-use yii\bootstrap\Button;
+//use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
@@ -58,16 +56,8 @@ HTML;
 //		'floatHeaderOptions'=>['scrollingTop'=>'50'], currently causing column names to dissapear
 		'panel' => [
 			'heading'=>Html::tag('h3', Html::encode($this->title), ['class' => 'panel-title']),
-			'type'=>'default',
-			'before'=>  \yii\bootstrap\Button::widget([
-				'label' => '<i class="glyphicon glyphicon-plus"></i>' . Yii::t('app', ' New'),
-				'options' => [
-					'id' => 'modalButton',
-					'class' => 'btn btn-success',
-					'value' => Url::to(array_merge(['create'], $parentParam)),
-				],
-				'encodeLabel' => false
-			]),
+			'type' => 'default',
+			'before' => $before,
 			'showFooter' => false,
 			'layout' => $template,
 		],

@@ -30,9 +30,10 @@ class AccountSearch extends Account
     public function rules()
     {
         return [
-            [['address_id', 'user_id'], 'integer'],
-			[['annual_charge', 'from_annual_charge', 'to_annual_charge', 'balance', 'from_balance', 'to_balance', 'booking_charge', 'from_booking_charge', 'to_booking_charge', 'rate', 'from_rate', 'to_rate', 'seat_charge', 'from_seat_charge', 'to_seat_charge', 'sms_charge', 'from_sms_charge', 'to_sms_charge', 'summary_charge', 'from_summary_charge', 'to_summary_charge', 'ticket_charge', 'from_ticket_charge', 'to_ticket_charge'], 'number'],
-			[['phone_work'], 'safe']        ];
+            [['annual_charge', 'from_annual_charge', 'to_annual_charge', 'balance', 'from_balance', 'to_balance', 'booking_charge', 'from_booking_charge', 'to_booking_charge', 'rate', 'from_rate', 'to_rate', 'seat_charge', 'from_seat_charge', 'to_seat_charge', 'sms_charge', 'from_sms_charge', 'to_sms_charge', 'summary_charge', 'from_summary_charge', 'to_summary_charge', 'ticket_charge', 'from_ticket_charge', 'to_ticket_charge'], 'number'],
+			[['optimisation'], 'string'],
+			[['phone_work'], 'safe'],
+			[['user_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -53,13 +54,13 @@ class AccountSearch extends Account
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['address_id' => $this->address_id]);
 		if(!is_null($this->from_annual_charge) && $this->from_annual_charge != '') $query->andWhere('`annual_charge` >= :from_annual_charge', [':from_annual_charge' => $this->from_annual_charge]);
 		if(!is_null($this->to_annual_charge) && $this->to_annual_charge != '') $query->andWhere('`annual_charge` <= :to_annual_charge', [':to_annual_charge' => $this->to_annual_charge]);
 		if(!is_null($this->from_balance) && $this->from_balance != '') $query->andWhere('`balance` >= :from_balance', [':from_balance' => $this->from_balance]);
 		if(!is_null($this->to_balance) && $this->to_balance != '') $query->andWhere('`balance` <= :to_balance', [':to_balance' => $this->to_balance]);
 		if(!is_null($this->from_booking_charge) && $this->from_booking_charge != '') $query->andWhere('`booking_charge` >= :from_booking_charge', [':from_booking_charge' => $this->from_booking_charge]);
 		if(!is_null($this->to_booking_charge) && $this->to_booking_charge != '') $query->andWhere('`booking_charge` <= :to_booking_charge', [':to_booking_charge' => $this->to_booking_charge]);
+		$query->andFilterWhere(['optimisation' => $this->optimisation]);
 		$query->andFilterGoogleStyle('phone_work', $this->phone_work);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
 		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);

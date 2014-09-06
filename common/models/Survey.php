@@ -13,7 +13,7 @@ namespace common\models;
  *
  * @property Account $account
  * @property SurveyToCustomField[] $surveyToCustomFields
- * @property SurveyToResource[] $surveyToResources
+ * @property SurveyToResourceType[] $surveyToResourceTypes
  */
 class Survey extends \common\components\ActiveRecord
 {
@@ -59,8 +59,8 @@ class Survey extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyToResources()
+    public function getSurveyToResourceTypes()
     {
-        return $this->hasMany(SurveyToResource::className(), ['survey_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyToResourceType::className(), ['survey_id' => 'id', 'account_id' => 'account_id']);
     }
 }

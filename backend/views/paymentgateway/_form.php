@@ -18,6 +18,10 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
+			['attribute' => 'api_url', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'api_username', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'api_password', 'type' => DetailView::INPUT_PASSWORD],
 		]
 	]);	?>
 

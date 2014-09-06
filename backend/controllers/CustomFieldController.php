@@ -41,12 +41,12 @@ class CustomFieldController extends \backend\components\Controller
             ],
             [
                 "attribute" => "data_type",
-                "class" => "dropDownList",
-                "filterWidgetOptions" => [
-                    "options" => [
-                        "prompt" => ""
-                    ],
-                    "items" => "[ 'Date' => 'Date' 'Float' => 'Float' 'Int' => 'Int' 'Text' => 'Text' 'Time' => 'Time' ]"
+                "filter" => [
+                    "Date" => "Date",
+                    "Float" => "Float",
+                    "Int" => "Int",
+                    "Text" => "Text",
+                    "Time" => "Time"
                 ]
             ],
             [
@@ -70,12 +70,16 @@ class CustomFieldController extends \backend\components\Controller
             ],
             [
                 "attribute" => "validation_type",
-                "class" => "dropDownList",
-                "filterWidgetOptions" => [
-                    "options" => [
-                        "prompt" => ""
-                    ],
-                    "items" => "[ 'None' => 'None' 'PCRE' => 'PCRE' 'Range' => 'Range' 'Value list' => 'Value list' ]"
+                "filter" => [
+                    "Date" => "Date",
+                    "Float" => "Float",
+                    "Int" => "Int",
+                    "Text" => "Text",
+                    "Time" => "Time",
+                    "None" => "None",
+                    "PCRE" => "PCRE",
+                    "Range" => "Range",
+                    "Value list" => "Value list"
                 ]
             ]
         ];

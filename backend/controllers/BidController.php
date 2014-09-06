@@ -32,12 +32,25 @@ class BidController extends \backend\components\Controller
             ],
             [
                 "attribute" => "deadline",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_deadline",
-                    "attribute2" => "to_deadline"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_deadline",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ],
             [
                 "attribute" => "offer",
@@ -50,12 +63,25 @@ class BidController extends \backend\components\Controller
             ],
             [
                 "attribute" => "updated",
+                "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_updated",
-                    "attribute2" => "to_updated"
-                ],
-                "filterType" => "backend\\components\\FieldRange"
+                    "attribute2" => "to_updated",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
+                ]
             ]
         ];
 	}

@@ -33,23 +33,6 @@ class AccountController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
-                "attribute" => "address_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Address'),
-                "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->address->label, Url::toRoute([strtolower('Address') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->address->label, Url::toRoute([strtolower('Address') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "annual_charge",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
@@ -110,6 +93,14 @@ class AccountController extends \backend\components\Controller
                             "allowEmpty" => TRUE
                         ]
                     ]
+                ]
+            ],
+            [
+                "attribute" => "optimisation",
+                "filter" => [
+                    "None" => "None",
+                    "Compress" => "Compress",
+                    "Spread" => "Spread"
                 ]
             ],
             [
@@ -228,7 +219,11 @@ class AccountController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('User'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->user) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->user->label, Url::toRoute([strtolower('User') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

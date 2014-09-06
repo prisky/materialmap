@@ -18,7 +18,7 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property Account $account
- * @property ResourceToCustomField[] $resourceToCustomFields
+ * @property ResourceTypeToCustomField[] $resourceTypeToCustomFields
  * @property SurveyToCustomField[] $surveyToCustomFields
  */
 class CustomField extends \common\components\ActiveRecord
@@ -58,9 +58,9 @@ class CustomField extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceToCustomFields()
+    public function getResourceTypeToCustomFields()
     {
-        return $this->hasMany(ResourceToCustomField::className(), ['custom_field_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(ResourceTypeToCustomField::className(), ['custom_field_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**

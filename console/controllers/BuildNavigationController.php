@@ -21,120 +21,37 @@ class BuildNavigationController extends Controller
 	 * @var array 
 	 */
 	private $items = [
-		'AffiliateCategory',
-		'AuthItem' => [
-			'AuthItemChild'
-		],
-		'Channel',
-		'Contact',
-		'Country' => [
-			'StateProvince' => [
-				'TownCity',
-			],
-		],
-		'Message' => [
-			'MessageToMessageField',
-		],
-		'MessageField',
-		'Model' => [
-			'Column',
-		],
-		'PaymentGateway',
-		'Reseller',
-		'User'=> [
-			'AuthAssignment',
-		],
 		'Account' => [
 			'AccountToAffiliateCategory',
-			'AccountToPaymentGateway',
-			'AccountToUser',
-			'Agency',
-			'CancellationPolicy',
-			'Charge',
-			'AnnualCharge',
-			'CustomField',
-			'Invoice',
-			'Coupon',
 			'AccountToMessage' => [
 				'AccountToMessageToUser'
 			],
-			'PercentPromotion' => [
-				'PercentPromotionConstraint'
-			],
-			'PercentVoucher' => [
-				'PercentVoucherConstraint'
-			],
-			'Promotion' => [
-				'PromotionConstraint'
-			],
-			'Newsletter',
-			'Extra' => [
-				'Item'
-			],
-			'Question' => [
-				'QuestionThread',
-				'Bid'
-			],
-			'Reminder',
-			'ResourceType' => [
-				'Resource',
-				'ResourceTypeToMessage' => [
-					'ResourceTypeToMessageToUser'
-				],
-				'ResourceTypeToAddress',
-				'ResourceTypeToCustomField',
-				'ResourceTypeToExtra'
-			],
-			'SeatType',
-			'Seat' => [
-				'SeatToTicketType',
-			],
-			'Survey' => [
-				'SurveyResult' => [
-					'SurveyResultToBooking',
-					'SurveyResultToSummary',
-					'SurveyResultToTicket',
-					'SurveyResultToTicketToSeat'
-				],
-				'SurveyToCustomField',
-				'SurveyToResource'
-			],
-			'SmsThread' => [
-				'Sms' => [
-					'SmsToCharge'
-				],
-			],
-			'StandardSetup',
-			'Payment',
-			'TicketType',
-			'Voucher' => [
-				'VoucherConstraint'
-			],
+			'AccountToPaymentGateway',
+			'AccountToUser',
+			'Agency',
+			'AnnualCharge',
+			'CancellationPolicy',
+			'Charge',
+			'CustomField',
+			'Coupon',
 			'Event' => [
 				'Booking' => [
 					'BookingToCharge',
 					'BookingToEventTypeToResourceTypeToCustomField',
 					'BookingToEventTypeToResourceTypeToExtra'
 				],
-				'Ticket' => [
-					'TicketToCharge',
-					'TicketToEventTypeToResourceTypeToCustomField',
-					'TicketToSeat',
-					'TicketToSeatToCharge',
-					'TicketToSeatToContact',
-					'TicketToSeatToContactToSms',
-					'TicketToSeatToEventTypeToResourceTypeToCustomField'
-				],
 				'Comment',
 				'EventType' => [
-					'EventTypeToTicketType'
-				],
-				'EventTypeToResourceTypeToCustomField',
-				'EventTypeToResourceTypeToExtra' => [
-					'EventTypeToResourceTypeToExtraToSummary',
-					'EventTypeToResourceTypeToExtraToTicket' => [
-						'EventTypeToResourceTypeToExtraToTicketToSeat'
+					'EventTypeToResourceType' => [
+						'EventTypeToResourceTypeToCustomField',
+						'EventTypeToResourceTypeToExtra' => [
+							'EventTypeToResourceTypeToExtraToSummary',
+							'EventTypeToResourceTypeToExtraToTicket' => [
+								'EventTypeToResourceTypeToExtraToTicketToSeat'
+							],
+						],
 					],
+					'EventTypeToTicketType',
 				],
 				'Summary' => [
 					'SummaryToAccountToUser',
@@ -146,7 +63,91 @@ class BuildNavigationController extends Controller
 					'SummaryToVoucher',
 					'Referral',
 				],
+				'Ticket' => [
+					'TicketToCharge',
+					'TicketToEventTypeToResourceTypeToCustomField',
+					'TicketToSeat',
+					'TicketToSeatToCharge',
+					'TicketToSeatToContact',
+					'TicketToSeatToContactToSms',
+					'TicketToSeatToEventTypeToResourceTypeToCustomField'
+				],
 			],
+			'Extra' => [
+				'Item'
+			],
+			'Invoice',
+			'Newsletter',
+			'Payment',
+			'PercentPromotion' => [
+				'PercentPromotionConstraint'
+			],
+			'PercentVoucher' => [
+				'PercentVoucherConstraint'
+			],
+			'Promotion' => [
+				'PromotionConstraint'
+			],
+			'Question' => [
+				'QuestionThread',
+				'Bid'
+			],
+			'Reminder',
+			'ResourceType' => [
+				'Resource',
+				'ResourceTypeToMessage' => [
+					'ResourceTypeToMessageToUser'
+				],
+				'ResourceTypeToCustomField',
+				'ResourceTypeToExtra'
+			],
+			'SeatType' => [
+				'Seat' => [
+					'SeatToTicketType',
+				],
+			],
+			'SmsThread' => [
+				'Sms' => [
+					'SmsToCharge'
+				],
+			],
+			'StandardSetup',
+			'Survey' => [
+				'SurveyResult' => [
+					'SurveyResultToBooking',
+					'SurveyResultToSummary',
+					'SurveyResultToTicket',
+					'SurveyResultToTicketToSeat'
+				],
+				'SurveyToCustomField',
+				'SurveyToResourceType'
+			],
+			'TicketType',
+			'Voucher' => [
+				'VoucherConstraint'
+			],
+		],
+		'AffiliateCategory',
+		'AuthItem' => [
+			'AuthItemChild'
+		],
+		'Channel',
+		'Contact',
+		'Country' => [
+			'StateProvinceRegion' => [
+				'TownCity',
+			],
+		],
+		'Message' => [
+			'MessageToMessageField',
+		],
+		'MessageField',
+		'Model' => [
+			'Column',
+		],
+		'Reseller',
+		'User'=> [
+			'AuthAssignment',
 		],
 	];
 

@@ -14,7 +14,7 @@ class SeatToTicketTypeSearch extends SeatToTicketType
     public function rules()
     {
         return [
-                    ];
+            [['ticket_type_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class SeatToTicketTypeSearch extends SeatToTicketType
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
 		
         return $dataProvider;
     }

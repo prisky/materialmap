@@ -14,7 +14,7 @@ class BookingSearch extends Booking
     public function rules()
     {
         return [
-            [['status'], 'number'],
+            [['status'], 'string'],
 			[['summary_id'], 'integer']        ];
     }
 

@@ -26,10 +26,28 @@ class CommentController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
-                "attribute" => "content"
+                "attribute" => "contact_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Contact'),
+                "value" => function ($model, $key, $index, $widget) {
+								// if null foreign key
+								if(!$model->contact) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->contact->label, Url::toRoute([strtolower('Contact') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->contact->label, Url::toRoute([strtolower('Contact') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
             ],
             [
-                "attribute" => "email"
+                "attribute" => "content"
             ]
         ];
 	}

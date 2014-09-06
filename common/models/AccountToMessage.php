@@ -9,8 +9,8 @@ namespace common\models;
  * @property string $account_id
  * @property string $message_id
  * @property string $email_message
+ * @property string $email_subject
  * @property string $sms_message
- * @property string $email_submect
  *
  * @property Message $message
  * @property Account $account
@@ -35,8 +35,8 @@ class AccountToMessage extends \common\components\ActiveRecord
             [['account_id', 'message_id'], 'required'],
             [['account_id', 'message_id'], 'integer'],
             [['email_message'], 'string'],
+            [['email_subject'], 'string', 'max' => 100],
             [['sms_message'], 'string', 'max' => 140],
-            [['email_submect'], 'string', 'max' => 100],
             [['message_id', 'account_id'], 'unique', 'targetAttribute' => ['message_id', 'account_id'], 'message' => 'The combination of Account and Message has already been taken.']
         ];
     }

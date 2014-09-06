@@ -14,7 +14,8 @@ class ResourceSearch extends Resource
     public function rules()
     {
         return [
-            [['comment', 'name'], 'safe']        ];
+            [['name'], 'safe'],
+			[['resource_type_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,8 +36,8 @@ class ResourceSearch extends Resource
             return $dataProvider;
         }
 
-		$query->andFilterGoogleStyle('comment', $this->comment);
 		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterWhere(['resource_type_id' => $this->resource_type_id]);
 		
         return $dataProvider;
     }

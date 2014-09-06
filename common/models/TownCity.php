@@ -7,10 +7,10 @@ namespace common\models;
  *
  * @property string $id
  * @property string $name
- * @property integer $state_province_id
+ * @property integer $state_province_region
  *
- * @property Address[] $addresses
- * @property StateProvince $stateProvince
+ * @property Contact[] $contacts
+ * @property StateProvinceRegion $stateProvinceRegion
  */
 class TownCity extends \common\components\ActiveRecord
 {
@@ -28,10 +28,10 @@ class TownCity extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'state_province_id'], 'required'],
-            [['state_province_id'], 'integer'],
+            [['name', 'state_province_region'], 'required'],
+            [['state_province_region'], 'integer'],
             [['name'], 'string', 'max' => 64],
-            [['state_province_id', 'name'], 'unique', 'targetAttribute' => ['state_province_id', 'name'], 'message' => 'The combination of Name and State province has already been taken.']
+            [['state_province_region', 'name'], 'unique', 'targetAttribute' => ['state_province_region', 'name'], 'message' => 'The combination of Name and State province region has already been taken.']
         ];
     }
 
@@ -39,16 +39,16 @@ class TownCity extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAddresses()
+    public function getContacts()
     {
-        return $this->hasMany(Address::className(), ['town_city_id' => 'id']);
+        return $this->hasMany(Contact::className(), ['town_city_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStateProvince()
+    public function getStateProvinceRegion()
     {
-        return $this->hasOne(StateProvince::className(), ['id' => 'state_province_id']);
+        return $this->hasOne(StateProvinceRegion::className(), ['id' => 'state_province_region']);
     }
 }

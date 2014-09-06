@@ -27,12 +27,11 @@ class BookingController extends \backend\components\Controller
 		return [
             [
                 "attribute" => "status",
-                "class" => "dropDownList",
-                "filterWidgetOptions" => [
-                    "options" => [
-                        "prompt" => ""
-                    ],
-                    "items" => "[ 'processing' => 'Processing' 'booked' => 'Booked' 'canceled' => 'Canceled' 'wait_listed' => 'Wait listed' ]"
+                "filter" => [
+                    "processing" => "processing",
+                    "booked" => "booked",
+                    "canceled" => "canceled",
+                    "wait_listed" => "wait_listed"
                 ]
             ],
             [
@@ -40,7 +39,11 @@ class BookingController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Summary'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->summary) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->summary->label, Url::toRoute([strtolower('Summary') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {

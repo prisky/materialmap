@@ -19,12 +19,7 @@ use backend\components\DetailView;
 		'attributes'=>[
 			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
-				'widgetOptions' => [
-					'class' => 'kartik\markdown\MarkdownEditor',
-					'showExport' => false,
-				],
-			],
+			['attribute' => 'help', 'type' => DetailView::INPUT_TEXTAREA],
 		]
 	]);	?>
 

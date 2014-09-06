@@ -21,13 +21,13 @@ class AccountToMessageQuery extends \common\components\ActiveQuery
 		if(is_string($q)) {
 			foreach(explode(' ', $q) as $like) {
 //				$this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-				$this->andWhere("CONCAT_WS(' ', sms_message, email_submect) LIKE :like", [':like' => "%$like%"]);
+				$this->andWhere("CONCAT_WS(' ', email_subject, sms_message) LIKE :like", [':like' => "%$like%"]);
 			}
 		}
 
 		return parent::displayAttributes($q, $page)
 //			->joinWith('contact')
 //			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-			->select(["tbl_account_to_message.id id", "CONCAT_WS(' ', sms_message, email_submect) text"]);
+			->select(["tbl_account_to_message.id id", "CONCAT_WS(' ', email_subject, sms_message) text"]);
 	}
 }

@@ -31,7 +31,9 @@ class SeatToTicketType extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['ticket_type_id', 'seat_id'], 'unique', 'targetAttribute' => ['ticket_type_id', 'seat_id'], 'message' => 'The combination of  and  has already been taken.']
+            [['account_id', 'seat_id', 'ticket_type_id'], 'required'],
+            [['account_id', 'seat_id', 'ticket_type_id'], 'integer'],
+            [['ticket_type_id', 'seat_id'], 'unique', 'targetAttribute' => ['ticket_type_id', 'seat_id'], 'message' => 'The combination of Seat and Ticket type has already been taken.']
         ];
     }
 

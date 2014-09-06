@@ -7,9 +7,15 @@ namespace common\models;
  *
  * @property string $id
  * @property string $name
+ * @property string $account_id
+ * @property integer $deleted
+ * @property string $api_url
+ * @property string $api_username
+ * @property string $api_password
  *
  * @property AccountToPaymentGateway[] $accountToPaymentGateways
  * @property Payment[] $payments
+ * @property Account $account
  */
 class PaymentGateway extends \common\components\ActiveRecord
 {
@@ -28,8 +34,10 @@ class PaymentGateway extends \common\components\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['account_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
-            [['name'], 'unique']
+            [['api_url', 'api_username', 'api_password'], 'string', 'max' => 255],
+            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Name and Account has already been taken.']
         ];
     }
 
@@ -39,7 +47,7 @@ class PaymentGateway extends \common\components\ActiveRecord
      */
     public function getAccountToPaymentGateways()
     {
-        return $this->hasMany(AccountToPaymentGateway::className(), ['payment_gateway_id' => 'id']);
+        return $this->hasMany(AccountToPaymentGateway::className(), ['account_id' => 'account_id', 'payment_gateway_id' => 'id']);
     }
 
     /**
@@ -48,5 +56,13 @@ class PaymentGateway extends \common\components\ActiveRecord
     public function getPayments()
     {
         return $this->hasMany(Payment::className(), ['payment_gateway_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

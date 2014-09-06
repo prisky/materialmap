@@ -21,13 +21,13 @@ class PaymentQuery extends \common\components\ActiveQuery
 		if(is_string($q)) {
 			foreach(explode(' ', $q) as $like) {
 //				$this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-				$this->andWhere("CONCAT_WS(' ', uniqueid) LIKE :like", [':like' => "%$like%"]);
+				$this->andWhere("CONCAT_WS(' ', id) LIKE :like", [':like' => "%$like%"]);
 			}
 		}
 
 		return parent::displayAttributes($q, $page)
 //			->joinWith('contact')
 //			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-			->select(["tbl_payment.id id", "CONCAT_WS(' ', uniqueid) text"]);
+			->select(["tbl_payment.id id", "CONCAT_WS(' ', id) text"]);
 	}
 }

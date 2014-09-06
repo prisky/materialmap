@@ -20,8 +20,8 @@ use backend\components\DetailView;
 			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'system', 'type' => DetailView::INPUT_SWITCH],
 			['attribute' => 'email_html', 'type' => DetailView::INPUT_TEXTAREA],
-			['attribute' => 'sms_text', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
 			['attribute' => 'email_subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 100]],
+			['attribute' => 'sms_text', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
 		]
 	]);	?>
 

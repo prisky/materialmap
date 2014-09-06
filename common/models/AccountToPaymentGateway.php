@@ -10,8 +10,7 @@ namespace common\models;
  * @property string $payment_gateway_id
  * @property integer $deleted
  *
- * @property Account $account
- * @property PaymentGateway $paymentGateway
+ * @property PaymentGateway $account
  */
 class AccountToPaymentGateway extends \common\components\ActiveRecord
 {
@@ -41,14 +40,6 @@ class AccountToPaymentGateway extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPaymentGateway()
-    {
-        return $this->hasOne(PaymentGateway::className(), ['id' => 'payment_gateway_id']);
+        return $this->hasOne(PaymentGateway::className(), ['account_id' => 'account_id', 'id' => 'payment_gateway_id']);
     }
 }

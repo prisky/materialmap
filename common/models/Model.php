@@ -54,7 +54,7 @@ class Model extends \common\components\ActiveRecord
     public static function find()
     {
 		$modelNameQuery = static::modelName() . 'Query';
-		
+
 		if(class_exists($modelNameQuery)) {
 			$modelNameQuery = new $modelNameQuery(get_called_class());
 			$modelNameQuery->attachBehavior(NULL, new \backend\components\ClosureTableQueryBehavior(get_called_class(), [
@@ -99,6 +99,6 @@ class Model extends \common\components\ActiveRecord
     public function getNavigationChilds()
     {
         return $this->hasMany(Navigation::className(), ['child' => 'auth_item_name']);
-	}
+}
 	
 }

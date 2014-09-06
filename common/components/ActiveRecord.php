@@ -162,7 +162,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		$label = static::label($primaryKey);
 		
 		if(mb_strlen($label) > 20) {
-			$label = mb_substr("$label ...");
+			$label = mb_substr("$label ...", 0, 20);
 		}
 		
 		return $label;

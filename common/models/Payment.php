@@ -9,12 +9,14 @@ namespace common\models;
  * @property string $account_id
  * @property string $summary_id
  * @property string $payment_gateway_id
+ * @property string $contact_id
  * @property string $amount
- * @property string $uniqueid
+ * @property string $created
  *
  * @property Summary $summary
  * @property PaymentGateway $paymentGateway
  * @property Account $account
+ * @property Contact $contact
  */
 class Payment extends \common\components\ActiveRecord
 {
@@ -32,11 +34,9 @@ class Payment extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'summary_id', 'payment_gateway_id', 'uniqueid'], 'required'],
-            [['account_id', 'summary_id', 'payment_gateway_id'], 'integer'],
-            [['amount'], 'number'],
-            [['uniqueid'], 'string', 'max' => 13],
-            [['uniqueid'], 'unique']
+            [['account_id', 'summary_id', 'payment_gateway_id', 'contact_id'], 'required'],
+            [['account_id', 'summary_id', 'payment_gateway_id', 'contact_id'], 'integer'],
+            [['amount'], 'number']
         ];
     }
 
@@ -63,5 +63,13 @@ class Payment extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContact()
+    {
+        return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
     }
 }

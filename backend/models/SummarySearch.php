@@ -14,7 +14,7 @@ class SummarySearch extends Summary
     public function rules()
     {
         return [
-                    ];
+            [['contact_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -35,6 +35,7 @@ class SummarySearch extends Summary
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		
         return $dataProvider;
     }

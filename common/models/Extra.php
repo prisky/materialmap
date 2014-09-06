@@ -15,7 +15,7 @@ namespace common\models;
  *
  * @property Account $account
  * @property Item[] $items
- * @property ResourceToExtra[] $resourceToExtras
+ * @property ResourceTypeToExtra[] $resourceTypeToExtras
  */
 class Extra extends \common\components\ActiveRecord
 {
@@ -60,8 +60,8 @@ class Extra extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceToExtras()
+    public function getResourceTypeToExtras()
     {
-        return $this->hasMany(ResourceToExtra::className(), ['extra_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(ResourceTypeToExtra::className(), ['extra_id' => 'id', 'account_id' => 'account_id']);
     }
 }

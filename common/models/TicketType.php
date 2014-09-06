@@ -15,7 +15,7 @@ namespace common\models;
  * @property integer $booking_max
  * @property integer $deleted
  *
- * @property EventDetailToTicketType[] $eventDetailToTicketTypes
+ * @property EventTypeToTicketType[] $eventTypeToTicketTypes
  * @property SeatToTicketType[] $seatToTicketTypes
  * @property Ticket[] $tickets
  * @property Account $account
@@ -49,9 +49,9 @@ class TicketType extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventDetailToTicketTypes()
+    public function getEventTypeToTicketTypes()
     {
-        return $this->hasMany(EventDetailToTicketType::className(), ['ticket_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(EventTypeToTicketType::className(), ['ticket_type_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**

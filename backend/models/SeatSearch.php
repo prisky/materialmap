@@ -22,7 +22,7 @@ class SeatSearch extends Seat
     public function rules()
     {
         return [
-            [['level', 'lft', 'resource_id', 'rgt', 'root', 'seat_type_id'], 'integer'],
+            [['level', 'lft', 'resource_id', 'rgt', 'root'], 'integer'],
 			[['name', 'x', 'y'], 'safe']        ];
     }
 
@@ -54,7 +54,6 @@ class SeatSearch extends Seat
 		if(!is_null($this->to_rgt) && $this->to_rgt != '') $query->andWhere('`rgt` <= :to_rgt', [':to_rgt' => $this->to_rgt]);
 		if(!is_null($this->from_root) && $this->from_root != '') $query->andWhere('`root` >= :from_root', [':from_root' => $this->from_root]);
 		if(!is_null($this->to_root) && $this->to_root != '') $query->andWhere('`root` <= :to_root', [':to_root' => $this->to_root]);
-		$query->andFilterWhere(['seat_type_id' => $this->seat_type_id]);
 		$query->andFilterGoogleStyle('x', $this->x);
 		$query->andFilterGoogleStyle('y', $this->y);
 		

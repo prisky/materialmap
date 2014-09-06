@@ -16,6 +16,7 @@ use kartik\grid\GridView;
 use kartik\markdown\Markdown;
 use backend\components\FieldRange;
 use backend\components\DetailView;
+
 /**
  * Controller is the base class of app controllers and implements the CRUD actions for a model.
  *
@@ -108,6 +109,7 @@ abstract class Controller extends \common\components\Controller
 	 */
 	public function actionIndex()
 	{ 
+		$before = '<span></span>';		// seems to need something otherwise the export button doesn't show i.e. null  or empty won't work but space will
 		$searchModel = new $this->modelNameSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->getPagination()->pageSize = 10;
@@ -115,6 +117,15 @@ abstract class Controller extends \common\components\Controller
 
 		if(Yii::$app->user->can($this->modelNameShort)) {
 			array_unshift($gridColumns, ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}']);
+			$before = \yii\bootstrap\Button::widget([
+				'label' => '<i class="glyphicon glyphicon-plus"></i>' . Yii::t('app', ' New'),
+				'options' => [
+					'id' => 'modalButton',
+					'class' => 'btn btn-success',
+					'value' => Url::to(array_merge(['create'], $this->parentParam)),
+				],
+				'encodeLabel' => false
+			]);
 		}
 		elseif(Yii::$app->user->can($this->modelNameShort . 'Read')) {
 			array_unshift($gridColumns, ['class' => 'yii\grid\ActionColumn', 'template' => '{view}']);
@@ -124,7 +135,8 @@ abstract class Controller extends \common\components\Controller
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
 			'gridColumns' => $gridColumns,
-			'parentParam' => $this->parentParam
+			'parentParam' => $this->parentParam,
+			'before' => $before
 		]);
 	}
 
@@ -280,15 +292,14 @@ abstract class Controller extends \common\components\Controller
 		$out = ['more' => false];
 
 		if (!is_null($q)) {
-			$query = $modelName::find()
-				->displayAttributes($q, $page);
+			$query = $modelName::find()->displayAttributes($q, $page);
 			$command = $query->createCommand();
 			$data = $command->queryAll();
 			$out['results'] = array_values($data);
 			$out['total'] = $query->count();
 		}
 		elseif ($id > 0) {
-			$model = $modelName::find()->where(['id' => $id])->displayAttributes()->one();
+			$model = $modelName::find()->where([$modelName::tableName() . '.id' => $id])->displayAttributes()->one();
 			$out['results'] = ['id' => $id, 'text' => $model->text];
 		}
 		else {

@@ -7,15 +7,17 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
+ * @property string $contact_id
  * @property string $created
  *
  * @property Booking[] $bookings
- * @property EventToResourceToExtraToSummary[] $eventToResourceToExtraToSummaries
+ * @property EventTypeToResourceTypeToExtraToSummary[] $eventTypeToResourceTypeToExtraToSummaries
  * @property Payment[] $payments
  * @property Account $account
+ * @property Contact $contact
  * @property SummaryToAccountToUser[] $summaryToAccountToUsers
  * @property SummaryToCharge[] $summaryToCharges
- * @property SummaryToEventToResourceToCustomField[] $summaryToEventToResourceToCustomFields
+ * @property SummaryToEventTypeToResourceToCustomField[] $summaryToEventTypeToResourceToCustomFields
  * @property SummaryToPercentPromotion[] $summaryToPercentPromotions
  * @property SummaryToPercentVoucher[] $summaryToPercentVouchers
  * @property SummaryToPromotion[] $summaryToPromotions
@@ -37,8 +39,8 @@ class Summary extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id'], 'required'],
-            [['account_id'], 'integer']
+            [['account_id', 'contact_id'], 'required'],
+            [['account_id', 'contact_id'], 'integer']
         ];
     }
 
@@ -54,9 +56,9 @@ class Summary extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventToResourceToExtraToSummaries()
+    public function getEventTypeToResourceTypeToExtraToSummaries()
     {
-        return $this->hasMany(EventToResourceToExtraToSummary::className(), ['summary_id' => 'id']);
+        return $this->hasMany(EventTypeToResourceTypeToExtraToSummary::className(), ['account_id' => 'account_id', 'summary_id' => 'id']);
     }
 
     /**
@@ -78,6 +80,14 @@ class Summary extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getContact()
+    {
+        return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSummaryToAccountToUsers()
     {
         return $this->hasMany(SummaryToAccountToUser::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
@@ -94,9 +104,9 @@ class Summary extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummaryToEventToResourceToCustomFields()
+    public function getSummaryToEventTypeToResourceToCustomFields()
     {
-        return $this->hasMany(SummaryToEventToResourceToCustomField::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToEventTypeToResourceToCustomField::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
     }
 
     /**

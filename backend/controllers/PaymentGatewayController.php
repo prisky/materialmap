@@ -26,6 +26,12 @@ class PaymentGatewayController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
+                "attribute" => "api_url"
+            ],
+            [
+                "attribute" => "api_username"
+            ],
+            [
                 "attribute" => "name"
             ]
         ];
