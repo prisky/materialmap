@@ -1,5 +1,9 @@
-Files that need to merged when auto created
+Files that need to merged with git history when auto created
 
 model.php. model/form.php ModelController.php ModelQuery.php
 user.php
 column/form.php ColumnController.php
+
+To recreate a list of models
+1./ run the script after re-creating the database in order to make ucwords function available
+2./ SELECT REPLACE(bookaspot.UCWORDS(REPLACE(table_name, 'tbl_', '')), '_', '') FROM information_schema.tables WHERE `TABLE_SCHEMA` = 'bookaspot';
