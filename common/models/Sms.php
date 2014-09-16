@@ -63,7 +63,7 @@ class Sms extends \common\components\ActiveRecord
      */
     public function getSmsThread()
     {
-        return $this->hasOne(SmsThread::className(), ['id' => 'sms_thread_id', 'account_id' => 'account_id']);
+        return $this->hasOne(SmsThread::className(), ['id' => 'sms_thread_id']);
     }
 
     /**
@@ -71,7 +71,7 @@ class Sms extends \common\components\ActiveRecord
      */
     public function getSmsToCharges()
     {
-        return $this->hasMany(SmsToCharge::className(), ['sms_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SmsToCharge::className(), ['sms_id' => 'id']);
     }
 
     /**
@@ -79,6 +79,6 @@ class Sms extends \common\components\ActiveRecord
      */
     public function getTicketToSeatToContactToSms()
     {
-        return $this->hasMany(TicketToSeatToContactToSms::className(), ['sms_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToSeatToContactToSms::className(), ['sms_id' => 'id']);
     }
 }

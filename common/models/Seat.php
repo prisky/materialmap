@@ -53,7 +53,7 @@ class Seat extends \common\components\ActiveRecord
      */
     public function getResource()
     {
-        return $this->hasOne(Resource::className(), ['id' => 'resource_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'resource_id']);
     }
 
     /**
@@ -61,7 +61,7 @@ class Seat extends \common\components\ActiveRecord
      */
     public function getSeatType()
     {
-        return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class Seat extends \common\components\ActiveRecord
      */
     public function getSeatToTicketTypes()
     {
-        return $this->hasMany(SeatToTicketType::className(), ['seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SeatToTicketType::className(), ['seat_id' => 'id']);
     }
 
     /**
@@ -85,6 +85,6 @@ class Seat extends \common\components\ActiveRecord
      */
     public function getTicketToSeats()
     {
-        return $this->hasMany(TicketToSeat::className(), ['seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToSeat::className(), ['seat_id' => 'id']);
     }
 }

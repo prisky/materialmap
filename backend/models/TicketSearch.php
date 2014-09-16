@@ -17,7 +17,7 @@ class TicketSearch extends Ticket
     {
         return [
             [['amount', 'from_amount', 'to_amount'], 'number'],
-			[['booking_id', 'ticket_type_id'], 'integer']        ];
+			[['event_type_id', 'ticket_type_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -40,7 +40,7 @@ class TicketSearch extends Ticket
 
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		$query->andFilterWhere(['booking_id' => $this->booking_id]);
+		$query->andFilterWhere(['event_type_id' => $this->event_type_id]);
 		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
 		
         return $dataProvider;

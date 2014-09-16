@@ -11,10 +11,6 @@ namespace common\models;
  * @property string $field_set_id
  * @property integer $deleted
  *
- * @property SurveyResultToBooking[] $surveyResultToBookings
- * @property SurveyResultToSummary[] $surveyResultToSummaries
- * @property SurveyResultToTicket[] $surveyResultToTickets
- * @property SurveyResultToTicketToSeat[] $surveyResultToTicketToSeats
  * @property Survey $survey
  * @property FieldSet $fieldSet
  * @property Account $account
@@ -45,41 +41,9 @@ class SurveyToFieldSet extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyResultToBookings()
-    {
-        return $this->hasMany(SurveyResultToBooking::className(), ['survey_id' => 'survey_id', 'field_set_id' => 'field_set_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurveyResultToSummaries()
-    {
-        return $this->hasMany(SurveyResultToSummary::className(), ['survey_id' => 'survey_id', 'field_set_id' => 'field_set_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurveyResultToTickets()
-    {
-        return $this->hasMany(SurveyResultToTicket::className(), ['survey_id' => 'survey_id', 'field_set_id' => 'field_set_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurveyResultToTicketToSeats()
-    {
-        return $this->hasMany(SurveyResultToTicketToSeat::className(), ['survey_id' => 'survey_id', 'field_set_id' => 'field_set_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSurvey()
     {
-        return $this->hasOne(Survey::className(), ['id' => 'survey_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Survey::className(), ['id' => 'survey_id']);
     }
 
     /**
@@ -87,7 +51,7 @@ class SurveyToFieldSet extends \common\components\ActiveRecord
      */
     public function getFieldSet()
     {
-        return $this->hasOne(FieldSet::className(), ['id' => 'field_set_id', 'account_id' => 'account_id']);
+        return $this->hasOne(FieldSet::className(), ['id' => 'field_set_id']);
     }
 
     /**

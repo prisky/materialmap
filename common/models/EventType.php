@@ -19,9 +19,8 @@ namespace common\models;
  *
  * @property Event[] $events
  * @property Account $account
+ * @property EventTypeToFieldSet[] $eventTypeToFieldSets
  * @property EventTypeToResourceType[] $eventTypeToResourceTypes
- * @property EventTypeToResourceTypeToCustomField[] $eventTypeToResourceTypeToCustomFields
- * @property EventTypeToResourceTypeToExtra[] $eventTypeToResourceTypeToExtras
  * @property EventTypeToTicketType[] $eventTypeToTicketTypes
  */
 class EventType extends \common\components\ActiveRecord
@@ -54,7 +53,7 @@ class EventType extends \common\components\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['event_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Event::className(), ['event_type_id' => 'id']);
     }
 
     /**
@@ -68,25 +67,17 @@ class EventType extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEventTypeToFieldSets()
+    {
+        return $this->hasMany(EventTypeToFieldSet::className(), ['event_type_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getEventTypeToResourceTypes()
     {
-        return $this->hasMany(EventTypeToResourceType::className(), ['account_id' => 'account_id', 'event_type_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToCustomFields()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToCustomField::className(), ['account_id' => 'account_id', 'event_type_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToExtras()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtra::className(), ['account_id' => 'account_id', 'event_type_id' => 'id']);
+        return $this->hasMany(EventTypeToResourceType::className(), ['event_type_id' => 'id']);
     }
 
     /**
@@ -94,6 +85,6 @@ class EventType extends \common\components\ActiveRecord
      */
     public function getEventTypeToTicketTypes()
     {
-        return $this->hasMany(EventTypeToTicketType::className(), ['event_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(EventTypeToTicketType::className(), ['event_type_id' => 'id']);
     }
 }

@@ -47,7 +47,7 @@ class Referral extends \common\components\ActiveRecord
      */
     public function getSummaryToAccountToUser()
     {
-        return $this->hasOne(SummaryToAccountToUser::className(), ['id' => 'summary_to_account_to_user_id', 'user_id' => 'first_referrer_user_id']);
+        return $this->hasOne(SummaryToAccountToUser::className(), ['id' => 'summary_to_account_to_user_id']);
     }
 
     /**
@@ -55,7 +55,7 @@ class Referral extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id', 'user_id' => 'first_referrer_user_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -63,7 +63,7 @@ class Referral extends \common\components\ActiveRecord
      */
     public function getInvoice()
     {
-        return $this->hasOne(Invoice::className(), ['id' => 'invoice_id', 'account_to_user_id' => 'account_to_user_id']);
+        return $this->hasOne(Invoice::className(), ['id' => 'invoice_id']);
     }
 
     /**
@@ -71,6 +71,6 @@ class Referral extends \common\components\ActiveRecord
      */
     public function getAccountToUser()
     {
-        return $this->hasOne(AccountToUser::className(), ['id' => 'account_to_user_id', 'account_id' => 'account_id']);
+        return $this->hasOne(AccountToUser::className(), ['id' => 'account_to_user_id']);
     }
 }

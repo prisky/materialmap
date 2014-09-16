@@ -17,7 +17,7 @@ class PaymentSearch extends Payment
     {
         return [
             [['amount', 'from_amount', 'to_amount'], 'number'],
-			[['contact_id', 'payment_gateway_id', 'summary_id'], 'integer']        ];
+			[['contact_id', 'payment_gateway_id'], 'integer']        ];
     }
 
     public function scenarios()
@@ -42,7 +42,6 @@ class PaymentSearch extends Payment
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
-		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

@@ -10,7 +10,8 @@ namespace common\models;
  * @property string $affiliate_category_id
  * @property string $rate
  *
- * @property AffiliateCategory $account
+ * @property Account $account
+ * @property AffiliateCategory $affiliateCategory
  */
 class AccountToAffiliateCategory extends \common\components\ActiveRecord
 {
@@ -41,6 +42,14 @@ class AccountToAffiliateCategory extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(AffiliateCategory::className(), ['account_id' => 'account_id', 'id' => 'affiliate_category_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAffiliateCategory()
+    {
+        return $this->hasOne(AffiliateCategory::className(), ['id' => 'affiliate_category_id']);
     }
 }

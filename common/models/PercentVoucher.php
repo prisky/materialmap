@@ -49,7 +49,7 @@ class PercentVoucher extends \common\components\ActiveRecord
      */
     public function getPercentVoucherConstraints()
     {
-        return $this->hasMany(PercentVoucherConstraint::className(), ['percent_voucher_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(PercentVoucherConstraint::className(), ['percent_voucher_id' => 'id']);
     }
 
     /**
@@ -57,6 +57,6 @@ class PercentVoucher extends \common\components\ActiveRecord
      */
     public function getSummaryToPercentVouchers()
     {
-        return $this->hasMany(SummaryToPercentVoucher::className(), ['percent_voucher_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToPercentVoucher::className(), ['percent_voucher_id' => 'id']);
     }
 }

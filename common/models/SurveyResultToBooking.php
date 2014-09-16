@@ -7,12 +7,15 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
- * @property string $survey_result_id
  * @property string $booking_id
+ * @property string $survey_id
+ * @property string $custom_field_id
+ * @property string $field_set_id
+ * @property string $custom_value
  *
- * @property SurveyResult $surveyResult
  * @property Booking $booking
  * @property Account $account
+ * @property CustomField $customField
  */
 class SurveyResultToBooking extends \common\components\ActiveRecord
 {
@@ -30,9 +33,10 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'survey_result_id', 'booking_id'], 'required'],
-            [['account_id', 'survey_result_id', 'booking_id'], 'integer'],
-            [['survey_result_id', 'booking_id'], 'unique', 'targetAttribute' => ['survey_result_id', 'booking_id'], 'message' => 'The combination of Survey result and Booking has already been taken.']
+            [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'required'],
+            [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'integer'],
+            [['custom_value'], 'string', 'max' => 255],
+            [['survey_id', 'booking_id'], 'unique', 'targetAttribute' => ['survey_id', 'booking_id'], 'message' => 'The combination of Booking and Survey has already been taken.']
         ];
     }
 
@@ -40,17 +44,9 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyResult()
-    {
-        return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getBooking()
     {
-        return $this->hasOne(Booking::className(), ['id' => 'booking_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Booking::className(), ['id' => 'booking_id']);
     }
 
     /**
@@ -59,5 +55,13 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCustomField()
+    {
+        return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
 }

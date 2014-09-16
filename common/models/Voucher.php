@@ -44,7 +44,7 @@ class Voucher extends \common\components\ActiveRecord
      */
     public function getSummaryToVouchers()
     {
-        return $this->hasMany(SummaryToVoucher::className(), ['voucher_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToVoucher::className(), ['voucher_id' => 'id']);
     }
 
     /**
@@ -60,6 +60,6 @@ class Voucher extends \common\components\ActiveRecord
      */
     public function getVoucherConstraints()
     {
-        return $this->hasMany(VoucherConstraint::className(), ['voucher_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(VoucherConstraint::className(), ['voucher_id' => 'id']);
     }
 }

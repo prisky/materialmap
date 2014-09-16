@@ -7,14 +7,18 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
- * @property string $extra_id
+ * @property string $item_group_id
  * @property string $name
  * @property string $amount
- * @property integer $inventory
  * @property integer $deleted
  *
- * @property Extra $extra
+ * @property BookingToItem[] $bookingToItems
+ * @property ItemGroup $itemGroup
  * @property Account $account
+ * @property ItemInventory[] $itemInventories
+ * @property SummaryToItem[] $summaryToItems
+ * @property TicketToItem[] $ticketToItems
+ * @property TicketToSeatToItem[] $ticketToSeatToItems
  */
 class Item extends \common\components\ActiveRecord
 {
@@ -32,11 +36,11 @@ class Item extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'extra_id', 'name'], 'required'],
-            [['account_id', 'extra_id', 'inventory'], 'integer'],
+            [['account_id', 'item_group_id', 'name'], 'required'],
+            [['account_id', 'item_group_id'], 'integer'],
             [['amount'], 'number'],
             [['name'], 'string', 'max' => 64],
-            [['extra_id', 'name'], 'unique', 'targetAttribute' => ['extra_id', 'name'], 'message' => 'The combination of Extra and Name has already been taken.']
+            [['item_group_id', 'name'], 'unique', 'targetAttribute' => ['item_group_id', 'name'], 'message' => 'The combination of Item group and Name has already been taken.']
         ];
     }
 
@@ -44,9 +48,17 @@ class Item extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getExtra()
+    public function getBookingToItems()
     {
-        return $this->hasOne(Extra::className(), ['id' => 'extra_id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToItem::className(), ['item_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemGroup()
+    {
+        return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
     }
 
     /**
@@ -55,5 +67,37 @@ class Item extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemInventories()
+    {
+        return $this->hasMany(ItemInventory::className(), ['item_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSummaryToItems()
+    {
+        return $this->hasMany(SummaryToItem::className(), ['item_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicketToItems()
+    {
+        return $this->hasMany(TicketToItem::className(), ['item_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicketToSeatToItems()
+    {
+        return $this->hasMany(TicketToSeatToItem::className(), ['item_id' => 'id']);
     }
 }

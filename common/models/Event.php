@@ -16,7 +16,8 @@ namespace common\models;
  * @property Booking[] $bookings
  * @property Comment[] $comments
  * @property EventType $eventType
- * @property Resource $account
+ * @property Account $account
+ * @property Resource $resource
  */
 class Event extends \common\components\ActiveRecord
 {
@@ -47,7 +48,7 @@ class Event extends \common\components\ActiveRecord
      */
     public function getBookings()
     {
-        return $this->hasMany(Booking::className(), ['event_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Booking::className(), ['event_id' => 'id']);
     }
 
     /**
@@ -55,7 +56,7 @@ class Event extends \common\components\ActiveRecord
      */
     public function getComments()
     {
-        return $this->hasMany(Comment::className(), ['event_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Comment::className(), ['event_id' => 'id']);
     }
 
     /**
@@ -63,7 +64,7 @@ class Event extends \common\components\ActiveRecord
      */
     public function getEventType()
     {
-        return $this->hasOne(EventType::className(), ['id' => 'event_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
     }
 
     /**
@@ -71,6 +72,14 @@ class Event extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(Resource::className(), ['account_id' => 'account_id', 'id' => 'resource_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResource()
+    {
+        return $this->hasOne(Resource::className(), ['id' => 'resource_id']);
     }
 }

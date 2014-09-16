@@ -14,10 +14,10 @@ namespace common\models;
  * @property string $amount
  * @property integer $quantity
  *
- * @property Summary $account
+ * @property Account $account
  * @property Item $item
+ * @property Summary $summary
  * @property ItemGroup $itemGroup
- * @property FieldSetToItemGroup $fieldSet
  */
 class SummaryToItem extends \common\components\ActiveRecord
 {
@@ -47,7 +47,7 @@ class SummaryToItem extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(Summary::className(), ['account_id' => 'account_id', 'id' => 'summary_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
@@ -55,7 +55,15 @@ class SummaryToItem extends \common\components\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'item_id', 'account_id' => 'account_id', 'item_group_id' => 'item_group_id']);
+        return $this->hasOne(Item::className(), ['id' => 'item_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSummary()
+    {
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**
@@ -63,14 +71,6 @@ class SummaryToItem extends \common\components\ActiveRecord
      */
     public function getItemGroup()
     {
-        return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFieldSet()
-    {
-        return $this->hasOne(FieldSetToItemGroup::className(), ['field_set_id' => 'field_set_id', 'account_id' => 'account_id', 'item_group_id' => 'item_group_id']);
+        return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
     }
 }

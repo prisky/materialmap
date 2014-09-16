@@ -44,7 +44,7 @@ class AffiliateCategory extends \common\components\ActiveRecord
      */
     public function getAccountToAffiliateCategories()
     {
-        return $this->hasMany(AccountToAffiliateCategory::className(), ['account_id' => 'account_id', 'affiliate_category_id' => 'id']);
+        return $this->hasMany(AccountToAffiliateCategory::className(), ['affiliate_category_id' => 'id']);
     }
 
     /**

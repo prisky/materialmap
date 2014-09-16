@@ -50,7 +50,7 @@ class Invoice extends \common\components\ActiveRecord
      */
     public function getReferrals()
     {
-        return $this->hasMany(Referral::className(), ['invoice_id' => 'id', 'account_to_user_id' => 'account_to_user_id']);
+        return $this->hasMany(Referral::className(), ['invoice_id' => 'id']);
     }
 
     /**
@@ -58,6 +58,6 @@ class Invoice extends \common\components\ActiveRecord
      */
     public function getSummaryToAccountToUsers()
     {
-        return $this->hasMany(SummaryToAccountToUser::className(), ['invoice_id' => 'id', 'account_to_user_id' => 'account_to_user_id']);
+        return $this->hasMany(SummaryToAccountToUser::className(), ['invoice_id' => 'id']);
     }
 }

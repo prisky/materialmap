@@ -8,16 +8,17 @@ namespace common\models;
  * @property string $id
  * @property string $account_id
  * @property string $ticket_id
+ * @property string $event_type_id
  * @property string $seat_id
  *
- * @property EventTypeToResourceTypeToExtraToTicketToSeat[] $eventTypeToResourceTypeToExtraToTicketToSeats
  * @property SurveyResultToTicketToSeat[] $surveyResultToTicketToSeats
  * @property Ticket $ticket
  * @property Seat $seat
  * @property Account $account
  * @property TicketToSeatToCharge[] $ticketToSeatToCharges
  * @property TicketToSeatToContact[] $ticketToSeatToContacts
- * @property TicketToSeatToEventTypeToResourceTypeToCustomFie[] $ticketToSeatToEventTypeToResourceTypeToCustomFies
+ * @property TicketToSeatToCustomField[] $ticketToSeatToCustomFields
+ * @property TicketToSeatToItem[] $ticketToSeatToItems
  */
 class TicketToSeat extends \common\components\ActiveRecord
 {
@@ -35,8 +36,8 @@ class TicketToSeat extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'ticket_id', 'seat_id'], 'required'],
-            [['account_id', 'ticket_id', 'seat_id'], 'integer'],
+            [['account_id', 'ticket_id', 'event_type_id', 'seat_id'], 'required'],
+            [['account_id', 'ticket_id', 'event_type_id', 'seat_id'], 'integer'],
             [['ticket_id', 'seat_id'], 'unique', 'targetAttribute' => ['ticket_id', 'seat_id'], 'message' => 'The combination of Ticket and Seat has already been taken.']
         ];
     }
@@ -45,17 +46,9 @@ class TicketToSeat extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventTypeToResourceTypeToExtraToTicketToSeats()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtraToTicketToSeat::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSurveyResultToTicketToSeats()
     {
-        return $this->hasMany(SurveyResultToTicketToSeat::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyResultToTicketToSeat::className(), ['ticket_to_seat_id' => 'id']);
     }
 
     /**
@@ -63,7 +56,7 @@ class TicketToSeat extends \common\components\ActiveRecord
      */
     public function getTicket()
     {
-        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 
     /**
@@ -71,7 +64,7 @@ class TicketToSeat extends \common\components\ActiveRecord
      */
     public function getSeat()
     {
-        return $this->hasOne(Seat::className(), ['id' => 'seat_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Seat::className(), ['id' => 'seat_id']);
     }
 
     /**
@@ -87,7 +80,7 @@ class TicketToSeat extends \common\components\ActiveRecord
      */
     public function getTicketToSeatToCharges()
     {
-        return $this->hasMany(TicketToSeatToCharge::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToSeatToCharge::className(), ['ticket_to_seat_id' => 'id']);
     }
 
     /**
@@ -95,14 +88,22 @@ class TicketToSeat extends \common\components\ActiveRecord
      */
     public function getTicketToSeatToContacts()
     {
-        return $this->hasMany(TicketToSeatToContact::className(), ['account_id' => 'account_id', 'ticket_to_seat_id' => 'id']);
+        return $this->hasMany(TicketToSeatToContact::className(), ['ticket_to_seat_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToSeatToEventTypeToResourceTypeToCustomFies()
+    public function getTicketToSeatToCustomFields()
     {
-        return $this->hasMany(TicketToSeatToEventTypeToResourceTypeToCustomFie::className(), ['ticket_to_seat_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToSeatToCustomField::className(), ['ticket_to_seat_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicketToSeatToItems()
+    {
+        return $this->hasMany(TicketToSeatToItem::className(), ['ticket_to_seat_id' => 'id']);
     }
 }

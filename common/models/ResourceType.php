@@ -14,8 +14,6 @@ namespace common\models;
  * @property EventTypeToResourceType[] $eventTypeToResourceTypes
  * @property Resource[] $resources
  * @property Account $account
- * @property ResourceTypeToCustomField[] $resourceTypeToCustomFields
- * @property ResourceTypeToExtra[] $resourceTypeToExtras
  * @property ResourceTypeToMessage[] $resourceTypeToMessages
  * @property SurveyToResourceType[] $surveyToResourceTypes
  */
@@ -49,7 +47,7 @@ class ResourceType extends \common\components\ActiveRecord
      */
     public function getEventTypeToResourceTypes()
     {
-        return $this->hasMany(EventTypeToResourceType::className(), ['account_id' => 'account_id', 'resource_type_id' => 'id']);
+        return $this->hasMany(EventTypeToResourceType::className(), ['resource_type_id' => 'id']);
     }
 
     /**
@@ -57,7 +55,7 @@ class ResourceType extends \common\components\ActiveRecord
      */
     public function getResources()
     {
-        return $this->hasMany(Resource::className(), ['account_id' => 'account_id', 'resource_type_id' => 'id']);
+        return $this->hasMany(Resource::className(), ['resource_type_id' => 'id']);
     }
 
     /**
@@ -71,25 +69,9 @@ class ResourceType extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceTypeToCustomFields()
-    {
-        return $this->hasMany(ResourceTypeToCustomField::className(), ['account_id' => 'account_id', 'resource_type_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResourceTypeToExtras()
-    {
-        return $this->hasMany(ResourceTypeToExtra::className(), ['account_id' => 'account_id', 'resource_type_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getResourceTypeToMessages()
     {
-        return $this->hasMany(ResourceTypeToMessage::className(), ['account_id' => 'account_id', 'resource_type_id' => 'id']);
+        return $this->hasMany(ResourceTypeToMessage::className(), ['resource_type_id' => 'id']);
     }
 
     /**
@@ -97,6 +79,6 @@ class ResourceType extends \common\components\ActiveRecord
      */
     public function getSurveyToResourceTypes()
     {
-        return $this->hasMany(SurveyToResourceType::className(), ['account_id' => 'account_id', 'resource_type_id' => 'id']);
+        return $this->hasMany(SurveyToResourceType::className(), ['resource_type_id' => 'id']);
     }
 }

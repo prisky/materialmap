@@ -17,7 +17,7 @@ class ColumnController extends \backend\components\Controller
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-
+        "model_id" => "#"
     ];
 
 	/**
@@ -30,6 +30,15 @@ class ColumnController extends \backend\components\Controller
             ],
             [
                 "attribute" => "label"
+            ],
+            [
+                "attribute" => "model_id",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_model_id",
+                    "attribute2" => "to_model_id"
+                ]
             ],
             [
                 "attribute" => "name"

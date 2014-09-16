@@ -41,7 +41,7 @@ class ResourceTypeToMessageToUser extends \common\components\ActiveRecord
      */
     public function getResourceTypeToMessage()
     {
-        return $this->hasOne(ResourceTypeToMessage::className(), ['id' => 'resource_type_to_message', 'account_id' => 'account_id']);
+        return $this->hasOne(ResourceTypeToMessage::className(), ['id' => 'resource_type_to_message']);
     }
 
     /**

@@ -53,7 +53,7 @@ class Charge extends \common\components\ActiveRecord
      */
     public function getBookingToCharges()
     {
-        return $this->hasMany(BookingToCharge::className(), ['charge_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToCharge::className(), ['charge_id' => 'id']);
     }
 
     /**
@@ -69,7 +69,7 @@ class Charge extends \common\components\ActiveRecord
      */
     public function getSmsToCharges()
     {
-        return $this->hasMany(SmsToCharge::className(), ['charge_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SmsToCharge::className(), ['charge_id' => 'id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class Charge extends \common\components\ActiveRecord
      */
     public function getSummaryToCharges()
     {
-        return $this->hasMany(SummaryToCharge::className(), ['charge_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToCharge::className(), ['charge_id' => 'id']);
     }
 
     /**
@@ -85,7 +85,7 @@ class Charge extends \common\components\ActiveRecord
      */
     public function getTicketToCharges()
     {
-        return $this->hasMany(TicketToCharge::className(), ['charge_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToCharge::className(), ['charge_id' => 'id']);
     }
 
     /**
@@ -93,6 +93,6 @@ class Charge extends \common\components\ActiveRecord
      */
     public function getTicketToSeatToCharges()
     {
-        return $this->hasMany(TicketToSeatToCharge::className(), ['charge_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(TicketToSeatToCharge::className(), ['charge_id' => 'id']);
     }
 }

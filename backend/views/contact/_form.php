@@ -20,7 +20,6 @@ use backend\components\DetailView;
 			['attribute' => 'first_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'last_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'email', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
 			['attribute' => 'town_city_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TownCity')],
 			['attribute' => 'verified', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'address_line1', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],

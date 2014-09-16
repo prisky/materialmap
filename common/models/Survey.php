@@ -12,7 +12,7 @@ namespace common\models;
  * @property string $deleted
  *
  * @property Account $account
- * @property SurveyToCustomField[] $surveyToCustomFields
+ * @property SurveyToFieldSet[] $surveyToFieldSets
  * @property SurveyToResourceType[] $surveyToResourceTypes
  */
 class Survey extends \common\components\ActiveRecord
@@ -51,9 +51,9 @@ class Survey extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyToCustomFields()
+    public function getSurveyToFieldSets()
     {
-        return $this->hasMany(SurveyToCustomField::className(), ['survey_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyToFieldSet::className(), ['survey_id' => 'id']);
     }
 
     /**
@@ -61,6 +61,6 @@ class Survey extends \common\components\ActiveRecord
      */
     public function getSurveyToResourceTypes()
     {
-        return $this->hasMany(SurveyToResourceType::className(), ['survey_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyToResourceType::className(), ['survey_id' => 'id']);
     }
 }

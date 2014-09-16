@@ -45,7 +45,7 @@ class Reseller extends \common\components\ActiveRecord
      */
     public function getCoupons()
     {
-        return $this->hasMany(Coupon::className(), ['reseller_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Coupon::className(), ['reseller_id' => 'id']);
     }
 
     /**

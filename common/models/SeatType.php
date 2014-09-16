@@ -42,7 +42,7 @@ class SeatType extends \common\components\ActiveRecord
      */
     public function getSeats()
     {
-        return $this->hasMany(Seat::className(), ['seat_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Seat::className(), ['seat_type_id' => 'id']);
     }
 
     /**

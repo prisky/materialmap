@@ -87,27 +87,6 @@ class PaymentController extends \backend\components\Controller
 								}
 							},
                 "format" => "raw"
-            ],
-            [
-                "attribute" => "summary_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Summary'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->summary) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->summary->label, Url::toRoute([strtolower('Summary') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->summary->label, Url::toRoute([strtolower('Summary') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
             ]
         ];
 	}

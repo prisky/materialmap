@@ -9,7 +9,10 @@ namespace common\models;
  * @property string $account_id
  * @property string $event_type_id
  * @property string $resource_type_id
+ * @property integer $deleted
  *
+ * @property EventType $eventType
+ * @property ResourceType $resourceType
  * @property Account $account
  */
 class EventTypeToResourceType extends \common\components\ActiveRecord
@@ -33,6 +36,22 @@ class EventTypeToResourceType extends \common\components\ActiveRecord
         ];
     }
 
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventType()
+    {
+        return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResourceType()
+    {
+        return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

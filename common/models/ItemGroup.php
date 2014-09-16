@@ -44,7 +44,7 @@ class ItemGroup extends \common\components\ActiveRecord
      */
     public function getFieldSetToItemGroups()
     {
-        return $this->hasMany(FieldSetToItemGroup::className(), ['item_group_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(FieldSetToItemGroup::className(), ['item_group_id' => 'id']);
     }
 
     /**
@@ -52,7 +52,7 @@ class ItemGroup extends \common\components\ActiveRecord
      */
     public function getItems()
     {
-        return $this->hasMany(Item::className(), ['item_group_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Item::className(), ['item_group_id' => 'id']);
     }
 
     /**
@@ -68,6 +68,6 @@ class ItemGroup extends \common\components\ActiveRecord
      */
     public function getSummaryToItems()
     {
-        return $this->hasMany(SummaryToItem::className(), ['item_group_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToItem::className(), ['item_group_id' => 'id']);
     }
 }

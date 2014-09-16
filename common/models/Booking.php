@@ -8,15 +8,16 @@ namespace common\models;
  * @property string $id
  * @property string $account_id
  * @property string $event_id
+ * @property string $event_type_id
  * @property string $summary_id
  * @property string $status
  *
  * @property Summary $summary
- * @property Event $event
  * @property Account $account
+ * @property Event $event
  * @property BookingToCharge[] $bookingToCharges
- * @property BookingToEventTypeToResourceTypeToCustomField[] $bookingToEventTypeToResourceTypeToCustomFields
- * @property BookingToEventTypeToResourceTypeToExtra[] $bookingToEventTypeToResourceTypeToExtras
+ * @property BookingToCustomField[] $bookingToCustomFields
+ * @property BookingToItem[] $bookingToItems
  * @property SurveyResultToBooking[] $surveyResultToBookings
  * @property Ticket[] $tickets
  */
@@ -36,8 +37,8 @@ class Booking extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'event_id', 'summary_id', 'status'], 'required'],
-            [['account_id', 'event_id', 'summary_id'], 'integer'],
+            [['account_id', 'event_id', 'event_type_id', 'summary_id', 'status'], 'required'],
+            [['account_id', 'event_id', 'event_type_id', 'summary_id'], 'integer'],
             [['status'], 'string'],
             [['event_id', 'summary_id'], 'unique', 'targetAttribute' => ['event_id', 'summary_id'], 'message' => 'The combination of Event and Summary has already been taken.']
         ];
@@ -49,15 +50,7 @@ class Booking extends \common\components\ActiveRecord
      */
     public function getSummary()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEvent()
-    {
-        return $this->hasOne(Event::className(), ['id' => 'event_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**
@@ -71,25 +64,33 @@ class Booking extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEvent()
+    {
+        return $this->hasOne(Event::className(), ['id' => 'event_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getBookingToCharges()
     {
-        return $this->hasMany(BookingToCharge::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToCharge::className(), ['booking_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBookingToEventTypeToResourceTypeToCustomFields()
+    public function getBookingToCustomFields()
     {
-        return $this->hasMany(BookingToEventTypeToResourceTypeToCustomField::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToCustomField::className(), ['booking_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBookingToEventTypeToResourceTypeToExtras()
+    public function getBookingToItems()
     {
-        return $this->hasMany(BookingToEventTypeToResourceTypeToExtra::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(BookingToItem::className(), ['booking_id' => 'id']);
     }
 
     /**
@@ -97,7 +98,7 @@ class Booking extends \common\components\ActiveRecord
      */
     public function getSurveyResultToBookings()
     {
-        return $this->hasMany(SurveyResultToBooking::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyResultToBooking::className(), ['booking_id' => 'id']);
     }
 
     /**
@@ -105,6 +106,6 @@ class Booking extends \common\components\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['booking_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Ticket::className(), ['booking_id' => 'id']);
     }
 }

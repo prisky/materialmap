@@ -12,7 +12,8 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property Event[] $events
- * @property ResourceType $account
+ * @property Account $account
+ * @property ResourceType $resourceType
  * @property Seat[] $seats
  */
 class Resource extends \common\components\ActiveRecord
@@ -44,7 +45,7 @@ class Resource extends \common\components\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['account_id' => 'account_id', 'resource_id' => 'id']);
+        return $this->hasMany(Event::className(), ['resource_id' => 'id']);
     }
 
     /**
@@ -52,7 +53,15 @@ class Resource extends \common\components\ActiveRecord
      */
     public function getAccount()
     {
-        return $this->hasOne(ResourceType::className(), ['account_id' => 'account_id', 'id' => 'resource_type_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResourceType()
+    {
+        return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
 
     /**
@@ -60,6 +69,6 @@ class Resource extends \common\components\ActiveRecord
      */
     public function getSeats()
     {
-        return $this->hasMany(Seat::className(), ['resource_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Seat::className(), ['resource_id' => 'id']);
     }
 }

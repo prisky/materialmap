@@ -38,7 +38,7 @@ class SmsThread extends \common\components\ActiveRecord
      */
     public function getSms()
     {
-        return $this->hasMany(Sms::className(), ['sms_thread_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Sms::className(), ['sms_thread_id' => 'id']);
     }
 
     /**

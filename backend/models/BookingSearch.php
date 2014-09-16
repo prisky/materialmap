@@ -14,8 +14,8 @@ class BookingSearch extends Booking
     public function rules()
     {
         return [
-            [['status'], 'string'],
-			[['summary_id'], 'integer']        ];
+            [['event_type_id', 'summary_id'], 'integer'],
+			[['status'], 'string']        ];
     }
 
     public function scenarios()
@@ -36,6 +36,7 @@ class BookingSearch extends Booking
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['event_type_id' => $this->event_type_id]);
 		$query->andFilterWhere(['status' => $this->status]);
 		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		

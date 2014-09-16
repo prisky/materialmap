@@ -9,6 +9,7 @@ namespace common\models;
  * @property string $account_id
  * @property string $event_type_id
  * @property string $ticket_type_id
+ * @property integer $deleted
  *
  * @property EventType $eventType
  * @property TicketType $ticketType
@@ -42,7 +43,7 @@ class EventTypeToTicketType extends \common\components\ActiveRecord
      */
     public function getEventType()
     {
-        return $this->hasOne(EventType::className(), ['id' => 'event_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
     }
 
     /**
@@ -50,7 +51,7 @@ class EventTypeToTicketType extends \common\components\ActiveRecord
      */
     public function getTicketType()
     {
-        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id']);
     }
 
     /**

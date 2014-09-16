@@ -18,8 +18,11 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property Account $account
- * @property ResourceTypeToCustomField[] $resourceTypeToCustomFields
- * @property SurveyToCustomField[] $surveyToCustomFields
+ * @property FieldSetToCustomField[] $fieldSetToCustomFields
+ * @property SurveyResultToBooking[] $surveyResultToBookings
+ * @property SurveyResultToSummary[] $surveyResultToSummaries
+ * @property SurveyResultToTicket[] $surveyResultToTickets
+ * @property SurveyResultToTicketToSeat[] $surveyResultToTicketToSeats
  */
 class CustomField extends \common\components\ActiveRecord
 {
@@ -58,16 +61,40 @@ class CustomField extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceTypeToCustomFields()
+    public function getFieldSetToCustomFields()
     {
-        return $this->hasMany(ResourceTypeToCustomField::className(), ['custom_field_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(FieldSetToCustomField::className(), ['custom_field_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyToCustomFields()
+    public function getSurveyResultToBookings()
     {
-        return $this->hasMany(SurveyToCustomField::className(), ['custom_field_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyResultToBooking::className(), ['custom_field_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSurveyResultToSummaries()
+    {
+        return $this->hasMany(SurveyResultToSummary::className(), ['custom_field_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSurveyResultToTickets()
+    {
+        return $this->hasMany(SurveyResultToTicket::className(), ['custom_field_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSurveyResultToTicketToSeats()
+    {
+        return $this->hasMany(SurveyResultToTicketToSeat::className(), ['custom_field_id' => 'id']);
     }
 }

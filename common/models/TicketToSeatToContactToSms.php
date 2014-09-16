@@ -42,7 +42,7 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
      */
     public function getTicketToSeatToContact()
     {
-        return $this->hasOne(TicketToSeatToContact::className(), ['id' => 'ticket_to_seat_to_contact_id', 'account_id' => 'account_id']);
+        return $this->hasOne(TicketToSeatToContact::className(), ['id' => 'ticket_to_seat_to_contact_id']);
     }
 
     /**
@@ -50,7 +50,7 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
      */
     public function getSms()
     {
-        return $this->hasOne(Sms::className(), ['id' => 'sms_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Sms::className(), ['id' => 'sms_id']);
     }
 
     /**

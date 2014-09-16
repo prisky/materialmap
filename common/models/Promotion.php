@@ -52,7 +52,7 @@ class Promotion extends \common\components\ActiveRecord
      */
     public function getPromotionConstraints()
     {
-        return $this->hasMany(PromotionConstraint::className(), ['promotion_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(PromotionConstraint::className(), ['promotion_id' => 'id']);
     }
 
     /**
@@ -60,6 +60,6 @@ class Promotion extends \common\components\ActiveRecord
      */
     public function getSummaryToPromotions()
     {
-        return $this->hasMany(SummaryToPromotion::className(), ['promotion_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToPromotion::className(), ['promotion_id' => 'id']);
     }
 }

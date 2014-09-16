@@ -7,10 +7,15 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
- * @property string $survey_result_id
+ * @property string $summary_id
+ * @property string $survey_id
+ * @property string $custom_field_id
+ * @property string $field_set_id
+ * @property string $custom_value
  *
- * @property SurveyResult $surveyResult
  * @property Account $account
+ * @property Summary $summary
+ * @property CustomField $customField
  */
 class SurveyResultToSummary extends \common\components\ActiveRecord
 {
@@ -28,9 +33,10 @@ class SurveyResultToSummary extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'survey_result_id'], 'required'],
-            [['account_id', 'survey_result_id'], 'integer'],
-            [['survey_result_id'], 'unique']
+            [['account_id', 'summary_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'required'],
+            [['account_id', 'summary_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'integer'],
+            [['custom_value'], 'string', 'max' => 255],
+            [['survey_id'], 'unique']
         ];
     }
 
@@ -38,16 +44,24 @@ class SurveyResultToSummary extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyResult()
+    public function getAccount()
     {
-        return $this->hasOne(SurveyResult::className(), ['id' => 'survey_result_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getSummary()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCustomField()
+    {
+        return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
 }

@@ -43,7 +43,7 @@ class AuthItemChild extends \common\components\ActiveRecord
      */
     public function getParent0()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'parent', 'account_id' => 'account_id']);
+        return $this->hasOne(AuthItem::className(), ['name' => 'parent']);
     }
 
     /**
@@ -51,7 +51,7 @@ class AuthItemChild extends \common\components\ActiveRecord
      */
     public function getChild0()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'child', 'account_id' => 'account_id']);
+        return $this->hasOne(AuthItem::className(), ['name' => 'child']);
     }
 
     /**

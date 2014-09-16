@@ -47,7 +47,7 @@ class Bid extends \common\components\ActiveRecord
      */
     public function getQuestion()
     {
-        return $this->hasOne(Question::className(), ['id' => 'question_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
 
     /**
@@ -63,6 +63,6 @@ class Bid extends \common\components\ActiveRecord
      */
     public function getQuestions()
     {
-        return $this->hasMany(Question::className(), ['bid_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Question::className(), ['bid_id' => 'id']);
     }
 }

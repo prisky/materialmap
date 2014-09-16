@@ -47,9 +47,6 @@ class ItemController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "inventory"
-            ],
-            [
                 "attribute" => "name"
             ]
         ];

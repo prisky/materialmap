@@ -42,7 +42,7 @@ class BookingToCharge extends \common\components\ActiveRecord
      */
     public function getBooking()
     {
-        return $this->hasOne(Booking::className(), ['id' => 'booking_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Booking::className(), ['id' => 'booking_id']);
     }
 
     /**
@@ -50,7 +50,7 @@ class BookingToCharge extends \common\components\ActiveRecord
      */
     public function getCharge()
     {
-        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
 
     /**

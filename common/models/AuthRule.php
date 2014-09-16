@@ -40,5 +40,5 @@ class AuthRule extends \common\components\ActiveRecord
     public function getAuthItems()
     {
         return $this->hasMany(AuthItem::className(), ['rule_name' => 'name']);
-    }
+	}
 }

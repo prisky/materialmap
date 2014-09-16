@@ -11,17 +11,18 @@ namespace common\models;
  * @property string $created
  *
  * @property Booking[] $bookings
- * @property EventTypeToResourceTypeToExtraToSummary[] $eventTypeToResourceTypeToExtraToSummaries
  * @property Payment[] $payments
  * @property Account $account
  * @property Contact $contact
  * @property SummaryToAccountToUser[] $summaryToAccountToUsers
  * @property SummaryToCharge[] $summaryToCharges
- * @property SummaryToEventTypeToResourceToCustomField[] $summaryToEventTypeToResourceToCustomFields
+ * @property SummaryToCustomField[] $summaryToCustomFields
+ * @property SummaryToItem[] $summaryToItems
  * @property SummaryToPercentPromotion[] $summaryToPercentPromotions
  * @property SummaryToPercentVoucher[] $summaryToPercentVouchers
  * @property SummaryToPromotion[] $summaryToPromotions
  * @property SummaryToVoucher[] $summaryToVouchers
+ * @property SurveyResultToSummary[] $surveyResultToSummaries
  */
 class Summary extends \common\components\ActiveRecord
 {
@@ -50,15 +51,7 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getBookings()
     {
-        return $this->hasMany(Booking::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToExtraToSummaries()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtraToSummary::className(), ['account_id' => 'account_id', 'summary_id' => 'id']);
+        return $this->hasMany(Booking::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -66,7 +59,7 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getPayments()
     {
-        return $this->hasMany(Payment::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Payment::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -90,7 +83,7 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getSummaryToAccountToUsers()
     {
-        return $this->hasMany(SummaryToAccountToUser::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToAccountToUser::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -98,15 +91,23 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getSummaryToCharges()
     {
-        return $this->hasMany(SummaryToCharge::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToCharge::className(), ['summary_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummaryToEventTypeToResourceToCustomFields()
+    public function getSummaryToCustomFields()
     {
-        return $this->hasMany(SummaryToEventTypeToResourceToCustomField::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToCustomField::className(), ['summary_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSummaryToItems()
+    {
+        return $this->hasMany(SummaryToItem::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -114,7 +115,7 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getSummaryToPercentPromotions()
     {
-        return $this->hasMany(SummaryToPercentPromotion::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToPercentPromotion::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -122,7 +123,7 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getSummaryToPercentVouchers()
     {
-        return $this->hasMany(SummaryToPercentVoucher::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToPercentVoucher::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -130,7 +131,7 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getSummaryToPromotions()
     {
-        return $this->hasMany(SummaryToPromotion::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToPromotion::className(), ['summary_id' => 'id']);
     }
 
     /**
@@ -138,6 +139,14 @@ class Summary extends \common\components\ActiveRecord
      */
     public function getSummaryToVouchers()
     {
-        return $this->hasMany(SummaryToVoucher::className(), ['summary_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToVoucher::className(), ['summary_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSurveyResultToSummaries()
+    {
+        return $this->hasMany(SurveyResultToSummary::className(), ['summary_id' => 'id']);
     }
 }

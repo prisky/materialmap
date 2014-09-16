@@ -17,13 +17,12 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'type', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
-			['attribute' => 'created_at', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
-			['attribute' => 'updated_at', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
 			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'description', 'type' => DetailView::INPUT_TEXTAREA],
+			['attribute' => 'type', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
 			['attribute' => 'data', 'type' => DetailView::INPUT_TEXTAREA],
+			['attribute' => 'description', 'type' => DetailView::INPUT_TEXTAREA],
+			['attribute' => 'created_at', 'type' => DetailView::INPUT_DATETIME],
+			['attribute' => 'updated_at', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'rule_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 		]
 	]);	?>

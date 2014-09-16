@@ -10,7 +10,6 @@ namespace common\models;
  * @property string $user_id
  * @property integer $created_at
  *
- * @property AuthItem $itemName
  * @property User $user
  */
 class AuthAssignment extends \common\components\ActiveRecord
@@ -36,14 +35,6 @@ class AuthAssignment extends \common\components\ActiveRecord
         ];
     }
 
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItemName()
-    {
-        return $this->hasOne(AuthItem::className(), ['name' => 'item_name']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery

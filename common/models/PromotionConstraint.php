@@ -52,6 +52,6 @@ class PromotionConstraint extends \common\components\ActiveRecord
      */
     public function getPromotion()
     {
-        return $this->hasOne(Promotion::className(), ['id' => 'promotion_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Promotion::className(), ['id' => 'promotion_id']);
     }
 }

@@ -26,6 +26,27 @@ class TicketToSeatController extends \backend\components\Controller
 	public function getGridColumns() {
 		return [
             [
+                "attribute" => "event_type_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Ticket'),
+                "value" => function ($model, $key, $index, $widget) {
+								// if null foreign key
+								if(!$model->ticket) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
+									return Html::a($model->ticket->label, Url::toRoute([strtolower('Ticket') . "/update", "id" => $key]));
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
+									return Html::a($model->ticket->label, Url::toRoute([strtolower('Ticket') . "/read", "id" => $key]));
+								}
+								else {
+									return $model->label($key);
+								}
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "seat_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Seat'),

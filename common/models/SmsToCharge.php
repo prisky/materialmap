@@ -51,7 +51,7 @@ class SmsToCharge extends \common\components\ActiveRecord
      */
     public function getSms()
     {
-        return $this->hasOne(Sms::className(), ['id' => 'sms_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Sms::className(), ['id' => 'sms_id']);
     }
 
     /**
@@ -59,6 +59,6 @@ class SmsToCharge extends \common\components\ActiveRecord
      */
     public function getCharge()
     {
-        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
 }

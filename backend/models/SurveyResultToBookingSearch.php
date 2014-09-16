@@ -14,7 +14,8 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
     public function rules()
     {
         return [
-            [['booking_id'], 'integer']        ];
+            [['booking_id', 'custom_field_id', 'field_set_id', 'survey_id'], 'integer'],
+			[['custom_value'], 'safe']        ];
     }
 
     public function scenarios()
@@ -36,6 +37,10 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
         }
 
 		$query->andFilterWhere(['booking_id' => $this->booking_id]);
+		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
+		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
+		$query->andFilterWhere(['survey_id' => $this->survey_id]);
 		
         return $dataProvider;
     }

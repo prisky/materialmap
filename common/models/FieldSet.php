@@ -45,7 +45,7 @@ class FieldSet extends \common\components\ActiveRecord
      */
     public function getEventTypeToFieldSets()
     {
-        return $this->hasMany(EventTypeToFieldSet::className(), ['field_set_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(EventTypeToFieldSet::className(), ['field_set_id' => 'id']);
     }
 
     /**
@@ -61,7 +61,7 @@ class FieldSet extends \common\components\ActiveRecord
      */
     public function getFieldSetToCustomFields()
     {
-        return $this->hasMany(FieldSetToCustomField::className(), ['field_set_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(FieldSetToCustomField::className(), ['field_set_id' => 'id']);
     }
 
     /**
@@ -69,7 +69,7 @@ class FieldSet extends \common\components\ActiveRecord
      */
     public function getFieldSetToItemGroups()
     {
-        return $this->hasMany(FieldSetToItemGroup::className(), ['field_set_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(FieldSetToItemGroup::className(), ['field_set_id' => 'id']);
     }
 
     /**
@@ -77,7 +77,7 @@ class FieldSet extends \common\components\ActiveRecord
      */
     public function getFieldSetTrees()
     {
-        return $this->hasMany(FieldSetTree::className(), ['child_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(FieldSetTree::className(), ['child_id' => 'id']);
     }
 
     /**
@@ -85,6 +85,6 @@ class FieldSet extends \common\components\ActiveRecord
      */
     public function getSurveyToFieldSets()
     {
-        return $this->hasMany(SurveyToFieldSet::className(), ['field_set_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SurveyToFieldSet::className(), ['field_set_id' => 'id']);
     }
 }

@@ -12,6 +12,7 @@ namespace common\models;
  * @property integer $deleted
  *
  * @property Survey $survey
+ * @property ResourceType $resourceType
  * @property Account $account
  */
 class SurveyToResourceType extends \common\components\ActiveRecord
@@ -42,7 +43,15 @@ class SurveyToResourceType extends \common\components\ActiveRecord
      */
     public function getSurvey()
     {
-        return $this->hasOne(Survey::className(), ['id' => 'survey_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Survey::className(), ['id' => 'survey_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResourceType()
+    {
+        return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
 
     /**

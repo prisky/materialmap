@@ -47,7 +47,7 @@ class PaymentGateway extends \common\components\ActiveRecord
      */
     public function getAccountToPaymentGateways()
     {
-        return $this->hasMany(AccountToPaymentGateway::className(), ['account_id' => 'account_id', 'payment_gateway_id' => 'id']);
+        return $this->hasMany(AccountToPaymentGateway::className(), ['payment_gateway_id' => 'id']);
     }
 
     /**

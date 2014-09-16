@@ -50,7 +50,7 @@ class FieldSetTree extends \common\components\ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(FieldSet::className(), ['id' => 'parent_id', 'account_id' => 'account_id']);
+        return $this->hasOne(FieldSet::className(), ['id' => 'parent_id']);
     }
 
     /**
@@ -58,6 +58,6 @@ class FieldSetTree extends \common\components\ActiveRecord
      */
     public function getChild()
     {
-        return $this->hasOne(FieldSet::className(), ['id' => 'child_id', 'account_id' => 'account_id']);
+        return $this->hasOne(FieldSet::className(), ['id' => 'child_id']);
     }
 }

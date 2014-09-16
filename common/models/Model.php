@@ -99,6 +99,6 @@ class Model extends \common\components\ActiveRecord
     public function getModelTreeChilds()
     {
         return $this->hasMany(ModelTree::className(), ['child' => 'auth_item_name']);
-}
+	}
 	
 }

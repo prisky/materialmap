@@ -42,7 +42,7 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
      */
     public function getSummary()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**
@@ -50,7 +50,7 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
      */
     public function getPercentPromotion()
     {
-        return $this->hasOne(PercentPromotion::className(), ['id' => 'percent_promotion_id', 'account_id' => 'account_id']);
+        return $this->hasOne(PercentPromotion::className(), ['id' => 'percent_promotion_id']);
     }
 
     /**

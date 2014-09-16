@@ -54,6 +54,6 @@ class Coupon extends \common\components\ActiveRecord
      */
     public function getReseller()
     {
-        return $this->hasOne(Reseller::className(), ['id' => 'reseller_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Reseller::className(), ['id' => 'reseller_id']);
     }
 }

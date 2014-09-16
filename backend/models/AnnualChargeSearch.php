@@ -14,7 +14,7 @@ class AnnualChargeSearch extends AnnualCharge
     public function rules()
     {
         return [
-            [['charge_id'], 'integer']        ];
+                    ];
     }
 
     public function scenarios()
@@ -35,7 +35,6 @@ class AnnualChargeSearch extends AnnualCharge
             return $dataProvider;
         }
 
-		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		
         return $dataProvider;
     }

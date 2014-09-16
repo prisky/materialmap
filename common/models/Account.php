@@ -497,7 +497,7 @@ class Account extends \common\components\ActiveRecord
      */
     public function getReferrals()
     {
-        return $this->hasMany(Referral::className(), ['account_id' => 'id', 'first_referrer_user_id' => 'user_id']);
+        return $this->hasMany(Referral::className(), ['account_id' => 'id']);
     }
 
     /**

@@ -41,7 +41,7 @@ class AccountToMessageToUser extends \common\components\ActiveRecord
      */
     public function getAccountToMessage()
     {
-        return $this->hasOne(AccountToMessage::className(), ['id' => 'account_to_message', 'account_id' => 'account_id']);
+        return $this->hasOne(AccountToMessage::className(), ['id' => 'account_to_message']);
     }
 
     /**

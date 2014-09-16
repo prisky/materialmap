@@ -43,7 +43,7 @@ class TicketToCharge extends \common\components\ActiveRecord
      */
     public function getTicket()
     {
-        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 
     /**
@@ -51,7 +51,7 @@ class TicketToCharge extends \common\components\ActiveRecord
      */
     public function getCharge()
     {
-        return $this->hasOne(Charge::className(), ['id' => 'charge_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
 
     /**

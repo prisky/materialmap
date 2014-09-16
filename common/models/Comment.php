@@ -52,7 +52,7 @@ class Comment extends \common\components\ActiveRecord
      */
     public function getEvent()
     {
-        return $this->hasOne(Event::className(), ['id' => 'event_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Event::className(), ['id' => 'event_id']);
     }
 
     /**

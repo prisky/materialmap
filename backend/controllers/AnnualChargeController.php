@@ -25,27 +25,7 @@ class AnnualChargeController extends \backend\components\Controller
 	 */
 	public function getGridColumns() {
 		return [
-            [
-                "attribute" => "charge_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Charge'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->charge) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->charge->label, Url::toRoute([strtolower('Charge') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->charge->label, Url::toRoute([strtolower('Charge') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ]
+
         ];
 	}
 

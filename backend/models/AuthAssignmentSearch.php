@@ -16,7 +16,7 @@ class AuthAssignmentSearch extends AuthAssignment
     public function rules()
     {
         return [
-            [['created_at'], 'integer'],
+            [['created_at', 'user_id'], 'integer'],
 			[['item_name'], 'safe']        ];
     }
 
@@ -41,6 +41,7 @@ class AuthAssignmentSearch extends AuthAssignment
 		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
 		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
 		$query->andFilterGoogleStyle('item_name', $this->item_name);
+		$query->andFilterWhere(['user_id' => $this->user_id]);
 		
         return $dataProvider;
     }

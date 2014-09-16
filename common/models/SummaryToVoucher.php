@@ -44,7 +44,7 @@ class SummaryToVoucher extends \common\components\ActiveRecord
      */
     public function getSummary()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**
@@ -52,7 +52,7 @@ class SummaryToVoucher extends \common\components\ActiveRecord
      */
     public function getVoucher()
     {
-        return $this->hasOne(Voucher::className(), ['id' => 'voucher_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Voucher::className(), ['id' => 'voucher_id']);
     }
 
     /**

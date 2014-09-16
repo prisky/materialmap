@@ -44,5 +44,5 @@ class Column extends \common\components\ActiveRecord
     public function getModel()
     {
         return $this->hasOne(Model::className(), ['id' => 'model_id']);
-    }
+	}
 }

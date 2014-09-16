@@ -17,6 +17,7 @@ class UserController extends \backend\components\Controller
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
+
     ];
 
 	/**
@@ -32,7 +33,11 @@ class UserController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Contact'),
                 "value" => function ($model, $key, $index, $widget) {
-								if(Yii::$app->user->can($model->modelNameShort)) {
+								// if null foreign key
+								if(!$model->contact) {
+									return;
+								}
+								elseif(Yii::$app->user->can($model->modelNameShort)) {
 									return Html::a($model->contact->label, Url::toRoute([strtolower('Contact') . "/update", "id" => $key]));
 								}
 								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
@@ -43,7 +48,7 @@ class UserController extends \backend\components\Controller
 								}
 							},
                 "format" => "raw"
-                        ]
+            ]
         ];
 	}
 

@@ -13,8 +13,9 @@ namespace common\models;
  * @property string $email_subject
  * @property string $sms_message
  *
- * @property Account $account
+ * @property ResourceType $resourceType
  * @property Message $message
+ * @property Account $account
  * @property ResourceTypeToMessageToUser[] $resourceTypeToMessageToUsers
  */
 class ResourceTypeToMessage extends \common\components\ActiveRecord
@@ -46,9 +47,9 @@ class ResourceTypeToMessage extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAccount()
+    public function getResourceType()
     {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+        return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
 
     /**
@@ -62,8 +63,16 @@ class ResourceTypeToMessage extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getResourceTypeToMessageToUsers()
     {
-        return $this->hasMany(ResourceTypeToMessageToUser::className(), ['resource_type_to_message' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(ResourceTypeToMessageToUser::className(), ['resource_type_to_message' => 'id']);
     }
 }

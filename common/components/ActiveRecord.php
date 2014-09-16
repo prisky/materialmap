@@ -113,7 +113,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		}
 
 		$referencedModelName = "\\common\\models\\$references";
-		if(class_exists($referencedModelName)) {
+		if($references && class_exists($referencedModelName)) {
 			return Yii::$app->db->createCommand('
 				SELECT COLUMN_NAME
 				FROM information_schema.KEY_COLUMN_USAGE

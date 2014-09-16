@@ -51,7 +51,7 @@ class TicketType extends \common\components\ActiveRecord
      */
     public function getEventTypeToTicketTypes()
     {
-        return $this->hasMany(EventTypeToTicketType::className(), ['ticket_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(EventTypeToTicketType::className(), ['ticket_type_id' => 'id']);
     }
 
     /**
@@ -59,7 +59,7 @@ class TicketType extends \common\components\ActiveRecord
      */
     public function getSeatToTicketTypes()
     {
-        return $this->hasMany(SeatToTicketType::className(), ['ticket_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SeatToTicketType::className(), ['ticket_type_id' => 'id']);
     }
 
     /**
@@ -67,7 +67,7 @@ class TicketType extends \common\components\ActiveRecord
      */
     public function getTickets()
     {
-        return $this->hasMany(Ticket::className(), ['ticket_type_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Ticket::className(), ['ticket_type_id' => 'id']);
     }
 
     /**

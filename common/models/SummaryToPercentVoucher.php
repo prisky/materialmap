@@ -43,7 +43,7 @@ class SummaryToPercentVoucher extends \common\components\ActiveRecord
      */
     public function getSummary()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**
@@ -51,7 +51,7 @@ class SummaryToPercentVoucher extends \common\components\ActiveRecord
      */
     public function getPercentVoucher()
     {
-        return $this->hasOne(PercentVoucher::className(), ['id' => 'percent_voucher_id', 'account_id' => 'account_id']);
+        return $this->hasOne(PercentVoucher::className(), ['id' => 'percent_voucher_id']);
     }
 
     /**

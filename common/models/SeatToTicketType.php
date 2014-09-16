@@ -43,7 +43,7 @@ class SeatToTicketType extends \common\components\ActiveRecord
      */
     public function getTicketType()
     {
-        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id', 'account_id' => 'account_id']);
+        return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id']);
     }
 
     /**
@@ -51,7 +51,7 @@ class SeatToTicketType extends \common\components\ActiveRecord
      */
     public function getSeat()
     {
-        return $this->hasOne(Seat::className(), ['id' => 'seat_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Seat::className(), ['id' => 'seat_id']);
     }
 
     /**

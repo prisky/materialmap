@@ -29,9 +29,7 @@ class ModelTree extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'child'], 'required'],
-            [['parent', 'child', 'depth'], 'integer'],
-            [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child'], 'message' => 'The combination of Parent and Child has already been taken.']
+            [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child'], 'message' => 'The combination of  and  has already been taken.']
         ];
     }
 

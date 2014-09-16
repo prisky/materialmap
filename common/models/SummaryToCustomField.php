@@ -13,7 +13,6 @@ namespace common\models;
  * @property string $custom_value
  *
  * @property Summary $summary
- * @property FieldSetToCustomField $fieldSet
  * @property Account $account
  */
 class SummaryToCustomField extends \common\components\ActiveRecord
@@ -45,15 +44,7 @@ class SummaryToCustomField extends \common\components\ActiveRecord
      */
     public function getSummary()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFieldSet()
-    {
-        return $this->hasOne(FieldSetToCustomField::className(), ['field_set_id' => 'field_set_id', 'custom_field_id' => 'custom_field_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**

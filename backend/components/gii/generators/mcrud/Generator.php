@@ -396,6 +396,15 @@ class Generator extends \yii\gii\generators\crud\Generator
             foreach ($table->foreignKeys as $refs) {
                 $refTable = $refs[0];
                 unset($refs[0]);
+				// only interested in primary keys i.e. id columns except maybe with RBAC stuff
+				foreach($refs as $key => $value) {
+					if($value != 'id' && $key != 'id') {
+						unset($refs[$key]);
+					}
+				}
+				if(!$refs) {
+					continue;
+				}
                 $fks = array_keys($refs);
                 $refClassName = $this->generateClassName($refTable);
 
@@ -562,9 +571,9 @@ class Generator extends \yii\gii\generators\crud\Generator
         if ($this->isReservedKeyword($this->modelClass)) {
             $this->addError('modelClass', 'Class name cannot be a reserved PHP keyword.');
         }
-        if (substr($this->tableName, -1) !== '*' && $this->modelClass == '') {
+/*        if (substr($this->tableName, -1) !== '*' && $this->modelClass == '') {
             $this->addError('modelClass', 'Model Class cannot be blank if table name does not end with asterisk.');
-        }
+        }*/
     }
 
     /**
@@ -623,7 +632,7 @@ class Generator extends \yii\gii\generators\crud\Generator
             }
         } elseif (($table = $db->getTableSchema($this->tableName, true)) !== null) {
             $tableNames[] = $this->tableName;
-            $this->_classNames[$this->tableName] = $this->modelClass;
+            $this->_classNames[$this->tableName] = $this->generateClassName($this->tableName);
         }
 
         return $this->_tableNames = $tableNames;

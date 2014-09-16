@@ -20,8 +20,9 @@ class AuthItemSearch extends AuthItem
     public function rules()
     {
         return [
-            [['created_at', 'type', 'updated_at'], 'integer'],
-			[['data', 'description', 'name', 'rule_name'], 'safe']        ];
+            [['created_at', 'from_created_at', 'to_created_at', 'updated_at', 'from_updated_at', 'to_updated_at'], 'number'],
+			[['data', 'description', 'name', 'rule_name'], 'safe'],
+			[['type'], 'integer']        ];
     }
 
     public function scenarios()

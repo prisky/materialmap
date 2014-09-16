@@ -17,9 +17,9 @@ class AuthItemController extends \backend\components\Controller
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "created_at" => "#",
+        "created_at" => "hh:mm AM/PM on mmmm d, yy",
         "type" => "#",
-        "updated_at" => "#"
+        "updated_at" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
 	/**
@@ -33,7 +33,20 @@ class AuthItemController extends \backend\components\Controller
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_created_at",
-                    "attribute2" => "to_created_at"
+                    "attribute2" => "to_created_at",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
                 ]
             ],
             [
@@ -63,7 +76,20 @@ class AuthItemController extends \backend\components\Controller
                 "filterWidgetOptions" => [
                     "separator" => NULL,
                     "attribute1" => "from_updated_at",
-                    "attribute2" => "to_updated_at"
+                    "attribute2" => "to_updated_at",
+                    "type" => "\\kartik\\widgets\\DateTimePicker",
+                    "widgetOptions1" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ],
+                    "widgetOptions2" => [
+                        "type" => 1,
+                        "pluginOptions" => [
+                            "autoclose" => TRUE
+                        ]
+                    ]
                 ]
             ]
         ];

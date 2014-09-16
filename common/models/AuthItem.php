@@ -6,14 +6,14 @@ namespace common\models;
  * This is the model class for table "tbl_auth_item".
  *
  * @property string $id
- * @property string $account_id
  * @property string $name
  * @property integer $type
- * @property string $description
- * @property string $rule_name
  * @property string $data
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string $rule_name
+ * @property string $description
+ * @property string $account_id
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property AuthAssignment[] $authAssignments
  * @property AuthRule $ruleName
@@ -37,11 +37,12 @@ class AuthItem extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'type', 'created_at', 'updated_at'], 'integer'],
             [['name', 'type'], 'required'],
-            [['description', 'data'], 'string'],
+            [['type', 'account_id'], 'integer'],
+            [['data', 'description'], 'string'],
+            [['created_at', 'updated_at'], 'safe'],
             [['name', 'rule_name'], 'string', 'max' => 64],
-            [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Account and Name has already been taken.']
+            [['name'], 'unique']
         ];
     }
 
@@ -75,8 +76,8 @@ class AuthItem extends \common\components\ActiveRecord
      */
     public function getAuthItemChildren()
     {
-        return $this->hasMany(AuthItemChild::className(), ['child' => 'name', 'account_id' => 'account_id']);
-    }
+        return $this->hasMany(AuthItemChild::className(), ['child' => 'name']);
+	}
 
     /**
      * @return \yii\db\ActiveQuery

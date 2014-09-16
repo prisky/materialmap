@@ -132,7 +132,6 @@ class BuildModelTreeController extends Controller
 		'AffiliateCategory',
 		'Bid',
 		'Channel',
-		'Column',
 		'Country',
 		'Coupon',
 		'CustomField',
@@ -140,7 +139,9 @@ class BuildModelTreeController extends Controller
 			'MessageToMessageField',
 		],
 		'MessageField',
-		'Model',
+		'Model' => [
+			'Column',
+		],
 		'PaymentGateway',
 		'PaypalCategory',
 		'PaypalSubCategory',

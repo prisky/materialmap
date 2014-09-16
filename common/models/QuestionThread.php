@@ -43,7 +43,7 @@ class QuestionThread extends \common\components\ActiveRecord
      */
     public function getQuestions()
     {
-        return $this->hasMany(Question::className(), ['answer' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Question::className(), ['answer' => 'id']);
     }
 
     /**
@@ -51,7 +51,7 @@ class QuestionThread extends \common\components\ActiveRecord
      */
     public function getQuestion()
     {
-        return $this->hasOne(Question::className(), ['id' => 'question_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
 
     /**

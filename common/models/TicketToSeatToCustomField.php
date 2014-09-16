@@ -14,9 +14,7 @@ namespace common\models;
  * @property string $custom_value
  *
  * @property TicketToSeat $ticketToSeat
- * @property FieldSetToCustomField $fieldSet
  * @property Account $account
- * @property EventTypeToFieldSet $eventType
  */
 class TicketToSeatToCustomField extends \common\components\ActiveRecord
 {
@@ -47,15 +45,7 @@ class TicketToSeatToCustomField extends \common\components\ActiveRecord
      */
     public function getTicketToSeat()
     {
-        return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id', 'account_id' => 'account_id', 'event_type_id' => 'event_type_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFieldSet()
-    {
-        return $this->hasOne(FieldSetToCustomField::className(), ['field_set_id' => 'field_set_id', 'custom_field_id' => 'custom_field_id', 'account_id' => 'account_id']);
+        return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id']);
     }
 
     /**
@@ -64,13 +54,5 @@ class TicketToSeatToCustomField extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventType()
-    {
-        return $this->hasOne(EventTypeToFieldSet::className(), ['event_type_id' => 'event_type_id', 'account_id' => 'account_id', 'field_set_id' => 'field_set_id']);
     }
 }

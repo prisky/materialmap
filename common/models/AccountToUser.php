@@ -72,7 +72,7 @@ class AccountToUser extends \common\components\ActiveRecord
      */
     public function getReferrals()
     {
-        return $this->hasMany(Referral::className(), ['account_to_user_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Referral::className(), ['account_to_user_id' => 'id']);
     }
 
     /**
@@ -80,6 +80,6 @@ class AccountToUser extends \common\components\ActiveRecord
      */
     public function getSummaryToAccountToUsers()
     {
-        return $this->hasMany(SummaryToAccountToUser::className(), ['account_to_user_id' => 'id', 'user_id' => 'user_id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToAccountToUser::className(), ['account_to_user_id' => 'id']);
     }
 }

@@ -49,7 +49,7 @@ class PercentPromotion extends \common\components\ActiveRecord
      */
     public function getPercentPromotionConstraints()
     {
-        return $this->hasMany(PercentPromotionConstraint::className(), ['percent_promotion_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(PercentPromotionConstraint::className(), ['percent_promotion_id' => 'id']);
     }
 
     /**
@@ -57,6 +57,6 @@ class PercentPromotion extends \common\components\ActiveRecord
      */
     public function getSummaryToPercentPromotions()
     {
-        return $this->hasMany(SummaryToPercentPromotion::className(), ['percent_promotion_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(SummaryToPercentPromotion::className(), ['percent_promotion_id' => 'id']);
     }
 }

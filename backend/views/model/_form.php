@@ -1,6 +1,7 @@
 <?php
 
 use backend\components\DetailView;
+use kartik\markdown\MarkdownEditor;
 
 /**
  * @var yii\web\View $this
@@ -17,10 +18,14 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'auth_item_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'help', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'label_plural', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
+				'widgetOptions' => [
+					'class' => 'kartik\markdown\MarkdownEditor',
+					'showExport' => false,
+				],
+			],
 		]
 	]);	?>
 

@@ -18,8 +18,6 @@ namespace common\models;
  * @property Account $account
  * @property Item $item
  * @property Ticket $ticket
- * @property FieldSetToItemGroup $fieldSet
- * @property EventTypeToFieldSet $eventType
  */
 class TicketToItem extends \common\components\ActiveRecord
 {
@@ -57,7 +55,7 @@ class TicketToItem extends \common\components\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'item_id', 'account_id' => 'account_id', 'item_group_id' => 'item_group_id']);
+        return $this->hasOne(Item::className(), ['id' => 'item_id']);
     }
 
     /**
@@ -65,22 +63,6 @@ class TicketToItem extends \common\components\ActiveRecord
      */
     public function getTicket()
     {
-        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id', 'account_id' => 'account_id', 'event_type_id' => 'event_type_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFieldSet()
-    {
-        return $this->hasOne(FieldSetToItemGroup::className(), ['field_set_id' => 'field_set_id', 'account_id' => 'account_id', 'item_group_id' => 'item_group_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventType()
-    {
-        return $this->hasOne(EventTypeToFieldSet::className(), ['event_type_id' => 'event_type_id', 'account_id' => 'account_id', 'field_set_id' => 'field_set_id']);
+        return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 }

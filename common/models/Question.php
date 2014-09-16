@@ -48,7 +48,7 @@ class Question extends \common\components\ActiveRecord
      */
     public function getBs()
     {
-        return $this->hasMany(Bid::className(), ['question_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(Bid::className(), ['question_id' => 'id']);
     }
 
     /**
@@ -56,7 +56,7 @@ class Question extends \common\components\ActiveRecord
      */
     public function getBid()
     {
-        return $this->hasOne(Bid::className(), ['id' => 'bid_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Bid::className(), ['id' => 'bid_id']);
     }
 
     /**
@@ -64,7 +64,7 @@ class Question extends \common\components\ActiveRecord
      */
     public function getAnswer0()
     {
-        return $this->hasOne(QuestionThread::className(), ['id' => 'answer', 'account_id' => 'account_id']);
+        return $this->hasOne(QuestionThread::className(), ['id' => 'answer']);
     }
 
     /**
@@ -80,6 +80,6 @@ class Question extends \common\components\ActiveRecord
      */
     public function getQuestionThreads()
     {
-        return $this->hasMany(QuestionThread::className(), ['question_id' => 'id', 'account_id' => 'account_id']);
+        return $this->hasMany(QuestionThread::className(), ['question_id' => 'id']);
     }
 }

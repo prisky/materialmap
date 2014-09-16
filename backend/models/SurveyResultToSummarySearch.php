@@ -14,7 +14,8 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
     public function rules()
     {
         return [
-                    ];
+            [['custom_field_id', 'field_set_id', 'summary_id', 'survey_id'], 'integer'],
+			[['custom_value'], 'safe']        ];
     }
 
     public function scenarios()
@@ -35,6 +36,11 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
             return $dataProvider;
         }
 
+		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
+		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
+		$query->andFilterWhere(['survey_id' => $this->survey_id]);
 		
         return $dataProvider;
     }

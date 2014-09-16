@@ -42,7 +42,7 @@ class SummaryToPromotion extends \common\components\ActiveRecord
      */
     public function getSummary()
     {
-        return $this->hasOne(Summary::className(), ['id' => 'summary_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
     /**
@@ -50,7 +50,7 @@ class SummaryToPromotion extends \common\components\ActiveRecord
      */
     public function getPromotion()
     {
-        return $this->hasOne(Promotion::className(), ['id' => 'promotion_id', 'account_id' => 'account_id']);
+        return $this->hasOne(Promotion::className(), ['id' => 'promotion_id']);
     }
 
     /**

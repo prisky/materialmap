@@ -47,7 +47,7 @@ class TicketController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "booking_id",
+                "attribute" => "event_type_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Booking'),
                 "value" => function ($model, $key, $index, $widget) {
