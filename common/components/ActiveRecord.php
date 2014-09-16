@@ -136,10 +136,10 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		return Yii::$app->db->createCommand("
 			SELECT parent.auth_item_name
 			FROM tbl_model child 
-				JOIN tbl_navigation ON child.id = tbl_navigation.child
-				JOIN tbl_model parent ON parent.id =tbl_navigation.parent
+				JOIN tbl_model_tree ON child.id = tbl_model_tree.child
+				JOIN tbl_model parent ON parent.id =tbl_model_tree.parent
 			WHERE child.auth_item_name = '$modelNameShort'
-				AND tbl_navigation.depth = 1
+				AND tbl_model_tree.depth = 1
 		")->queryScalar();
 	}
 	

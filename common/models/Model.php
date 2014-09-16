@@ -15,13 +15,13 @@ use backend\components\ClosureTableQuery;
  *
  * @property Column[] $columns
  * @property AuthItem $authItemName
- * @property Navigation[] $navigations
+ * @property ModelTree[] $modelTrees
  */
 class Model extends \common\components\ActiveRecord
 {
 	use \backend\components\ClosureTableActiveRecordTrait;
 
-	const closureTableName = 'tbl_navigation';
+	const closureTableName = 'tbl_model_tree';
     const childAttribute = 'child';
     const parentAttribute = 'parent';
     const depthAttribute = 'depth';
@@ -65,7 +65,7 @@ class Model extends \common\components\ActiveRecord
 				'depthAttribute' => static::depthAttribute,
 			]));
 
-			return $modelNameQuery->accountScope()->softDeleteScope();
+			return $modelNameQuery;
 		}
     }
 
@@ -88,17 +88,17 @@ class Model extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNavigations()
+    public function getModelTrees()
     {
-        return $this->hasMany(Navigation::className(), ['child' => 'id']);
+        return $this->hasMany(ModelTree::className(), ['child' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNavigationChilds()
+    public function getModelTreeChilds()
     {
-        return $this->hasMany(Navigation::className(), ['child' => 'auth_item_name']);
+        return $this->hasMany(ModelTree::className(), ['child' => 'auth_item_name']);
 }
 	
 }

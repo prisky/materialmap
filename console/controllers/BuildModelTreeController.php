@@ -6,14 +6,14 @@ use yii\console\Controller;
 use console\models\Model;
  
 /**
- * Build Navigation controller
+ * Build ModelTree controller
  * 
- * Poulates the tbl_navigation table as a closure table from an associative array. Uses ClosureTableBehavior attached to Model. Can
+ * Poulates the tbl_model_tree table as a closure table from an associative array. Uses ClosureTableBehavior attached to Model. Can
  * be run in Netbeans by right clicking on the project and selecting the console configuration. There is a bug in Netbeans or XDebug
  * that meand in order to break in this file need to break on call_user_func_array from InlineAction and then step into - Once in then
  * will break. To run from the command line, from the project root, ./yii buildnavigation.
  */
-class BuildNavigationController extends Controller
+class BuildModelTreeController extends Controller
 {
  
 	/**
@@ -23,83 +23,86 @@ class BuildNavigationController extends Controller
 	private $items = [
 		'Account' => [
 			'AccountToAffiliateCategory',
-			'AccountToMessage' => [
-				'AccountToMessageToUser'
-			],
+			'AccountToMessage',
+			'AccountToMessageToUser',
 			'AccountToPaymentGateway',
 			'AccountToUser',
 			'Agency',
-			'AnnualCharge',
+			'AuthAssignment',
+			'AuthItem' => [
+				'AuthItemChild',
+			],
 			'CancellationPolicy',
-			'Charge',
-			'CustomField',
-			'Coupon',
 			'Event' => [
 				'Booking' => [
 					'BookingToCharge',
-					'BookingToEventTypeToResourceTypeToCustomField',
-					'BookingToEventTypeToResourceTypeToExtra'
+					'BookingToCustomField',
+					'BookingToItem',
+					'Ticket' => [
+						'TicketToCharge',
+						'TicketToCustomField',
+						'TicketToItem',
+						'TicketToSeat',
+						'TicketToSeatToCharge',
+						'TicketToSeatToContact',
+						'TicketToSeatToContactToSms',
+						'TicketToSeatToCustomField',
+						'TicketToSeatToItem',
+					],
 				],
 				'Comment',
-				'EventType' => [
-					'EventTypeToResourceType' => [
-						'EventTypeToResourceTypeToCustomField',
-						'EventTypeToResourceTypeToExtra' => [
-							'EventTypeToResourceTypeToExtraToSummary',
-							'EventTypeToResourceTypeToExtraToTicket' => [
-								'EventTypeToResourceTypeToExtraToTicketToSeat'
-							],
-						],
-					],
-					'EventTypeToTicketType',
-				],
-				'Summary' => [
-					'SummaryToAccountToUser',
-					'SummaryToCharge',
-					'SummaryToEventTypeToResourceTypeToCustomField',
-					'SummaryToPercentPromotion',
-					'SummaryToPercentVoucher',
-					'SummaryToPromotion',
-					'SummaryToVoucher',
-					'Referral',
-				],
-				'Ticket' => [
-					'TicketToCharge',
-					'TicketToEventTypeToResourceTypeToCustomField',
-					'TicketToSeat',
-					'TicketToSeatToCharge',
-					'TicketToSeatToContact',
-					'TicketToSeatToContactToSms',
-					'TicketToSeatToEventTypeToResourceTypeToCustomField'
-				],
 			],
-			'Extra' => [
-				'Item'
+			'EventType' => [
+				'EventTypeToFieldSet',
+				'EventTypeToResourceType',
+				'EventTypeToTicketType',
+			],
+			'FieldSet' => [
+				'FieldSetToCustomField',
+				'FieldSetToItemGroup',
+				'FieldSetTree',
 			],
 			'Invoice',
+			'ItemGroup' => [
+				'Item' => [
+					'ItemInventory',
+				],
+			],
+			'Charge' => [
+				'AnnualCharge',
+			],
+			'Contact',
 			'Newsletter',
-			'Payment',
+			'Summary' => [
+				'Payment',
+				'SummaryToAccountToUser',
+				'SummaryToCharge',
+				'SummaryToCustomField',
+				'SummaryToItem',
+				'SummaryToPercentPromotion',
+				'SummaryToPercentVoucher',
+				'SummaryToPromotion',
+				'SummaryToVoucher',
+			],
 			'PercentPromotion' => [
-				'PercentPromotionConstraint'
+				'PercentPromotionConstraint',
 			],
 			'PercentVoucher' => [
-				'PercentVoucherConstraint'
+				'PercentVoucherConstraint',
 			],
 			'Promotion' => [
-				'PromotionConstraint'
+				'PromotionConstraint',
 			],
 			'Question' => [
 				'QuestionThread',
-				'Bid'
 			],
+			'Referral',
 			'Reminder',
 			'ResourceType' => [
 				'Resource',
 				'ResourceTypeToMessage' => [
-					'ResourceTypeToMessageToUser'
+					'ResourceTypeToMessageToUser',
 				],
-				'ResourceTypeToCustomField',
-				'ResourceTypeToExtra'
 			],
 			'SeatType' => [
 				'Seat' => [
@@ -108,47 +111,42 @@ class BuildNavigationController extends Controller
 			],
 			'SmsThread' => [
 				'Sms' => [
-					'SmsToCharge'
+					'SmsToCharge',
 				],
 			],
 			'StandardSetup',
 			'Survey' => [
-				'SurveyResult' => [
-					'SurveyResultToBooking',
-					'SurveyResultToSummary',
-					'SurveyResultToTicket',
-					'SurveyResultToTicketToSeat'
-				],
-				'SurveyToCustomField',
-				'SurveyToResourceType'
+				'SurveyResultToBooking',
+				'SurveyResultToSummary',
+				'SurveyResultToTicket',
+				'SurveyResultToTicketToSeat',
+				'SurveyToFieldSet',
+				'SurveyToResourceType',
 			],
 			'TicketType',
+			'User',
 			'Voucher' => [
-				'VoucherConstraint'
+				'VoucherConstraint',
 			],
 		],
 		'AffiliateCategory',
-		'AuthItem' => [
-			'AuthItemChild'
-		],
+		'Bid',
 		'Channel',
-		'Contact',
-		'Country' => [
-			'StateProvinceRegion' => [
-				'TownCity',
-			],
-		],
+		'Column',
+		'Country',
+		'Coupon',
+		'CustomField',
 		'Message' => [
 			'MessageToMessageField',
 		],
 		'MessageField',
-		'Model' => [
-			'Column',
-		],
+		'Model',
+		'PaymentGateway',
+		'PaypalCategory',
+		'PaypalSubCategory',
 		'Reseller',
-		'User'=> [
-			'AuthAssignment',
-		],
+		'StateProvinceRegion',
+		'TownCity',
 	];
 
 	/**
@@ -157,7 +155,7 @@ class BuildNavigationController extends Controller
 	public function actionIndex() {
 		
 		// clear the existing navigation structure
-		\Yii::$app->db->createCommand('TRUNCATE tbl_navigation')->execute();
+		\Yii::$app->db->createCommand('TRUNCATE tbl_model_tree')->execute();
 
 		// rebuild the navigation structure
 		$this->addItems($this->items, 0);

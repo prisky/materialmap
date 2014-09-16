@@ -3,7 +3,7 @@
 namespace common\models;
 
 /**
- * This is the model class for table "tbl_navigation".
+ * This is the model class for table "tbl_model_tree".
  *
  * @property string $id
  * @property string $parent
@@ -13,14 +13,14 @@ namespace common\models;
  * @property Model $parent0
  * @property Model $child0
  */
-class Navigation extends \common\components\ActiveRecord
+class ModelTree extends \common\components\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_navigation';
+        return 'tbl_model_tree';
     }
 
     /**

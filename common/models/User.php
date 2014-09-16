@@ -24,6 +24,19 @@ use yii\web\IdentityInterface;
  */
 class User extends \common\components\ActiveRecord implements IdentityInterface
 {
+/*	public function getHasAccountRead ()
+	{
+		static $hasAccountRead = null;
+		
+		if($hasAccountRead === null) {
+			if($this->id) {
+				$hasAccountRead = Yii::$app->authManager->checkAccess($this->id, 'AccountRead');
+ 			}
+		}
+		
+		return $hasAccountRead;
+	}*/
+	
     /**
      * @inheritdoc
      */

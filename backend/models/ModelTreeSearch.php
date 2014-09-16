@@ -3,12 +3,12 @@
 namespace backend\models;
 
 use yii\data\ActiveDataProvider;
-use common\models\Navigation;
+use common\models\ModelTree;
 
 /**
- * NavigationSearch represents the model behind the search form about `common\models\Navigation`.
+ * ModelTreeSearch represents the model behind the search form about `common\models\ModelTree`.
  */
-class NavigationSearch extends Navigation
+class ModelTreeSearch extends ModelTree
 {
     public $from_depth;
 	public $to_depth;
@@ -27,7 +27,7 @@ class NavigationSearch extends Navigation
 
     public function search($params)
     {
-        $query = Navigation::find();
+        $query = ModelTree::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

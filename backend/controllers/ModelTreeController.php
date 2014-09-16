@@ -9,9 +9,9 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * NavigationController implements the CRUD actions for Navigation model.
+ * ModelTreeController implements the CRUD actions for ModelTree model.
  */
-class NavigationController extends \backend\components\Controller
+class ModelTreeController extends \backend\components\Controller
 {
 	/**
 	 * @inheritdoc

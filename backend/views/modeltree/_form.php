@@ -4,12 +4,12 @@ use backend\components\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var common\models\Navigation $model
+ * @var common\models\ModelTree $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
 
-<div class="navigation-form">
+<div class="modeltree-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

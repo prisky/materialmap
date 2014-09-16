@@ -1,0 +1,55 @@
+<?php
+
+namespace common\models;
+
+/**
+ * This is the model class for table "tbl_item_inventory".
+ *
+ * @property integer $id
+ * @property string $item_id
+ * @property string $account_id
+ * @property integer $quantity
+ * @property string $received
+ *
+ * @property Item $item
+ * @property Account $account
+ */
+class ItemInventory extends \common\components\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'tbl_item_inventory';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['item_id', 'account_id', 'quantity', 'received'], 'required'],
+            [['item_id', 'account_id', 'quantity'], 'integer'],
+            [['received'], 'safe']
+        ];
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItem()
+    {
+        return $this->hasOne(Item::className(), ['id' => 'item_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+}

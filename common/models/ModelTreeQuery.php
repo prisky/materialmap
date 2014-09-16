@@ -3,9 +3,9 @@
 namespace common\models;
 
 /**
- * Scopes chained to the find method of an ActiveRecord  for table "tbl_navigation" .
+ * Scopes chained to the find method of an ActiveRecord  for table "tbl_model_tree" .
  */
-class NavigationQuery extends \common\components\ActiveQuery
+class ModelTreeQuery extends \common\components\ActiveQuery
 {
 
 	/**
@@ -28,6 +28,6 @@ class NavigationQuery extends \common\components\ActiveQuery
 		return parent::displayAttributes($q, $page)
 //			->joinWith('contact')
 //			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-			->select(["tbl_navigation.id id", "CONCAT_WS(' ', id) text"]);
+			->select(["tbl_model_tree.id id", "CONCAT_WS(' ', id) text"]);
 	}
 }

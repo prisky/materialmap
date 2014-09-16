@@ -508,7 +508,7 @@ abstract class Controller extends \common\components\Controller
 	}
 
 	/**
-	 * Builds breadcrumbs using the tbl_navigation closure table and working back from the current url.
+	 * Builds breadcrumbs using the tbl_model_tree closure table and working back from the current url.
 	 * @return array the breadcrumbs
 	 */
 	public function getBreadCrumbs($home = false)

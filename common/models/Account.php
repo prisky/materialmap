@@ -33,8 +33,8 @@ namespace common\models;
  * @property Bid[] $bs
  * @property Booking[] $bookings
  * @property BookingToCharge[] $bookingToCharges
- * @property BookingToEventTypeToResourceTypeToCustomField[] $bookingToEventTypeToResourceTypeToCustomFields
- * @property BookingToEventTypeToResourceTypeToExtra[] $bookingToEventTypeToResourceTypeToExtras
+ * @property BookingToCustomField[] $bookingToCustomFields
+ * @property BookingToItem[] $bookingToItems
  * @property CancellationPolicy[] $cancellationPolicies
  * @property Charge[] $charges
  * @property Comment[] $comments
@@ -43,14 +43,15 @@ namespace common\models;
  * @property CustomField[] $customFields
  * @property Event[] $events
  * @property EventType[] $eventTypes
+ * @property EventTypeToFieldSet[] $eventTypeToFieldSets
  * @property EventTypeToResourceType[] $eventTypeToResourceTypes
- * @property EventTypeToResourceTypeToExtra[] $eventTypeToResourceTypeToExtras
- * @property EventTypeToResourceTypeToExtraToSummary[] $eventTypeToResourceTypeToExtraToSummaries
- * @property EventTypeToResourceTypeToExtraToTicket[] $eventTypeToResourceTypeToExtraToTickets
- * @property EventTypeToResourceTypeToExtraToTicketToSeat[] $eventTypeToResourceTypeToExtraToTicketToSeats
  * @property EventTypeToTicketType[] $eventTypeToTicketTypes
- * @property Extra[] $extras
+ * @property FieldSet[] $fieldSets
+ * @property FieldSetToItemGroup[] $fieldSetToItemGroups
+ * @property FieldSetTree[] $fieldSetTrees
  * @property Item[] $items
+ * @property ItemGroup[] $itemGroups
+ * @property ItemInventory[] $itemInventories
  * @property MessageQueue[] $messageQueues
  * @property Newsletter[] $newsletters
  * @property Payment[] $payments
@@ -68,8 +69,6 @@ namespace common\models;
  * @property Reseller[] $resellers
  * @property Resource[] $resources
  * @property ResourceType[] $resourceTypes
- * @property ResourceTypeToCustomField[] $resourceTypeToCustomFields
- * @property ResourceTypeToExtra[] $resourceTypeToExtras
  * @property ResourceTypeToMessage[] $resourceTypeToMessages
  * @property ResourceTypeToMessageToUser[] $resourceTypeToMessageToUsers
  * @property Seat[] $seats
@@ -82,27 +81,29 @@ namespace common\models;
  * @property Summary[] $summaries
  * @property SummaryToAccountToUser[] $summaryToAccountToUsers
  * @property SummaryToCharge[] $summaryToCharges
- * @property SummaryToEventTypeToResourceToCustomField[] $summaryToEventTypeToResourceToCustomFields
+ * @property SummaryToCustomField[] $summaryToCustomFields
+ * @property SummaryToItem[] $summaryToItems
  * @property SummaryToPercentPromotion[] $summaryToPercentPromotions
  * @property SummaryToPercentVoucher[] $summaryToPercentVouchers
  * @property SummaryToPromotion[] $summaryToPromotions
  * @property SummaryToVoucher[] $summaryToVouchers
  * @property Survey[] $surveys
- * @property SurveyResult[] $surveyResults
  * @property SurveyResultToBooking[] $surveyResultToBookings
  * @property SurveyResultToSummary[] $surveyResultToSummaries
  * @property SurveyResultToTicket[] $surveyResultToTickets
  * @property SurveyResultToTicketToSeat[] $surveyResultToTicketToSeats
- * @property SurveyToCustomField[] $surveyToCustomFields
+ * @property SurveyToFieldSet[] $surveyToFieldSets
  * @property SurveyToResourceType[] $surveyToResourceTypes
  * @property Ticket[] $tickets
  * @property TicketToCharge[] $ticketToCharges
- * @property TicketToEventTypeToResourceTypeToCustomField[] $ticketToEventTypeToResourceTypeToCustomFields
+ * @property TicketToCustomField[] $ticketToCustomFields
+ * @property TicketToItem[] $ticketToItems
  * @property TicketToSeat[] $ticketToSeats
  * @property TicketToSeatToCharge[] $ticketToSeatToCharges
  * @property TicketToSeatToContact[] $ticketToSeatToContacts
  * @property TicketToSeatToContactToSms[] $ticketToSeatToContactToSms
- * @property TicketToSeatToEventTypeToResourceTypeToCustomFie[] $ticketToSeatToEventTypeToResourceTypeToCustomFies
+ * @property TicketToSeatToCustomField[] $ticketToSeatToCustomFields
+ * @property TicketToSeatToItem[] $ticketToSeatToItems
  * @property TicketType[] $ticketTypes
  * @property Voucher[] $vouchers
  */
@@ -246,17 +247,17 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBookingToEventTypeToResourceTypeToCustomFields()
+    public function getBookingToCustomFields()
     {
-        return $this->hasMany(BookingToEventTypeToResourceTypeToCustomField::className(), ['account_id' => 'id']);
+        return $this->hasMany(BookingToCustomField::className(), ['account_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBookingToEventTypeToResourceTypeToExtras()
+    public function getBookingToItems()
     {
-        return $this->hasMany(BookingToEventTypeToResourceTypeToExtra::className(), ['account_id' => 'id']);
+        return $this->hasMany(BookingToItem::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -326,41 +327,17 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEventTypeToFieldSets()
+    {
+        return $this->hasMany(EventTypeToFieldSet::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getEventTypeToResourceTypes()
     {
         return $this->hasMany(EventTypeToResourceType::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToExtras()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtra::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToExtraToSummaries()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtraToSummary::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToExtraToTickets()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtraToTicket::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEventTypeToResourceTypeToExtraToTicketToSeats()
-    {
-        return $this->hasMany(EventTypeToResourceTypeToExtraToTicketToSeat::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -374,9 +351,25 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getExtras()
+    public function getFieldSets()
     {
-        return $this->hasMany(Extra::className(), ['account_id' => 'id']);
+        return $this->hasMany(FieldSet::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFieldSetToItemGroups()
+    {
+        return $this->hasMany(FieldSetToItemGroup::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFieldSetTrees()
+    {
+        return $this->hasMany(FieldSetTree::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -385,6 +378,22 @@ class Account extends \common\components\ActiveRecord
     public function getItems()
     {
         return $this->hasMany(Item::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemGroups()
+    {
+        return $this->hasMany(ItemGroup::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemInventories()
+    {
+        return $this->hasMany(ItemInventory::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -526,22 +535,6 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceTypeToCustomFields()
-    {
-        return $this->hasMany(ResourceTypeToCustomField::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResourceTypeToExtras()
-    {
-        return $this->hasMany(ResourceTypeToExtra::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getResourceTypeToMessages()
     {
         return $this->hasMany(ResourceTypeToMessage::className(), ['account_id' => 'id']);
@@ -638,9 +631,17 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSummaryToEventTypeToResourceToCustomFields()
+    public function getSummaryToCustomFields()
     {
-        return $this->hasMany(SummaryToEventTypeToResourceToCustomField::className(), ['account_id' => 'id']);
+        return $this->hasMany(SummaryToCustomField::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSummaryToItems()
+    {
+        return $this->hasMany(SummaryToItem::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -686,14 +687,6 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyResults()
-    {
-        return $this->hasMany(SurveyResult::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSurveyResultToBookings()
     {
         return $this->hasMany(SurveyResultToBooking::className(), ['account_id' => 'id']);
@@ -726,9 +719,9 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSurveyToCustomFields()
+    public function getSurveyToFieldSets()
     {
-        return $this->hasMany(SurveyToCustomField::className(), ['account_id' => 'id']);
+        return $this->hasMany(SurveyToFieldSet::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -758,9 +751,17 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToEventTypeToResourceTypeToCustomFields()
+    public function getTicketToCustomFields()
     {
-        return $this->hasMany(TicketToEventTypeToResourceTypeToCustomField::className(), ['account_id' => 'id']);
+        return $this->hasMany(TicketToCustomField::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicketToItems()
+    {
+        return $this->hasMany(TicketToItem::className(), ['account_id' => 'id']);
     }
 
     /**
@@ -798,9 +799,17 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTicketToSeatToEventTypeToResourceTypeToCustomFies()
+    public function getTicketToSeatToCustomFields()
     {
-        return $this->hasMany(TicketToSeatToEventTypeToResourceTypeToCustomFie::className(), ['account_id' => 'id']);
+        return $this->hasMany(TicketToSeatToCustomField::className(), ['account_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicketToSeatToItems()
+    {
+        return $this->hasMany(TicketToSeatToItem::className(), ['account_id' => 'id']);
     }
 
     /**
