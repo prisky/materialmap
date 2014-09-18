@@ -778,12 +778,23 @@ class Generator extends \yii\gii\generators\crud\Generator
 		}
 		else {
 			if($column->type == 'integer') {
-				// if the field is a foreign key
+				// if the field is in a foreign key
 				foreach($tableSchema->foreignKeys as $tableKeys) {
-					if(isset($tableKeys[$column->name])) {
+					// if in this foreign key and identifying
+					if(isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
+						$where = [];
+						// get any other attributes in this foreign key
+						foreach($tableKeys as $referencing => $referenced) {
+							// ignore array index 0 as is tablename, and ignore the identifying one
+							if($referencing && $referenced != 'id') {
+								$where[] = "'$referenced'" . ' => $model->' . $referencing;
+							}
+						}
 						$inputType = "DetailView::INPUT_SELECT2, 'widgetOptions' => \$this->context->fKWidgetOptions('"
 							. $this->generateClassName($tableKeys[0])
-							. "')";
+							. "', ["
+							. implode(', ', $where)
+							. "])";
 						break;
 					}
 				}
@@ -836,31 +847,23 @@ class Generator extends \yii\gii\generators\crud\Generator
  		$columns = $tableSchema->columns;
 		$gridColumns = [];
 		$types = [];
+		$attributes = [];
 
  		// get all columns that have labels
-		$attributes = \common\models\Column::find()
+		$attributesSet = \common\models\Column::find()
 			->joinWith('model')
 			->where(['auth_item_name' => $modelNameShort])
 			->asArray()
 			->all();
 		
-		foreach($attributes as $attribute) {
-			$attribute = $attribute['name'];
-				
+		foreach($attributesSet as $attribute) {
+			$attributes[$attribute['name']] = $attribute['name'];
+		}
+		
+		foreach($modelName::removeNonDisplayAttributes($attributes) as $attribute) {
 			$column = $columns[$attribute];
 
 			$gridColumn = ['attribute' => $attribute];
-
-			// exlude some columns
-			switch($attribute) {
-				case 'id' :
-				// exclude the parent foreign key
-				case $modelName::getParentForeignKeyName() :
-				case 'deleted' :
-				case 'created' :
-				case 'account_id' :
-					continue 2;
-			}
 
 			if (preg_match('/(password|pass|passwd|passcode)/i', $attribute)) {
 				continue;
@@ -934,28 +937,28 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 			else {
 				if($column->type == 'integer') {
-					// if the field is a foreign key
 					foreach($tableSchema->foreignKeys as $tableKeys) {
-						if(isset($tableKeys[$column->name])) {
+						// if in this foreign key and identifying
+						if(isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
+							$where = [];
+							// get any other attributes in this foreign key
+							foreach($tableKeys as $referencing => $referenced) {
+								// ignore array index 0 as is tablename, and ignore the identifying one
+								if($referencing && $referenced != 'id') {
+									$where[] = "'$referenced'" . ' => $model->' . $referencing;
+								}
+							}
 							$foreignKeyModelNameShort = Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_');
 							$foreignKeyRelationName = lcfirst($foreignKeyModelNameShort);
 							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
 							$gridColumn['filterWidgetOptions'] =
-								'|Controller::fKWidgetOptions(\''. $foreignKeyModelNameShort . '\')';
-							$gridColumn['value'] = '|function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->'. $foreignKeyRelationName . ') {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->'. $foreignKeyRelationName . '->label, Url::toRoute([strtolower(\'' . $foreignKeyModelNameShort . '\') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->'. $foreignKeyRelationName . '->label, Url::toRoute([strtolower(\'' . $foreignKeyModelNameShort . '\') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+								'|Controller::fKWidgetOptions(\''
+								. $foreignKeyModelNameShort
+								. "', ["
+								. implode(', ', $where)
+								. "])";
+							$gridColumn['value'] = '|function($model, $key, $index, $widget) {
+								return \\backend\\components\\GridView::foreignKeyValue($model, $key, $index, $widget, "' . $foreignKeyRelationName . '");
 							}';
 							$types['integer'][] = $attribute;
 							$searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";

@@ -282,24 +282,25 @@ abstract class Controller extends \common\components\Controller
     }
 
 	/**
-	 * Produce list data for ajax return in Select2 widget
+	 * Produce list data for ajax return in Select2 widget - see fkWidgetOptions also
+	 * @param array $w Where conditions where attribute => value
 	 * @param string $q Search term the user enters - sent by ajax with each keypress
 	 * @param int $page Page of results - sets limit and offset in our select i.e. offset is (page - 1) x 10
 	 * @param int $id Id of the model to load initially
 	 */
-	public function actionList($q = null, $page = null, $id = null) {
+	public function actionList($w = [], $q = null, $page = null, $id = null) {
 		$modelName = $this->modelName;
 		$out = ['more' => false];
 
 		if (!is_null($q)) {
-			$query = $modelName::find()->displayAttributes($q, $page);
+			$query = $modelName::find()->andWhere($w)->displayAttributes($q, $page);
 			$command = $query->createCommand();
 			$data = $command->queryAll();
 			$out['results'] = array_values($data);
 			$out['total'] = $query->count();
 		}
 		elseif ($id > 0) {
-			$model = $modelName::find()->where([$modelName::tableName() . '.id' => $id])->displayAttributes()->one();
+			$model = $modelName::find()->where([$modelName::tableName() . '.id' => $id])->andWhere($w)->displayAttributes()->one();
 			$out['results'] = ['id' => $id, 'text' => $model->text];
 		}
 		else {
@@ -662,13 +663,16 @@ abstract class Controller extends \common\components\Controller
 	/**
 	 * Produce widget options for a Select2 widget for a foreign key field. @see kartik\detail\DetailView and
 	 * described at @link http://ivaynberg.github.io/select2/. These options provide infinite scrolling via ajax and require a
-	 * controller action in the child class to handle the ajax request.
+	 * controller action in the child class to handle the ajax request. Mallory could alter the value of the where paramters but as account
+	 * scope will be applied this shouldn't be important though if turns out to be an issue then return data must be controlled to RBAC.
+	 * @param type $shortModelName
+	 * @param array $where Scope conditions array where attribute => value
 	 * @return array Widget options
 	 */
-	public static function fKWidgetOptions ($shortModelName)
+	public static function fKWidgetOptions ($shortModelName, $where = [])
 	{
 		// The controller action that will render the list
-		$url = Url::toRoute(strtolower($shortModelName) . '/list');
+		$url = Url::toRoute([strtolower($shortModelName) . '/list', 'w' => $where]);
 
 // Script to initialize the selection based on the value of the select2 element
 $initScript = <<< SCRIPT

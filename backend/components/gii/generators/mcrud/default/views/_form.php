@@ -9,19 +9,13 @@ use yii\helpers\StringHelper;
  */
 
 /** @var \yii\db\ActiveRecord $model */
-$model = new $generator->modelClass;
-
-$safeAttributes = $model->safeAttributes();
-
 $modelName = $generator->modelClass;
+$model = new $modelName;
 $modelNameShort = StringHelper::basename($modelName);
-
 $parentModelName = common\components\ActiveRecord::parentName($modelNameShort);
-
 $schemaName = Yii::$app->params['defaultSchema'];
 $tableName = 'tbl_' . str_replace('-', '_', Inflector::camel2id($modelNameShort));
 $referencedTableName = 'tbl_' . str_replace('-', '_', Inflector::camel2id($parentModelName));
-
 $parentForeignKeyName = Yii::$app->db->createCommand('
 	SELECT COLUMN_NAME
 	FROM information_schema.KEY_COLUMN_USAGE
@@ -32,9 +26,20 @@ $parentForeignKeyName = Yii::$app->db->createCommand('
 		':tableName' => $tableName,
 		':referencedTableName' => $referencedTableName,
 	])->queryScalar();
-
-if (empty($safeAttributes)) {
-    $safeAttributes = $model->attributes();
+// get all columns that have labels
+$attributesSet = \common\models\Column::find()
+	->joinWith('model')
+	->where(['auth_item_name' => $modelNameShort])
+	->asArray()
+	->all();
+$attributes = [];
+foreach($attributesSet as $attribute) {
+	$attributes[$attribute['name']] = $attribute['name'];
+}
+// clean up the attribute list to the same as in the gridview i.e. just the ones we want to display
+$attributes = $modelName::removeNonDisplayAttributes($attributes);
+if (empty($attributes)) {
+    $attributes = $model->attributes();
 }
 
 echo "<?php\n";
@@ -49,7 +54,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
+<div id="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
     <?= "<?= " ?>DetailView::widget([
 		'model'=>$model,
@@ -57,7 +62,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-<?php foreach ($safeAttributes as $attribute) {
+<?php foreach ($attributes as $attribute) {
 	if($attribute != $parentForeignKeyName) {
 		echo $generator->generateActiveField($attribute) . "\n";
 	}

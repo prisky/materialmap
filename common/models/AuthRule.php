@@ -10,8 +10,6 @@ namespace common\models;
  * @property string $data
  * @property integer $created_at
  * @property integer $updated_at
- *
- * @property AuthItem[] $authItems
  */
 class AuthRule extends \common\components\ActiveRecord
 {
@@ -33,12 +31,4 @@ class AuthRule extends \common\components\ActiveRecord
         ];
     }
 
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthItems()
-    {
-        return $this->hasMany(AuthItem::className(), ['rule_name' => 'name']);
-	}
 }

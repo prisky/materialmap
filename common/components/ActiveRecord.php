@@ -8,7 +8,7 @@ use yii\helpers\Inflector;
 use kartik\helpers\Html;
 
 /**
- * Controller is the base class of app controllers and implements the CRUD actions for a model.
+ * @inheritdoc
  *
  * @author Andrew Blake <admin@newzealandfishing.com>
  */
@@ -26,9 +26,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	public $modelNameShort;
 
 	/**
-	 *
 	 * @var string The concatenated label returned when the models ActiveQuery::displayAttributes method is used 
-
 	 */
 	public $text;
 	
@@ -42,6 +40,9 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		parent::__construct($config);
 	}
 	
+	/**
+	 * @inheritdoc
+	 */
     public function transactions()
     {
         return [
@@ -50,22 +51,36 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		];
     }
 
+	/**
+	 * Gets the name of this class without the namespace
+	 * @return string The name of the class without the namespace
+	 */
 	private static function modelNameShort() {
 		$reflect = new \ReflectionClass(get_called_class());
 		return $reflect->getShortName();
 	}
 
+	/**
+	 * Gets the name of this class with the namespace
+	 * @return string The name of the class with the namespace
+	 */
 	protected static function modelName() {
 		return "\\common\\models\\" . static::modelNameShort();
 	}
 
+	/**
+	 * Gets the name of this search model class with the namespace
+	 * @return string The name of the search model class with the namespace
+	 */
  	private static function modelNameSearch()
 	{
 		return "\\backend\\models\\" . static::modelNameShort() . 'Search';
 	}
 
    /**
-     * @inheritdoc
+     * @inheritdoc. Applies account and soft delete scopes i.e. dependant on RBAC may limit results by account_id
+     * and will exclude soft deleted records if model has a deleted attribute.
+     * 
      * @return UserQuery
      */
     public static function find()
@@ -81,8 +96,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
     }
 
     /**
-	 * Extended as need to add table or else if joined then column can be ambiguous i.e. id in both joined tables
-     * @inheritdoc
+	 * @inheritdoc. Adds table or else if joined then column can be ambiguous i.e. id in both joined tables
      */
     public static function findOne($condition)
     {
@@ -127,6 +141,12 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		}
 	}
 	
+	/**
+	 * Get the name of the parent class in our navigation structure
+	 * 
+	 * @param type $modelNameShort The class that we want to find the parent of in our navigation structure
+	 * @return string The name of the parent class without namespace
+	 */
 	public static function parentName($modelNameShort = NULL)
 	{
 		if($modelNameShort === NULL) {
@@ -144,8 +164,8 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	}
 	
 	/**
-	 * Get the plural form of the class name to display
-	 * @return type
+	 * Get the plural form of a class name for output
+	 * @return string The translated plural version of a class name for output
 	 */
 	public static function labelPlural()
 	{
@@ -153,25 +173,25 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	}
 	
 	/**
-	 * Get the short version of the model for display
-	 * @param int $primaryKey The primary key value. If null then the 
-	 * @return string The display name
+	 * Get the short version of a model label for output. This will be shortened to 20 characters including elipses if longer than 20 characters
+	 * @param int $primaryKey The primary key value of the target model. If null then the class name is used instead.
+	 * @return string The display label for a model or class shortened to 20 characters including elipses
 	 */
 	public static function labelShort($primaryKey=null)
 	{
 		$label = static::label($primaryKey);
 		
 		if(mb_strlen($label) > 20) {
-			$label = mb_substr("$label ...", 0, 20);
+			$label = mb_substr($label, 0, 16) . '...';
 		}
 		
 		return $label;
 	}
 		
 	/**
-	 * Get the best name to display for a model
-	 * @param int $primaryKey The primary key value. If null then the 
-	 * @return type
+	 * Get the best full length name to display for a model
+	 * @param int $primaryKey The primary key value of the target model. If null then the class name is used instead.
+	 * @return string The display label for a model or class.
 	 */
 	public static function label($primaryKey = null)
 	{
@@ -200,23 +220,29 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		return Html::encode($label);
 	}
 	
+	/**
+	 * Get the best name to display for a model - shortened to 20 charactes with elipses if necassary.
+	 * @param int $primaryKey The primary key value of the target model.
+	 * @return string The label for output for a model.
+	 */
 	public function getLabel() {
-		return static::label($this->primaryKey);
+		return static::labelShort($this->primaryKey);
 	}
 	
 	/**
 	 * @inheritdoc
 	 */
 	public function getAttributeLabel($attribute) {
+		parent::getAttributeLabel($attribute);
 		return static::attributeLabel($attribute);
 	}
 
 	/**
 	 * Get the label for a given attribute
-	 * @staticvar null $labels
-	 * @staticvar null $models
-	 * @param type $attribute
-	 * @return string attribute label
+	 * @staticvar array $labels Cached array of lables
+	 * @staticvar array $models Cached array of models
+	 * @param string $attribute The attribute that we want a label for
+	 * @return string attribute label The label
 	 */
 	public static function attributeLabel($attribute) {
 		// caches
@@ -285,8 +311,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	}
 	
 	/**
-	 * Remove any null valued attributes if null is not allowed for the column - treat empty string as null but 0 as 0
-	 * @inheritdoc
+	 * @inheritdoc. Remove any null valued attributes if null is not allowed for the column - treat empty string as null but 0 as 0
 	 */
 	public function save($runValidation = true, $attributeNames = null)
 	{
@@ -332,8 +357,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	}
 	
 	/**
-	 * Soft delete
-	 * @inheritdoc
+	 * @inheritdoc. Supports soft delete.
 	 */
     public static function deleteAll($condition = '', $params = [])
     {
@@ -351,6 +375,9 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
         return $command->execute();
     }
 
+	/**
+	 * @inheritdoc. Supports soft delete.
+	 */
     protected function insertInternal($attributes = null)
     {
         if (!$this->beforeSave(true)) {
@@ -449,5 +476,141 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
         return true;
     }
+
+	/**
+	 * @inheritdoc. Attempt to resolve any unset null attributes used in foreign keys -- for enforcing referencial integrity most probably.
+	 */
+	public function beforeValidate()
+	{
+		// keep looping until no changes are made in one complete cycle. We do this because once an attribute has been resolved then
+		// this might help us to reolve another attribute we have already passed over.
+		while(true) {
+			$haveSetAttributeValue = false;
+			// loop thru attributes
+			foreach($this->attributes as $attributeName => $attribute) {
+				// if we have a null value on a not null attribute
+				if(is_null($attribute) && !$this->tableSchema->columns[$attributeName]->allowNull) {
+					// loop thru all foreign keys using this attribute
+					foreach($this->tableSchema->foreignKeys as $foreignKey) {
+						// if the foreign key uses this attribute
+						if(isset($foreignKey[$attributeName])) {
+							// see if we can uniquely can identify a row in the foreign key table
+							// initialize paramters array for select
+							$queryParams = [];
+							$whereArray = [];
+							// get a list of non null attributes for this foreign key in this model
+							foreach($foreignKey as $thisTableAttribute => $foreignTableAttribute) {
+								// if not that table name which array index 0
+								if($thisTableAttribute != 0) {
+									if(!is_null($this->$thisTableAttribute)) {
+										$queryParams[":$foreignTableAttribute"] = $this->$thisTableAttribute;
+										$whereArray[$foreignTableAttribute] = [":$foreignTableAttribute"];
+									}
+								}
+							}
+							// if we have some query paramters to try
+							if($queryParams) {
+								// see if these paramters identify a single row
+								$rowCount = Yii::$app->db->createCommand("
+									SELECT COUNT(*)
+									FROM `{$foreignKey[0]}`
+									WHERE " . implode(' AND ', $whereArray), 
+									$queryParams
+								)->queryScalar();
+									
+								if($rowCount == 1) {
+									$this->$attributeName = Yii::$app->db->createCommand("
+										SELECT `{$foreignKey[$attributeName]}`
+										FROM `{$foreignKey[0]}`
+										WHERE " . implode(' AND ', $whereArray), 
+										$queryParams
+									)->queryScalar();
+
+									// ensure we keep looping in case setting this attribute allows us to resolve another null attribute now	
+									$haveSetAttributeValue = true;
+									// value resolved so exit this inner loop
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			if(!$haveSetAttributeValue) {
+				break;
+			}
+		}
+		
+		return parent::beforeValidate();
+	}
+	
+	/**
+	 * @inheritdoc. Filter out foreign key attributes that are only for the purpose of enforcing referencial integrity in the database. Remove also
+	 * the parent attribute and account_id. This removes unnessary fields in admin and form that would have otherwise been added by generator.
+	 * @return array The save attributes
+	 */
+	public function safeAttributes()
+	{
+		static $safeAttributes = [];	// cache
+
+		if(!isset($safeAttributes[$this->modelNameShort])) {
+			// use the parent safe attributes as a starting point and then remove non display attributes
+			$safeAttributes[$this->modelNameShort] = static::removeNonDisplayAttributes(parent::safeAttributes());
+		}
+	
+		return $safeAttributes[$this->modelNameShort];
+	}
+	
+	/**
+	 * Remove any non identifying attributes (i.e. if none of the foreign keys using the attribute point at an id column in the
+	 * referenced table). Basically used out attributes that have a sole purpose of enforcing referencial integrity.
+	 * @param array $attributes
+	 * @return array
+	 */
+	private static function removeNonIdentifyingAttributes($attributes) {
+		$foreignKeyAttributes = [];
+		$identifyingAttributes = [];
+			
+		// loop thru attributes
+		foreach($attributes as $attributeName) {
+			// loop thru all foreign keys using this attribute
+			foreach(static::getTableSchema()->foreignKeys as $foreignKey) {
+				// if the foreign key uses this attribute
+				if(isset($foreignKey[$attributeName])) {
+					// record that this is a foreign key attribute
+					$foreignKeyAttributes[$attributeName] = $attributeName;
+					// if this attribute is identifying i.e. points at the pk (id) of the referenced table
+					if($foreignKey[$attributeName] == 'id') {
+						// record that it is identifying
+						$identifyingAttributes[$attributeName] = $attributeName;
+					}
+				}
+			}
+		}
+
+		// remove the difference between foreign key attributes and identifying attributes are the attributes we want to remove
+		foreach(array_diff($foreignKeyAttributes, $identifyingAttributes) as $removeAttribute) {
+			unset($attributes[array_search($removeAttribute, $attributes)]);
+		}
+
+		return $attributes;
+	}
+
+	/**
+	 * Remove non display attributes
+	 * @param array $attributes The attributes
+	 * @return array Attributes with certain attributes removed
+	 */
+	public static function removeNonDisplayAttributes($attributes) {
+		// in addition we dont want the following - just to be sure
+		foreach(['id', 'deleted', 'created', 'account_id', 'account_id', 'level_id', static::getParentForeignKeyName()] as $attribute) {
+			if(($key = array_search($attribute, $attributes)) !== false) {
+				unset($attributes[$key]);
+			}
+		}
+		
+		return static::removeNonIdentifyingAttributes($attributes);
+	}
 
 }
