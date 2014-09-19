@@ -19,15 +19,13 @@ class AccountToMessageToUserSearch extends AccountToMessageToUser
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = AccountToMessageToUser::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_message' => $this->account_to_message]);
 		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);

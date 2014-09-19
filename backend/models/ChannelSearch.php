@@ -17,15 +17,13 @@ class ChannelSearch extends Channel
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Channel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		

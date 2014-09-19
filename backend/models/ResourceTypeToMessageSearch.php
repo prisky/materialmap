@@ -17,15 +17,13 @@ class ResourceTypeToMessageSearch extends ResourceTypeToMessage
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = ResourceTypeToMessage::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('email_message', $this->email_message);
 		$query->andFilterGoogleStyle('email_subject', $this->email_subject);

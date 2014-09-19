@@ -17,15 +17,13 @@ class TicketToCustomFieldSearch extends TicketToCustomField
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToCustomField::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		

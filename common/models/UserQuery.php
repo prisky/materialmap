@@ -20,14 +20,14 @@ class UserQuery extends \common\components\ActiveQuery
 		// make any search google style i.e. unordered mulitple words
 		if(is_string($q)) {
 			foreach(explode(' ', $q) as $like) {
-				$this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-//				$this->andWhere("CONCAT_WS(' ', auth_key, password_hash, password_reset_token) LIKE :like", [':like' => "%$like%"]);
+//				$this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
+				$this->andWhere("CONCAT_WS(' ', auth_key, password_hash, password_reset_token) LIKE :like", [':like' => "%$like%"]);
 			}
 		}
 
 		return parent::display($q, $page)
-			->joinWith('contact')
-			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-//			->select(["tbl_user.id id", "CONCAT_WS(' ', auth_key, password_hash, password_reset_token) text"]);
+//			->joinWith('contact')
+//			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
+			->select(["tbl_user.id id", "CONCAT_WS(' ', auth_key, password_hash, password_reset_token) text"]);
 	}
 }

@@ -45,15 +45,13 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		<?php foreach($searchConditions as $searchCondition) {
 			echo "$searchCondition;\n\t\t";

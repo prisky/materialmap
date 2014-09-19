@@ -34,7 +34,7 @@ class Referral extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'first_referrer_user_id', 'summary_to_account_to_user_id', 'account_to_user_id', 'invoice_id'], 'required'],
+            [['account_id', 'first_referrer_user_id', 'summary_to_account_to_user_id', 'account_to_user_id', 'invoice_id', 'rate'], 'required'],
             [['account_id', 'first_referrer_user_id', 'summary_to_account_to_user_id', 'account_to_user_id', 'invoice_id'], 'integer'],
             [['rate'], 'number'],
             [['summary_to_account_to_user_id'], 'unique']

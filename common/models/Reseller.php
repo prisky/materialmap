@@ -32,7 +32,7 @@ class Reseller extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id'], 'required'],
+            [['account_id', 'trial_days', 'expiry_days', 'rate', 'child_admin'], 'required'],
             [['account_id', 'trial_days', 'expiry_days', 'child_admin'], 'integer'],
             [['rate'], 'number'],
             [['account_id'], 'unique']

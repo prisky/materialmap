@@ -19,7 +19,7 @@ class CouponSearch extends Coupon
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Coupon::find();
 
@@ -27,8 +27,7 @@ class CouponSearch extends Coupon
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		if(!is_null($this->from_expiry) && $this->from_expiry != '') $query->andWhere('`expiry` >= :from_expiry', [':from_expiry' => $this->from_expiry]);
 		if(!is_null($this->to_expiry) && $this->to_expiry != '') $query->andWhere('`expiry` <= :to_expiry', [':to_expiry' => $this->to_expiry]);
 		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);

@@ -17,15 +17,13 @@ class BookingLevelSearch extends BookingLevel
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = BookingLevel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		
         return $dataProvider;

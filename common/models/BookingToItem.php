@@ -37,7 +37,7 @@ class BookingToItem extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'booking_id', 'event_type_id', 'item_id', 'field_set_id', 'item_group_id'], 'required'],
+            [['account_id', 'booking_id', 'event_type_id', 'item_id', 'field_set_id', 'item_group_id', 'level_id', 'amount', 'quantity'], 'required'],
             [['account_id', 'booking_id', 'event_type_id', 'item_id', 'field_set_id', 'item_group_id', 'level_id', 'quantity'], 'integer'],
             [['amount'], 'number']
         ];

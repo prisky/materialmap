@@ -35,7 +35,7 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'user_id', 'summary_id', 'account_to_user_id', 'invoice_id'], 'required'],
+            [['account_id', 'user_id', 'summary_id', 'account_to_user_id', 'invoice_id', 'rate'], 'required'],
             [['account_id', 'user_id', 'summary_id', 'account_to_user_id', 'invoice_id'], 'integer'],
             [['rate'], 'number'],
             [['summary_id', 'account_to_user_id'], 'unique', 'targetAttribute' => ['summary_id', 'account_to_user_id'], 'message' => 'The combination of Summary and User has already been taken.']

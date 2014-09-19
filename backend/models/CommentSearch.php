@@ -17,15 +17,13 @@ class CommentSearch extends Comment
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Comment::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		$query->andFilterGoogleStyle('content', $this->content);

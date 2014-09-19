@@ -21,15 +21,13 @@ class InvoiceSearch extends Invoice
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Invoice::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		if(!is_null($this->from_invoiced) && $this->from_invoiced != '') $query->andWhere('`invoiced` >= :from_invoiced', [':from_invoiced' => $this->from_invoiced]);

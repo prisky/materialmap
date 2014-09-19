@@ -17,15 +17,13 @@ class EventTypeToFieldSetSearch extends EventTypeToFieldSet
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = EventTypeToFieldSet::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
 		

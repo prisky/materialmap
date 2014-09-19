@@ -25,15 +25,13 @@ class SeatSearch extends Seat
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Seat::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		if(!is_null($this->from_level) && $this->from_level != '') $query->andWhere('`level` >= :from_level', [':from_level' => $this->from_level]);
 		if(!is_null($this->to_level) && $this->to_level != '') $query->andWhere('`level` <= :to_level', [':to_level' => $this->to_level]);

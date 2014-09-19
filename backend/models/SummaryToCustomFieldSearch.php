@@ -17,15 +17,13 @@ class SummaryToCustomFieldSearch extends SummaryToCustomField
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SummaryToCustomField::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		

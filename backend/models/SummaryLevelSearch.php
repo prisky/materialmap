@@ -17,15 +17,13 @@ class SummaryLevelSearch extends SummaryLevel
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SummaryLevel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		
         return $dataProvider;

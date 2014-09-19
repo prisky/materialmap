@@ -17,15 +17,13 @@ class TicketToSeatSearch extends TicketToSeat
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToSeat::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['seat_id' => $this->seat_id]);
 		

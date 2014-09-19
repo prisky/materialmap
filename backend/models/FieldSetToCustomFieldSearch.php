@@ -17,15 +17,13 @@ class FieldSetToCustomFieldSearch extends FieldSetToCustomField
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = FieldSetToCustomField::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		

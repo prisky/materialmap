@@ -19,15 +19,13 @@ class ContactSearch extends Contact
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Contact::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('address_line1', $this->address_line1);
 		$query->andFilterGoogleStyle('address_line2', $this->address_line2);

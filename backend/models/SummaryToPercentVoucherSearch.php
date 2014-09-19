@@ -17,15 +17,13 @@ class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SummaryToPercentVoucher::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['percent_voucher_id' => $this->percent_voucher_id]);
 		

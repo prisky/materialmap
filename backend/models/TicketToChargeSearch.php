@@ -17,15 +17,13 @@ class TicketToChargeSearch extends TicketToCharge
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToCharge::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		

@@ -27,14 +27,18 @@ class ResellerController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "child_admin",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_child_admin",
-                    "attribute2" => "to_child_admin"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
                 "attribute" => "expiry_days"

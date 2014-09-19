@@ -37,12 +37,7 @@ class SmsController extends \backend\components\Controller
             [
                 "attribute" => "outgoing",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_outgoing",
-                    "attribute2" => "to_outgoing"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
                 "attribute" => "sms_message"

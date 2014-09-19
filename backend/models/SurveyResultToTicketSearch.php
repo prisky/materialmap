@@ -17,7 +17,7 @@ class SurveyResultToTicketSearch extends SurveyResultToTicket
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SurveyResultToTicket::find();
 
@@ -25,8 +25,7 @@ class SurveyResultToTicketSearch extends SurveyResultToTicket
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['ticket_id' => $this->ticket_id]);

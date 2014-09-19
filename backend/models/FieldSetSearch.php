@@ -17,15 +17,13 @@ class FieldSetSearch extends FieldSet
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = FieldSet::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		
         return $dataProvider;

@@ -17,15 +17,13 @@ class TownCitySearch extends TownCity
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TownCity::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterWhere(['state_province_region' => $this->state_province_region]);

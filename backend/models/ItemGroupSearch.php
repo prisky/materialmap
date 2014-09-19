@@ -17,15 +17,13 @@ class ItemGroupSearch extends ItemGroup
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = ItemGroup::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		

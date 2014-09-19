@@ -17,15 +17,13 @@ class StandardSetupSearch extends StandardSetup
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = StandardSetup::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);
 		

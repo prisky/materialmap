@@ -17,6 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
 			['attribute' => 'allow_new', 'type' => DetailView::INPUT_SWITCH],
 			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'data_type', 'type' => DetailView::INPUT_DROPDOWN_LIST,

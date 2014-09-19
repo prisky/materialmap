@@ -33,15 +33,13 @@ class AccountSearch extends Account
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Account::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		if(!is_null($this->from_annual_charge) && $this->from_annual_charge != '') $query->andWhere('`annual_charge` >= :from_annual_charge', [':from_annual_charge' => $this->from_annual_charge]);
 		if(!is_null($this->to_annual_charge) && $this->to_annual_charge != '') $query->andWhere('`annual_charge` <= :to_annual_charge', [':to_annual_charge' => $this->to_annual_charge]);

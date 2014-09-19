@@ -19,15 +19,13 @@ class QuestionSearch extends Question
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Question::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['answer' => $this->answer]);
 		$query->andFilterWhere(['bid_id' => $this->bid_id]);

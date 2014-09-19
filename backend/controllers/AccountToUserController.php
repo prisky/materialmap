@@ -30,22 +30,12 @@ class AccountToUserController extends \backend\components\Controller
             [
                 "attribute" => "immediate",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_immediate",
-                    "attribute2" => "to_immediate"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
                 "attribute" => "newsletter",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_newsletter",
-                    "attribute2" => "to_newsletter"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
                 "attribute" => "rate",

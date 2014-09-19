@@ -21,15 +21,13 @@ class PercentVoucherConstraintSearch extends PercentVoucherConstraint
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = PercentVoucherConstraint::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		if(!is_null($this->from_invalaid_to) && $this->from_invalaid_to != '') $query->andWhere('`invalaid_to` >= :from_invalaid_to', [':from_invalaid_to' => $this->from_invalaid_to]);
 		if(!is_null($this->to_invalaid_to) && $this->to_invalaid_to != '') $query->andWhere('`invalaid_to` <= :to_invalaid_to', [':to_invalaid_to' => $this->to_invalaid_to]);

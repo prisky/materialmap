@@ -17,7 +17,7 @@ class PaymentGatewaySearch extends PaymentGateway
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = PaymentGateway::find();
 
@@ -25,8 +25,7 @@ class PaymentGatewaySearch extends PaymentGateway
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('api_url', $this->api_url);
 		$query->andFilterGoogleStyle('api_username', $this->api_username);
 		$query->andFilterGoogleStyle('name', $this->name);

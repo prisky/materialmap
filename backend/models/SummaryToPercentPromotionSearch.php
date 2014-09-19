@@ -17,15 +17,13 @@ class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SummaryToPercentPromotion::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
 		

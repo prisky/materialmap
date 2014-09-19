@@ -17,15 +17,13 @@ class ReminderSearch extends Reminder
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Reminder::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('hours_prior', $this->hours_prior);
 		

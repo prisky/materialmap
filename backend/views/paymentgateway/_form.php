@@ -17,6 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
 			['attribute' => 'api_password', 'type' => DetailView::INPUT_PASSWORD],
 			['attribute' => 'api_url', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'api_username', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],

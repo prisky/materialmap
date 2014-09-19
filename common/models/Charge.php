@@ -33,7 +33,7 @@ class Charge extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id'], 'required'],
+            [['account_id', 'amount'], 'required'],
             [['account_id'], 'integer'],
             [['amount'], 'number']
         ];

@@ -21,15 +21,13 @@ class EventSearch extends Event
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Event::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		if(!is_null($this->from_end) && $this->from_end != '') $query->andWhere('`end` >= :from_end', [':from_end' => $this->from_end]);
 		if(!is_null($this->to_end) && $this->to_end != '') $query->andWhere('`end` <= :to_end', [':to_end' => $this->to_end]);

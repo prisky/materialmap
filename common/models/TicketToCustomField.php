@@ -34,7 +34,7 @@ class TicketToCustomField extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'ticket_id', 'event_type_id', 'field_set_id', 'custom_field_id'], 'required'],
+            [['account_id', 'ticket_id', 'event_type_id', 'field_set_id', 'custom_field_id', 'level_id'], 'required'],
             [['account_id', 'ticket_id', 'event_type_id', 'field_set_id', 'custom_field_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['ticket_id', 'event_type_id'], 'unique', 'targetAttribute' => ['ticket_id', 'event_type_id'], 'message' => 'The combination of Ticket and Event type has already been taken.']

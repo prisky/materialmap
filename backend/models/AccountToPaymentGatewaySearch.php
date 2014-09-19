@@ -17,15 +17,13 @@ class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = AccountToPaymentGateway::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
 		

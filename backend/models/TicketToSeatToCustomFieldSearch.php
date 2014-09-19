@@ -17,7 +17,7 @@ class TicketToSeatToCustomFieldSearch extends TicketToSeatToCustomField
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToSeatToCustomField::find();
 
@@ -25,8 +25,7 @@ class TicketToSeatToCustomFieldSearch extends TicketToSeatToCustomField
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		

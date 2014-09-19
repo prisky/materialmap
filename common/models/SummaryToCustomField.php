@@ -33,7 +33,7 @@ class SummaryToCustomField extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'summary_id', 'field_set_id', 'custom_field_id'], 'required'],
+            [['account_id', 'summary_id', 'field_set_id', 'custom_field_id', 'level_id'], 'required'],
             [['account_id', 'summary_id', 'field_set_id', 'custom_field_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['summary_id', 'field_set_id'], 'unique', 'targetAttribute' => ['summary_id', 'field_set_id'], 'message' => 'The combination of Summary and Field set has already been taken.']

@@ -19,7 +19,7 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SurveyResultToBooking::find();
 
@@ -27,8 +27,7 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		if(!is_null($this->from_booking_id) && $this->from_booking_id != '') $query->andWhere('`booking_id` >= :from_booking_id', [':from_booking_id' => $this->from_booking_id]);
 		if(!is_null($this->to_booking_id) && $this->to_booking_id != '') $query->andWhere('`booking_id` <= :to_booking_id', [':to_booking_id' => $this->to_booking_id]);
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);

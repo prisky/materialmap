@@ -30,7 +30,7 @@ class Voucher extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'uniqueid'], 'required'],
+            [['account_id', 'amount', 'uniqueid'], 'required'],
             [['account_id'], 'integer'],
             [['amount'], 'number'],
             [['uniqueid'], 'string', 'max' => 13],

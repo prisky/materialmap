@@ -35,7 +35,7 @@ class Question extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'comment'], 'required'],
+            [['account_id', 'comment', 'offer'], 'required'],
             [['account_id', 'bid_id', 'answer'], 'integer'],
             [['comment'], 'string'],
             [['offer'], 'number']

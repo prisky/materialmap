@@ -35,7 +35,7 @@ class Sms extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'contact_id', 'sms_thread_id', 'sms_message'], 'required'],
+            [['account_id', 'contact_id', 'sms_thread_id', 'sms_message', 'outgoing'], 'required'],
             [['account_id', 'contact_id', 'sms_thread_id', 'outgoing'], 'integer'],
             [['sms_message'], 'string', 'max' => 140]
         ];

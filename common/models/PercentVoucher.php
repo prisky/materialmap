@@ -29,7 +29,7 @@ class PercentVoucher extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id'], 'required'],
+            [['account_id', 'rate'], 'required'],
             [['account_id'], 'integer'],
             [['rate'], 'number']
         ];

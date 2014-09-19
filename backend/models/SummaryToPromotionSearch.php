@@ -17,15 +17,13 @@ class SummaryToPromotionSearch extends SummaryToPromotion
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SummaryToPromotion::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['promotion_id' => $this->promotion_id]);
 		

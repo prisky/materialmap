@@ -17,15 +17,13 @@ class PaypalCategorySearch extends PaypalCategory
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = PaypalCategory::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		

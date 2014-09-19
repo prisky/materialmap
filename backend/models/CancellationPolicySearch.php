@@ -25,15 +25,13 @@ class CancellationPolicySearch extends CancellationPolicy
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = CancellationPolicy::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		if(!is_null($this->from_base_fee) && $this->from_base_fee != '') $query->andWhere('`base_fee` >= :from_base_fee', [':from_base_fee' => $this->from_base_fee]);
 		if(!is_null($this->to_base_fee) && $this->to_base_fee != '') $query->andWhere('`base_fee` <= :to_base_fee', [':to_base_fee' => $this->to_base_fee]);

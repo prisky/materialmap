@@ -34,7 +34,7 @@ class BookingToCustomField extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'booking_id', 'event_type_id', 'field_set_id', 'custom_field_id'], 'required'],
+            [['account_id', 'booking_id', 'event_type_id', 'field_set_id', 'custom_field_id', 'level_id'], 'required'],
             [['account_id', 'booking_id', 'event_type_id', 'field_set_id', 'custom_field_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['booking_id', 'custom_field_id'], 'unique', 'targetAttribute' => ['booking_id', 'custom_field_id'], 'message' => 'The combination of Booking and Custom field has already been taken.']

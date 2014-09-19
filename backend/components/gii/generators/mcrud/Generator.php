@@ -307,7 +307,7 @@ class Generator extends \yii\gii\generators\crud\Generator
             if ($column->autoIncrement || empty($labels[$column->name])) {
                 continue;
             }
-            if (!$column->allowNull && $column->defaultValue === null) {
+            if (!$column->allowNull) {
                 $types['required'][] = $column->name;
             }
             switch ($column->type) {
@@ -973,6 +973,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 						case 'tinyint(1)' :
 							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
 							$excelFormats[$attribute] = '[=0]"No";[=1]"Yes"';
+							$gridColumn['filterType'] = GridView::FILTER_SWITCH;
 							$types['boolean'][] = $attribute;
 							break;
 						case 'date' :
@@ -1134,14 +1135,21 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 * @return array Attributes with certain attributes removed
 	 */
 	public function removeNonDisplayAttributes($modelName, $attributes) {
-		// in addition we dont want the following - just to be sure
-		foreach(['id', 'deleted', 'created', 'account_id', 'account_id', 'level_id', $modelName::parentAttribute()] as $attribute) {
+		$nonDisplayable = ['id', 'deleted', 'created', 'level_id'];
+
+		// if there is a parent then we don't want account_id
+		if($parentAttribute = $modelName::parentAttribute()) {
+			$nonDisplayable[] = $parentAttribute;
+			$nonDisplayable[] = 'account_id';
+		}
+
+		foreach($nonDisplayable as $attribute) {
 			if(($key = array_search($attribute, $attributes)) !== false) {
 				unset($attributes[$key]);
 			}
 		}
 		
-		return $this->removeNonIdentifyingAttributes($attributes);
+		return $this->removeNonIdentifyingAttributes($modelName, $attributes);
 	}
 
 

@@ -113,6 +113,11 @@ abstract class Controller extends \common\components\Controller
 	{ 
 		$before = '<span></span>';		// seems to need something otherwise the export button doesn't show i.e. null  or empty won't work but space will
 		$searchModel = new $this->modelNameSearch;
+		// load search param
+		$searchModel->load(Yii::$app->request->queryParams);
+		// load get parameters that may limit by account id etc
+		$searchModel->setAttributes(Yii::$app->request->queryParams);
+
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->getPagination()->pageSize = 10;
 		$gridColumns = $this->gridColumns($searchModel);
@@ -156,13 +161,39 @@ abstract class Controller extends \common\components\Controller
 	}
 
 	/**
+	 * Creates a new model and set defaults
+	 * @return ActiveRecord the new model
+	 */
+	public function getNewModelWithDefaults()
+	{
+		$model = new $this->modelName;
+		$databaseName = Yii::$app->params['defaultSchema'];
+		$tableName = $model->tableName();
+ 		$results = Yii::$app->db->createCommand("
+			SELECT COLUMN_NAME, COLUMN_DEFAULT
+			FROM information_schema.COLUMNS
+			WHERE TABLE_SCHEMA = '$databaseName'
+				AND TABLE_NAME = '$tableName'")->queryAll();
+		$safeAttributes = $model->safeAttributes();
+		foreach($results as $result) {
+			$attribute = $result['COLUMN_NAME'];
+			if(in_array($attribute, $safeAttributes)) {
+				$model->$attribute = $result['COLUMN_DEFAULT'];
+			}
+		}
+		
+		return $model;
+	}
+
+	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new $this->modelName;
+		$model = $this->newModelWithDefaults;
+		
 		$modelNameShort = $this->modelNameShort;
 		
 		$model->load(Yii::$app->request->get());
@@ -241,7 +272,11 @@ abstract class Controller extends \common\components\Controller
 		if(isset($queryParams['page'])) {
 			unset($queryParams['page']);
 		}
-		$dataProvider = $searchModel->search($queryParams);
+		// load search param
+		$searchModel->load($queryParams);
+		// load get parameters that may limit by account id etc
+		$searchModel->setAttributes($queryParams);
+		$dataProvider = $searchModel->search();
 		$dataProvider->pagination = false;
 		$columns = $this->gridColumns($searchModel);
 		$objPHPExcel = new \PHPExcel();
@@ -270,7 +305,16 @@ abstract class Controller extends \common\components\Controller
 			foreach($columns as $column) {
 				if(isset($column['attribute'])) {
 					$attribute = $column['attribute'];
-					$activeSheet->setCellValueByColumnAndRow($col++, $row, $model->$attribute);
+					if(isset($column['filterType']) && $column['filterType'] == GridView::FILTER_SELECT2) {
+						// this uses a hack of inserting the related model name into plugin options as gets thru without erroring whereas
+						// putting this into GridColumns where it should be causes un "undefined attribute" error
+						$relatedModelName = '\\common\\models\\' . $column['filterWidgetOptions']['pluginOptions']['relatedModelNameShort'];
+						$value = $relatedModelName::label($model->$attribute);
+					}
+					else {
+						$value = $model->$attribute;
+					}
+					$activeSheet->setCellValueByColumnAndRow($col++, $row, $value);
 				}
 			}
 			$row++;
@@ -705,6 +749,9 @@ SCRIPT;
 
 	return [
 			'pluginOptions' => [
+				// this uses a hack of inserting the related model name into plugin options as gets thru without erroring whereas
+				// putting this into GridColumns where it should be causes un "undefined attribute" error
+				'relatedModelNameShort' => $shortModelName,
 				'allowClear' => true,
 				'ajax' => [
 					'url' => $url,

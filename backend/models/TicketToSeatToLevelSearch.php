@@ -17,15 +17,13 @@ class TicketToSeatToLevelSearch extends TicketToSeatToLevel
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToSeatToLevel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		
         return $dataProvider;

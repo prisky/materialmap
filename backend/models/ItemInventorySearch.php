@@ -19,15 +19,13 @@ class ItemInventorySearch extends ItemInventory
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = ItemInventory::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('quantity', $this->quantity);
 		if(!is_null($this->from_received) && $this->from_received != '') $query->andWhere('`received` >= :from_received', [':from_received' => $this->from_received]);

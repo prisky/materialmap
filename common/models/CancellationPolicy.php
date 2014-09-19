@@ -31,7 +31,7 @@ class CancellationPolicy extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'days'], 'required'],
+            [['account_id', 'begin', 'days', 'rate', 'base_fee'], 'required'],
             [['account_id', 'days'], 'integer'],
             [['begin', 'finish'], 'safe'],
             [['rate', 'base_fee'], 'number']

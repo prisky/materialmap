@@ -17,15 +17,13 @@ class EventTypeToTicketTypeSearch extends EventTypeToTicketType
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = EventTypeToTicketType::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
 		

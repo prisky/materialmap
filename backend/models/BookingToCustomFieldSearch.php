@@ -17,15 +17,13 @@ class BookingToCustomFieldSearch extends BookingToCustomField
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = BookingToCustomField::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		

@@ -33,7 +33,7 @@ class Bid extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'question_id', 'comment', 'deadline'], 'required'],
+            [['account_id', 'question_id', 'offer', 'comment', 'deadline', 'updated'], 'required'],
             [['account_id', 'question_id'], 'integer'],
             [['offer'], 'number'],
             [['comment'], 'string'],

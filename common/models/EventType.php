@@ -39,7 +39,7 @@ class EventType extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'name'], 'required'],
+            [['account_id', 'name', 'seats_max', 'deposit', 'deposit_hours', 'seats_min', 'seats_min_hours'], 'required'],
             [['account_id', 'seats_max', 'deposit_hours', 'seats_min', 'seats_min_hours'], 'integer'],
             [['deposit'], 'number'],
             [['private_note', 'tooltip'], 'string'],

@@ -25,7 +25,7 @@ class AffiliateCategorySearch extends AffiliateCategory
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = AffiliateCategory::find();
 
@@ -33,8 +33,7 @@ class AffiliateCategorySearch extends AffiliateCategory
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		if(!is_null($this->from_level) && $this->from_level != '') $query->andWhere('`level` >= :from_level', [':from_level' => $this->from_level]);
 		if(!is_null($this->to_level) && $this->to_level != '') $query->andWhere('`level` <= :to_level', [':to_level' => $this->to_level]);
 		if(!is_null($this->from_lft) && $this->from_lft != '') $query->andWhere('`lft` >= :from_lft', [':from_lft' => $this->from_lft]);

@@ -121,7 +121,7 @@ class Account extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'phone_work'], 'required'],
+            [['user_id', 'phone_work', 'balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate', 'optimisation'], 'required'],
             [['user_id'], 'integer'],
             [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate'], 'number'],
             [['optimisation'], 'string'],

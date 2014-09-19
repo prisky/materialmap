@@ -17,7 +17,7 @@ class AuthItemChildSearch extends AuthItemChild
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = AuthItemChild::find();
 
@@ -25,8 +25,7 @@ class AuthItemChildSearch extends AuthItemChild
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		
         return $dataProvider;
     }

@@ -19,15 +19,13 @@ class FieldSetTreeSearch extends FieldSetTree
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = FieldSetTree::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['child_id' => $this->child_id]);
 		if(!is_null($this->from_depth) && $this->from_depth != '') $query->andWhere('`depth` >= :from_depth', [':from_depth' => $this->from_depth]);

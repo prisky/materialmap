@@ -17,7 +17,7 @@ class TicketToSeatToChargeSearch extends TicketToSeatToCharge
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToSeatToCharge::find();
 
@@ -25,8 +25,7 @@ class TicketToSeatToChargeSearch extends TicketToSeatToCharge
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		

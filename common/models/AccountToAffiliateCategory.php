@@ -29,7 +29,7 @@ class AccountToAffiliateCategory extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'affiliate_category_id'], 'required'],
+            [['account_id', 'affiliate_category_id', 'rate'], 'required'],
             [['account_id', 'affiliate_category_id'], 'integer'],
             [['rate'], 'number'],
             [['account_id', 'affiliate_category_id'], 'unique', 'targetAttribute' => ['account_id', 'affiliate_category_id'], 'message' => 'The combination of Account and Affiliate category has already been taken.']

@@ -6,6 +6,7 @@ use Yii;
 use common\models\Model;
 use yii\helpers\Inflector;
 use kartik\helpers\Html;
+use yii\db\Schema;
 
 /**
  * @inheritdoc
@@ -340,9 +341,25 @@ if(!$model) {
 	{
 		$messages = array('1062' => 'Duplicates are not allowed');
 
+		// deal with unset attributes
 		foreach($this->attributes as $attributeName => $attribute) {
-			if($attribute == '' && $this->tableSchema->columns[$attributeName]->allowNull) {
-				$this->$attributeName = null;
+			if((is_null($attribute) || $attribute == '')) {
+				$column = $this->tableSchema->columns[$attributeName];
+				if($column->allowNull) {
+					$this->$attributeName = null;
+				}
+				else {
+					switch ($column->type) {
+						 case Schema::TYPE_SMALLINT:
+						 case Schema::TYPE_INTEGER:
+						 case Schema::TYPE_BIGINT:
+						 case Schema::TYPE_BOOLEAN:
+						 case Schema::TYPE_FLOAT:
+						 case Schema::TYPE_DECIMAL:
+						 case Schema::TYPE_MONEY:
+							 $this->$attributeName = 0;
+					 }
+				}
 			}
 		}
 
@@ -381,7 +398,7 @@ if(!$model) {
 	 */
     public static function deleteAll($condition = '', $params = [])
     {
-        $command = static::getDb()->createCommand();
+        $command = Yii::$app->db->createCommand();
 
 		// if this model has a deleted attribute
 		if(isset(static::getTableSchema()->columns['deleted'])) {
@@ -410,7 +427,7 @@ if(!$model) {
             }
         }
         $db = static::getDb();
-        $command = $db->createCommand()->insert($this->tableName(), $values);
+        $command = Yii::$app->db->createCommand()->insert($this->tableName(), $values);
 		
  		try {
 			if (!$command->execute()) {
@@ -431,12 +448,12 @@ if(!$model) {
 				preg_match("/for key '(.*)'. The /", $e->message, $matches);
 				if(isset($matches[1])) {
 					$databaseName = Yii::$app->params['defaultSchema'];
-					$results = $db->createCommand("
+					$results = Yii::$app->db->createCommand("
 						SELECT COLUMN_NAME
 						FROM information_schema.KEY_COLUMN_USAGE
 						WHERE TABLE_SCHEMA = '$databaseName'
 							AND TABLE_NAME = '$tableName'
-							AND CONSTRAINT_NAME = '{$matches[1]}'")->all();
+							AND CONSTRAINT_NAME = '{$matches[1]}'")->queryAll();
 					// convert to array so we can use the keys to intersect with attributes
 					$keyColumns = array();
 					foreach($results as $keyColumn) {

@@ -17,15 +17,13 @@ class ModelSearch extends Model
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Model::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('help', $this->help);
 		$query->andFilterGoogleStyle('label', $this->label);

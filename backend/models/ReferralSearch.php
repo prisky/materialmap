@@ -19,15 +19,13 @@ class ReferralSearch extends Referral
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Referral::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		$query->andFilterWhere(['invoice_id' => $this->invoice_id]);

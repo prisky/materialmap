@@ -36,7 +36,7 @@ class TicketType extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'seats', 'name'], 'required'],
+            [['account_id', 'seats', 'name', 'amount'], 'required'],
             [['account_id', 'seats', 'event_max', 'booking_max'], 'integer'],
             [['amount'], 'number'],
             [['comment'], 'string'],

@@ -31,7 +31,7 @@ class SummaryToVoucher extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'summary_id', 'voucher_id'], 'required'],
+            [['account_id', 'summary_id', 'voucher_id', 'amount'], 'required'],
             [['account_id', 'summary_id', 'voucher_id'], 'integer'],
             [['amount'], 'number'],
             [['summary_id', 'voucher_id'], 'unique', 'targetAttribute' => ['summary_id', 'voucher_id'], 'message' => 'The combination of Summary and Voucher has already been taken.']

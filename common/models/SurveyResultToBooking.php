@@ -34,7 +34,7 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'required'],
+            [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id', 'level_id'], 'required'],
             [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['survey_id', 'booking_id'], 'unique', 'targetAttribute' => ['survey_id', 'booking_id'], 'message' => 'The combination of Booking and Survey has already been taken.']

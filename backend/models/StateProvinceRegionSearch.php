@@ -17,15 +17,13 @@ class StateProvinceRegionSearch extends StateProvinceRegion
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = StateProvinceRegion::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('country_id', $this->country_id);
 		$query->andFilterGoogleStyle('name', $this->name);

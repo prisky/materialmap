@@ -40,12 +40,7 @@ class MessageController extends \backend\components\Controller
             [
                 "attribute" => "system",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_system",
-                    "attribute2" => "to_system"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ]
         ];
 	}

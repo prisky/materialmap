@@ -17,15 +17,13 @@ class BookingSearch extends Booking
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Booking::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['status' => $this->status]);
 		$query->andFilterWhere(['summary_id' => $this->summary_id]);

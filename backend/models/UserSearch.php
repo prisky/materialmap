@@ -17,15 +17,13 @@ class UserSearch extends User
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = User::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('auth_key', $this->auth_key);
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);

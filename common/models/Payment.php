@@ -34,7 +34,7 @@ class Payment extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'summary_id', 'payment_gateway_id', 'contact_id'], 'required'],
+            [['account_id', 'summary_id', 'payment_gateway_id', 'contact_id', 'amount'], 'required'],
             [['account_id', 'summary_id', 'payment_gateway_id', 'contact_id'], 'integer'],
             [['amount'], 'number']
         ];

@@ -17,7 +17,7 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SurveyResultToSummary::find();
 
@@ -25,8 +25,7 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['summary_id' => $this->summary_id]);

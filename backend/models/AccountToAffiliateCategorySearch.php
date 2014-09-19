@@ -19,15 +19,13 @@ class AccountToAffiliateCategorySearch extends AccountToAffiliateCategory
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = AccountToAffiliateCategory::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['affiliate_category_id' => $this->affiliate_category_id]);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);

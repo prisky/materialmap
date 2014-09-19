@@ -17,15 +17,13 @@ class EventTypeToResourceTypeSearch extends EventTypeToResourceType
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = EventTypeToResourceType::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['resource_type_id' => $this->resource_type_id]);
 		

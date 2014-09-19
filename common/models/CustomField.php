@@ -40,7 +40,7 @@ class CustomField extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'label', 'validation_type', 'data_type'], 'required'],
+            [['account_id', 'label', 'allow_new', 'validation_type', 'data_type', 'mandatory'], 'required'],
             [['account_id', 'allow_new', 'mandatory'], 'integer'],
             [['validation_type', 'data_type', 'validation_text', 'validation_error'], 'string'],
             [['label'], 'string', 'max' => 64],

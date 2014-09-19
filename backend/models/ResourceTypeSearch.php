@@ -17,15 +17,13 @@ class ResourceTypeSearch extends ResourceType
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = ResourceType::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('comment', $this->comment);
 		$query->andFilterGoogleStyle('name', $this->name);

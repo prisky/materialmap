@@ -17,7 +17,7 @@ class TicketToSeatToContactSearch extends TicketToSeatToContact
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = TicketToSeatToContact::find();
 
@@ -25,8 +25,7 @@ class TicketToSeatToContactSearch extends TicketToSeatToContact
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		

@@ -27,14 +27,18 @@ class CustomFieldController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "allow_new",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_allow_new",
-                    "attribute2" => "to_allow_new"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
                 "attribute" => "comment"
@@ -55,12 +59,7 @@ class CustomFieldController extends \backend\components\Controller
             [
                 "attribute" => "mandatory",
                 "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_mandatory",
-                    "attribute2" => "to_mandatory"
-                ]
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
                 "attribute" => "validation_error"

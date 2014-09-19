@@ -35,7 +35,7 @@ class Item extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'item_group_id', 'name'], 'required'],
+            [['account_id', 'item_group_id', 'name', 'amount'], 'required'],
             [['account_id', 'item_group_id'], 'integer'],
             [['amount'], 'number'],
             [['name'], 'string', 'max' => 64],

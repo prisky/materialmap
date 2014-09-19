@@ -35,7 +35,7 @@ class AccountToUser extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'user_id'], 'required'],
+            [['account_id', 'user_id', 'rate', 'newsletter', 'immediate'], 'required'],
             [['account_id', 'user_id', 'newsletter', 'immediate'], 'integer'],
             [['rate'], 'number'],
             [['account_id', 'user_id'], 'unique', 'targetAttribute' => ['account_id', 'user_id'], 'message' => 'The combination of Account and User has already been taken.']

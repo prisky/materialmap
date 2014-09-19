@@ -19,15 +19,13 @@ class SummaryToAccountToUserSearch extends SummaryToAccountToUser
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SummaryToAccountToUser::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		$query->andFilterWhere(['invoice_id' => $this->invoice_id]);

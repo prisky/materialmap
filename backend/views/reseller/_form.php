@@ -17,6 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
 			['attribute' => 'child_admin', 'type' => DetailView::INPUT_SWITCH],
 			['attribute' => 'expiry_days', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 			['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],

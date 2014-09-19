@@ -37,7 +37,7 @@ class Ticket extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'booking_id', 'ticket_type_id', 'event_type_id'], 'required'],
+            [['account_id', 'booking_id', 'ticket_type_id', 'event_type_id', 'amount'], 'required'],
             [['account_id', 'booking_id', 'ticket_type_id', 'event_type_id'], 'integer'],
             [['amount'], 'number'],
             [['booking_id', 'ticket_type_id'], 'unique', 'targetAttribute' => ['booking_id', 'ticket_type_id'], 'message' => 'The combination of Booking and Ticket type has already been taken.']

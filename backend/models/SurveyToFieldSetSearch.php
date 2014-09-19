@@ -17,15 +17,13 @@ class SurveyToFieldSetSearch extends SurveyToFieldSet
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = SurveyToFieldSet::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
 		

@@ -23,7 +23,7 @@ class BidSearch extends Bid
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Bid::find();
 
@@ -31,8 +31,7 @@ class BidSearch extends Bid
             'query' => $query,
         ]);
 
-        $this->setAttributes($params);
-
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('comment', $this->comment);
 		if(!is_null($this->from_deadline) && $this->from_deadline != '') $query->andWhere('`deadline` >= :from_deadline', [':from_deadline' => $this->from_deadline]);
 		if(!is_null($this->to_deadline) && $this->to_deadline != '') $query->andWhere('`deadline` <= :to_deadline', [':to_deadline' => $this->to_deadline]);

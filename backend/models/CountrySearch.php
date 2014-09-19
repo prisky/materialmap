@@ -17,15 +17,13 @@ class CountrySearch extends Country
         return \yii\base\Model::scenarios();
     }
 
-    public function search($params)
+    public function search()
     {
         $query = Country::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('code', $this->code);
 		$query->andFilterGoogleStyle('currency_code', $this->currency_code);
