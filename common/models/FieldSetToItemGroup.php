@@ -9,11 +9,13 @@ namespace common\models;
  * @property string $account_id
  * @property string $field_set_id
  * @property string $item_group_id
+ * @property integer $level_id
  * @property integer $deleted
  *
  * @property Account $account
  * @property FieldSet $fieldSet
  * @property ItemGroup $itemGroup
+ * @property Level $level
  */
 class FieldSetToItemGroup extends \common\components\ActiveRecord
 {
@@ -31,8 +33,9 @@ class FieldSetToItemGroup extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'field_set_id', 'item_group_id'], 'required'],
-            [['account_id', 'field_set_id', 'item_group_id'], 'integer']
+            [['account_id', 'field_set_id', 'item_group_id', 'level_id'], 'required'],
+            [['account_id', 'field_set_id', 'item_group_id', 'level_id'], 'integer'],
+            [['item_group_id', 'level_id'], 'unique', 'targetAttribute' => ['item_group_id', 'level_id'], 'message' => 'The combination of Item group and Level has already been taken.']
         ];
     }
 
@@ -59,5 +62,13 @@ class FieldSetToItemGroup extends \common\components\ActiveRecord
     public function getItemGroup()
     {
         return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(Level::className(), ['id' => 'level_id']);
     }
 }

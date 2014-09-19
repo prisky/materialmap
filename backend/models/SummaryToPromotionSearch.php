@@ -11,12 +11,6 @@ use common\models\SummaryToPromotion;
 class SummaryToPromotionSearch extends SummaryToPromotion
 {
     
-    public function rules()
-    {
-        return [
-            [['promotion_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class SummaryToPromotionSearch extends SummaryToPromotion
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['promotion_id' => $this->promotion_id]);
 		

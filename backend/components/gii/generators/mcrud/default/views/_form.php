@@ -16,7 +16,7 @@ $parentModelName = common\components\ActiveRecord::parentName($modelNameShort);
 $schemaName = Yii::$app->params['defaultSchema'];
 $tableName = 'tbl_' . str_replace('-', '_', Inflector::camel2id($modelNameShort));
 $referencedTableName = 'tbl_' . str_replace('-', '_', Inflector::camel2id($parentModelName));
-$parentForeignKeyName = Yii::$app->db->createCommand('
+$parentAttribute = Yii::$app->db->createCommand('
 	SELECT COLUMN_NAME
 	FROM information_schema.KEY_COLUMN_USAGE
 	WHERE TABLE_SCHEMA = :schemaName
@@ -63,7 +63,7 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 <?php foreach ($attributes as $attribute) {
-	if($attribute != $parentForeignKeyName) {
+	if($attribute != $parentAttribute) {
 		echo $generator->generateActiveField($attribute) . "\n";
 	}
 } ?>

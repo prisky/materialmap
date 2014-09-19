@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="contact-form">
+<div id="contact-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,15 +17,15 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'first_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'last_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'email', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'town_city_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TownCity')],
-			['attribute' => 'verified', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'address_line1', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'address_line2', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'email', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'first_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'last_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'phone_mobile', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 20]],
 			['attribute' => 'post_code', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 16]],
+			['attribute' => 'town_city_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TownCity', [])],
+			['attribute' => 'verified', 'type' => DetailView::INPUT_DATETIME],
 		]
 	]);	?>
 

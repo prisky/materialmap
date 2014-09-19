@@ -23,26 +23,14 @@ class AccountToAffiliateCategoryController extends \backend\components\Controlle
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "affiliate_category_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('AffiliateCategory'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->affiliateCategory) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->affiliateCategory->label, Url::toRoute([strtolower('AffiliateCategory') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->affiliateCategory->label, Url::toRoute([strtolower('AffiliateCategory') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('AffiliateCategory', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "affiliateCategory");
 							},
                 "format" => "raw"
             ],

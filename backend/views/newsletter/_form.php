@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="newsletter-form">
+<div id="newsletter-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'content', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'sent', 'type' => DetailView::INPUT_DATETIME],
+			['attribute' => 'subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 		]
 	]);	?>
 

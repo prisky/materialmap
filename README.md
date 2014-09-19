@@ -1,8 +1,8 @@
 Files that need to merged with git history when auto created
 
-model.php. model/form.php ModelController.php ModelQuery.php
+model.php. model/form.php ModelQuery.php
 user.php
-column/form.php ColumnController.php
+column.php column/form.php 
 
 To recreate a list of models
 1./ run the script after re-creating the database in order to make ucwords function available

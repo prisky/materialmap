@@ -11,11 +11,13 @@ namespace common\models;
  * @property string $survey_id
  * @property string $custom_field_id
  * @property string $field_set_id
+ * @property integer $level_id
  * @property string $custom_value
  *
  * @property TicketToSeat $ticketToSeat
  * @property Account $account
  * @property CustomField $customField
+ * @property TicketToSeatToLevel $level
  */
 class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
 {
@@ -34,7 +36,7 @@ class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'ticket_to_seat_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'required'],
-            [['account_id', 'ticket_to_seat_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'integer'],
+            [['account_id', 'ticket_to_seat_id', 'survey_id', 'custom_field_id', 'field_set_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['survey_id', 'ticket_to_seat_id'], 'unique', 'targetAttribute' => ['survey_id', 'ticket_to_seat_id'], 'message' => 'The combination of Seat and Survey has already been taken.']
         ];
@@ -63,5 +65,13 @@ class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
     public function getCustomField()
     {
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(TicketToSeatToLevel::className(), ['id' => 'level_id']);
     }
 }

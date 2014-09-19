@@ -11,12 +11,6 @@ use common\models\FieldSetToCustomField;
 class FieldSetToCustomFieldSearch extends FieldSetToCustomField
 {
     
-    public function rules()
-    {
-        return [
-            [['custom_field_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class FieldSetToCustomFieldSearch extends FieldSetToCustomField
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		

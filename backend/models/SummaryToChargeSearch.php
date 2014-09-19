@@ -11,12 +11,6 @@ use common\models\SummaryToCharge;
 class SummaryToChargeSearch extends SummaryToCharge
 {
     
-    public function rules()
-    {
-        return [
-            [['charge_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class SummaryToChargeSearch extends SummaryToCharge
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		

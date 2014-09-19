@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="message-form">
+<div id="message-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,11 +17,11 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-			['attribute' => 'system', 'type' => DetailView::INPUT_SWITCH],
 			['attribute' => 'email_html', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'email_subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 100]],
+			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'sms_text', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
+			['attribute' => 'system', 'type' => DetailView::INPUT_SWITCH],
 		]
 	]);	?>
 

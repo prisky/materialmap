@@ -23,7 +23,7 @@ class TicketToSeatToItemController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "amount",
@@ -47,86 +47,11 @@ class TicketToSeatToItemController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "event_type_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->ticketToSeat) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->ticketToSeat->label, Url::toRoute([strtolower('TicketToSeat') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->ticketToSeat->label, Url::toRoute([strtolower('TicketToSeat') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ],
-            [
-                "attribute" => "field_set_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('FieldSetToItemGroup'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->fieldSetToItemGroup) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->fieldSetToItemGroup->label, Url::toRoute([strtolower('FieldSetToItemGroup') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->fieldSetToItemGroup->label, Url::toRoute([strtolower('FieldSetToItemGroup') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ],
-            [
-                "attribute" => "item_group_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Item'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->item) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->item->label, Url::toRoute([strtolower('Item') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->item->label, Url::toRoute([strtolower('Item') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "item_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Item'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->item) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->item->label, Url::toRoute([strtolower('Item') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->item->label, Url::toRoute([strtolower('Item') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Item', ['account_id' => $searchModel->account_id, 'item_group_id' => $searchModel->item_group_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
 							},
                 "format" => "raw"
             ],
@@ -136,21 +61,9 @@ class TicketToSeatToItemController extends \backend\components\Controller
             [
                 "attribute" => "ticket_to_seat_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->ticketToSeat) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->ticketToSeat->label, Url::toRoute([strtolower('TicketToSeat') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->ticketToSeat->label, Url::toRoute([strtolower('TicketToSeat') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat', ['account_id' => $searchModel->account_id, 'event_type_id' => $searchModel->event_type_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
 							},
                 "format" => "raw"
             ]

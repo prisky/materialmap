@@ -11,12 +11,6 @@ use common\models\TicketToSeatToContact;
 class TicketToSeatToContactSearch extends TicketToSeatToContact
 {
     
-    public function rules()
-    {
-        return [
-            [['contact_id', 'ticket_to_seat_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class TicketToSeatToContactSearch extends TicketToSeatToContact
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);

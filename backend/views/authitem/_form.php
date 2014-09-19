@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="auth-item-form">
+<div id="auth-item-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,13 +17,13 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'type', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
+			['attribute' => 'created_at', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'data', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'description', 'type' => DetailView::INPUT_TEXTAREA],
-			['attribute' => 'created_at', 'type' => DetailView::INPUT_DATETIME],
-			['attribute' => 'updated_at', 'type' => DetailView::INPUT_DATETIME],
+			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'rule_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'type', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
+			['attribute' => 'updated_at', 'type' => DetailView::INPUT_DATETIME],
 		]
 	]);	?>
 

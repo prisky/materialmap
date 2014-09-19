@@ -11,12 +11,6 @@ use common\models\EventTypeToTicketType;
 class EventTypeToTicketTypeSearch extends EventTypeToTicketType
 {
     
-    public function rules()
-    {
-        return [
-            [['ticket_type_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class EventTypeToTicketTypeSearch extends EventTypeToTicketType
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
 		

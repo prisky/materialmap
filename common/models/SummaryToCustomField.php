@@ -10,10 +10,12 @@ namespace common\models;
  * @property string $summary_id
  * @property string $field_set_id
  * @property string $custom_field_id
+ * @property integer $level_id
  * @property string $custom_value
  *
  * @property Summary $summary
  * @property Account $account
+ * @property SummaryLevel $level
  */
 class SummaryToCustomField extends \common\components\ActiveRecord
 {
@@ -32,7 +34,7 @@ class SummaryToCustomField extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'summary_id', 'field_set_id', 'custom_field_id'], 'required'],
-            [['account_id', 'summary_id', 'field_set_id', 'custom_field_id'], 'integer'],
+            [['account_id', 'summary_id', 'field_set_id', 'custom_field_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['summary_id', 'field_set_id'], 'unique', 'targetAttribute' => ['summary_id', 'field_set_id'], 'message' => 'The combination of Summary and Field set has already been taken.']
         ];
@@ -53,5 +55,13 @@ class SummaryToCustomField extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(SummaryLevel::className(), ['id' => 'level_id']);
     }
 }

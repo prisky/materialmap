@@ -11,12 +11,6 @@ use common\models\EventTypeToResourceType;
 class EventTypeToResourceTypeSearch extends EventTypeToResourceType
 {
     
-    public function rules()
-    {
-        return [
-            [['event_type_id', 'resource_type_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,11 +25,8 @@ class EventTypeToResourceTypeSearch extends EventTypeToResourceType
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterWhere(['event_type_id' => $this->event_type_id]);
 		$query->andFilterWhere(['resource_type_id' => $this->resource_type_id]);
 		
         return $dataProvider;

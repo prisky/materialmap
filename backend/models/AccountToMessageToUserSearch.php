@@ -13,12 +13,6 @@ class AccountToMessageToUserSearch extends AccountToMessageToUser
     public $from_user_id;
 	public $to_user_id;
 	
-    public function rules()
-    {
-        return [
-            [['account_to_message', 'user_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -33,9 +27,7 @@ class AccountToMessageToUserSearch extends AccountToMessageToUser
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_message' => $this->account_to_message]);
 		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);

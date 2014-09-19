@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="resource-type-to-message-form">
+<div id="resource-type-to-message-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,10 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'resource_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ResourceType')],
-			['attribute' => 'message_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Message')],
 			['attribute' => 'email_message', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'email_subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 100]],
+			['attribute' => 'message_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Message', [])],
 			['attribute' => 'sms_message', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
 		]
 	]);	?>

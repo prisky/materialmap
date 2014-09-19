@@ -24,7 +24,7 @@ class VoucherConstraintController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "invalid_from",

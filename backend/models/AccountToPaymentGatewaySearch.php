@@ -11,12 +11,6 @@ use common\models\AccountToPaymentGateway;
 class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
 {
     
-    public function rules()
-    {
-        return [
-            [['payment_gateway_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
 		

@@ -41,9 +41,9 @@ class DetailView extends \kartik\detail\DetailView
 		parent::init();
 		
 		// place hidden field to parent if not root
-		foreach($parentParam as $parentForeignKeyName => $value) {
-			$this->model->$parentForeignKeyName = $value;
-			echo Html::activeHiddenInput($this->model, $parentForeignKeyName);
+		foreach($parentParam as $parentAttribute => $value) {
+			$this->model->$parentAttribute = $value;
+			echo Html::activeHiddenInput($this->model, $parentAttribute);
 		}
 	}
 

@@ -19,13 +19,6 @@ class AffiliateCategorySearch extends AffiliateCategory
 	public $from_root;
 	public $to_root;
 	
-    public function rules()
-    {
-        return [
-            [['level', 'lft', 'rgt', 'root'], 'integer'],
-			[['name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -40,9 +33,7 @@ class AffiliateCategorySearch extends AffiliateCategory
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_level) && $this->from_level != '') $query->andWhere('`level` >= :from_level', [':from_level' => $this->from_level]);
 		if(!is_null($this->to_level) && $this->to_level != '') $query->andWhere('`level` <= :to_level', [':to_level' => $this->to_level]);

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="question-thread-form">
+<div id="question-thread-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,6 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Question')],
 			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
 		]
 	]);	?>

@@ -11,12 +11,6 @@ use common\models\SummaryToPercentVoucher;
 class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
 {
     
-    public function rules()
-    {
-        return [
-            [['percent_voucher_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['percent_voucher_id' => $this->percent_voucher_id]);
 		

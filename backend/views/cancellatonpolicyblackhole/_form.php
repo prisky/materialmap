@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="cancellaton-policy-blackhole-form">
+<div id="cancellaton-policy-blackhole-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

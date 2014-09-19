@@ -23,26 +23,14 @@ class SeatToTicketTypeController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "ticket_type_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketType'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->ticketType) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->ticketType->label, Url::toRoute([strtolower('TicketType') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->ticketType->label, Url::toRoute([strtolower('TicketType') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketType', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketType");
 							},
                 "format" => "raw"
             ]

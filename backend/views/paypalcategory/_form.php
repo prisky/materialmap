@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="paypal-category-form">
+<div id="paypal-category-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

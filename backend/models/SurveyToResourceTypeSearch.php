@@ -11,12 +11,6 @@ use common\models\SurveyToResourceType;
 class SurveyToResourceTypeSearch extends SurveyToResourceType
 {
     
-    public function rules()
-    {
-        return [
-            [['resource_type_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class SurveyToResourceTypeSearch extends SurveyToResourceType
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['resource_type_id' => $this->resource_type_id]);
 		

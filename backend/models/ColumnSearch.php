@@ -13,13 +13,6 @@ class ColumnSearch extends Column
     public $from_model_id;
 	public $to_model_id;
 	
-    public function rules()
-    {
-        return [
-            [['help', 'label', 'name'], 'safe'],
-			[['model_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class ColumnSearch extends Column
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('help', $this->help);
 		$query->andFilterGoogleStyle('label', $this->label);

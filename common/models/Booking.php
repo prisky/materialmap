@@ -18,7 +18,6 @@ namespace common\models;
  * @property BookingToCharge[] $bookingToCharges
  * @property BookingToCustomField[] $bookingToCustomFields
  * @property BookingToItem[] $bookingToItems
- * @property SurveyResultToBooking[] $surveyResultToBookings
  * @property Ticket[] $tickets
  */
 class Booking extends \common\components\ActiveRecord
@@ -91,14 +90,6 @@ class Booking extends \common\components\ActiveRecord
     public function getBookingToItems()
     {
         return $this->hasMany(BookingToItem::className(), ['booking_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurveyResultToBookings()
-    {
-        return $this->hasMany(SurveyResultToBooking::className(), ['booking_id' => 'id']);
     }
 
     /**

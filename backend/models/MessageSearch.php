@@ -13,13 +13,6 @@ class MessageSearch extends Message
     public $from_system;
 	public $to_system;
 	
-    public function rules()
-    {
-        return [
-            [['email_html', 'email_subject', 'name', 'sms_text'], 'safe'],
-			[['system'], 'boolean']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class MessageSearch extends Message
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('email_html', $this->email_html);
 		$query->andFilterGoogleStyle('email_subject', $this->email_subject);

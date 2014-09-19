@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="promotion-constraint-form">
+<div id="promotion-constraint-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,6 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
 			['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'invalid_to', 'type' => DetailView::INPUT_DATETIME],
 		]

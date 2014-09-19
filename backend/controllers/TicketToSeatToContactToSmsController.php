@@ -23,47 +23,23 @@ class TicketToSeatToContactToSmsController extends \backend\components\Controlle
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "sms_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Sms'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->sms) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->sms->label, Url::toRoute([strtolower('Sms') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->sms->label, Url::toRoute([strtolower('Sms') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Sms', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "sms");
 							},
                 "format" => "raw"
             ],
             [
                 "attribute" => "ticket_to_seat_to_contact_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeatToContact'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->ticketToSeatToContact) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->ticketToSeatToContact->label, Url::toRoute([strtolower('TicketToSeatToContact') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->ticketToSeatToContact->label, Url::toRoute([strtolower('TicketToSeatToContact') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeatToContact', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeatToContact");
 							},
                 "format" => "raw"
             ]

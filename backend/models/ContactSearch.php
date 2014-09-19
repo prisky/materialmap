@@ -13,14 +13,6 @@ class ContactSearch extends Contact
     public $from_verified;
 	public $to_verified;
 	
-    public function rules()
-    {
-        return [
-            [['address_line1', 'address_line2', 'email', 'first_name', 'last_name', 'phone_mobile', 'post_code'], 'safe'],
-			[['town_city_id'], 'integer'],
-			[['verified', 'from_verified', 'to_verified'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -35,9 +27,7 @@ class ContactSearch extends Contact
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('address_line1', $this->address_line1);
 		$query->andFilterGoogleStyle('address_line2', $this->address_line2);

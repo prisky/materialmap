@@ -13,14 +13,6 @@ class SmsSearch extends Sms
     public $from_outgoing;
 	public $to_outgoing;
 	
-    public function rules()
-    {
-        return [
-            [['contact_id'], 'integer'],
-			[['outgoing'], 'boolean'],
-			[['sms_message'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -35,9 +27,7 @@ class SmsSearch extends Sms
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		if(!is_null($this->from_outgoing) && $this->from_outgoing != '') $query->andWhere('`outgoing` >= :from_outgoing', [':from_outgoing' => $this->from_outgoing]);

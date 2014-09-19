@@ -25,7 +25,7 @@ class BidController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "comment"
@@ -64,21 +64,9 @@ class BidController extends \backend\components\Controller
             [
                 "attribute" => "question_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Question'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->question) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->question->label, Url::toRoute([strtolower('Question') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->question->label, Url::toRoute([strtolower('Question') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Question', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "question");
 							},
                 "format" => "raw"
             ],

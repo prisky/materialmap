@@ -23,7 +23,7 @@ class PaymentGatewayController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "api_url"

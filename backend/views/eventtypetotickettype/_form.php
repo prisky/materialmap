@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="event-type-to-ticket-type-form">
+<div id="event-type-to-ticket-type-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('EventType')],
-			['attribute' => 'ticket_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TicketType')],
+			['attribute' => 'ticket_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TicketType', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

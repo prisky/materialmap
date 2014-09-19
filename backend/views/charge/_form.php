@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="charge-form">
+<div id="charge-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

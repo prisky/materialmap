@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="summary-to-item-form">
+<div id="summary-to-item-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,12 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'summary_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
-			['attribute' => 'field_set_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('FieldSetToItemGroup')],
-			['attribute' => 'item_group_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Item')],
-			['attribute' => 'item_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Item')],
-			['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
+			['attribute' => 'item_group_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ItemGroup', ['account_id' => $model->account_id])],
+			['attribute' => 'item_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Item', ['account_id' => $model->account_id, 'item_group_id' => $model->item_group_id])],
+			['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 		]
 	]);	?>
 

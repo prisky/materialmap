@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="percent-voucher-form">
+<div id="percent-voucher-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

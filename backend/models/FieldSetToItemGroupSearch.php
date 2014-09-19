@@ -11,12 +11,6 @@ use common\models\FieldSetToItemGroup;
 class FieldSetToItemGroupSearch extends FieldSetToItemGroup
 {
     
-    public function rules()
-    {
-        return [
-            [['item_group_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class FieldSetToItemGroupSearch extends FieldSetToItemGroup
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['item_group_id' => $this->item_group_id]);
 		

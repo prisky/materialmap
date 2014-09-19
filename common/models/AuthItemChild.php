@@ -10,8 +10,6 @@ namespace common\models;
  * @property string $child
  * @property string $account_id
  *
- * @property AuthItem $parent0
- * @property AuthItem $child0
  * @property Account $account
  */
 class AuthItemChild extends \common\components\ActiveRecord
@@ -37,22 +35,6 @@ class AuthItemChild extends \common\components\ActiveRecord
         ];
     }
 
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParent0()
-    {
-        return $this->hasOne(AuthItem::className(), ['name' => 'parent']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getChild0()
-    {
-        return $this->hasOne(AuthItem::className(), ['name' => 'child']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="auth-assignment-form">
+<div id="auth-assignment-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'item_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User')],
 			['attribute' => 'created_at', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
+			['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])],
 		]
 	]);	?>
 

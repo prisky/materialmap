@@ -23,7 +23,7 @@ class SmsThreadController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
 
         ];

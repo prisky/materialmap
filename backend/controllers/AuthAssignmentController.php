@@ -23,7 +23,7 @@ class AuthAssignmentController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "created_at",
@@ -35,26 +35,11 @@ class AuthAssignmentController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "item_name"
-            ],
-            [
                 "attribute" => "user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('User'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->user) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->user->label, Url::toRoute([strtolower('User') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->user->label, Url::toRoute([strtolower('User') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
 							},
                 "format" => "raw"
             ]

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="item-form">
+<div id="item-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ItemGroup')],
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
+			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 		]
 	]);	?>
 

@@ -13,13 +13,6 @@ class EventTypeSearch extends EventType
     public $from_deposit;
 	public $to_deposit;
 	
-    public function rules()
-    {
-        return [
-            [['deposit'], 'number'],
-			[['deposit_hours', 'name', 'private_note', 'seats_max', 'seats_min', 'seats_min_hours', 'tooltip'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class EventTypeSearch extends EventType
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_deposit) && $this->from_deposit != '') $query->andWhere('`deposit` >= :from_deposit', [':from_deposit' => $this->from_deposit]);
 		if(!is_null($this->to_deposit) && $this->to_deposit != '') $query->andWhere('`deposit` <= :to_deposit', [':to_deposit' => $this->to_deposit]);

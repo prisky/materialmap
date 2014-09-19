@@ -11,12 +11,6 @@ use common\models\ModelTree;
 class ModelTreeSearch extends ModelTree
 {
     
-    public function rules()
-    {
-        return [
-                    ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class ModelTreeSearch extends ModelTree
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		
         return $dataProvider;

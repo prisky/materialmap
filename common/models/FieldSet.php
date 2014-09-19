@@ -7,11 +7,12 @@ namespace common\models;
  *
  * @property string $id
  * @property string $account_id
+ * @property integer $level_id
  * @property integer $deleted
- * @property string $level
  *
  * @property EventTypeToFieldSet[] $eventTypeToFieldSets
  * @property Account $account
+ * @property Level $level
  * @property FieldSetToCustomField[] $fieldSetToCustomFields
  * @property FieldSetToItemGroup[] $fieldSetToItemGroups
  * @property FieldSetTree[] $fieldSetTrees
@@ -33,9 +34,8 @@ class FieldSet extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'level'], 'required'],
-            [['account_id'], 'integer'],
-            [['level'], 'string']
+            [['account_id', 'level_id'], 'required'],
+            [['account_id', 'level_id'], 'integer']
         ];
     }
 
@@ -54,6 +54,14 @@ class FieldSet extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(Level::className(), ['id' => 'level_id']);
     }
 
     /**

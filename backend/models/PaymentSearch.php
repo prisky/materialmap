@@ -13,13 +13,6 @@ class PaymentSearch extends Payment
     public $from_amount;
 	public $to_amount;
 	
-    public function rules()
-    {
-        return [
-            [['amount', 'from_amount', 'to_amount'], 'number'],
-			[['contact_id', 'payment_gateway_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class PaymentSearch extends Payment
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);

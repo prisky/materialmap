@@ -42,7 +42,7 @@ class <?= $controllerClass ?> extends <?= '\\' . $generator->baseControllerClass
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return <?= $generator->var_export54($gridColumns, '        ') ?>;
 	}
 

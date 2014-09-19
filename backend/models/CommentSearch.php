@@ -11,13 +11,6 @@ use common\models\Comment;
 class CommentSearch extends Comment
 {
     
-    public function rules()
-    {
-        return [
-            [['contact_id'], 'integer'],
-			[['content'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,9 +25,7 @@ class CommentSearch extends Comment
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		$query->andFilterGoogleStyle('content', $this->content);

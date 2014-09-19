@@ -24,7 +24,7 @@ class PercentPromotionConstraintController extends \backend\components\Controlle
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "invalid_from",

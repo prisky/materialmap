@@ -24,7 +24,7 @@ class EventController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "end",
@@ -51,42 +51,18 @@ class EventController extends \backend\components\Controller
             [
                 "attribute" => "event_type_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('EventType'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->eventType) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->eventType->label, Url::toRoute([strtolower('EventType') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->eventType->label, Url::toRoute([strtolower('EventType') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('EventType', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "eventType");
 							},
                 "format" => "raw"
             ],
             [
                 "attribute" => "resource_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->resource) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->resource->label, Url::toRoute([strtolower('Resource') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->resource->label, Url::toRoute([strtolower('Resource') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "resource");
 							},
                 "format" => "raw"
             ],

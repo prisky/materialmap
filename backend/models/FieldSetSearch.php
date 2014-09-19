@@ -11,12 +11,6 @@ use common\models\FieldSet;
 class FieldSetSearch extends FieldSet
 {
     
-    public function rules()
-    {
-        return [
-            [['level'], 'string']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,11 +25,8 @@ class FieldSetSearch extends FieldSet
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterWhere(['level' => $this->level]);
 		
         return $dataProvider;
     }

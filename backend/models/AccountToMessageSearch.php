@@ -11,13 +11,6 @@ use common\models\AccountToMessage;
 class AccountToMessageSearch extends AccountToMessage
 {
     
-    public function rules()
-    {
-        return [
-            [['email_message', 'email_subject', 'sms_message'], 'safe'],
-			[['message_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,9 +25,7 @@ class AccountToMessageSearch extends AccountToMessage
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('email_message', $this->email_message);
 		$query->andFilterGoogleStyle('email_subject', $this->email_subject);

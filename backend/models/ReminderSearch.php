@@ -11,12 +11,6 @@ use common\models\Reminder;
 class ReminderSearch extends Reminder
 {
     
-    public function rules()
-    {
-        return [
-            [['hours_prior'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class ReminderSearch extends Reminder
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('hours_prior', $this->hours_prior);
 		

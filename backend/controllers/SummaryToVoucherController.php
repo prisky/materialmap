@@ -23,7 +23,7 @@ class SummaryToVoucherController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "amount",
@@ -49,21 +49,9 @@ class SummaryToVoucherController extends \backend\components\Controller
             [
                 "attribute" => "voucher_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Voucher'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->voucher) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->voucher->label, Url::toRoute([strtolower('Voucher') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->voucher->label, Url::toRoute([strtolower('Voucher') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Voucher', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "voucher");
 							},
                 "format" => "raw"
             ]

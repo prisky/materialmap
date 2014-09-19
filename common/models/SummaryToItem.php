@@ -11,6 +11,7 @@ namespace common\models;
  * @property string $field_set_id
  * @property string $item_group_id
  * @property string $item_id
+ * @property integer $level_id
  * @property string $amount
  * @property integer $quantity
  *
@@ -18,6 +19,7 @@ namespace common\models;
  * @property Item $item
  * @property Summary $summary
  * @property ItemGroup $itemGroup
+ * @property SummaryLevel $level
  */
 class SummaryToItem extends \common\components\ActiveRecord
 {
@@ -36,7 +38,7 @@ class SummaryToItem extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'summary_id', 'field_set_id', 'item_group_id', 'item_id'], 'required'],
-            [['account_id', 'summary_id', 'field_set_id', 'item_group_id', 'item_id', 'quantity'], 'integer'],
+            [['account_id', 'summary_id', 'field_set_id', 'item_group_id', 'item_id', 'level_id', 'quantity'], 'integer'],
             [['amount'], 'number']
         ];
     }
@@ -72,5 +74,13 @@ class SummaryToItem extends \common\components\ActiveRecord
     public function getItemGroup()
     {
         return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(SummaryLevel::className(), ['id' => 'level_id']);
     }
 }

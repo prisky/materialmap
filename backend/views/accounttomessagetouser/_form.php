@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="account-to-message-to-user-form">
+<div id="account-to-message-to-user-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_to_message', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AccountToMessage')],
+			['attribute' => 'account_to_message', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AccountToMessage', ['account_id' => $model->account_id])],
 			['attribute' => 'user_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 		]
 	]);	?>

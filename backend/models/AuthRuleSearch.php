@@ -11,12 +11,6 @@ use common\models\AuthRule;
 class AuthRuleSearch extends AuthRule
 {
     
-    public function rules()
-    {
-        return [
-                    ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class AuthRuleSearch extends AuthRule
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		
         return $dataProvider;

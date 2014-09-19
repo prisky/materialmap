@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="paypal-sub-category-form">
+<div id="paypal-sub-category-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'paypal_category_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PaypalCategory')],
 			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+			['attribute' => 'paypal_category_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PaypalCategory', [])],
 		]
 	]);	?>
 

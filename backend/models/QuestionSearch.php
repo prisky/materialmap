@@ -13,14 +13,6 @@ class QuestionSearch extends Question
     public $from_offer;
 	public $to_offer;
 	
-    public function rules()
-    {
-        return [
-            [['answer', 'bid_id'], 'integer'],
-			[['comment'], 'safe'],
-			[['offer'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -35,9 +27,7 @@ class QuestionSearch extends Question
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['answer' => $this->answer]);
 		$query->andFilterWhere(['bid_id' => $this->bid_id]);

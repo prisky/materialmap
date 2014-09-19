@@ -11,12 +11,6 @@ use common\models\PaypalCategory;
 class PaypalCategorySearch extends PaypalCategory
 {
     
-    public function rules()
-    {
-        return [
-            [['name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class PaypalCategorySearch extends PaypalCategory
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		

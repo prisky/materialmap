@@ -15,11 +15,7 @@ namespace common\models;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property AuthAssignment[] $authAssignments
- * @property AuthRule $ruleName
  * @property Account $account
- * @property AuthItemChild[] $authItemChildren
- * @property Model[] $models
  */
 class AuthItem extends \common\components\ActiveRecord
 {
@@ -50,40 +46,8 @@ class AuthItem extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthAssignments()
-    {
-        return $this->hasMany(AuthAssignment::className(), ['item_name' => 'name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRuleName()
-    {
-        return $this->hasOne(AuthRule::className(), ['name' => 'rule_name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthItemChildren()
-    {
-        return $this->hasMany(AuthItemChild::className(), ['child' => 'name']);
-	}
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getModels()
-    {
-        return $this->hasMany(Model::className(), ['auth_item_name' => 'name']);
     }
 }

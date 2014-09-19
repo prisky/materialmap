@@ -15,12 +15,6 @@ class PercentVoucherConstraintSearch extends PercentVoucherConstraint
 	public $from_invalid_from;
 	public $to_invalid_from;
 	
-    public function rules()
-    {
-        return [
-            [['invalaid_to', 'from_invalaid_to', 'to_invalaid_to', 'invalid_from', 'from_invalid_from', 'to_invalid_from'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -35,9 +29,7 @@ class PercentVoucherConstraintSearch extends PercentVoucherConstraint
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_invalaid_to) && $this->from_invalaid_to != '') $query->andWhere('`invalaid_to` >= :from_invalaid_to', [':from_invalaid_to' => $this->from_invalaid_to]);
 		if(!is_null($this->to_invalaid_to) && $this->to_invalaid_to != '') $query->andWhere('`invalaid_to` <= :to_invalaid_to', [':to_invalaid_to' => $this->to_invalaid_to]);

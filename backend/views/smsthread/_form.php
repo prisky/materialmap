@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="sms-thread-form">
+<div id="sms-thread-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,6 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 		]
 	]);	?>
 

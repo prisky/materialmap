@@ -15,13 +15,6 @@ class InvoiceSearch extends Invoice
 	public $from_paid;
 	public $to_paid;
 	
-    public function rules()
-    {
-        return [
-            [['account_to_user_id'], 'integer'],
-			[['invoiced', 'from_invoiced', 'to_invoiced', 'paid', 'from_paid', 'to_paid'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -36,9 +29,7 @@ class InvoiceSearch extends Invoice
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		if(!is_null($this->from_invoiced) && $this->from_invoiced != '') $query->andWhere('`invoiced` >= :from_invoiced', [':from_invoiced' => $this->from_invoiced]);

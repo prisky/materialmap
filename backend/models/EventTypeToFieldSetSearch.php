@@ -11,12 +11,6 @@ use common\models\EventTypeToFieldSet;
 class EventTypeToFieldSetSearch extends EventTypeToFieldSet
 {
     
-    public function rules()
-    {
-        return [
-            [['field_set_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class EventTypeToFieldSetSearch extends EventTypeToFieldSet
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
 		

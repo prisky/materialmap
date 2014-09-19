@@ -11,12 +11,6 @@ use common\models\SummaryToPercentPromotion;
 class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
 {
     
-    public function rules()
-    {
-        return [
-            [['percent_promotion_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
 		

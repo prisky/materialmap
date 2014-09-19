@@ -23,47 +23,23 @@ class SummaryToAccountToUserController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "account_to_user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->accountToUser) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser', ['user_id' => $searchModel->user_id, 'account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "accountToUser");
 							},
                 "format" => "raw"
             ],
             [
                 "attribute" => "invoice_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Invoice'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->invoice) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->invoice->label, Url::toRoute([strtolower('Invoice') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->invoice->label, Url::toRoute([strtolower('Invoice') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Invoice', ['account_to_user_id' => $searchModel->account_to_user_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "invoice");
 							},
                 "format" => "raw"
             ],
@@ -90,27 +66,6 @@ class SummaryToAccountToUserController extends \backend\components\Controller
                         ]
                     ]
                 ]
-            ],
-            [
-                "attribute" => "user_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->accountToUser) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->accountToUser->label, Url::toRoute([strtolower('AccountToUser') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
             ]
         ];
 	}

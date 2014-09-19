@@ -15,14 +15,6 @@ class ResellerSearch extends Reseller
 	public $from_rate;
 	public $to_rate;
 	
-    public function rules()
-    {
-        return [
-            [['child_admin'], 'boolean'],
-			[['expiry_days', 'trial_days'], 'safe'],
-			[['rate', 'from_rate', 'to_rate'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -37,9 +29,7 @@ class ResellerSearch extends Reseller
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_child_admin) && $this->from_child_admin != '') $query->andWhere('`child_admin` >= :from_child_admin', [':from_child_admin' => $this->from_child_admin]);
 		if(!is_null($this->to_child_admin) && $this->to_child_admin != '') $query->andWhere('`child_admin` <= :to_child_admin', [':to_child_admin' => $this->to_child_admin]);

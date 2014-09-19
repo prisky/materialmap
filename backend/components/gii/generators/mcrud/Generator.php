@@ -945,7 +945,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 							foreach($tableKeys as $referencing => $referenced) {
 								// ignore array index 0 as is tablename, and ignore the identifying one
 								if($referencing && $referenced != 'id') {
-									$where[] = "'$referenced'" . ' => $model->' . $referencing;
+									$where[] = "'$referenced'" . ' => $searchModel->' . $referencing;
 								}
 							}
 							$foreignKeyModelNameShort = Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_');

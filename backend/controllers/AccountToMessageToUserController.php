@@ -23,26 +23,14 @@ class AccountToMessageToUserController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "account_to_message",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToMessage'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->accountToMessage) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->accountToMessage->label, Url::toRoute([strtolower('AccountToMessage') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->accountToMessage->label, Url::toRoute([strtolower('AccountToMessage') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToMessage', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "accountToMessage");
 							},
                 "format" => "raw"
             ],

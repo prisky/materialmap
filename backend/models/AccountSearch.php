@@ -27,15 +27,6 @@ class AccountSearch extends Account
 	public $from_ticket_charge;
 	public $to_ticket_charge;
 	
-    public function rules()
-    {
-        return [
-            [['annual_charge', 'from_annual_charge', 'to_annual_charge', 'balance', 'from_balance', 'to_balance', 'booking_charge', 'from_booking_charge', 'to_booking_charge', 'rate', 'from_rate', 'to_rate', 'seat_charge', 'from_seat_charge', 'to_seat_charge', 'sms_charge', 'from_sms_charge', 'to_sms_charge', 'summary_charge', 'from_summary_charge', 'to_summary_charge', 'ticket_charge', 'from_ticket_charge', 'to_ticket_charge'], 'number'],
-			[['optimisation'], 'string'],
-			[['phone_work'], 'safe'],
-			[['user_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -50,9 +41,7 @@ class AccountSearch extends Account
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_annual_charge) && $this->from_annual_charge != '') $query->andWhere('`annual_charge` >= :from_annual_charge', [':from_annual_charge' => $this->from_annual_charge]);
 		if(!is_null($this->to_annual_charge) && $this->to_annual_charge != '') $query->andWhere('`annual_charge` <= :to_annual_charge', [':to_annual_charge' => $this->to_annual_charge]);

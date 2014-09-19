@@ -12,12 +12,14 @@ namespace common\models;
  * @property string $item_id
  * @property string $field_set_id
  * @property string $item_group_id
+ * @property integer $level_id
  * @property string $amount
  * @property integer $quantity
  *
  * @property Account $account
  * @property Item $item
  * @property Ticket $ticket
+ * @property TicketToLevel $level
  */
 class TicketToItem extends \common\components\ActiveRecord
 {
@@ -36,7 +38,7 @@ class TicketToItem extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'ticket_id', 'event_type_id', 'item_id', 'field_set_id', 'item_group_id'], 'required'],
-            [['account_id', 'ticket_id', 'event_type_id', 'item_id', 'field_set_id', 'item_group_id', 'quantity'], 'integer'],
+            [['account_id', 'ticket_id', 'event_type_id', 'item_id', 'field_set_id', 'item_group_id', 'level_id', 'quantity'], 'integer'],
             [['amount'], 'number']
         ];
     }
@@ -64,5 +66,13 @@ class TicketToItem extends \common\components\ActiveRecord
     public function getTicket()
     {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(TicketToLevel::className(), ['id' => 'level_id']);
     }
 }

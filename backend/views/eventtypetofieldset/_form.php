@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="event-type-to-field-set-form">
+<div id="event-type-to-field-set-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'field_set_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('FieldSet')],
+			['attribute' => 'field_set_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('FieldSet', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

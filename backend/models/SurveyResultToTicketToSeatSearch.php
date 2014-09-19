@@ -11,13 +11,6 @@ use common\models\SurveyResultToTicketToSeat;
 class SurveyResultToTicketToSeatSearch extends SurveyResultToTicketToSeat
 {
     
-    public function rules()
-    {
-        return [
-            [['custom_field_id', 'field_set_id', 'survey_id', 'ticket_to_seat_id'], 'integer'],
-			[['custom_value'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,14 +25,10 @@ class SurveyResultToTicketToSeatSearch extends SurveyResultToTicketToSeat
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
-		$query->andFilterWhere(['survey_id' => $this->survey_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		
         return $dataProvider;

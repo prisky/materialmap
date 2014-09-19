@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="question-form">
+<div id="question-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
+			['attribute' => 'answer', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('QuestionThread', ['account_id' => $model->account_id])],
+			['attribute' => 'bid_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Bid', ['account_id' => $model->account_id])],
 			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
-			['attribute' => 'bid_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Bid')],
-			['attribute' => 'answer', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('QuestionThread')],
 			['attribute' => 'offer', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 7]],
 		]
 	]);	?>

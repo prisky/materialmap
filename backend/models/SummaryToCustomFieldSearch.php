@@ -11,13 +11,6 @@ use common\models\SummaryToCustomField;
 class SummaryToCustomFieldSearch extends SummaryToCustomField
 {
     
-    public function rules()
-    {
-        return [
-            [['custom_field_id', 'field_set_id'], 'integer'],
-			[['custom_value'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,13 +25,9 @@ class SummaryToCustomFieldSearch extends SummaryToCustomField
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
 		
         return $dataProvider;
     }

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="summary-to-charge-form">
+<div id="summary-to-charge-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'charge_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Charge')],
+			['attribute' => 'charge_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Charge', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

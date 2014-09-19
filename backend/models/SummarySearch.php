@@ -11,12 +11,6 @@ use common\models\Summary;
 class SummarySearch extends Summary
 {
     
-    public function rules()
-    {
-        return [
-            [['contact_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class SummarySearch extends Summary
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="bid-form">
+<div id="bid-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,11 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Question')],
-			['attribute' => 'question_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Question')],
 			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'deadline', 'type' => DetailView::INPUT_DATETIME],
 			['attribute' => 'offer', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 7]],
+			['attribute' => 'question_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Question', ['account_id' => $model->account_id])],
 			['attribute' => 'updated', 'type' => DetailView::INPUT_DATETIME],
 		]
 	]);	?>

@@ -11,10 +11,12 @@ namespace common\models;
  * @property string $event_type_id
  * @property string $field_set_id
  * @property string $custom_field_id
+ * @property integer $level_id
  * @property string $custom_value
  *
  * @property Booking $booking
  * @property Account $account
+ * @property BookingLevel $level
  */
 class BookingToCustomField extends \common\components\ActiveRecord
 {
@@ -33,7 +35,7 @@ class BookingToCustomField extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'booking_id', 'event_type_id', 'field_set_id', 'custom_field_id'], 'required'],
-            [['account_id', 'booking_id', 'event_type_id', 'field_set_id', 'custom_field_id'], 'integer'],
+            [['account_id', 'booking_id', 'event_type_id', 'field_set_id', 'custom_field_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['booking_id', 'custom_field_id'], 'unique', 'targetAttribute' => ['booking_id', 'custom_field_id'], 'message' => 'The combination of Booking and Custom field has already been taken.']
         ];
@@ -54,5 +56,13 @@ class BookingToCustomField extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(BookingLevel::className(), ['id' => 'level_id']);
     }
 }

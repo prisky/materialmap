@@ -23,7 +23,7 @@ class TownCityController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "name"
@@ -31,21 +31,9 @@ class TownCityController extends \backend\components\Controller
             [
                 "attribute" => "state_province_region",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('StateProvinceRegion'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->stateProvinceRegion) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->stateProvinceRegion->label, Url::toRoute([strtolower('StateProvinceRegion') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->stateProvinceRegion->label, Url::toRoute([strtolower('StateProvinceRegion') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('StateProvinceRegion', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "stateProvinceRegion");
 							},
                 "format" => "raw"
             ]

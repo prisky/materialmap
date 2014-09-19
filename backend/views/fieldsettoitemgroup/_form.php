@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="field-set-to-item-group-form">
+<div id="field-set-to-item-group-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'item_group_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ItemGroup')],
+			['attribute' => 'item_group_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ItemGroup', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

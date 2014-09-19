@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="summary-to-promotion-form">
+<div id="summary-to-promotion-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
-			['attribute' => 'promotion_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Promotion')],
+			['attribute' => 'promotion_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Promotion', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="coupon-form">
+<div id="coupon-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,10 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'reseller_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Reseller')],
-			['attribute' => 'uniqueid', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 13]],
 			['attribute' => 'expiry', 'type' => DetailView::INPUT_DATETIME],
+			['attribute' => 'reseller_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Reseller', ['account_id' => $model->account_id])],
+			['attribute' => 'uniqueid', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 13]],
 		]
 	]);	?>
 

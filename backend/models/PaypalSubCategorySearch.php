@@ -11,13 +11,6 @@ use common\models\PaypalSubCategory;
 class PaypalSubCategorySearch extends PaypalSubCategory
 {
     
-    public function rules()
-    {
-        return [
-            [['name'], 'safe'],
-			[['paypal_category_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,9 +25,7 @@ class PaypalSubCategorySearch extends PaypalSubCategory
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterWhere(['paypal_category_id' => $this->paypal_category_id]);

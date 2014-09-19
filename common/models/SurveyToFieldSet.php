@@ -9,11 +9,13 @@ namespace common\models;
  * @property string $account_id
  * @property string $survey_id
  * @property string $field_set_id
+ * @property integer $level_id
  * @property integer $deleted
  *
  * @property Survey $survey
  * @property FieldSet $fieldSet
  * @property Account $account
+ * @property Level $level
  */
 class SurveyToFieldSet extends \common\components\ActiveRecord
 {
@@ -31,8 +33,8 @@ class SurveyToFieldSet extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'survey_id', 'field_set_id'], 'required'],
-            [['account_id', 'survey_id', 'field_set_id'], 'integer'],
+            [['account_id', 'survey_id', 'field_set_id', 'level_id'], 'required'],
+            [['account_id', 'survey_id', 'field_set_id', 'level_id'], 'integer'],
             [['survey_id', 'field_set_id', 'account_id'], 'unique', 'targetAttribute' => ['survey_id', 'field_set_id', 'account_id'], 'message' => 'The combination of Account, Survey and Field set has already been taken.']
         ];
     }
@@ -60,5 +62,13 @@ class SurveyToFieldSet extends \common\components\ActiveRecord
     public function getAccount()
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(Level::className(), ['id' => 'level_id']);
     }
 }

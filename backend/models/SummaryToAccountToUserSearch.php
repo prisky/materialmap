@@ -13,13 +13,6 @@ class SummaryToAccountToUserSearch extends SummaryToAccountToUser
     public $from_rate;
 	public $to_rate;
 	
-    public function rules()
-    {
-        return [
-            [['account_to_user_id', 'invoice_id', 'user_id'], 'integer'],
-			[['rate', 'from_rate', 'to_rate'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,15 +27,12 @@ class SummaryToAccountToUserSearch extends SummaryToAccountToUser
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		$query->andFilterWhere(['invoice_id' => $this->invoice_id]);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
 		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
-		$query->andFilterWhere(['user_id' => $this->user_id]);
 		
         return $dataProvider;
     }

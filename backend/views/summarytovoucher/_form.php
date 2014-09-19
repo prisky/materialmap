@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="summary-to-voucher-form">
+<div id="summary-to-voucher-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
-			['attribute' => 'voucher_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Voucher')],
 			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
+			['attribute' => 'voucher_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Voucher', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

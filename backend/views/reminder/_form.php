@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="reminder-form">
+<div id="reminder-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

@@ -11,12 +11,6 @@ use common\models\TicketToSeatToCharge;
 class TicketToSeatToChargeSearch extends TicketToSeatToCharge
 {
     
-    public function rules()
-    {
-        return [
-            [['charge_id', 'ticket_to_seat_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class TicketToSeatToChargeSearch extends TicketToSeatToCharge
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);

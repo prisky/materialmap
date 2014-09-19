@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="account-to-affiliate-category-form">
+<div id="account-to-affiliate-category-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'affiliate_category_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AffiliateCategory')],
+			['attribute' => 'affiliate_category_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AffiliateCategory', ['account_id' => $model->account_id])],
 			['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],
 		]
 	]);	?>

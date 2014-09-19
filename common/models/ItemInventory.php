@@ -12,7 +12,6 @@ namespace common\models;
  * @property string $received
  *
  * @property Item $item
- * @property Account $account
  */
 class ItemInventory extends \common\components\ActiveRecord
 {
@@ -43,13 +42,5 @@ class ItemInventory extends \common\components\ActiveRecord
     public function getItem()
     {
         return $this->hasOne(Item::className(), ['id' => 'item_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 }

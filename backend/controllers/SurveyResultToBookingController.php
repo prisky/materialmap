@@ -17,100 +17,34 @@ class SurveyResultToBookingController extends \backend\components\Controller
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-
+        "booking_id" => "#"
     ];
 
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "booking_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Booking'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->booking) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->booking->label, Url::toRoute([strtolower('Booking') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->booking->label, Url::toRoute([strtolower('Booking') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_booking_id",
+                    "attribute2" => "to_booking_id"
+                ]
             ],
             [
                 "attribute" => "custom_field_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('FieldSetToCustomField'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->fieldSetToCustomField) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->fieldSetToCustomField->label, Url::toRoute([strtolower('FieldSetToCustomField') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->fieldSetToCustomField->label, Url::toRoute([strtolower('FieldSetToCustomField') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('CustomField', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "customField");
 							},
                 "format" => "raw"
             ],
             [
                 "attribute" => "custom_value"
-            ],
-            [
-                "attribute" => "field_set_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('SurveyToFieldSet'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->surveyToFieldSet) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->surveyToFieldSet->label, Url::toRoute([strtolower('SurveyToFieldSet') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->surveyToFieldSet->label, Url::toRoute([strtolower('SurveyToFieldSet') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
-            ],
-            [
-                "attribute" => "survey_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('SurveyToFieldSet'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->surveyToFieldSet) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->surveyToFieldSet->label, Url::toRoute([strtolower('SurveyToFieldSet') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->surveyToFieldSet->label, Url::toRoute([strtolower('SurveyToFieldSet') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
             ]
         ];
 	}

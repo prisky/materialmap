@@ -10,14 +10,9 @@ use common\models\SurveyResultToBooking;
  */
 class SurveyResultToBookingSearch extends SurveyResultToBooking
 {
-    
-    public function rules()
-    {
-        return [
-            [['booking_id', 'custom_field_id', 'field_set_id', 'survey_id'], 'integer'],
-			[['custom_value'], 'safe']        ];
-    }
-
+    public $from_booking_id;
+	public $to_booking_id;
+	
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,15 +27,12 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterWhere(['booking_id' => $this->booking_id]);
+		if(!is_null($this->from_booking_id) && $this->from_booking_id != '') $query->andWhere('`booking_id` >= :from_booking_id', [':from_booking_id' => $this->from_booking_id]);
+		if(!is_null($this->to_booking_id) && $this->to_booking_id != '') $query->andWhere('`booking_id` <= :to_booking_id', [':to_booking_id' => $this->to_booking_id]);
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
-		$query->andFilterWhere(['survey_id' => $this->survey_id]);
 		
         return $dataProvider;
     }

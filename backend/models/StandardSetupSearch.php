@@ -11,12 +11,6 @@ use common\models\StandardSetup;
 class StandardSetupSearch extends StandardSetup
 {
     
-    public function rules()
-    {
-        return [
-            [['reseller_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class StandardSetupSearch extends StandardSetup
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);
 		

@@ -14,7 +14,6 @@ namespace common\models;
  *
  * @property BookingToItem[] $bookingToItems
  * @property ItemGroup $itemGroup
- * @property Account $account
  * @property ItemInventory[] $itemInventories
  * @property SummaryToItem[] $summaryToItems
  * @property TicketToItem[] $ticketToItems
@@ -59,14 +58,6 @@ class Item extends \common\components\ActiveRecord
     public function getItemGroup()
     {
         return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
     /**

@@ -13,13 +13,6 @@ class ItemInventorySearch extends ItemInventory
     public $from_received;
 	public $to_received;
 	
-    public function rules()
-    {
-        return [
-            [['quantity'], 'safe'],
-			[['received', 'from_received', 'to_received'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class ItemInventorySearch extends ItemInventory
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('quantity', $this->quantity);
 		if(!is_null($this->from_received) && $this->from_received != '') $query->andWhere('`received` >= :from_received', [':from_received' => $this->from_received]);

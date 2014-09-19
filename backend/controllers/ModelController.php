@@ -23,11 +23,8 @@ class ModelController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
-            [
-                "attribute" => "auth_item_name"
-            ],
             [
                 "attribute" => "help"
             ],

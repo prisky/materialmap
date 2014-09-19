@@ -11,12 +11,6 @@ use common\models\MessageQueue;
 class MessageQueueSearch extends MessageQueue
 {
     
-    public function rules()
-    {
-        return [
-                    ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class MessageQueueSearch extends MessageQueue
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		
         return $dataProvider;

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="custom-field-form">
+<div id="custom-field-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,19 +17,18 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
-			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'validation_type', 'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'options' => ['prompt' => ''],
-				'items' => [ "None" => "None", "PCRE" => "PCRE", "Range" => "Range", "Value list" => "Value list" ]],
+			['attribute' => 'allow_new', 'type' => DetailView::INPUT_SWITCH],
+			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 			['attribute' => 'data_type', 'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],
 				'items' => [ "Date" => "Date", "Float" => "Float", "Int" => "Int", "Text" => "Text", "Time" => "Time" ]],
-			['attribute' => 'allow_new', 'type' => DetailView::INPUT_SWITCH],
+			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'mandatory', 'type' => DetailView::INPUT_SWITCH],
-			['attribute' => 'validation_text', 'type' => DetailView::INPUT_TEXTAREA],
 			['attribute' => 'validation_error', 'type' => DetailView::INPUT_TEXTAREA],
-			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+			['attribute' => 'validation_text', 'type' => DetailView::INPUT_TEXTAREA],
+			['attribute' => 'validation_type', 'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'options' => ['prompt' => ''],
+				'items' => [ "None" => "None", "PCRE" => "PCRE", "Range" => "Range", "Value list" => "Value list" ]],
 		]
 	]);	?>
 

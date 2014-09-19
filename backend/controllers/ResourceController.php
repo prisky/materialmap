@@ -23,31 +23,10 @@ class ResourceController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "name"
-            ],
-            [
-                "attribute" => "resource_type_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('ResourceType'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->resourceType) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->resourceType->label, Url::toRoute([strtolower('ResourceType') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->resourceType->label, Url::toRoute([strtolower('ResourceType') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
-							},
-                "format" => "raw"
             ]
         ];
 	}

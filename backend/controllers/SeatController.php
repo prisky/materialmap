@@ -26,7 +26,7 @@ class SeatController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "level",
@@ -52,21 +52,9 @@ class SeatController extends \backend\components\Controller
             [
                 "attribute" => "resource_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->resource) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->resource->label, Url::toRoute([strtolower('Resource') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->resource->label, Url::toRoute([strtolower('Resource') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "resource");
 							},
                 "format" => "raw"
             ],

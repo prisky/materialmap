@@ -13,12 +13,6 @@ class ResourceTypeToMessageToUserSearch extends ResourceTypeToMessageToUser
     public $from_user_id;
 	public $to_user_id;
 	
-    public function rules()
-    {
-        return [
-            [['user_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -33,9 +27,7 @@ class ResourceTypeToMessageToUserSearch extends ResourceTypeToMessageToUser
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);
 		if(!is_null($this->to_user_id) && $this->to_user_id != '') $query->andWhere('`user_id` <= :to_user_id', [':to_user_id' => $this->to_user_id]);

@@ -15,12 +15,6 @@ class VoucherConstraintSearch extends VoucherConstraint
 	public $from_invalid_to;
 	public $to_invalid_to;
 	
-    public function rules()
-    {
-        return [
-            [['invalid_from', 'from_invalid_from', 'to_invalid_from', 'invalid_to', 'from_invalid_to', 'to_invalid_to'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -35,9 +29,7 @@ class VoucherConstraintSearch extends VoucherConstraint
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_invalid_from) && $this->from_invalid_from != '') $query->andWhere('`invalid_from` >= :from_invalid_from', [':from_invalid_from' => $this->from_invalid_from]);
 		if(!is_null($this->to_invalid_from) && $this->to_invalid_from != '') $query->andWhere('`invalid_from` <= :to_invalid_from', [':to_invalid_from' => $this->to_invalid_from]);

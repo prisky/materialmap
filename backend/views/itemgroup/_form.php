@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="item-group-form">
+<div id="item-group-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

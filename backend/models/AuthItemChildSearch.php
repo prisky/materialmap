@@ -11,12 +11,6 @@ use common\models\AuthItemChild;
 class AuthItemChildSearch extends AuthItemChild
 {
     
-    public function rules()
-    {
-        return [
-            [['child'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,11 +25,8 @@ class AuthItemChildSearch extends AuthItemChild
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterGoogleStyle('child', $this->child);
 		
         return $dataProvider;
     }

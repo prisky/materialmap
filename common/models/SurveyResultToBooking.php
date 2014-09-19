@@ -11,11 +11,12 @@ namespace common\models;
  * @property string $survey_id
  * @property string $custom_field_id
  * @property string $field_set_id
+ * @property integer $level_id
  * @property string $custom_value
  *
- * @property Booking $booking
  * @property Account $account
  * @property CustomField $customField
+ * @property BookingLevel $level
  */
 class SurveyResultToBooking extends \common\components\ActiveRecord
 {
@@ -34,20 +35,12 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     {
         return [
             [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'required'],
-            [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id'], 'integer'],
+            [['account_id', 'booking_id', 'survey_id', 'custom_field_id', 'field_set_id', 'level_id'], 'integer'],
             [['custom_value'], 'string', 'max' => 255],
             [['survey_id', 'booking_id'], 'unique', 'targetAttribute' => ['survey_id', 'booking_id'], 'message' => 'The combination of Booking and Survey has already been taken.']
         ];
     }
 
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBooking()
-    {
-        return $this->hasOne(Booking::className(), ['id' => 'booking_id']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -63,5 +56,13 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     public function getCustomField()
     {
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLevel()
+    {
+        return $this->hasOne(BookingLevel::className(), ['id' => 'level_id']);
     }
 }

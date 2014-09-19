@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="seat-type-form">
+<div id="seat-type-form">
 
     <?= DetailView::widget([
 		'model'=>$model,

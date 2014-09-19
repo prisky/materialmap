@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="message-to-message-field-form">
+<div id="message-to-message-field-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'message_field_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('MessageField')],
+			['attribute' => 'message_field_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('MessageField', [])],
 		]
 	]);	?>
 

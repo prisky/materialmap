@@ -11,12 +11,6 @@ use common\models\StateProvinceRegion;
 class StateProvinceRegionSearch extends StateProvinceRegion
 {
     
-    public function rules()
-    {
-        return [
-            [['country_id', 'name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class StateProvinceRegionSearch extends StateProvinceRegion
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('country_id', $this->country_id);
 		$query->andFilterGoogleStyle('name', $this->name);

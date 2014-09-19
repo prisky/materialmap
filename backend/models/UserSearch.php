@@ -11,13 +11,6 @@ use common\models\User;
 class UserSearch extends User
 {
     
-    public function rules()
-    {
-        return [
-            [['auth_key'], 'safe'],
-			[['contact_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,9 +25,7 @@ class UserSearch extends User
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('auth_key', $this->auth_key);
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);

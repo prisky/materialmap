@@ -17,14 +17,6 @@ class BidSearch extends Bid
 	public $from_updated;
 	public $to_updated;
 	
-    public function rules()
-    {
-        return [
-            [['comment'], 'safe'],
-			[['deadline', 'from_deadline', 'to_deadline', 'offer', 'updated', 'from_updated', 'to_updated'], 'number'],
-			[['question_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -39,9 +31,7 @@ class BidSearch extends Bid
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('comment', $this->comment);
 		if(!is_null($this->from_deadline) && $this->from_deadline != '') $query->andWhere('`deadline` >= :from_deadline', [':from_deadline' => $this->from_deadline]);

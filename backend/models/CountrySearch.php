@@ -11,12 +11,6 @@ use common\models\Country;
 class CountrySearch extends Country
 {
     
-    public function rules()
-    {
-        return [
-            [['code', 'currency_code', 'currency_symbol', 'name', 'phone_prefix', 'tax_name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class CountrySearch extends Country
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('code', $this->code);
 		$query->andFilterGoogleStyle('currency_code', $this->currency_code);

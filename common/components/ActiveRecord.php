@@ -120,7 +120,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 * @param string $references the name name of the model that the foreign key references.
 	 * @return string the foreign key attribute name within this model that references another model
 	 */
-	public static function getParentForeignKeyName($references = NULL)
+	public static function parentAttribute($references = NULL)
 	{
 		if($references == NULL) {
 			$references = static::parentName();
@@ -133,11 +133,27 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 				FROM information_schema.KEY_COLUMN_USAGE
 				WHERE TABLE_SCHEMA = :schemaName
 				AND TABLE_NAME = :tableName
-				AND REFERENCED_TABLE_NAME = :referencedTableName', [
+				AND REFERENCED_TABLE_NAME = :referencedTableName
+				AND REFERENCED_COLUMN_NAME = :referencedColumnName', [
 					':schemaName' => Yii::$app->params['defaultSchema'],
 					':tableName' => static::tableName(),
 					':referencedTableName' => $referencedModelName::tableName(),
+					':referencedColumnName' =>'id',
 				])->queryScalar();
+		}
+	}
+	
+	/**
+	 * Derive the parent model using our navigation structure
+	 * @return mixed ActiveRecord The parent of this model or null if there is no parent
+	 */
+	public function getParentModel()
+	{
+		if($parentNameShort = static::parentName()) {
+			$parentModelName = "\\common\\models\\$parentNameShort";
+			$parentAttribute = static::parentAttribute();
+
+			return $parentModelName::findOne($this->$parentAttribute);
 		}
 	}
 	
@@ -203,6 +219,9 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		if($primaryKey) {
 			$modelName = static::modelName();
 			$model = $modelName::find()->where([static::tableName() . '.id' => $primaryKey])->displayAttributes()->one();
+if(!$model) {
+	$t = 1;
+}
 			$label = $model->text;
 		}
 		// otherwise if not cached
@@ -546,23 +565,6 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	}
 	
 	/**
-	 * @inheritdoc. Filter out foreign key attributes that are only for the purpose of enforcing referencial integrity in the database. Remove also
-	 * the parent attribute and account_id. This removes unnessary fields in admin and form that would have otherwise been added by generator.
-	 * @return array The save attributes
-	 */
-	public function safeAttributes()
-	{
-		static $safeAttributes = [];	// cache
-
-		if(!isset($safeAttributes[$this->modelNameShort])) {
-			// use the parent safe attributes as a starting point and then remove non display attributes
-			$safeAttributes[$this->modelNameShort] = static::removeNonDisplayAttributes(parent::safeAttributes());
-		}
-	
-		return $safeAttributes[$this->modelNameShort];
-	}
-	
-	/**
 	 * Remove any non identifying attributes (i.e. if none of the foreign keys using the attribute point at an id column in the
 	 * referenced table). Basically used out attributes that have a sole purpose of enforcing referencial integrity.
 	 * @param array $attributes
@@ -604,7 +606,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 */
 	public static function removeNonDisplayAttributes($attributes) {
 		// in addition we dont want the following - just to be sure
-		foreach(['id', 'deleted', 'created', 'account_id', 'account_id', 'level_id', static::getParentForeignKeyName()] as $attribute) {
+		foreach(['id', 'deleted', 'created', 'account_id', 'account_id', 'level_id', static::parentAttribute()] as $attribute) {
 			if(($key = array_search($attribute, $attributes)) !== false) {
 				unset($attributes[$key]);
 			}

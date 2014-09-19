@@ -23,7 +23,7 @@ class ResourceTypeToMessageToUserController extends \backend\components\Controll
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "user_id",

@@ -13,13 +13,6 @@ class AccountToAffiliateCategorySearch extends AccountToAffiliateCategory
     public $from_rate;
 	public $to_rate;
 	
-    public function rules()
-    {
-        return [
-            [['affiliate_category_id'], 'integer'],
-			[['rate', 'from_rate', 'to_rate'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class AccountToAffiliateCategorySearch extends AccountToAffiliateCategory
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['affiliate_category_id' => $this->affiliate_category_id]);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);

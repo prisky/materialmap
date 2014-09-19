@@ -13,13 +13,6 @@ class AuthAssignmentSearch extends AuthAssignment
     public $from_created_at;
 	public $to_created_at;
 	
-    public function rules()
-    {
-        return [
-            [['created_at', 'user_id'], 'integer'],
-			[['item_name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,13 +27,10 @@ class AuthAssignmentSearch extends AuthAssignment
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
 		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
-		$query->andFilterGoogleStyle('item_name', $this->item_name);
 		$query->andFilterWhere(['user_id' => $this->user_id]);
 		
         return $dataProvider;

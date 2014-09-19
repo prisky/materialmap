@@ -13,13 +13,6 @@ class NewsletterSearch extends Newsletter
     public $from_sent;
 	public $to_sent;
 	
-    public function rules()
-    {
-        return [
-            [['content', 'subject'], 'safe'],
-			[['sent', 'from_sent', 'to_sent'], 'number']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -34,9 +27,7 @@ class NewsletterSearch extends Newsletter
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('content', $this->content);
 		if(!is_null($this->from_sent) && $this->from_sent != '') $query->andWhere('`sent` >= :from_sent', [':from_sent' => $this->from_sent]);

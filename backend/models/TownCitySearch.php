@@ -11,13 +11,6 @@ use common\models\TownCity;
 class TownCitySearch extends TownCity
 {
     
-    public function rules()
-    {
-        return [
-            [['name'], 'safe'],
-			[['state_province_region'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,9 +25,7 @@ class TownCitySearch extends TownCity
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterWhere(['state_province_region' => $this->state_province_region]);

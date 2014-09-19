@@ -17,14 +17,6 @@ class AuthItemSearch extends AuthItem
 	public $from_updated_at;
 	public $to_updated_at;
 	
-    public function rules()
-    {
-        return [
-            [['created_at', 'from_created_at', 'to_created_at', 'updated_at', 'from_updated_at', 'to_updated_at'], 'number'],
-			[['data', 'description', 'name', 'rule_name'], 'safe'],
-			[['type'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -39,9 +31,7 @@ class AuthItemSearch extends AuthItem
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
 		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);

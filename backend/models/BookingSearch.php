@@ -11,13 +11,6 @@ use common\models\Booking;
 class BookingSearch extends Booking
 {
     
-    public function rules()
-    {
-        return [
-            [['event_type_id', 'summary_id'], 'integer'],
-			[['status'], 'string']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,11 +25,8 @@ class BookingSearch extends Booking
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterWhere(['event_type_id' => $this->event_type_id]);
 		$query->andFilterWhere(['status' => $this->status]);
 		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		

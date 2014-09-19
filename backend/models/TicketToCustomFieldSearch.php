@@ -11,13 +11,6 @@ use common\models\TicketToCustomField;
 class TicketToCustomFieldSearch extends TicketToCustomField
 {
     
-    public function rules()
-    {
-        return [
-            [['custom_field_id', 'event_type_id', 'field_set_id'], 'integer'],
-			[['custom_value'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -32,14 +25,9 @@ class TicketToCustomFieldSearch extends TicketToCustomField
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		$query->andFilterWhere(['event_type_id' => $this->event_type_id]);
-		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
 		
         return $dataProvider;
     }

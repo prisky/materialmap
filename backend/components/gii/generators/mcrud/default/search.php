@@ -39,13 +39,6 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 		echo "public $$searchAttribute;\n\t";
 	} ?>
 
-    public function rules()
-    {
-        return [
-            <?= implode(",\n\t\t\t", $searchRules) ?>
-        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -60,9 +53,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		<?php foreach($searchConditions as $searchCondition) {
 			echo "$searchCondition;\n\t\t";

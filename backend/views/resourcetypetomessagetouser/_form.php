@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="resource-type-to-message-to-user-form">
+<div id="resource-type-to-message-to-user-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,6 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ResourceTypeToMessage')],
 			['attribute' => 'user_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 		]
 	]);	?>

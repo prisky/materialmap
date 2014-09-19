@@ -3,7 +3,7 @@
 namespace backend\components;
 
 use Yii;
-use yii\web\NotFoundHttpException;
+use yii\web\NotFouactioncndHttpException;
 use yii\filters\VerbFilter;
 use common\models\Model;
 use yii\web\JsExpression;
@@ -38,8 +38,10 @@ abstract class Controller extends \common\components\Controller
 	/**
 	 * Build array of grid columns for  use in grid view
 	 * return array grid columns
+	 * @param ActiveRecord $searchModel Model with attributes sit to get paramters from if necassary
+	 * @return type
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [];
 	}
 	
@@ -113,7 +115,7 @@ abstract class Controller extends \common\components\Controller
 		$searchModel = new $this->modelNameSearch;
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->getPagination()->pageSize = 10;
-		$gridColumns = $this->gridColumns;
+		$gridColumns = $this->gridColumns($searchModel);
 
 		if(Yii::$app->user->can($this->modelNameShort)) {
 			array_unshift($gridColumns, ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}']);
@@ -161,16 +163,18 @@ abstract class Controller extends \common\components\Controller
 	public function actionCreate()
 	{
 		$model = new $this->modelName;
-
+		$modelNameShort = $this->modelNameShort;
+		
+		$model->load(Yii::$app->request->get());
 		if($model->load(Yii::$app->request->post()) && $model->save())
 		{
 			// if this model ia leaf node in navigation
 			if($this->isLeaf()) {
 				// go to the admin view of this node
 				$fullModelName = $this->modelName;
-				$parentForeignKeyName = $fullModelName::getParentForeignKeyName();
-				$parentForeignKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
-				return $this->redirect(['index', $parentForeignKeyName => $parentForeignKey]);
+				$parentAttribute = $fullModelName::parentAttribute();
+				$parentForeignKey = isset($_GET[$parentAttribute]) ? $_GET[$parentAttribute] : NULL;
+				return $this->redirect(['index', $parentAttribute => $parentForeignKey]);
 			}
 			else {
 				// go to the update view
@@ -200,8 +204,8 @@ abstract class Controller extends \common\components\Controller
 			// redirect back to parent admin view
 			$params[] = 'index';
 			$fullModelName = $this->modelName;
-			if($parentForeignKeyName = $fullModelName::getParentForeignKeyName()) {
-				$params[$parentForeignKeyName] = $model->$parentForeignKeyName;
+			if($parentAttribute = $fullModelName::parentAttribute()) {
+				$params[$parentAttribute] = $model->$parentAttribute;
 			}
 			
 			return $this->redirect($params);
@@ -237,8 +241,9 @@ abstract class Controller extends \common\components\Controller
 		if(isset($queryParams['page'])) {
 			unset($queryParams['page']);
 		}
-
-		$columns = $this->gridColumns;
+		$dataProvider = $searchModel->search($queryParams);
+		$dataProvider->pagination = false;
+		$columns = $this->gridColumns($searchModel);
 		$objPHPExcel = new \PHPExcel();
 		$activeSheet = $objPHPExcel->setActiveSheetIndex(0);
 		$modelName = $this->modelName;
@@ -259,8 +264,6 @@ abstract class Controller extends \common\components\Controller
 		}
 
 		// data
-		$dataProvider = $searchModel->search($queryParams);
-		$dataProvider->pagination = false;
 		$row = 2;
 		foreach($dataProvider->models as $model) {
 			$col = 0;
@@ -467,9 +470,9 @@ abstract class Controller extends \common\components\Controller
 		$fullModelName = $this->modelName;
 	
 		// if not a root node in navigation
-		if($parentForeignKeyName = $fullModelName::getParentForeignKeyName()) {
-			$parentForeignKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
-			return [$parentForeignKeyName => $parentForeignKey];
+		if($parentAttribute = $fullModelName::parentAttribute()) {
+			$parentForeignKey = isset($_GET[$parentAttribute]) ? $_GET[$parentAttribute] : NULL;
+			return [$parentAttribute => $parentForeignKey];
 		}
 		
 		return [];
@@ -514,59 +517,54 @@ abstract class Controller extends \common\components\Controller
 	 */
 	public function getBreadCrumbs($home = false)
 	{
-		// Model extends ClosureTableActiveRecord
-		$model = Model::findOne(['auth_item_name' => $this->modelNameShort]);
-		$models = Model::find()
-			->select([$model->tableName() . '.id', 'auth_item_name'])
-			->pathOf($model->id)
-			->asArray()
-			->all();
+		$breadcrumbs = [];
+
+		// get the model name associated with this controller
+		$modelName = $this->modelName;
+		$updateModel = $adminModel = null;
 
 		// Need to find a starting place
-		// If update/view then use id 
 		if(!empty($_GET['id'])) {
-			$primaryKey = $_GET['id'];
+			$updateModel = $modelName::findOne($_GET['id']);
 		}
-		//otherwise gridview so find foreign key to parent if not top level
 		else {
-			$fullModelName = $this->modelName;
-			$parentForeignKeyName = $fullModelName::getParentForeignKeyName();
-			$parentKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
+			$adminControllerName = strtolower($this->modelNameShort);
+			// if the model has a parent in our navigation structure
+			if($parentAttribute = $modelName::parentAttribute()) {
+				$updateModelName = '\\common\\models\\' . $modelName::parentName();
+				$updateModel = $updateModelName::findOne($_GET[$parentAttribute]);
+				$breadcrumbs[] = ['label' => $this->labelPlural(), 'url' => Yii::$app->request->absoluteUrl];
+			}
+			// otherwise no parent
+			else {
+				// top level
+				$breadcrumbs[] = ['label' => $this->labelPlural(), 'url' => ["/$adminControllerName"]];
+			}
 		}
 
-		// reverse the order of the models so working from end backwards
-		$models = array_reverse($models);
-
-		// create the breadcrumbs
-		$breadcrumbs = [];
-		foreach($models as $key => $model) {
-			$modelName = "\\common\models\\" . $model['auth_item_name'];
-			$controller = strtolower($model['auth_item_name']);
-
+		// create the breadcrumbs - starting from the end and working towards the root
+		while($updateModel || $adminModel) {
 			// update or view link
-			if(isset($primaryKey)) {
-				$params = ['id' => $primaryKey];
-				$breadcrumbs[] = ['label' => $modelName::label($primaryKey), 'url' => ["$controller/update"] + $params];
+			if(isset($updateModel)) {
+				$updateControllerName = strtolower($updateModel->modelNameShort);
+				$breadcrumbs[] = ['label' => $updateModel->label, 'url' => ["$updateControllerName/update", 'id' => $updateModel->id]];
+				// setup model for next item back towards root which will be a grid view page
+				$adminModel = $updateModel;
 			}
 
-			// grid view link
-			if(isset($parentKey)) {
-				$primaryKey = $parentKey;
-			}
-			$params = empty($parentForeignKeyName) ? [] : [$parentForeignKeyName => $parentKey];
-			$breadcrumbs[] = ['label' => $modelName::labelPlural(), 'url' => ["/$controller"] + $params];
-			
-			// Prepare for next iteration. Primary key should be set to the foreign key in this models parent to the grandparent
-			if(sizeof($models) > $key + 2) {
-				$parentModel = $models[$key + 1];
-				$parentModelName = "\\common\models\\" . $parentModel['auth_item_name'];
-				$grandparentForeignKeyName = $parentModelName::getParentForeignKeyName();
-				$parentKey = $parentModelName::findOne($parentKey)->$grandparentForeignKeyName;
-			}
+			// grid view link - there is always one of these above every update link - and if maybe one at end if no update linke
+			$adminControllerName = strtolower($adminModel->modelNameShort);
+			$parentAttribute = $adminModel::parentAttribute();
+			$params = empty($parentAttribute) ? [] : [$parentAttribute => $adminModel->$parentAttribute];
+			$breadcrumbs[] = ['label' => $adminModel->labelPlural(), 'url' => ["/$adminControllerName"] + $params];
+			// setup model for next item back towards root which will be an update or view page
+			$updateModel = $adminModel->parentModel;
+			$adminModel = null;
 		}
 
-		// reverse the order of the breadcrumbs so working in correct order
+		// add home link
 		$breadcrumbs[] = ['label' => Yii::t('app', 'Home'), 'url' => ["site/index"]];
+		// reverse the order of the breadcrumbs so working in correct order
 		$breadcrumbs = array_reverse($breadcrumbs);
 
 		// remove the link from the last item so just label - this is the active page
@@ -618,9 +616,9 @@ abstract class Controller extends \common\components\Controller
 				->asArray()
 				->all();
 			$fullModelName = $this->modelName;
-			$parentForeignKeyName = $fullModelName::getParentForeignKeyName();
+			$parentAttribute = $fullModelName::parentAttribute();
 			// all tabs will need this value for a parameter
-			$primaryKey = isset($_GET[$parentForeignKeyName]) ? $_GET[$parentForeignKeyName] : NULL;
+			$primaryKey = isset($_GET[$parentAttribute]) ? $_GET[$parentAttribute] : NULL;
 		}
 
 		// create the tabs
@@ -638,9 +636,9 @@ abstract class Controller extends \common\components\Controller
 			$url = ["/$controller"];
 			
 			// get the foreign key in this to the parent
-			$parentForeignKeyName = $modelName::getParentForeignKeyName();
+			$parentAttribute = $modelName::parentAttribute();
 
-			$url[$parentForeignKeyName] = $primaryKey;
+			$url[$parentAttribute] = $primaryKey;
 			
 			// is this the active tab
 			$active = ($modelNameShort == $this->modelNameShort);

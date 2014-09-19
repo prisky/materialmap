@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="booking-form">
+<div id="booking-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,12 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
-			['attribute' => 'event_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Event')],
-			['attribute' => 'summary_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary')],
 			['attribute' => 'status', 'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'options' => ['prompt' => ''],
 				'items' => [ "processing" => "Processing", "booked" => "Booked", "canceled" => "Canceled", "wait_listed" => "Wait listed" ]],
+			['attribute' => 'summary_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Summary', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

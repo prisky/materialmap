@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="town-city-form">
+<div id="town-city-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -18,7 +18,7 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'attributes'=>[
 			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'state_province_region', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('StateProvinceRegion')],
+			['attribute' => 'state_province_region', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('StateProvinceRegion', [])],
 		]
 	]);	?>
 

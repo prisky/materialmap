@@ -11,12 +11,6 @@ use common\models\Model;
 class ModelSearch extends Model
 {
     
-    public function rules()
-    {
-        return [
-            [['auth_item_name', 'help', 'label', 'label_plural'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,11 +25,8 @@ class ModelSearch extends Model
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
-		$query->andFilterGoogleStyle('auth_item_name', $this->auth_item_name);
 		$query->andFilterGoogleStyle('help', $this->help);
 		$query->andFilterGoogleStyle('label', $this->label);
 		$query->andFilterGoogleStyle('label_plural', $this->label_plural);

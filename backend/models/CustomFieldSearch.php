@@ -15,14 +15,6 @@ class CustomFieldSearch extends CustomField
 	public $from_mandatory;
 	public $to_mandatory;
 	
-    public function rules()
-    {
-        return [
-            [['allow_new', 'mandatory'], 'boolean'],
-			[['comment', 'label', 'validation_error', 'validation_text'], 'safe'],
-			[['data_type', 'validation_type'], 'string']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -37,9 +29,7 @@ class CustomFieldSearch extends CustomField
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_allow_new) && $this->from_allow_new != '') $query->andWhere('`allow_new` >= :from_allow_new', [':from_allow_new' => $this->from_allow_new]);
 		if(!is_null($this->to_allow_new) && $this->to_allow_new != '') $query->andWhere('`allow_new` <= :to_allow_new', [':to_allow_new' => $this->to_allow_new]);

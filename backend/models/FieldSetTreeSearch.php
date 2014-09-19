@@ -13,12 +13,6 @@ class FieldSetTreeSearch extends FieldSetTree
     public $from_depth;
 	public $to_depth;
 	
-    public function rules()
-    {
-        return [
-            [['child_id', 'depth'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -33,9 +27,7 @@ class FieldSetTreeSearch extends FieldSetTree
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['child_id' => $this->child_id]);
 		if(!is_null($this->from_depth) && $this->from_depth != '') $query->andWhere('`depth` >= :from_depth', [':from_depth' => $this->from_depth]);

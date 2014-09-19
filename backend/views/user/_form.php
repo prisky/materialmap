@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="user-form">
+<div id="user-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact')],
 			['attribute' => 'auth_key', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 32]],
+			['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
 			['attribute' => 'password_hash', 'type' => DetailView::INPUT_PASSWORD],
 			['attribute' => 'password_reset_token', 'type' => DetailView::INPUT_PASSWORD],
 		]

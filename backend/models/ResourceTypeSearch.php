@@ -11,12 +11,6 @@ use common\models\ResourceType;
 class ResourceTypeSearch extends ResourceType
 {
     
-    public function rules()
-    {
-        return [
-            [['comment', 'name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class ResourceTypeSearch extends ResourceType
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('comment', $this->comment);
 		$query->andFilterGoogleStyle('name', $this->name);

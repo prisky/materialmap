@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="field-set-form">
+<div id="field-set-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'level', 'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'options' => ['prompt' => ''],
-				'items' => [ "Summary" => "Summary", "Booking" => "Booking", "Ticket" => "Ticket", "Ticket to seat" => "Ticket to seat" ]],
+			['attribute' => 'id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
+			['attribute' => 'level_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 3]],
+			['attribute' => 'deleted', 'type' => DetailView::INPUT_SWITCH],
 		]
 	]);	?>
 

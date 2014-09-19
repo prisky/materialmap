@@ -19,13 +19,6 @@ class CancellationPolicySearch extends CancellationPolicy
 	public $from_rate;
 	public $to_rate;
 	
-    public function rules()
-    {
-        return [
-            [['base_fee', 'begin', 'from_begin', 'to_begin', 'finish', 'from_finish', 'to_finish', 'rate', 'from_rate', 'to_rate'], 'number'],
-			[['days'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -40,9 +33,7 @@ class CancellationPolicySearch extends CancellationPolicy
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_base_fee) && $this->from_base_fee != '') $query->andWhere('`base_fee` >= :from_base_fee', [':from_base_fee' => $this->from_base_fee]);
 		if(!is_null($this->to_base_fee) && $this->to_base_fee != '') $query->andWhere('`base_fee` <= :to_base_fee', [':to_base_fee' => $this->to_base_fee]);

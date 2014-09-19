@@ -23,26 +23,14 @@ class AccountToPaymentGatewayController extends \backend\components\Controller
 	/**
 	 * @inheritdoc
 	 */
-	public function getGridColumns() {
+	public function gridColumns($searchModel) {
 		return [
             [
                 "attribute" => "payment_gateway_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('PaymentGateway'),
-                "value" => function ($model, $key, $index, $widget) {
-								// if null foreign key
-								if(!$model->paymentGateway) {
-									return;
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort)) {
-									return Html::a($model->paymentGateway->label, Url::toRoute([strtolower('PaymentGateway') . "/update", "id" => $key]));
-								}
-								elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-									return Html::a($model->paymentGateway->label, Url::toRoute([strtolower('PaymentGateway') . "/read", "id" => $key]));
-								}
-								else {
-									return $model->label($key);
-								}
+                "filterWidgetOptions" => Controller::fKWidgetOptions('PaymentGateway', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "paymentGateway");
 							},
                 "format" => "raw"
             ]

@@ -17,14 +17,6 @@ class AccountToUserSearch extends AccountToUser
 	public $from_rate;
 	public $to_rate;
 	
-    public function rules()
-    {
-        return [
-            [['immediate', 'newsletter'], 'boolean'],
-			[['rate', 'from_rate', 'to_rate'], 'number'],
-			[['user_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -39,9 +31,7 @@ class AccountToUserSearch extends AccountToUser
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		if(!is_null($this->from_immediate) && $this->from_immediate != '') $query->andWhere('`immediate` >= :from_immediate', [':from_immediate' => $this->from_immediate]);
 		if(!is_null($this->to_immediate) && $this->to_immediate != '') $query->andWhere('`immediate` <= :to_immediate', [':to_immediate' => $this->to_immediate]);

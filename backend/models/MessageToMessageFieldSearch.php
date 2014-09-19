@@ -11,12 +11,6 @@ use common\models\MessageToMessageField;
 class MessageToMessageFieldSearch extends MessageToMessageField
 {
     
-    public function rules()
-    {
-        return [
-            [['message_field_id'], 'integer']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class MessageToMessageFieldSearch extends MessageToMessageField
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterWhere(['message_field_id' => $this->message_field_id]);
 		

@@ -11,12 +11,6 @@ use common\models\PaymentGateway;
 class PaymentGatewaySearch extends PaymentGateway
 {
     
-    public function rules()
-    {
-        return [
-            [['api_url', 'api_username', 'name'], 'safe']        ];
-    }
-
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -31,9 +25,7 @@ class PaymentGatewaySearch extends PaymentGateway
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
+        $this->setAttributes($params);
 
 		$query->andFilterGoogleStyle('api_url', $this->api_url);
 		$query->andFilterGoogleStyle('api_username', $this->api_username);

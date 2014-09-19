@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="item-inventory-form">
+<div id="item-inventory-form">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,6 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account')],
 			['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
 			['attribute' => 'received', 'type' => DetailView::INPUT_DATETIME],
 		]

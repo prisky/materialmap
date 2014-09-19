@@ -6,6 +6,10 @@
 
 namespace backend\components;
 
+use kartik\helpers\Html;
+use yii\helpers\Url;
+use Yii;
+
 class GridView extends \kartik\grid\GridView
 {
 	/**
@@ -20,15 +24,16 @@ class GridView extends \kartik\grid\GridView
 	 * @return string The html value to display in the grid
 	 */
 	public static function foreignKeyValue($model, $key, $index, $widget, $foreignKeyRelationName) {
+		$modelNameShort = $model->modelNameShort;
 		// if null foreign key
 		if(!$model->$foreignKeyRelationName) {
 			return;
 		}
 		elseif(Yii::$app->user->can($model->modelNameShort)) {
-			return Html::a($model->$foreignKeyRelationName->label, Url::toRoute([strtolower("$foreignKeyModelNameShort/update"), "id" => $key]));
+			return Html::a($model->$foreignKeyRelationName->label, Url::toRoute([strtolower("$modelNameShort/update"), "id" => $key]));
 		}
 		elseif(Yii::$app->user->can($model->modelNameShort . "Read")) {
-			return Html::a($model->$foreignKeyRelationName->label, Url::toRoute([strtolower("$foreignKeyModelNameShort/read"), "id" => $key]));
+			return Html::a($model->$foreignKeyRelationName->label, Url::toRoute([strtolower("$modelNameShort/read"), "id" => $key]));
 		}
 		else {
 			return $model->label($key);

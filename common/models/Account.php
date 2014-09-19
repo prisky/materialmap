@@ -49,9 +49,7 @@ namespace common\models;
  * @property FieldSet[] $fieldSets
  * @property FieldSetToItemGroup[] $fieldSetToItemGroups
  * @property FieldSetTree[] $fieldSetTrees
- * @property Item[] $items
  * @property ItemGroup[] $itemGroups
- * @property ItemInventory[] $itemInventories
  * @property MessageQueue[] $messageQueues
  * @property Newsletter[] $newsletters
  * @property Payment[] $payments
@@ -375,25 +373,9 @@ class Account extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItems()
-    {
-        return $this->hasMany(Item::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getItemGroups()
     {
         return $this->hasMany(ItemGroup::className(), ['account_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItemInventories()
-    {
-        return $this->hasMany(ItemInventory::className(), ['account_id' => 'id']);
     }
 
     /**
