@@ -330,21 +330,23 @@ if(!$model) {
 	}
 	
 	/**
-	 * @inheritdoc. Remove any null valued attributes if null is not allowed for the column - treat empty string as null but 0 as 0
+	 * @inheritdoc. Convert empty strings to nulls where null is allowed and perform other error testing that validate can't e.g.
+	 * dealing with a potential variety of constraint or trigger failure errors in database. See the database for details but we
+	 * can perform some checking in a trigger and then force an error which we can receive and decode within here in order to produce
+	 * sensible feedback to user. This could be for example on adjacency list, blocking endless loop, or multi column unique constraints
+	 * without the need to have to test the datatabase first in validation.
 	 */
 	public function save($runValidation = true, $attributeNames = null)
 	{
 		$messages = array('1062' => 'Duplicates are not allowed');
 
-		try {
-			if(!$attributeNames) {
-				foreach($this->attributes as $attributeName => $attribute) {
-					if(!(is_null($attribute) || $attribute == '') || $this->tableSchema->columns[$attributeName]->allowNull) {
-						$attributeNames[] = $attributeName;
-					}
-				}
+		foreach($this->attributes as $attributeName => $attribute) {
+			if($attribute == '' && $this->tableSchema->columns[$attributeName]->allowNull) {
+				$this->$attributeName = null;
 			}
+		}
 
+		try {
 			return parent::save($runValidation, $attributeNames);
 		}
 		catch (\Exception $e) {
@@ -359,7 +361,6 @@ if(!$model) {
 			}
 			else
 			{
-				// special handling to block parents being set to children - forcing a trigger fail on bad column name
 				foreach ($messages as $needle => &$message)
 				{
 					// NB: do not remove the speech marks around needle - converting to string
@@ -520,10 +521,11 @@ if(!$model) {
 							// get a list of non null attributes for this foreign key in this model
 							foreach($foreignKey as $thisTableAttribute => $foreignTableAttribute) {
 								// if not that table name which array index 0
-								if($thisTableAttribute != 0) {
+								if($thisTableAttribute) {
+									$t = $this->$thisTableAttribute;
 									if(!is_null($this->$thisTableAttribute)) {
 										$queryParams[":$foreignTableAttribute"] = $this->$thisTableAttribute;
-										$whereArray[$foreignTableAttribute] = [":$foreignTableAttribute"];
+										$whereArray[$foreignTableAttribute] = "$foreignTableAttribute = :$foreignTableAttribute";
 									}
 								}
 							}
@@ -564,55 +566,4 @@ if(!$model) {
 		return parent::beforeValidate();
 	}
 	
-	/**
-	 * Remove any non identifying attributes (i.e. if none of the foreign keys using the attribute point at an id column in the
-	 * referenced table). Basically used out attributes that have a sole purpose of enforcing referencial integrity.
-	 * @param array $attributes
-	 * @return array
-	 */
-	private static function removeNonIdentifyingAttributes($attributes) {
-		$foreignKeyAttributes = [];
-		$identifyingAttributes = [];
-			
-		// loop thru attributes
-		foreach($attributes as $attributeName) {
-			// loop thru all foreign keys using this attribute
-			foreach(static::getTableSchema()->foreignKeys as $foreignKey) {
-				// if the foreign key uses this attribute
-				if(isset($foreignKey[$attributeName])) {
-					// record that this is a foreign key attribute
-					$foreignKeyAttributes[$attributeName] = $attributeName;
-					// if this attribute is identifying i.e. points at the pk (id) of the referenced table
-					if($foreignKey[$attributeName] == 'id') {
-						// record that it is identifying
-						$identifyingAttributes[$attributeName] = $attributeName;
-					}
-				}
-			}
-		}
-
-		// remove the difference between foreign key attributes and identifying attributes are the attributes we want to remove
-		foreach(array_diff($foreignKeyAttributes, $identifyingAttributes) as $removeAttribute) {
-			unset($attributes[array_search($removeAttribute, $attributes)]);
-		}
-
-		return $attributes;
-	}
-
-	/**
-	 * Remove non display attributes
-	 * @param array $attributes The attributes
-	 * @return array Attributes with certain attributes removed
-	 */
-	public static function removeNonDisplayAttributes($attributes) {
-		// in addition we dont want the following - just to be sure
-		foreach(['id', 'deleted', 'created', 'account_id', 'account_id', 'level_id', static::parentAttribute()] as $attribute) {
-			if(($key = array_search($attribute, $attributes)) !== false) {
-				unset($attributes[$key]);
-			}
-		}
-		
-		return static::removeNonIdentifyingAttributes($attributes);
-	}
-
 }

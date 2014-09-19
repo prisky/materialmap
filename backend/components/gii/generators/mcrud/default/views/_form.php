@@ -37,7 +37,7 @@ foreach($attributesSet as $attribute) {
 	$attributes[$attribute['name']] = $attribute['name'];
 }
 // clean up the attribute list to the same as in the gridview i.e. just the ones we want to display
-$attributes = $modelName::removeNonDisplayAttributes($attributes);
+$attributes = $generator->removeNonDisplayAttributes($modelName, $attributes) ;
 if (empty($attributes)) {
     $attributes = $model->attributes();
 }

@@ -860,7 +860,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			$attributes[$attribute['name']] = $attribute['name'];
 		}
 		
-		foreach($modelName::removeNonDisplayAttributes($attributes) as $attribute) {
+		foreach($this->removeNonDisplayAttributes($modelName, $attributes) as $attribute) {
 			$column = $columns[$attribute];
 
 			$gridColumn = ['attribute' => $attribute];
@@ -1090,5 +1090,59 @@ class Generator extends \yii\gii\generators\crud\Generator
 
 		return $gridColumns;
 	}
+
+	/**
+	 * Remove any non identifying attributes (i.e. if none of the foreign keys using the attribute point at an id column in the
+	 * referenced table). Basically used out attributes that have a sole purpose of enforcing referencial integrity.
+	 * @param string $modelName The name of the model for which to remove non identifying attributes
+	 * @param array $attributes
+	 * @return array
+	 */
+	private function removeNonIdentifyingAttributes($modelName, $attributes) {
+		$foreignKeyAttributes = [];
+		$identifyingAttributes = [];
+			
+		// loop thru attributes
+		foreach($attributes as $attributeName) {
+			// loop thru all foreign keys using this attribute
+			foreach($modelName::getTableSchema()->foreignKeys as $foreignKey) {
+				// if the foreign key uses this attribute
+				if(isset($foreignKey[$attributeName])) {
+					// record that this is a foreign key attribute
+					$foreignKeyAttributes[$attributeName] = $attributeName;
+					// if this attribute is identifying i.e. points at the pk (id) of the referenced table
+					if($foreignKey[$attributeName] == 'id') {
+						// record that it is identifying
+						$identifyingAttributes[$attributeName] = $attributeName;
+					}
+				}
+			}
+		}
+
+		// remove the difference between foreign key attributes and identifying attributes are the attributes we want to remove
+		foreach(array_diff($foreignKeyAttributes, $identifyingAttributes) as $removeAttribute) {
+			unset($attributes[array_search($removeAttribute, $attributes)]);
+		}
+
+		return $attributes;
+	}
+
+	/**
+	 * Remove non display attributes
+	 * @param string $modelName The name of the model for which to remove non displayable attributes
+	 * @param array $attributes The attributes
+	 * @return array Attributes with certain attributes removed
+	 */
+	public function removeNonDisplayAttributes($modelName, $attributes) {
+		// in addition we dont want the following - just to be sure
+		foreach(['id', 'deleted', 'created', 'account_id', 'account_id', 'level_id', $modelName::parentAttribute()] as $attribute) {
+			if(($key = array_search($attribute, $attributes)) !== false) {
+				unset($attributes[$key]);
+			}
+		}
+		
+		return $this->removeNonIdentifyingAttributes($attributes);
+	}
+
 
 }
