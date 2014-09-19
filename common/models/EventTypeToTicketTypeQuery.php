@@ -15,7 +15,7 @@ class EventTypeToTicketTypeQuery extends \common\components\ActiveQuery
 	 * @param type $page The page number
 	 * @return ActiveQuery $this The select should select id and text where text is the display text and id the primary key
 	 */
-	public function displayAttributes($q = null, $page = null)
+	public function display($q = null, $page = null)
 	{
 		// make any search google style i.e. unordered mulitple words
 		if(is_string($q)) {
@@ -25,7 +25,7 @@ class EventTypeToTicketTypeQuery extends \common\components\ActiveQuery
 			}
 		}
 
-		return parent::displayAttributes($q, $page)
+		return parent::display($q, $page)
 //			->joinWith('contact')
 //			->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
 			->select(["tbl_event_type_to_ticket_type.id id", "CONCAT_WS(' ', id) text"]);

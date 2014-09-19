@@ -296,14 +296,14 @@ abstract class Controller extends \common\components\Controller
 		$out = ['more' => false];
 
 		if (!is_null($q)) {
-			$query = $modelName::find()->andWhere($w)->displayAttributes($q, $page);
+			$query = $modelName::find()->andWhere($w)->display($q, $page);
 			$command = $query->createCommand();
 			$data = $command->queryAll();
 			$out['results'] = array_values($data);
 			$out['total'] = $query->count();
 		}
 		elseif ($id > 0) {
-			$model = $modelName::find()->where([$modelName::tableName() . '.id' => $id])->andWhere($w)->displayAttributes()->one();
+			$model = $modelName::find()->where([$modelName::tableName() . '.id' => $id])->andWhere($w)->display()->one();
 			$out['results'] = ['id' => $id, 'text' => $model->text];
 		}
 		else {
@@ -377,7 +377,7 @@ abstract class Controller extends \common\components\Controller
 					if(($limit = ($upperLimit - $lineNumber)) > $pageSize) {
 						$limit = $pageSize;
 					}
-					$query = $modelName::find()->displayAttributes($q);
+					$query = $modelName::find()->display($q);
 					$searchResults = $query->limit($limit)->offset($offset)->createCommand()->queryAll();
 					
 					$showHeader = !$offset;

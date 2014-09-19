@@ -18,7 +18,7 @@ abstract class ActiveQuery extends \yii\db\ActiveQuery
 	 * @param type $page The page number
 	 * @return ActiveQuery $this
 	 */
-	public function displayAttributes($q = null, $page = null)
+	public function display($q = null, $page = null)
 	{
 		if(is_numeric($page)) {
 			$this->offset($page - 1);

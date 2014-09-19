@@ -26,7 +26,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	public $modelNameShort;
 
 	/**
-	 * @var string The concatenated label returned when the models ActiveQuery::displayAttributes method is used 
+	 * @var string The concatenated label returned when the models ActiveQuery::display method is used 
 	 */
 	public $text;
 	
@@ -218,7 +218,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
 		if($primaryKey) {
 			$modelName = static::modelName();
-			$model = $modelName::find()->where([static::tableName() . '.id' => $primaryKey])->displayAttributes()->one();
+			$model = $modelName::find()->where([static::tableName() . '.id' => $primaryKey])->display()->one();
 if(!$model) {
 	$t = 1;
 }
