@@ -15,9 +15,6 @@ class DetailView extends \kartik\detail\DetailView
 	public $options = [
 		'tag'=>'div',
 	];
-	public $formOptions = [
-		'beforeSubmit' => 'submitForm',
-	];
 	
 	/**
 	 * @inheritdoc
@@ -36,6 +33,7 @@ class DetailView extends \kartik\detail\DetailView
 		
 		$parentParam = Yii::$app->controller->parentParam;
 		$this->formOptions['action'] = Url::to(array_merge($params, $parentParam));
+		$this->formOptions['id'] = $this->model->formName();
 		
 		// this starts the active form
 		parent::init();
@@ -64,7 +62,7 @@ class DetailView extends \kartik\detail\DetailView
 			$output .= Html::submitButton('Save', ['class' => 'btn btn-success']);
 		}
 
-		// if there is errors but not specific attribute errors - maybe trigger related
+		// if there is errors but not specific attribute errors - may be trigger related
 		$errors = $this->model->errors;
 		if(isset($errors[null])) {
 			foreach($errors as $error) {
@@ -79,5 +77,27 @@ class DetailView extends \kartik\detail\DetailView
 		echo $output;
 
         \yii\widgets\ActiveForm::end();
+		
+		
+$js = <<<JS
+// get the form id and set the event
+$('form#{$this->model->formName()}').on('beforeSubmit', function(e, \$form) {
+	$.post(
+		\$form.attr("action"),
+		\$form.serialize()
+	)
+	.done(function(result) {
+		\$form.parent().html(result);
+	})
+	.fail(function() {
+		console.log("server error");
+	});
+}).on('submit', function(e){
+    e.preventDefault();
+});
+JS;
+$view = $this->getView();
+$view->registerJs($js);
+
     }
 }

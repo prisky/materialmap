@@ -752,6 +752,7 @@ SCRIPT;
 				// this uses a hack of inserting the related model name into plugin options as gets thru without erroring whereas
 				// putting this into GridColumns where it should be causes un "undefined attribute" error
 				'relatedModelNameShort' => $shortModelName,
+				'placeholder' => Yii::t('app', "Please select"),
 				'allowClear' => true,
 				'ajax' => [
 					'url' => $url,

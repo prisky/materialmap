@@ -1,7 +1,6 @@
 <?php
 
 use backend\components\DetailView;
-use kartik\markdown\MarkdownEditor;
 
 /**
  * @var yii\web\View $this
@@ -22,8 +21,19 @@ use kartik\markdown\MarkdownEditor;
 			['attribute' => 'label_plural', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
 				'widgetOptions' => [
-					'class' => 'kartik\markdown\MarkdownEditor',
-					'showExport' => false,
+					'class' => 'yii\imperavi\Widget',
+					// Some options, see http://imperavi.com/redactor/docs/
+					'options' => [
+						'css' => 'wym.css',
+						'imageUpload' => '/modules/upload.php'
+					],
+/*					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
+					'clientOptions' => [
+						'codemirror' => [
+							'theme' => 'monokai',
+							'lineNumbers' => true,
+						],
+					],*/
 				],
 			],
 		]
