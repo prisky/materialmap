@@ -25,7 +25,7 @@ class Model extends \common\components\ActiveRecord
     const childAttribute = 'child';
     const parentAttribute = 'parent';
     const depthAttribute = 'depth';
-	
+ 	
     /**
      * @inheritdoc
      */

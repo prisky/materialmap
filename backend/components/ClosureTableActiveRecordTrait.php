@@ -36,15 +36,12 @@ trait ClosureTableActiveRecordTrait
     }
 
 	/**
-	 * 
-	 * @param type $modelClass
-     * @return bool Is a leaf node
+	 * Determine if a model is a leaf node 
+     * @return bool true if model is a leaf node
 	 */
-    public static function isLeaf($modelClass)
+    public function isLeaf()
     {
-		$model = \common\models\Model::findOne(['auth_item_name' => $modelClass]);
-
-        return (boolean) static::find()->childrenOf($model->id);
+       return (boolean) static::find()->childrenOf($this->id);
     }
 	
     /**
@@ -241,5 +238,9 @@ trait ClosureTableActiveRecordTrait
         );
         return $cmd->execute();
     }
+	
+	public function getPath() {
+		
+	}
 	
 }

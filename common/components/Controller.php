@@ -73,14 +73,5 @@ abstract class Controller extends \yii\web\Controller
 		$modelName = static::modelName();
 		return $modelName::label();
 	}
-
-	/*
-	 * Get whether this controller is a leaf node in the navigation
-	 * @return boolean TRUE if this is a leaf node in the navigation
-	 */
-	protected function isLeaf()
-	{
-		return (boolean)\common\models\Model::isLeaf($this->modelNameShort);
-	}
 	
 }

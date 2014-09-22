@@ -200,7 +200,7 @@ abstract class Controller extends \common\components\Controller
 		if($model->load(Yii::$app->request->post()) && $model->save())
 		{
 			// if this model ia leaf node in navigation
-			if($this->isLeaf()) {
+ 			if(Model::findOne(['auth_item_name' => $this->modelNameShort])->isLeaf()) {
 				// go to the admin view of this node
 				$fullModelName = $this->modelName;
 				$parentAttribute = $fullModelName::parentAttribute();

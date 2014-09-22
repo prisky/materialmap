@@ -53,6 +53,16 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
     }
 
 	/**
+	 * @inheritdoc
+	 */
+    public function behaviors()
+    {
+        return [
+            \app\components\ActiveRecordBehavior::className(),
+        ];
+    }
+
+	/**
 	 * Gets the name of this class without the namespace
 	 * @return string The name of the class without the namespace
 	 */
