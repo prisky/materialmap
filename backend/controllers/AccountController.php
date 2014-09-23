@@ -7,12 +7,15 @@ use kartik\helpers\Html;
 use yii\helpers\Url;
 use backend\components\Controller;
 use yii\helpers\Inflector;
+use yii\filters\VerbFilter;
 
 /**
  * AccountController implements the CRUD actions for Account model.
  */
 class AccountController extends \backend\components\Controller
 {
+	use \common\components\FileControllerTrait;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -226,4 +229,48 @@ class AccountController extends \backend\components\Controller
         ];
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors()
+	{
+		return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['search'],
+                        'allow' => true,
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['login'],
+                        'roles' => ['?'],	// guests
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['logout', 'search'],
+                        'roles' => ['@'],	// authorized
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'delete', 'upload'],
+                        'roles' => [$this->modelNameShort],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view', 'index', 'export', 'list', 'getExisting'],
+                        'roles' => [$this->modelNameShort . 'Read'],
+                    ],
+                ],
+            ],
+			'verbs' => [
+				'class' => VerbFilter::className(),
+				'actions' => [
+					'delete' => ['post'],
+				],
+			],
+		];
+	}	
+	
 }

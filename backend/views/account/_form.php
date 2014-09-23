@@ -1,6 +1,7 @@
 <?php
 
 use backend\components\DetailView;
+use dosamigos\fileupload\FileUploadUI;
 
 /**
  * @var yii\web\View $this
@@ -33,4 +34,17 @@ use backend\components\DetailView;
 		]
 	]);	?>
 
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'phone_work',
+    'url' => ['account/upload', 'id' => 1],
+    'gallery' => false,
+    'fieldOptions' => [
+            'accept' => 'image/*'
+    ],
+    'clientOptions' => [
+            'maxFileSize' => 2000000
+    ]
+]);
+?>
 </div>

@@ -445,7 +445,7 @@ abstract class Controller extends \common\components\Controller
 								echo "<ul>\n";
 								$hasOpenUl = true;
 							}
-							echo "\t<li data-page='$p'><a href='" . Url::toRoute([$action, 'id'=>$searchResult['id']]) . "'><span class='description'>{$searchResult['text']}</span></a></li>\n";
+							echo "\t<li data-page='$p'><a href='" . Url::to([$action, 'id'=>$searchResult['id']]) . "'><span class='description'>{$searchResult['text']}</span></a></li>\n";
 						}
 
 						if($hasOpenUl) {
@@ -714,7 +714,7 @@ abstract class Controller extends \common\components\Controller
 	public static function fKWidgetOptions ($shortModelName, $where = [])
 	{
 		// The controller action that will render the list
-		$url = Url::toRoute([strtolower($shortModelName) . '/list', 'w' => $where]);
+		$url = Url::to([strtolower($shortModelName) . '/list', 'w' => $where]);
 
 // Script to initialize the selection based on the value of the select2 element
 $initScript = <<< SCRIPT

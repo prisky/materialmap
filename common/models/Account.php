@@ -115,6 +115,16 @@ class Account extends \common\components\ActiveRecord
         return 'tbl_account';
     }
 
+	/**
+	 * @inheritdoc
+	 */
+    public function behaviors()
+    {
+        return [
+            \common\components\FileActiveRecordBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
