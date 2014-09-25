@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewblake1/yii2-file-upload-widget.git",
-                "reference": "a9fe21b657c7b50704761842929f565675410041"
+                "reference": "4d116106dc811fa1987669cb1701b2766065d133"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewblake1/yii2-file-upload-widget/zipball/a9fe21b657c7b50704761842929f565675410041",
-                "reference": "a9fe21b657c7b50704761842929f565675410041",
+                "url": "https://api.github.com/repos/andrewblake1/yii2-file-upload-widget/zipball/4d116106dc811fa1987669cb1701b2766065d133",
+                "reference": "4d116106dc811fa1987669cb1701b2766065d133",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
             "support": {
                 "source": "https://github.com/andrewblake1/yii2-file-upload-widget/tree/master"
             },
-            "time": "2014-09-23 00:39:33"
+            "time": "2014-09-23 10:44:32"
         },
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -2231,12 +2231,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "930064bd82585eb317753a585080fe93cca8fc2e"
+                "reference": "ee8512aa2bbe4029afe66e2efa8a4f1697740260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/930064bd82585eb317753a585080fe93cca8fc2e",
-                "reference": "930064bd82585eb317753a585080fe93cca8fc2e",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ee8512aa2bbe4029afe66e2efa8a4f1697740260",
+                "reference": "ee8512aa2bbe4029afe66e2efa8a4f1697740260",
                 "shasum": ""
             },
             "require": {
@@ -2311,7 +2311,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-09-22 21:58:58"
+            "time": "2014-09-23 10:13:00"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -2899,12 +2899,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "7f6c460ca74ee988a79a3d0015be25ee3d4726b2"
+                "reference": "7ca018d51b066c8db9b6ed4b9d1f8886bccfb47b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/7f6c460ca74ee988a79a3d0015be25ee3d4726b2",
-                "reference": "7f6c460ca74ee988a79a3d0015be25ee3d4726b2",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/7ca018d51b066c8db9b6ed4b9d1f8886bccfb47b",
+                "reference": "7ca018d51b066c8db9b6ed4b9d1f8886bccfb47b",
                 "shasum": ""
             },
             "require": {
@@ -2941,7 +2941,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-09-19 08:17:45"
+            "time": "2014-09-23 09:07:05"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3889,12 +3889,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "c417d0ac067daa4351112ed25fd4753ea815c840"
+                "reference": "8ae15cf783c0990517a94d9495b11db00d628532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/c417d0ac067daa4351112ed25fd4753ea815c840",
-                "reference": "c417d0ac067daa4351112ed25fd4753ea815c840",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/8ae15cf783c0990517a94d9495b11db00d628532",
+                "reference": "8ae15cf783c0990517a94d9495b11db00d628532",
                 "shasum": ""
             },
             "require": {
@@ -3937,7 +3937,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-22 13:46:08"
+            "time": "2014-09-23 09:01:06"
         },
         {
             "name": "symfony/css-selector",
@@ -4107,12 +4107,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "be562a2a7b95e4e1219cc78d5f8d4198be83163b"
+                "reference": "a83f67473da5cd3abc453607dd032454189f24c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/be562a2a7b95e4e1219cc78d5f8d4198be83163b",
-                "reference": "be562a2a7b95e4e1219cc78d5f8d4198be83163b",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/a83f67473da5cd3abc453607dd032454189f24c9",
+                "reference": "a83f67473da5cd3abc453607dd032454189f24c9",
                 "shasum": ""
             },
             "require": {
@@ -4145,7 +4145,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-22 15:29:07"
+            "time": "2014-09-23 05:25:18"
         },
         {
             "name": "symfony/yaml",

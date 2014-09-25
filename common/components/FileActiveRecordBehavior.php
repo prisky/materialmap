@@ -5,6 +5,9 @@ namespace common\components;
 use yii\base\Behavior;
 use common\components\ActiveRecord;
 use common\models\Model;
+use Yii;
+use dosamigos\fileupload\UploadHandler;
+use yii\helpers\Url;
 
 /**
  * @inheritdoc
@@ -17,13 +20,11 @@ class FileActiveRecordBehavior extends Behavior
     {
         return [
             ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
-			ActiveRecord::EVENT_BEFORE_INSERT => 'beforeInsert',
+  			ActiveRecord::EVENT_BEFORE_INSERT => 'beforeInsert',
 			ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeUpdate',
-			ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
-			ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
-        ];
+      ];
     }
-	
+
 	/**
 	 * @inheritdoc. Unobtrusively clean out any uploaded files related to a model deleted from the database. Ideally
 	 * a database trigger would do this but not possible in MYSQL hence this is the best we can do. Event firing after delete
@@ -32,52 +33,111 @@ class FileActiveRecordBehavior extends Behavior
 	 */
 	public function afterDelete($event)
     {
-		// directory path to this model
-		$path = Model::find()
-			->select(['auth_item_name'])
-			->pathOf(Model::findOne(['auth_item_name' => $event->sender->modelNameShort])->id)
-			->asArray()
-			->all();
-		$path = implode('/', $path);
-		
 		// remove any uploads if exist
-//		exec("rm -rf " . Yii::$app->params['privatePermanentUploadsPath'] . "/$path/{$event->sender->id}");
+//		exec("rm -rf " . Yii::$app->params['privatePermanentUploadsPath'] . $this->uploadsPath");
     }
 
+	/**
+	 * @inherit Check that the upload occurrs fine. If error then make sure Insert doesn't occur and do cleanup i.e. removing any directories
+	 * created
+	 * @param Event $event
+	 */
 	public function beforeInsert($event)
     {
-		$this->expose($event->sender->expose());
-    }
-
-	public function afterInsert($event)
-    {
-		$this->initUploadHandler($event->sender->id);
+		// if any errors then then will be an output otherwise we hide the output
+		if($this->initUploadHandler()) {
+			// stop submission - response allready outputted
+			$event->isValid = false;
+			// remove any files downloaded
+		}
     }
 	
+	/**
+	 * @inherit Check that the upload occurrs fine. If error then make sure update doesn't occur and do cleanup i.e. removing any directories
+	 * created
+	 * @param ModelEvent::isValid $event
+	 */
 	public function beforeUpdate($event)
     {
-		$this->expose($event->sender->expose());
+		// if any errors then then will be an output otherwise we hide the output
+		if($this->initUploadHandler()) {
+			// stop submission - response allready outputted
+			$event->isValid = false;
+			// remove any files downloaded
+		}
     }
 
-	public function afterUpdate($event)
-    {
-		$this->initUploadHandler($event->sender->id);
-    }
-	
-	public function expose()
+	/**
+	 * Calcualte the path component for uploads from the uploads directory for this model
+	 * @return string The path
+	 */
+	public function getUploadsPath()
 	{
 		$model = $this->owner;
 		
-		// create a symlink in below doc root to expose to web
-		$source = Yii::app()->params['privateUploadPath'] . "$modelDir/{$this->owner->id}/"; 
-		// target directory
-		$target = Yii::app()->params['publicUploadPath'] . "$modelDir/{$this->id}";
-		// create the symlink
-		exec("ln -s -f $source $target");
+		// calculate the path from the uploads directory
+		for($start = $model, $path = []; $model; $model = $model->parentModel) {
+			$path[] = $model->primaryKey;
+			$path[] = $model->modelNameShort;
+		}
+
+		$t = array_reverse($path);
+		$t = implode(',', array_reverse($path));
+		return implode('/', array_reverse($path));
+	}
+
+	/**
+	 * Soft link a directory associated to a model from outside the document to inside the document root in order to make it publicly available
+	 * over the internet. This will be cleaned up depending on the age of the link hence the reason for soft link over hard link. The source
+	 * directory structure follows our navigation hierachy architecuture but the destination is just single 
+	 * @return string The directory url that has been temporarily published/exposed to the web
+	 */
+	public function publish()
+	{
+		$model = $this->owner;
+
+		// ensure source directory exists
+		$path = $model->uploadsPath;
+		$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $path;
+		$publicTemporaryUploadsPath = Yii::$app->params['publicTemporaryUploadsPath'] . $model->modelNameShort;
+		exec("mkdir -p '$privatePermanentUploadsPath'");
+		// ensure target base directory exists
+		exec("mkdir -p '$publicTemporaryUploadsPath'");
+$t1= "ln -s -f '$privatePermanentUploadsPath' '$publicTemporaryUploadsPath/{$model->primaryKey}'";
+		// create symbolic(soft) link - cron job will remove this periodically
+		exec("ln -s -f '$privatePermanentUploadsPath' '$publicTemporaryUploadsPath/{$model->primaryKey}'");
 		
 		// return target url
-		return Yii::app()->params['webUploadPath'] . "$modelDir/$session_id{$this->id}/";
-	}	
+$t2 = Yii::$app->params['webTemporaryUploadsUrl'] . "{$model->modelNameShort}/{$model->primaryKey}";
+		return Yii::$app->params['webTemporaryUploadsUrl'] . "{$model->modelNameShort}/{$model->primaryKey}";
+	}
+	
+	/**
+	 * Initialize the upload handler provided by http://blueimp.github.io/jQuery-File-Upload/. This will ensure the existance of our
+	 * destination uploads directory
+	 * @param ActiveRecord $model The model
+	 */
+	public function initUploadHandler()
+	{
+		$model = $this->owner;
+
+		// ensure destination directory exists - this will mean that if an ancestor gets deleted then everything below will too
+		$path = $model->uploadsPath;
+		$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $path;
+		exec("mkdir -p $privatePermanentUploadsPath");
+
+		// initialize the upload handler
+		new UploadHandler(array(
+			'upload_dir' => $privatePermanentUploadsPath . '/',
+			'upload_url' => $model->publish() . '/',
+			'script_url' => Url::to(['upload', 'id'=>$model->primaryKey]),
+			'delete_type' => 'POST',
+			'image_versions'=>array('thumbnail'=>array(
+				'upload_url' => $model->publish() . "/thumbnail/",
+				'max_width' => '80px',
+				'max_height' => '80px',
+			))
+ 		));
+	}
 			
 }
-

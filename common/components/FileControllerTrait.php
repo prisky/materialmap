@@ -2,109 +2,43 @@
 
 namespace common\components;
 
-use dosamigos\fileupload\UploadHandler;
+use Yii;
 
 /**
- * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordTrait and
+ * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordBehavior and
  * dosamigos\fileupload\FileUploadUI, a Yii2 Widget encapsulating http://blueimp.github.io/jQuery-File-Upload/
  *
  * @author Andrew Blake <admin@newzealandfishing.com>
  */
 trait FileControllerTrait {
 
-	private $uploadHandler;
-
 	/**
-	 * Initialize the upload handler provided by http://blueimp.github.io/jQuery-File-Upload/. This will ensure the existance of our
-	 * destination uploads directory
-	 * @param ActiveRecord $model The model
+	 * Because a form can only have one action associated to it, any of the main buttons will cause this action to fire so we need
+	 * to examine the request a bit to find out what our desired course of action really is 
 	 */
-	private function initUploadHandler($model)
+	public function actionUpload($id = null)
 	{
-		// ensure distination directory exists - the whole way
-		$path = Model::find()
-			->select(['auth_item_name'])
-			->pathOf(Model::findOne(['auth_item_name' => $this->modelNameShort])->id)
-			->asArray()
-			->all();
-		$uploadDir = Yii::$app->params['privatePermanentUploadsPath'];
-		foreach($path as $directory) {
-			$fullpath .= "/$directory";
-			exec("mkdir $uploadDir");
-		}
-		exec("mkdir $uploadDir/{$model->id}");
-
-		$this->uploadHandler = new UploadHandler(array(
-			'upload_dir' => $uploadDir,
-			'upload_url' => $model->expose(),
-			'script_url' => Url::to(['upload', 'id'=>$model->id]),
-			'delete_type' => 'POST',
-			'image_versions'=>array('thumbnail'=>array(
-				'upload_url' => Yii::app()->params['webUploadPath'] . "{$this->modelNameShort}/$model->id/thumbnails/",
-				'max_width' => '80px',
-				'max_height' => '80px',
-			))
- 		));
-	}
-
-	public function behaviors()
-	{
-		parent::accessRules();
-			array_unshift($accessRules,
-				array('allow',
-					'actions' => array('upload'),
-					'roles' => array($this->modelName),
-				),
-				array('allow',
-					'actions' => array('getExisting'),
-					'roles' => array("{$this->modelName}Read"),
-				)
-			);
-
-		return $accessRules;
-	}
-
-	public function actionGetExisting($id)
-	{
-		header('Pragma: no-cache');
-		header('Cache-Control: no-store, no-cache, must-revalidate');
-		header('Content-Disposition: inline; filename="files.json"');
-		header('X-Content-Type-Options: nosniff');
-		header('Access-Control-Allow-Origin: *');
-		header('Access-Control-Allow-Methods: OPTIONS, HEAD, GET, POST, PUT, DELETE');
-		header('Access-Control-Allow-Headers: X-File-Name, X-File-Type, X-File-Size');
-		$this->initUploadHandler($id);
-	}
-	
-	public function actionUpload($id)
-	{
-		if(isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE')
-		{
-			$this->initUploadHandler($_GET['id']);
+		// the UploadHandler from blueImp will take care of this type
+		// of delete which is just a file delete and not a delete of our ActiveRecord model hence don't want to hand of to action delete
+		// but just let UploadHandler do its work removing any identifying files
+		// Alternately if get request then probably wanting something like a list of files as a JSON object
+		if((isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') || Yii::$app->request->isGet) {
+			$modelName = $this->modelName;
+			$modelName::findOne($id)->initUploadHandler();
         }
-		else
-		{
-			// if creating
-			if(empty($_POST[$this->modelName]['id']))
-			{
-				$this->initUploadHandler($_POST[$this->modelName]['created']);
+		// otherwise a post request - update or create action
+		else {
+			// if updating -- id passed
+			if($id) {
+				$this->actionUpdate($id);
 			}
-			// otherwise updating
-			else
-			{
-				$this->actionUpdate($_POST[$this->modelName]['id']);
+			// otherwise creating -- no id
+			else {
+				$this->actionCreate();
 			}
         }
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * This differs from parent in that the submit actually done inside the validate - submit should now never occur as aftervalidate will jquery
-	 * will return false after finished processing - allowing jquery file upload's submit to upload files if required.
-	 */
-	//public function actionCreate($modal_id = 'myModal', &$model = null)
-	
 }
 
 ?>

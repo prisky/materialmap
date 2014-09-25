@@ -220,9 +220,6 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		if($primaryKey) {
 			$modelName = static::modelName();
 			$model = $modelName::find()->where([static::tableName() . '.id' => $primaryKey])->display()->one();
-if(!$model) {
-	$t = 1;
-}
 			$label = $model->text;
 		}
 		// otherwise if not cached

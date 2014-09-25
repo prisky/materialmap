@@ -242,6 +242,13 @@ abstract class Controller extends \common\components\Controller
 			return $this->redirect($params);
 		}
 		
+//testing $t= $t =
+if($model->load(Yii::$app->request->post())) {
+	Yii::$app->response->format = 'json';
+	echo Json::encode($model->getErrors());
+}
+
+		
 		return $this->render('@app/views/update', [
 			'model' => $model,
 		]);

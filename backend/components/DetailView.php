@@ -34,10 +34,12 @@ class DetailView extends \kartik\detail\DetailView
 		$parentParam = Yii::$app->controller->parentParam;
 		$this->formOptions['action'] = Url::to(array_merge($params, $parentParam));
 		$this->formOptions['id'] = $this->model->formName();
+		$this->formOptions['options']['enctype'] = 'multipart/form-data';
 		
 		// this starts the active form
 		parent::init();
-		
+
+// TODO: is this needed now?
 		// place hidden field to parent if not root
 		foreach($parentParam as $parentAttribute => $value) {
 			$this->model->$parentAttribute = $value;
@@ -76,6 +78,20 @@ class DetailView extends \kartik\detail\DetailView
 	
 		echo $output;
 
+echo \dosamigos\fileupload\FileUploadUI::widget([
+    'name' => 'files',
+    'url' => ['account/upload', 'id' => 1],
+    'gallery' => false,
+    'fieldOptions' => [
+            'accept' => 'image/*'
+    ],
+	'options' => [
+		'id' => $this->model->formName(),
+	],
+    'clientOptions' => [
+            'maxFileSize' => 2000000
+    ]
+]);
         \yii\widgets\ActiveForm::end();
 		
 		
