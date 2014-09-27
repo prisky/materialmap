@@ -78,7 +78,7 @@ class DetailView extends \kartik\detail\DetailView
 	
 		echo $output;
 
-echo \dosamigos\fileupload\FileUploadUI::widget([
+echo \dosamigos\fileupload\FileUploadUIAR::widget([
     'name' => 'files',
     'url' => ['account/upload', 'id' => 1],
     'gallery' => false,

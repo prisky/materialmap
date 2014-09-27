@@ -37,7 +37,7 @@ class FileActiveRecordBehavior extends Behavior
 	 * Calcualte the path component for uploads from the uploads directory for this model
 	 * @return string The path
 	 */
-	private function getUploadsPath()
+	public function getUploadsPath()
 	{
 		$model = $this->owner;
 		

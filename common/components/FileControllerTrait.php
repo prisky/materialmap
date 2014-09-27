@@ -82,7 +82,7 @@ trait FileControllerTrait {
 			// handle files and buffer the response
 			$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
 			// if no upload errors and successful in saving
-			if($uploadHandler->has_errors && $model->save()) {
+			if(!$uploadHandler->has_errors && $model->save()) {
 				// redirect back to parent admin view
 				$params[] = 'index';
 				$fullModelName = $this->modelName;
