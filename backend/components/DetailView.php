@@ -61,7 +61,7 @@ class DetailView extends \kartik\detail\DetailView
         ]);
         
 		if($this->mode == static::MODE_EDIT) {
-			$output .= Html::submitButton('Save', ['class' => 'btn btn-success']);
+			$output .= Html::submitButton('Save', ['class' => 'btn btn-primary hide']);
 		}
 
 		// if there is errors but not specific attribute errors - may be trigger related

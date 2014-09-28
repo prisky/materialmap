@@ -18,7 +18,7 @@ trait FileControllerTrait {
 	 * destination uploads directory
 	 * @param ActiveRecord $model The model
 	 */
-	public function initUploadHandler($model, $options = [])
+	private function initUploadHandler($model, $options = [])
 	{
 		// ensure destination directory exists - this will mean that if an ancestor gets deleted then everything below will too
 		$path = $model->uploadsPath;
@@ -59,7 +59,30 @@ trait FileControllerTrait {
 		else {
 			// if updating -- id passed
 			if($id) {
-				$this->actionUpdate($id);
+				$model = $this->findModel($id);
+				$model->load(Yii::$app->request->post());
+				// handle files and buffer the response
+				$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
+				// if no upload errors and successful in saving
+				if(!$uploadHandler->has_errors && $model->save()) {
+					// redirect back to parent admin view
+					$params[] = 'index';
+					$fullModelName = $this->modelName;
+					if($parentAttribute = $fullModelName::parentAttribute()) {
+						$params[$parentAttribute] = $model->$parentAttribute;
+					}
+
+					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
+					// a redirect parameter the json object for use in our fileuploadstopped callback
+					$uploadHandler->generate_response($uploadHandler->response_content + ['redirect' => Url::to($params)]);
+				}
+				// otherwise saving failed - database error returned
+				else {
+					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
+					// a redirect parameter the json object for use in our fileuploadstopped callback
+					$uploadHandler->generate_response($uploadHandler->response_content + ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)]);
+				}
+				return;
 			}
 			// otherwise creating -- no id
 			else {
@@ -68,45 +91,6 @@ trait FileControllerTrait {
         }
 	}
 
-	/**
-	 * Updates an existing model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param string $id
-	 * @return mixed
-	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
-
-		if($model->load(Yii::$app->request->post())) {
-			// handle files and buffer the response
-			$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
-			// if no upload errors and successful in saving
-			if(!$uploadHandler->has_errors && $model->save()) {
-				// redirect back to parent admin view
-				$params[] = 'index';
-				$fullModelName = $this->modelName;
-				if($parentAttribute = $fullModelName::parentAttribute()) {
-					$params[$parentAttribute] = $model->$parentAttribute;
-				}
-			
-				// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
-				// a redirect parameter the json object for use in our fileuploadstopped callback
-				$uploadHandler->generate_response($uploadHandler->response_content + ['redirect' => Url::to($params)]);
-			}
-			// otherwise saving failed - database error returned
-			else {
-				// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
-				// a redirect parameter the json object for use in our fileuploadstopped callback
-				$uploadHandler->generate_response($uploadHandler->response_content + ['modelerrors' => $model->getErrors()]);
-			}
-			return;
-		}
-
-		return $this->render('@app/views/update', [
-			'model' => $model,
-		]);
-	}
 }
 
 ?>
