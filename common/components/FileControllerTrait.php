@@ -36,7 +36,7 @@ trait FileControllerTrait {
 				'max_height' => '80px',
 			))
  		];
-			
+
 		// initialize the upload handler
 		return new UploadHandler($options);
 	}
@@ -71,7 +71,6 @@ trait FileControllerTrait {
 					if($parentAttribute = $fullModelName::parentAttribute()) {
 						$params[$parentAttribute] = $model->$parentAttribute;
 					}
-
 					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
 					// a redirect parameter the json object for use in our fileuploadstopped callback
 					$uploadHandler->generate_response($uploadHandler->response_content + ['redirect' => Url::to($params)]);
@@ -86,7 +85,36 @@ trait FileControllerTrait {
 			}
 			// otherwise creating -- no id
 			else {
-				$this->actionCreate();
+				$model = $this->newModelWithDefaults;
+				$model->load(Yii::$app->request->get());
+				$model->load(Yii::$app->request->post());
+				$modelNameShort = $this->modelNameShort;
+
+				if(!$uploadHandler->has_errors && $model->save()) {
+					// if this model is leaf node in navigation
+					if(Model::findOne(['auth_item_name' => $this->modelNameShort])->isLeaf()) {
+						// go to the admin view of this node
+						$params[] = 'index';
+						$fullModelName = $this->modelName;
+						if($parentAttribute = $fullModelName::parentAttribute()) {
+							$params[$parentAttribute] = $model->$parentAttribute;
+						}
+					}
+					else {
+						// go to the update view
+						$params = ['update', 'id' => $model->id];
+					}
+					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
+					// a redirect parameter the json object for use in our fileuploadstopped callback
+					$uploadHandler->generate_response($uploadHandler->response_content + ['redirect' => Url::to($params)]);
+				}
+				// otherwise saving failed - database error returned
+				else {
+					// generate a response to this ajax request inititiated by jquery-file_upload plugin and incorporate
+					// a redirect parameter the json object for use in our fileuploadstopped callback
+					$uploadHandler->generate_response($uploadHandler->response_content + ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)]);
+				}
+				return;
 			}
         }
 	}

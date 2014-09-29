@@ -193,26 +193,27 @@ abstract class Controller extends \common\components\Controller
 	public function actionCreate()
 	{
 		$model = $this->newModelWithDefaults;
-		
+
 		$modelNameShort = $this->modelNameShort;
-		
+
 		$model->load(Yii::$app->request->get());
-		if($model->load(Yii::$app->request->post()) && $model->save())
-		{
-			// if this model ia leaf node in navigation
+		if($model->load(Yii::$app->request->post()) && $model->save()) {
+			// if this model is leaf node in navigation
  			if(Model::findOne(['auth_item_name' => $this->modelNameShort])->isLeaf()) {
 				// go to the admin view of this node
+				$params[] = 'index';
 				$fullModelName = $this->modelName;
-				$parentAttribute = $fullModelName::parentAttribute();
-				$parentForeignKey = isset($_GET[$parentAttribute]) ? $_GET[$parentAttribute] : NULL;
-				return $this->redirect(['index', $parentAttribute => $parentForeignKey]);
+				if($parentAttribute = $fullModelName::parentAttribute()) {
+					$params[$parentAttribute] = $model->$parentAttribute;
+				}
 			}
 			else {
 				// go to the update view
-				return $this->redirect(['update', 'id' => $model->id]);
+				$params = ['update', 'id' => $model->id];
 			}
+			$this->redirect($params);
 		}
-		
+
 		// from http://www.yiiframework.com/wiki/690/render-a-form-in-a-modal-popup-using-ajax/
         return $this->renderAjax('//' . $this->id . '/_form', [
 			'model' => $model,
@@ -237,10 +238,9 @@ abstract class Controller extends \common\components\Controller
 			if($parentAttribute = $fullModelName::parentAttribute()) {
 				$params[$parentAttribute] = $model->$parentAttribute;
 			}
-			
-			return $this->redirect($params);
+			$this->redirect($params);
 		}
-		
+
 		return $this->render('@app/views/update', [
 			'model' => $model,
 		]);

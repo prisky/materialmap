@@ -95,19 +95,22 @@ echo \dosamigos\fileupload\FileUploadUIAR::widget([
         \yii\widgets\ActiveForm::end();
 		
 		
+		
 $js = <<<JS
 // get the form id and set the event
-$('form#{$this->model->formName()}').on('beforeSubmit', function(e, \$form) {
+$('form#{$this->model->formName()}').on('beforeSubmit', function(e) {
+	var form = $(this);
 	$.post(
-		\$form.attr("action"),
-		\$form.serialize()
+		form.attr("action"),
+		form.serialize()
 	)
 	.done(function(result) {
-		\$form.parent().html(result);
+		form.parent().html(result);
 	})
 	.fail(function() {
 		console.log("server error");
 	});
+	return false;
 }).on('submit', function(e){
     e.preventDefault();
 });
