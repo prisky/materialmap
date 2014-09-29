@@ -15,22 +15,20 @@ class DetailView extends \kartik\detail\DetailView
 	public $options = [
 		'tag'=>'div',
 	];
-	
+    /**
+     * @var array https://github.com/blueimp/jQuery-File-Upload/wiki/Options
+     * If empty then no model level files will be attachable. 'limitMultiFileUploads'=>null will allow unlimited uploads
+	 * defaults are:
+	 * 'maxFileSize' => 2000000
+     */
+	public $uploadOptions = [];
 	/**
 	 * @inheritdoc
 	 */
 	public function init()
 	{
-		// if update
-		if($this->model->id) {
-			$params[] = 'update';
-			$params['id'] = $this->model->id;
-		}
-		// otherwise create
-		else {
-			$params[] = 'create';
-		}
-		
+		$params[] = $this->model->id ? 'update' : 'create';
+		$params['id'] = $this->model->id;
 		$parentParam = Yii::$app->controller->parentParam;
 		$this->formOptions['action'] = Url::to(array_merge($params, $parentParam));
 		$this->formOptions['id'] = $this->model->formName();
@@ -40,11 +38,11 @@ class DetailView extends \kartik\detail\DetailView
 		parent::init();
 
 // TODO: is this needed now?
-		// place hidden field to parent if not root
-		foreach($parentParam as $parentAttribute => $value) {
-			$this->model->$parentAttribute = $value;
-			echo Html::activeHiddenInput($this->model, $parentAttribute);
-		}
+//		// place hidden field to parent if not root
+//		foreach($parentParam as $parentAttribute => $value) {
+//			$this->model->$parentAttribute = $value;
+//			echo Html::activeHiddenInput($this->model, $parentAttribute);
+//		}
 	}
 
 	/**
@@ -60,8 +58,8 @@ class DetailView extends \kartik\detail\DetailView
             '{detail}' => '<div id="' . $this->container['id'] . '">' . $output . '</div>'
         ]);
         
-		if($this->mode == static::MODE_EDIT) {
-			$output .= Html::submitButton('Save', ['class' => 'btn btn-primary hide']);
+		if($this->mode == static::MODE_EDIT && !$this->uploadOptions) {
+			$output .= Html::submitButton('Save', ['class' => 'btn btn-primary']);
 		}
 
 		// if there is errors but not specific attribute errors - may be trigger related
@@ -75,26 +73,28 @@ class DetailView extends \kartik\detail\DetailView
 				Html::listGroup($items, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"')
 				. $output;
 		}
-	
+
 		echo $output;
 
-echo \dosamigos\fileupload\FileUploadUIAR::widget([
-    'name' => 'files',
-    'url' => ['account/upload', 'id' => 1],
-    'gallery' => false,
-    'fieldOptions' => [
-            'accept' => 'image/*'
-    ],
-	'options' => [
-		'id' => $this->model->formName(),
-	],
-    'clientOptions' => [
-            'maxFileSize' => 2000000
-    ]
-]);
+		if($this->uploadOptions) {
+			$this->uploadOptions += [
+				'maxFileSize' => 2000000,
+			];
+			echo \dosamigos\fileupload\FileUploadUIAR::widget([
+				'name' => 'files',
+				'url' => [strtolower($this->model->formName()) . '/upload', 'id' => 1],
+				'gallery' => false,
+				'fieldOptions' => [
+						'accept' => 'image/*',
+				],
+				'options' => [
+					'id' => $this->model->formName(),	// the form id
+				],
+				'clientOptions' => $this->uploadOptions,
+			]);
+		}
+
         \yii\widgets\ActiveForm::end();
-		
-		
 		
 $js = <<<JS
 // get the form id and set the event

@@ -16,6 +16,7 @@ use backend\components\DetailView;
 		'condensed'=>true,
 		'hover'=>true,
 		'mode'=>$mode,
+		'uploadOptions'=>['limitMultiFileUploads'=>null],
 		'attributes'=>[
 			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'balance', 'type' => DetailView::INPUT_MONEY],
