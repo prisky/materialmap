@@ -88,11 +88,6 @@ trait FileControllerTrait {
 						$response += ['redirect' => Url::to($params)];
 					}
 				}
-				// otherwise there are validation errors
-				else {
-					// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
-					$response += ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)];
-				}
 
 				// if errors
 				if(!isset($response['redirect'])) {
@@ -135,13 +130,6 @@ trait FileControllerTrait {
 						$response += ['redirect' => Url::to($params)];
 					}
 				}
-				// otherwise there are validation errors
-				else {
-					// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
-					$response += ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)];
-					// NB:at this stage we may still not have no files array as if ActiveRecord:save failed then we didn't handle uploads
-					// this scenario dealt with in client handler fileuploaddone by assuming upload was ok.
-				}
 
 				// if errors and we did deal with file uploads
 				if(!isset($response['redirect']) && isset($response['files'])) {
@@ -152,6 +140,7 @@ trait FileControllerTrait {
 			}
 
 			// if there is errors but not specific attribute errors - may be trigger related
+			// NB: \yii\widgets\ActiveForm::validate strips non attribute errors out so do this first
 			$errors = $model->errors;
 			if(isset($errors[null])) {
 				foreach($errors as $error) {
@@ -161,7 +150,12 @@ trait FileControllerTrait {
 				$response['nonattributeerrors'] = 
 					Html::listGroup($items, ['class' => 'list-group'], 'ul', 'li class="list-group-item list-group-item-danger"');
 			}
-			
+
+			// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
+			$response += ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)];
+			// NB:at this stage we may still not have no files array as if ActiveRecord:save failed then we didn't handle uploads
+			// this scenario dealt with in client handler fileuploaddone by assuming upload was ok.
+
 			// save database chanes if no errors or revert if errors
 			isset($response['redirect']) ? $transaction->commit() : $transaction->rollBack();
 

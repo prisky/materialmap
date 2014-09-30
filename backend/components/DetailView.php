@@ -58,8 +58,8 @@ class DetailView extends \kartik\detail\DetailView
             '{detail}' => '<div id="' . $this->container['id'] . '">' . $output . '</div>'
         ]);
         
-		if($this->mode == static::MODE_EDIT && !$this->uploadOptions) {
-			$output .= Html::submitButton('Save', ['class' => 'btn btn-primary']);
+		if($this->mode == static::MODE_EDIT) {
+			$output .= Html::submitButton('Save', ['id' => 'activeFromSave', 'class' => 'btn btn-primary' . ($this->uploadOptions ? ' hide' : '')]);
 		}
 
 		// if there is errors but not specific attribute errors - may be trigger related
