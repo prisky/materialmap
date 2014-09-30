@@ -57,68 +57,98 @@ trait FileControllerTrait {
         }
 		// otherwise a post request - update or create action
 		else {
-			// if updating -- id passed
+			// will want to roll back database changes if a file upload error occurrs. Save is already in a transaction and appends
+			// any database errors against to model (not indexed by attribute)
+			$transaction = Yii::$app->db->beginTransaction();
+
+			// if updating - id passed
 			if($id) {
 				$model = $this->findModel($id);
 				$model->load(Yii::$app->request->post());
-				// handle files and buffer the response
+				// handle files uploads and buffer the response
 				$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
-				// if no upload errors and successful in saving
-				if(!$uploadHandler->has_errors && $model->save()) {
-					// redirect back to parent admin view
-					$params[] = 'index';
-					$fullModelName = $this->modelName;
-					if($parentAttribute = $fullModelName::parentAttribute()) {
-						$params[$parentAttribute] = $model->$parentAttribute;
-					}
-					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
-					// a redirect parameter the json object for use in our fileuploadstopped callback
-					$uploadHandler->generate_response($uploadHandler->response_content + ['redirect' => Url::to($params)]);
-				}
-				// otherwise saving failed - database error returned
-				else {
-					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
-					// a redirect parameter the json object for use in our fileuploadstopped callback
-					$uploadHandler->generate_response($uploadHandler->response_content + ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)]);
-				}
-				return;
-			}
-			// otherwise creating -- no id
-			else {
-				$model = $this->newModelWithDefaults;
-				$model->load(Yii::$app->request->get());
-				$model->load(Yii::$app->request->post());
-				$modelNameShort = $this->modelNameShort;
-
-				if(!$uploadHandler->has_errors && $model->save()) {
-					// if this model is leaf node in navigation
-					if(Model::findOne(['auth_item_name' => $this->modelNameShort])->isLeaf()) {
-						// go to the admin view of this node
+				// add response from blueimps upload handler - key is 'files'
+				$response = $uploadHandler->response_content;
+				// if no validation errors - or other database errors when saving
+				if($model->save()) {
+					// if no upload errors
+					if(!$uploadHandler->has_errors) {
+						// set redirect back to parent index view
 						$params[] = 'index';
 						$fullModelName = $this->modelName;
 						if($parentAttribute = $fullModelName::parentAttribute()) {
 							$params[$parentAttribute] = $model->$parentAttribute;
 						}
+						// add a 'redirect' key for our blueimp fileuploadfinished callback
+						$response += ['redirect' => Url::to($params)];
 					}
-					else {
-						// go to the update view
-						$params = ['update', 'id' => $model->id];
-					}
-					// generate a responece to this ajax request inititiated by jquery-file_upload plugin and incorporate
-					// a redirect parameter the json object for use in our fileuploadstopped callback
-					$uploadHandler->generate_response($uploadHandler->response_content + ['redirect' => Url::to($params)]);
 				}
-				// otherwise saving failed - database error returned
+				// otherwise there are validation errors
 				else {
-					// generate a response to this ajax request inititiated by jquery-file_upload plugin and incorporate
-					// a redirect parameter the json object for use in our fileuploadstopped callback
-					$uploadHandler->generate_response($uploadHandler->response_content + ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)]);
+					// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
+					$response += ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)];
 				}
-				return;
 			}
+			// otherwise creating -- no id
+			else {
+				$response = [];
+				$model = $this->newModelWithDefaults;
+				$model->load(Yii::$app->request->get());	// need to tidy up so all paramters in post
+				$model->load(Yii::$app->request->post());
+				// if no validation errors - or other database errors when saving
+				if($model->save()) {
+					// handle files and buffer the response
+					$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
+					// initiaize response to the files array with upload results from blueimps upload handler
+					$response = $uploadHandler->response_content;
+					// if no upload errors
+					if(!$uploadHandler->has_errors) {
+						// if this model is leaf node in navigation
+						if(Model::findOne(['auth_item_name' => $this->modelNameShort])->isLeaf()) {
+							// go to the admin view of this node
+							$params[] = 'index';
+							$fullModelName = $this->modelName;
+							if($parentAttribute = $fullModelName::parentAttribute()) {
+								$params[$parentAttribute] = $model->$parentAttribute;
+							}
+						}
+						else {
+							// go to the update view
+							$params = ['update', 'id' => $model->id];
+						}
+						// add a 'redirect' key for our blueimp fileuploadfinished callback
+						$response += ['redirect' => Url::to($params)];
+					}
+				}
+				// otherwise there are validation errors
+				else {
+					// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
+					$response += ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)];
+					// NB:at this stage we may still not have no files array as if ActiveRecord:save failed then we didn't handle uploads
+					// this scenario dealt with in client handler fileuploaddone by assuming upload was ok.
+				}
+			}
+			
+			// there are no errors i.e. upload or ActiveRecord save
+			if(isset($response['redirect'])) {
+				$transaction->commit();
+			}
+			else {	// errors so remove the files
+				$path = $model->uploadsPath;
+				$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $path;
+				// remove the files from where they were moved to
+				foreach($uploadHandler->response_content['files'] as $file) {
+					unlink($privatePermanentUploadsPath . '/' . $file->name);
+					unlink($privatePermanentUploadsPath . '/thumbnail/' . $file->name);
+				}
+				$transaction->rollBack();
+			}
+
+			// send json response
+			Yii::$app->response->format = 'json';
+			return $response;
         }
 	}
-
 }
 
 ?>

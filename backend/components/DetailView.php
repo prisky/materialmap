@@ -85,7 +85,7 @@ class DetailView extends \kartik\detail\DetailView
 				'url' => [strtolower($this->model->formName()) . '/upload', 'id' => 1],
 				'gallery' => false,
 				'fieldOptions' => [
-						'accept' => 'image/*',
+					'accept' => 'image/*',
 				],
 				'options' => [
 					'id' => $this->model->formName(),	// the form id
