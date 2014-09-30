@@ -5,6 +5,8 @@ namespace common\components;
 use Yii;
 use dosamigos\fileupload\UploadHandler;
 use yii\helpers\Url;
+use common\models\Model;
+use kartik\helpers\Html;
 
 /**
  * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordBehavior and
@@ -52,8 +54,11 @@ trait FileControllerTrait {
 		// but just let UploadHandler do its work removing any identifying files
 		// Alternately if get request then probably wanting something like a list of files as a JSON object
 		if((isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') || Yii::$app->request->isGet) {
-			$modelName = $this->modelName;
-			$this->initUploadHandler($modelName::findOne($id));
+			// if deleteing - as opposed to getting list of files on when creating in which case no id so can't do it
+			if($id) {
+				$modelName = $this->modelName;
+				$this->initUploadHandler($modelName::findOne($id));
+			}
         }
 		// otherwise a post request - update or create action
 		else {
@@ -138,28 +143,27 @@ trait FileControllerTrait {
 					// this scenario dealt with in client handler fileuploaddone by assuming upload was ok.
 				}
 
-				// if errors
-				if(!isset($response['redirect'])) {
+				// if errors and we did deal with file uploads
+				if(!isset($response['redirect']) && isset($response['files'])) {
 					$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $model->uploadsPath;
 					// remove upload directory
 					unlink($privatePermanentUploadsPath);
 				}
 			}
 
-			// if there are no errors i.e. upload or ActiveRecord save
-			if(isset($response['redirect'])) {
-				$transaction->commit();
-			}
-			else {	// errors so remove the files
-				$path = $model->uploadsPath;
-				$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $path;
-				// remove the files from where they were moved to
-				foreach($uploadHandler->response_content['files'] as $file) {
-					unlink($privatePermanentUploadsPath . '/' . $file->name);
-					unlink($privatePermanentUploadsPath . '/thumbnail/' . $file->name);
+			// if there is errors but not specific attribute errors - may be trigger related
+			$errors = $model->errors;
+			if(isset($errors[null])) {
+				foreach($errors as $error) {
+					$items[] = ['content' => $error[0]];
 				}
-				$transaction->rollBack();
+				// send these thru but format the html here - an error block above form
+				$response['nonattributeerrors'] = 
+					Html::listGroup($items, ['class' => 'list-group'], 'ul', 'li class="list-group-item list-group-item-danger"');
 			}
+			
+			// save database chanes if no errors or revert if errors
+			isset($response['redirect']) ? $transaction->commit() : $transaction->rollBack();
 
 			// send json response
 			Yii::$app->response->format = 'json';

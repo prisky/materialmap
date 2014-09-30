@@ -69,9 +69,14 @@ class DetailView extends \kartik\detail\DetailView
 				$items[] = ['content' => $error[0]];
 			}
 			
-			$output = 
-				Html::listGroup($items, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"')
-				. $output;
+			$output = Html::tag(
+				'div',
+				Html::listGroup($items, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"') . $output,
+				['id' => 'nonattributeerrors']
+			);
+		}
+		else {
+			$output = Html::tag('div', '',['id' => 'nonattributeerrors']) . $output;
 		}
 
 		echo $output;
@@ -82,7 +87,7 @@ class DetailView extends \kartik\detail\DetailView
 			];
 			echo \dosamigos\fileupload\FileUploadUIAR::widget([
 				'name' => 'files',
-				'url' => [strtolower($this->model->formName()) . '/upload', 'id' => 1],
+				'url' => [strtolower($this->model->formName()) . '/upload', 'id' => $this->model->id],
 				'gallery' => false,
 				'fieldOptions' => [
 					'accept' => 'image/*',
