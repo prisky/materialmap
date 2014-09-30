@@ -88,6 +88,16 @@ trait FileControllerTrait {
 					// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
 					$response += ['activeformerrors' => \yii\widgets\ActiveForm::validate($model)];
 				}
+
+				// if errors
+				if(!isset($response['redirect'])) {
+					$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $model->uploadsPath;
+					// remove the files from where they were moved to
+					foreach($uploadHandler->response_content['files'] as $file) {
+						unlink($privatePermanentUploadsPath . '/' . $file->name);
+						unlink($privatePermanentUploadsPath . '/thumbnail/' . $file->name);
+					}
+				}
 			}
 			// otherwise creating -- no id
 			else {
@@ -127,9 +137,16 @@ trait FileControllerTrait {
 					// NB:at this stage we may still not have no files array as if ActiveRecord:save failed then we didn't handle uploads
 					// this scenario dealt with in client handler fileuploaddone by assuming upload was ok.
 				}
+
+				// if errors
+				if(!isset($response['redirect'])) {
+					$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $model->uploadsPath;
+					// remove upload directory
+					unlink($privatePermanentUploadsPath);
+				}
 			}
-			
-			// there are no errors i.e. upload or ActiveRecord save
+
+			// if there are no errors i.e. upload or ActiveRecord save
 			if(isset($response['redirect'])) {
 				$transaction->commit();
 			}
