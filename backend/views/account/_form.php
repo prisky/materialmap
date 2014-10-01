@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="account-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -19,6 +19,21 @@ use backend\components\DetailView;
 		'uploadOptions'=>['limitMultiFileUploads'=>null],
 		'attributes'=>[
 			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_MONEY],
+/*			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_WIDGET,
+				'widgetOptions' => [
+					'class' => '\dosamigos\fileupload\FileUploadUIAR',
+					'name' => $model->formName() . '[]',
+					'url' => [strtolower($model->formName()) . '/upload', 'id' => $model->id, 'a' => 'annual_charge'],
+					'gallery' => false,
+					'fieldOptions' => [
+						'accept' => 'image/*',
+					],
+					'options' => [
+						'id' => $model->formName(),	// the form id
+					],
+					'clientOptions' => ['maxFileSize' => 2000000],
+				],
+			],*/
 			['attribute' => 'balance', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'booking_charge', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'optimisation', 'type' => DetailView::INPUT_DROPDOWN_LIST,

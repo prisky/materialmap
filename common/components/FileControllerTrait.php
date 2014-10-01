@@ -49,6 +49,9 @@ trait FileControllerTrait {
 	 */
 	public function actionUpload($id = null)
 	{
+		$modelName = $this->modelName;
+		$uploadHandlerOptions = ['param_name' => 'files[]'];
+		
 		// the UploadHandler from blueImp will take care of this type
 		// of delete which is just a file delete and not a delete of our ActiveRecord model hence don't want to hand of to action delete
 		// but just let UploadHandler do its work removing any identifying files
@@ -56,8 +59,7 @@ trait FileControllerTrait {
 		if((isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') || Yii::$app->request->isGet) {
 			// if deleteing - as opposed to getting list of files on when creating in which case no id so can't do it
 			if($id) {
-				$modelName = $this->modelName;
-				$this->initUploadHandler($modelName::findOne($id));
+				$this->initUploadHandler($modelName::findOne($id), $uploadHandlerOptions);
 			}
         }
 		// otherwise a post request - update or create action
@@ -71,7 +73,7 @@ trait FileControllerTrait {
 				$model = $this->findModel($id);
 				$model->load(Yii::$app->request->post());
 				// handle files uploads and buffer the response
-				$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
+				$uploadHandler = $this->initUploadHandler($model, $uploadHandlerOptions + ['print_response' => false]);
 				// add response from blueimps upload handler - key is 'files'
 				$response = $uploadHandler->response_content;
 				// if no validation errors - or other database errors when saving
@@ -108,7 +110,7 @@ trait FileControllerTrait {
 				// if no validation errors - or other database errors when saving
 				if($model->save()) {
 					// handle files and buffer the response
-					$uploadHandler = $this->initUploadHandler($model, ['print_response' => false]);
+					$uploadHandler = $this->initUploadHandler($model, $uploadHandlerOptions + ['print_response' => false]);
 					// initiaize response to the files array with upload results from blueimps upload handler
 					$response = $uploadHandler->response_content;
 					// if no upload errors

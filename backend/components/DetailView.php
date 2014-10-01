@@ -22,6 +22,7 @@ class DetailView extends \kartik\detail\DetailView
 	 * 'maxFileSize' => 2000000
      */
 	public $uploadOptions = [];
+	
 	/**
 	 * @inheritdoc
 	 */
@@ -31,8 +32,10 @@ class DetailView extends \kartik\detail\DetailView
 		$params['id'] = $this->model->id;
 		$parentParam = Yii::$app->controller->parentParam;
 		$this->formOptions['action'] = Url::to(array_merge($params, $parentParam));
-		$this->formOptions['id'] = $this->model->formName();
+		$this->formOptions['id'] = $this->model->formName() . '-form';
 		$this->formOptions['options']['enctype'] = 'multipart/form-data';
+ //       $this->formOptions['uploadTemplateId'] = $this->uploadTemplateId ? : '#template-upload';
+ //       $this->formOptions['downloadTemplateId'] = $this->downloadTemplateId ? : '#template-download';
 		
 		// this starts the active form
 		parent::init();
@@ -59,7 +62,7 @@ class DetailView extends \kartik\detail\DetailView
         ]);
         
 		if($this->mode == static::MODE_EDIT) {
-			$output .= Html::submitButton('Save', ['id' => 'activeFromSave', 'class' => 'btn btn-primary' . ($this->uploadOptions ? ' hide' : '')]);
+			$output .= Html::submitButton('Save', ['id' => 'activFormSave', 'class' => 'btn btn-primary' . ($this->uploadOptions ? ' hide' : '')]);
 		}
 
 		// if there is errors but not specific attribute errors - may be trigger related
@@ -81,23 +84,21 @@ class DetailView extends \kartik\detail\DetailView
 
 		echo $output;
 
-		if($this->uploadOptions) {
-			$this->uploadOptions += [
-				'maxFileSize' => 2000000,
-			];
-			echo \dosamigos\fileupload\FileUploadUIAR::widget([
-				'name' => 'files',
-				'url' => [strtolower($this->model->formName()) . '/upload', 'id' => $this->model->id],
-				'gallery' => false,
-				'fieldOptions' => [
-					'accept' => 'image/*',
-				],
-				'options' => [
-					'id' => $this->model->formName(),	// the form id
-				],
-				'clientOptions' => $this->uploadOptions,
-			]);
-		}
+		echo \dosamigos\fileupload\FileUploadUIAR::widget([
+			'model' => $this->model,
+//			'attribute' => 'image',
+			'name' => 'files[]',
+			'url' => [strtolower($this->model->formName()) . '/upload', 'id' => $this->model->id],
+			'fieldOptions' => [
+					'accept' => 'image/*'
+			],
+			'options' => [
+				'id' => $this->model->formName(),	// the form id
+			],
+			'clientOptions' => [
+					'maxFileSize' => 2000000
+			]
+		]);
 
         \yii\widgets\ActiveForm::end();
 		

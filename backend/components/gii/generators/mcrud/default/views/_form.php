@@ -54,7 +54,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
+<div id="form-container">
 
     <?= "<?= " ?>DetailView::widget([
 		'model'=>$model,
