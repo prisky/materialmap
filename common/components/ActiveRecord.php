@@ -31,6 +31,14 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	 */
 	public $text;
 	
+	/**
+	 *
+	 * @var array Errors returned from database on save that aren't necassarily specific to a particular field i.e. maybe trigger or
+	 * foreign key constraing violation. These once known can be searched for in Save below and formatted for readability.
+	 * TODO: potentially suggest to yii developers something like this
+	 */
+	public $saveErrors = [];
+	
 	/*
 	 * @inheritdoc
 	 */
@@ -386,7 +394,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 				}
 			}
 				
-			$this->addError(null, $msg);
+			$this->saveErrors[] = ['content' => $msg];
 		}
 	}
 	

@@ -17,27 +17,23 @@ class DetailView extends \kartik\detail\DetailView
 	];
     /**
      * @var array https://github.com/blueimp/jQuery-File-Upload/wiki/Options
-     * If empty then no model level files will be attachable. 'limitMultiFileUploads'=>null will allow unlimited uploads
-	 * defaults are:
-	 * 'maxFileSize' => 2000000
+     * If null then no model level files will be attachable. Setting this to [] will give model level uploads with dwfault options
      */
-	public $uploadOptions = [];
+	public $uploadOptions;
 	
 	/**
 	 * @inheritdoc
 	 */
 	public function init()
 	{
-		$params[] = $this->model->id ? 'update' : 'create';
-		$params['id'] = $this->model->id;
-		$parentParam = Yii::$app->controller->parentParam;
-		$this->formOptions['action'] = Url::to(array_merge($params, $parentParam));
+		$this->formOptions['action'] = Url::to([
+			$this->model->id ? 'update' : 'create',
+			'id' => $this->model->id,
+			Yii::$app->controller->parentParam
+		]);
 		$this->formOptions['id'] = $this->model->formName() . '-form';
 		$this->formOptions['options']['enctype'] = 'multipart/form-data';
- //       $this->formOptions['uploadTemplateId'] = $this->uploadTemplateId ? : '#template-upload';
- //       $this->formOptions['downloadTemplateId'] = $this->downloadTemplateId ? : '#template-download';
 		
-		// this starts the active form
 		parent::init();
 
 // TODO: is this needed now?
@@ -62,19 +58,16 @@ class DetailView extends \kartik\detail\DetailView
         ]);
         
 		if($this->mode == static::MODE_EDIT) {
-			$output .= Html::submitButton('Save', ['id' => 'activFormSave', 'class' => 'btn btn-primary' . ($this->uploadOptions ? ' hide' : '')]);
+			$output .= Html::submitButton('Save', [
+				'id' => 'activFormSave',
+				'class' => 'btn btn-primary' . (is_null($this->uploadOptions) ? '' : ' hide')]);
 		}
 
 		// if there is errors but not specific attribute errors - may be trigger related
-		$errors = $this->model->errors;
-		if(isset($errors[null])) {
-			foreach($errors as $error) {
-				$items[] = ['content' => $error[0]];
-			}
-			
+		if(isset($this->model->saveErrors)) {
 			$output = Html::tag(
 				'div',
-				Html::listGroup($items, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"') . $output,
+				Html::listGroup($this->model->saveErrors, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"') . $output,
 				['id' => 'nonattributeerrors']
 			);
 		}
@@ -87,21 +80,18 @@ class DetailView extends \kartik\detail\DetailView
 		echo \dosamigos\fileupload\FileUploadUIAR::widget([
 			'model' => $this->model,
 //			'attribute' => 'image',
-			'name' => 'files[]',
-			'url' => [strtolower($this->model->formName()) . '/upload', 'id' => $this->model->id],
-			'fieldOptions' => [
-					'accept' => 'image/*'
-			],
-			'options' => [
-				'id' => $this->model->formName(),	// the form id
-			],
-			'clientOptions' => [
-					'maxFileSize' => 2000000
-			]
+			'name' => 'files[]',	// html name attribute for the file input button - needed if no attribute, otherwise derived from attribute
+			'url' => [				// controller action url
+				strtolower($this->model->formName()) . '/upload',
+				'id' => $this->model->id
+			],						
+			'fieldOptions' => [],	// html options the file input field
+			'options' => [],		// html options for the form
+			'clientOptions' => [],	// jquery-file-upload plugin options - https://github.com/blueimp/jQuery-File-Upload/wiki/Options
 		]);
 
         \yii\widgets\ActiveForm::end();
-		
+
 $js = <<<JS
 // get the form id and set the event
 $('form#{$this->model->formName()}').on('beforeSubmit', function(e) {

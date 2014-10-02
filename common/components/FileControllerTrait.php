@@ -95,7 +95,7 @@ trait FileControllerTrait {
 				if(!isset($response['redirect'])) {
 					$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $model->uploadsPath;
 					// remove the files from where they were moved to
-					foreach($uploadHandler->response_content['files'] as $file) {
+					foreach($uploadHandler->response_content[$uploadHandlerOptions['param_name']] as $file) {
 						unlink($privatePermanentUploadsPath . '/' . $file->name);
 						unlink($privatePermanentUploadsPath . '/thumbnail/' . $file->name);
 					}
@@ -142,15 +142,10 @@ trait FileControllerTrait {
 			}
 
 			// if there is errors but not specific attribute errors - may be trigger related
-			// NB: \yii\widgets\ActiveForm::validate strips non attribute errors out so do this first
-			$errors = $model->errors;
-			if(isset($errors[null])) {
-				foreach($errors as $error) {
-					$items[] = ['content' => $error[0]];
-				}
+			if($this->model->saveErrors) {
 				// send these thru but format the html here - an error block above form
 				$response['nonattributeerrors'] = 
-					Html::listGroup($items, ['class' => 'list-group'], 'ul', 'li class="list-group-item list-group-item-danger"');
+					Html::listGroup($this->model->saveErrors, ['class' => 'list-group'], 'ul', 'li class="list-group-item list-group-item-danger"');
 			}
 
 			// add form errors for blueimp fileuploadfinished callback - to handle with yiiActiveForm
@@ -161,6 +156,15 @@ trait FileControllerTrait {
 			// save database chanes if no errors or revert if errors
 			isset($response['redirect']) ? $transaction->commit() : $transaction->rollBack();
 
+			/* TODO: assuming json respose but may need to be plain text
+// https://github.com/blueimp/jQuery-File-Upload/wiki/Setup#using-jquery-file-upload-ui-version-with-a-custom-server-side-upload-handler
+header('Vary: Accept');
+if (isset($_SERVER['HTTP_ACCEPT']) &&
+    (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false)) {
+    header('Content-type: application/json');
+} else {
+    header('Content-type: text/plain');
+}*/
 			// send json response
 			Yii::$app->response->format = 'json';
 			return $response;
