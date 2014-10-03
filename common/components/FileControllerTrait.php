@@ -3,10 +3,12 @@
 namespace common\components;
 
 use Yii;
-use dosamigos\fileupload\UploadHandler;
 use yii\helpers\Url;
 use common\models\Model;
 use kartik\helpers\Html;
+use yii\web\UploadedFile;
+use yii\web\Response;
+use common\components\File;
 
 /**
  * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordBehavior and
@@ -20,7 +22,7 @@ trait FileControllerTrait {
 	 * destination uploads directory
 	 * @param ActiveRecord $model The model
 	 */
-	private function initUploadHandler($model, $options = [])
+/*	private function initUploadHandler($model, $options = [])
 	{
 		// ensure destination directory exists - this will mean that if an ancestor gets deleted then everything below will too
 		$path = $model->uploadsPath;
@@ -36,18 +38,89 @@ trait FileControllerTrait {
 				'upload_url' => $model->publish() . "/thumbnail/",
 				'max_width' => '80px',
 				'max_height' => '80px',
-			))
- 		];
+			))*/
+	
 
-		// initialize the upload handler
-		return new UploadHandler($options);
+// TODO divide this into actionUpdate, actionCreate and actionDeleteFile
+	public function actionUpload($id = null) {
+		$response = [];
+	
+		
+if(Yii::$app->request->post()){	
+		$model = $this->findModel($id);
+		$model->load(Yii::$app->request->post());
+		// validate files
+		$files = [];
+		$basePath = $model->path;
+		foreach(UploadedFile::getInstancesByName('files') as $uploadedFile) {
+			$file = new File(['basePath' => $basePath]);
+			$file->file = $uploadedFile;
+
+			// if valid
+			if(!$file->validate()) {
+				$uploadError = true;
+			}
+
+			$files[] = $file;
+		}
+
+		// allow rollback if any error occurrs with saving form data or file upload
+		$transaction = Yii::$app->db->beginTransaction();
+		if($model->save() && !isset($uploadError)) {
+			// set redirect back to parent index view
+			$params[] = 'index';
+			$fullModelName = $this->modelName;
+			if($parentAttribute = $fullModelName::parentAttribute()) {
+				$params[$parentAttribute] = $model->$parentAttribute;
+			}
+//			$response += ['redirect' => Url::to($params)];
+
+			$transaction->commit();
+			$save = true;
+		}
+		else {
+			$transaction->rollback();
+		}
+
+		// create the files part of the response
+		foreach($files as $file) {
+			if($save) {
+				$file->save();
+				$response['files[]'][] = [
+					'name' => $file->file->name,
+					'type' => $file->file->type,
+					'size' => $file->file->size,
+					'url' => $file->getImageUrl(),
+					'thumbnailUrl' => $file->getImageUrl(File::SMALL_IMAGE),
+					'deleteUrl' => Url::to(['deleteFile', 'id' => $id, 'name' => $file->file->name, 'a' => null]),
+					'deleteType' => 'POST'
+				];
+			} else {
+				// return to preuploaded state - but do show any file errors
+				if($file->hasErrors()) {
+					foreach($file->errors as $error) {
+						// just the last error for now for simplicity
+						$response['files[]'][] = [
+							'name' => $file->file->name,
+							'size' => $file->file->size,
+							"error" => current($error)
+						];
+					}
+				}
+			}
+
+			@unlink($file->file->tempName);
+		}
+}
+// TODO: thouth response format is set by ContentNegotiator in behaviour and fall back to text/html if
+// application/json not accepted - however seem to need to specify the format here
+		Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		return $response;
 	}
-
-	/**
-	 * Because a form can only have one action associated to it, any of the main buttons will cause this action to fire so we need
-	 * to examine the request a bit to find out what our desired course of action really is 
-	 */
-	public function actionUpload($id = null)
+	
+	public function actionUploadOld($id = null)
 	{
 		$modelName = $this->modelName;
 		$uploadHandlerOptions = ['param_name' => 'files[]'];
@@ -87,7 +160,7 @@ trait FileControllerTrait {
 							$params[$parentAttribute] = $model->$parentAttribute;
 						}
 						// add a 'redirect' key for our blueimp fileuploadfinished callback
-						$response += ['redirect' => Url::to($params)];
+//						$response += ['redirect' => Url::to($params)];
 					}
 				}
 
