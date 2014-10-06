@@ -96,12 +96,12 @@ trait FileControllerTrait
 					if($model->getErrors($attribute)) {
 						// did validataion fail possibly because of a mandatory requirement
 						foreach($model->getActiveValidators($attribute) as $validator) {
-							// check if required validator
+							// if required validator
 							if($validator instanceof \yii\validators\RequiredValidator) {
 								// if we have no files left
 								if(empty($model->$attribute)) {
 									// indicate response to restore it
-									$response['delete'][$attribute .'[]'] = $name;
+									$response['restore'][$attribute] = $name;
 								}
 							}
 						}
@@ -139,6 +139,20 @@ trait FileControllerTrait
 			$transaction->rollback();
 		}
 
+		// save errors is property added to ActiveRecord to hold errors caught from attempting to save to database inside transaction that got
+		// past normal validation. These errors will only occurr on a a delete, insert or update of database and are potentially trigger related
+		// e.g. validating that an adjacency list doesn't create endless loop (force a trigger error and detect here)
+		if($model->saveErrors) {
+			// send these thru but format the html here - an error block above form
+			$response['nonattributeerrors'] = 
+				Html::listGroup($model->saveErrors, ['class' => 'list-group'], 'ul', 'li class="list-group-item list-group-item-danger"');
+		}
+
+		// add form errors for blueimp fileuploadfinished callback - borrowed from \yii\widgets\ActiveForm::validate()
+		foreach ($model->getErrors() as $attribute => $errors) {
+			$response['activeformerrors'][Html::getInputId($model, $attribute)] = $errors;
+		}
+		
 		// get the files response - validattion errors in model
 		$response = array_merge($response, $this->filesResponse($model, $deleteFiles, $save));
 
