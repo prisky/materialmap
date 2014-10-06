@@ -18,24 +18,28 @@ use backend\components\DetailView;
 		'mode'=>$mode,
 		'uploadOptions'=>['limitMultiFileUploads'=>null],
 		'attributes'=>[
-			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_MONEY],
-/*			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_WIDGET,
+//			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_MONEY],
+			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_WIDGET,
 				'options' => ['name' => 'test'],
 				'widgetOptions' => [
 					'class' => '\dosamigos\fileupload\FileUploadUIARA',
 					'model' => $model,
 //					'attribute' => 'annual_charge',
 					'name' => 'annual_charge[]',	// html name attribute for the file input button - needed if no attribute, otherwise derived from attribute
-					'url' => [				// controller action url
-						strtolower($model->formName()) . '/upload',
+					'url' => [				// controller action url for save
+						strtolower($model->formName()) . '/save',
+						'id' => $model->id
+					],
+					'urlGetExistingFiles' => [				// controller action url to get existing files
+						strtolower($model->formName()) . '/getexistingfiles',
 						'id' => $model->id,
-						'a' => 'annual_charge'
-					],						
+						'attribute' => 'annual_charge'
+					],
 					'fieldOptions' => [],	// html options the file input field
 					'options' => [],		// html options for the form
 					'clientOptions' => [],	// jquery-file-upload plugin options - https://github.com/blueimp/jQuery-File-Upload/wiki/Options
 				],
-			],*/
+			],
 			['attribute' => 'balance', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'booking_charge', 'type' => DetailView::INPUT_MONEY],
 			['attribute' => 'optimisation', 'type' => DetailView::INPUT_DROPDOWN_LIST,

@@ -67,9 +67,9 @@ class DetailView extends \kartik\detail\DetailView
 		if(isset($this->model->saveErrors)) {
 			$output = Html::tag(
 				'div',
-				Html::listGroup($this->model->saveErrors, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"') . $output,
+				Html::listGroup($this->model->saveErrors, ['class' => "list-group"], 'ul', 'li class="list-group-item list-group-item-danger"'),
 				['id' => 'nonattributeerrors']
-			);
+			) . $output;
 		}
 		else {
 			$output = Html::tag('div', '',['id' => 'nonattributeerrors']) . $output;
@@ -81,10 +81,14 @@ class DetailView extends \kartik\detail\DetailView
 			'model' => $this->model,
 //			'attribute' => 'image',
 			'name' => 'files[]',	// html name attribute for the file input button - needed if no attribute, otherwise derived from attribute
-			'url' => [				// controller action url
-				strtolower($this->model->formName()) . '/upload',
+			'url' => [				// controller action url for save
+				strtolower($this->model->formName()) . '/save',
 				'id' => $this->model->id
-			],						
+			],
+			'urlGetExistingFiles' => [				// controller action url to get existing files
+				strtolower($this->model->formName()) . '/getexistingfiles',
+				'id' => $this->model->id
+			],
 			'fieldOptions' => [],	// html options the file input field
 			'options' => [],		// html options for the form
 			'clientOptions' => [],	// jquery-file-upload plugin options - https://github.com/blueimp/jQuery-File-Upload/wiki/Options

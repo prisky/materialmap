@@ -254,7 +254,7 @@ class AccountController extends \backend\components\Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete', 'upload'],
+                        'actions' => ['create', 'update', 'delete', 'save', 'getexistingfiles'],
                         'roles' => [$this->modelNameShort],
                     ],
                     [

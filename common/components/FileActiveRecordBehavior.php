@@ -5,6 +5,8 @@ namespace common\components;
 use yii\base\Behavior;
 use common\components\ActiveRecord;
 use Yii;
+use yii\web\UploadedFile;
+use common\components\File;
 
 /**
  * @inheritdoc
@@ -13,6 +15,11 @@ use Yii;
  */
 class FileActiveRecordBehavior extends Behavior
 {
+    /**
+     * @var array of UploadedFile relative to the model as opposed to an attribute
+     */
+	public $files = [];
+
 	public function events()
     {
         return [
@@ -39,6 +46,13 @@ class FileActiveRecordBehavior extends Behavior
 	 */
 	public function getPath()
 	{
+		static $path;
+
+		// cache
+		if($path) {
+			return $path;
+		}
+
 		$model = $this->owner;
 		
 		// calculate the path from the uploads directory
@@ -47,31 +61,51 @@ class FileActiveRecordBehavior extends Behavior
 			$path[] = $model->modelNameShort;
 		}
 
-		return implode('/', array_reverse($path));
+		return $path = implode('/', array_reverse($path));
+	}
+	
+	/**
+	 * Load file info array into a model attribute, containing potentially existing loaded files, new files, and perhaps ignore some
+	 * @param string $attribute the model attribute to load files into
+	 * @param bool $loadExisting whether to load existing files from storage first
+	 * @param array $delete a list of files to ignore for this attribute i.e. don't load existing info for
+	 */
+	public function loadFileAttribute($attribute, $loadExisting = false, $ignore = []) {
+		$model = $this->owner;
+		// get the attributes path on storage of if attribute is files then files are against whole model
+		$path = $model->path;
+		if($attribute != 'files') {
+			$path .= '/' . $attribute;
+		}
+		
+		// get existing from storage - just the names and details but not the files
+		$files = $loadExisting
+			? Yii::$app->resourceManager->listFiles($path . '/' . File::LARGE_IMAGE . '/')
+			: [];
+		
+		// handle posted deletes
+		foreach($files as $key => $file) {
+			// if file is requested to be deleted
+			if(in_array($file['name'], $ignore)) {
+				// remove from our files array
+				unset($files[$key]);
+			}
+		}
+
+		$model->$attribute = array_merge($files, UploadedFile::getInstancesByName($attribute));
 	}
 
 	/**
-	 * Soft link a directory associated to a model from outside the document to inside the document root in order to make it publicly available
-	 * over the internet. This will be cleaned up depending on the age of the link hence the reason for soft link over hard link. The source
-	 * directory structure follows our navigation hierachy architecuture but the destination is just single 
-	 * @return string The directory url that has been temporarily published/exposed to the web
+	 * Load file info array into a model attributes, containing potentially existing loaded files, new files, and perhaps ignore some
+	 * @param bool $loadExisting whether to load existing files from storage first
+	 * @param array $delete a list of files to ignore i.e. don't load existing info for
 	 */
-	public function publish()
-	{
+	public function loadFileAttributes($loadExisting = false, $ignore = []) {
 		$model = $this->owner;
-
-		// ensure source directory exists
-		$path = $model->uploadsPath;
-		$privatePermanentUploadsPath = Yii::$app->params['privatePermanentUploadsPath'] . $path;
-		$publicTemporaryUploadsPath = Yii::$app->params['publicTemporaryUploadsPath'] . $model->modelNameShort;
-		exec("mkdir -p '$privatePermanentUploadsPath'");
-		// ensure target base directory exists
-		exec("mkdir -p '$publicTemporaryUploadsPath'");
-		// create symbolic(soft) link - cron job will remove this periodically
-		exec("ln -s -f '$privatePermanentUploadsPath' '$publicTemporaryUploadsPath/{$model->primaryKey}'");
-		
-		// return target url
-		return Yii::$app->params['webTemporaryUploadsUrl'] . "{$model->modelNameShort}/{$model->primaryKey}";
+		foreach($model->fileAttributes as $attribute) {
+			$this->loadFileAttribute($attribute, $loadExisting, isset($ignore[$attribute]) ?$ignore[$attribute] : []);
+		}
 	}
-			
+
 }
+?>

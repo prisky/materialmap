@@ -1,7 +1,5 @@
 <?php
-/* 
- * Copyright Andrew Blake 2014.
- */
+
 namespace common\components;
 use Aws\S3\Enum\CannedAcl;
 use yii\web\UploadedFile;
@@ -15,7 +13,8 @@ class File extends \yii\base\Model
 {
 	const LARGE_IMAGE = '400x400';
 	const SMALL_IMAGE = '80x80';
-	
+	const ISPRIVATE = '+10 minutes';
+	const ISPUBLIC = null;
     /**
      * @var UploadedFile|Null file attribute
      */
@@ -25,9 +24,10 @@ class File extends \yii\base\Model
 	
 	public $basePath;
 	
-	public $urlExpiry = '+10 minutes';
+	public $urlExpiry = self::ISPRIVATE;
 
     /**
+	 * These rules apply on a per file basis
      * @return array the validation rules.
      */
     public function rules()
@@ -43,7 +43,6 @@ class File extends \yii\base\Model
 			$large = ImageHelper::saveTemporaryImage($this->file->tempName, $this->file->name, self::LARGE_IMAGE, $this->basePath);
 			$small = ImageHelper::saveTemporaryImage($this->file->tempName, $this->file->name, self::SMALL_IMAGE, $this->basePath);
 
-			// amazon s3
 			$manager = Yii::$app->resourceManager;
 			
 			$options = [
@@ -67,11 +66,41 @@ class File extends \yii\base\Model
 		}
 	}
 	
-	public function getImageUrl($type = self::LARGE_IMAGE) {
+	public function getImageUrl($type = self::LARGE_IMAGE)
+	{
 		return Yii::$app->resourceManager->getUrl(
 			$this->basePath . '/' . $type . '/' . $this->name,
 			$this->urlExpiry
 		);
+	}
+	
+	public function delete()
+	{
+		$manager = Yii::$app->resourceManager;
+		$manager->delete($this->basePath . '/' . self::SMALL_IMAGE . '/' . $this->file->name);
+		$manager->delete($this->basePath . '/' . self::LARGE_IMAGE . '/' . $this->file->name);
+	}
+	
+	public function jqueryFileUploadResponse()
+	{
+		if(isset($file->hasErrors)) {
+			// just the last error for now for simplicity
+			return [
+				'name' => $file->file->name,
+				'size' => $file->file->size,
+				"error" => $file->firstErrors['file']
+			];
+		}
+		
+		return [
+			'name' => $this->name = $this->file->name,
+			'type' => $this->file->type,
+			'size' => $this->file->size,
+			'url' => $this->getImageUrl(),
+			'thumbnailUrl' => $this->getImageUrl(File::SMALL_IMAGE),
+			'deleteUrl' => $this->file->name,
+			'deleteType' => 'POST'
+		];
 	}
 
 }

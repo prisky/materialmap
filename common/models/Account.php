@@ -106,7 +106,7 @@ namespace common\models;
  * @property Voucher[] $vouchers
  */
 class Account extends \common\components\ActiveRecord
-{
+{	
     /**
      * @inheritdoc
      */
@@ -121,7 +121,7 @@ class Account extends \common\components\ActiveRecord
     public function behaviors()
     {
         return [
-            \common\components\FileActiveRecordBehavior::className(),
+            '\common\components\FileActiveRecordBehavior',
         ];
     }
 
@@ -131,14 +131,23 @@ class Account extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'phone_work', 'balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate', 'optimisation'], 'required'],
+            [['user_id', 'phone_work', 'balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'rate', 'optimisation', 'annual_charge', 'files'], 'required'],
             [['user_id'], 'integer'],
-            [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate'], 'number'],
+            [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'rate'], 'number'],
             [['optimisation'], 'string'],
-            [['phone_work'], 'string', 'max' => 20]
+            [['phone_work'], 'string', 'max' => 20],
+			// attribute level file validation - e.g. maxFiles
+			[['annual_charge', 'files'], '\common\components\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2],
         ];
     }
 
+	public function getFileAttributes()
+	{
+		return [
+			'files',
+			'annual_charge',
+		];
+	}
 
     /**
      * @return \yii\db\ActiveQuery
