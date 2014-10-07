@@ -264,4 +264,10 @@ a.desc:after {
     background: #44B5F6;
     text-decoration: none;
 }
-
+/* jquery file upload files list inside row of kartik details form */
+.table-striped .table-striped > tbody > tr:first-child > td {
+	border-top: none;
+}
+.table-striped table.table-striped {
+	margin-bottom:0;
+}

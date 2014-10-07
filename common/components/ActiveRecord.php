@@ -369,7 +369,21 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		}
 
 		try {
-			return parent::save($runValidation, $attributeNames);
+			if(!$attributeNames) {
+				// do separate validation here - one reason is that attribute may contain an array of UpdateFiles which need validating
+				// but update or create will error with array to string conversion
+				if ($runValidation && !$this->validate($attributeNames)) {
+					Yii::info('Model not updated due to validation error.', __METHOD__);
+				}
+	
+				$attributeNames = [];
+				foreach($this->attributes as $attribute => $value) {
+					if(!is_array($value)) {
+						$attributeNames[] = $attribute;
+					}
+				}
+			}
+			return parent::save(false, $attributeNames);
 		}
 		catch (\Exception $e) {
 			$msg = $e->getMessage();

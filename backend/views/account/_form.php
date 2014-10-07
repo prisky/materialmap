@@ -19,7 +19,7 @@ use backend\components\DetailView;
 		'uploadOptions'=>['limitMultiFileUploads'=>null],
 		'attributes'=>[
 //			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_MONEY],
-			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_WIDGET,
+			['attribute' => 'annual_charge', 'type' => DetailView::INPUT_WIDGET, 
 				'options' => ['name' => 'test'],
 				'widgetOptions' => [
 					'class' => '\dosamigos\fileupload\FileUploadUIARA',
