@@ -271,3 +271,9 @@ a.desc:after {
 .table-striped table.table-striped {
 	margin-bottom:0;
 }
+.overflow-hidden {
+	overflow:hidden;
+}
+.no-gutter {
+    padding-left:0 !important;
+}

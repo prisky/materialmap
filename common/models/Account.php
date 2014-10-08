@@ -106,23 +106,15 @@ namespace common\models;
  * @property Voucher[] $vouchers
  */
 class Account extends \common\components\ActiveRecord
-{	
+{
+	use \common\components\FileActiveRecordTrait;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'tbl_account';
-    }
-
-	/**
-	 * @inheritdoc
-	 */
-    public function behaviors()
-    {
-        return [
-            '\common\components\FileActiveRecordBehavior',
-        ];
     }
 
     /**

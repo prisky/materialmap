@@ -2,30 +2,19 @@
 
 namespace common\components;
 
-use yii\base\Behavior;
-use common\components\ActiveRecord;
 use Yii;
 use yii\web\UploadedFile;
 use common\components\File;
 
 /**
- * @inheritdoc
+ * FileActiveRecordTrait adds file upload functionality to an ActiveRecord. To be used in conjuction with FileControllerTrait and
+ * dosamigos\fileupload\FileUploadUI, a Yii2 Widget encapsulating http://blueimp.github.io/jQuery-File-Upload/
  *
  * @author Andrew Blake <admin@newzealandfishing.com>
  */
-class FileActiveRecordBehavior extends Behavior
+trait FileActiveRecordTrait
 {
-    /**
-     * @var array of UploadedFile relative to the model as opposed to an attribute
-     */
-	public $files = [];
-
-	public function events()
-    {
-        return [
-            ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
-      ];
-    }
+	public $files;
 
 	/**
 	 * @inheritdoc. Unobtrusively clean out any uploaded files related to a model deleted from the database. Ideally
@@ -33,7 +22,7 @@ class FileActiveRecordBehavior extends Behavior
 	 * similar to an after delete trigger
 	 * @param type $event
 	 */
-	public function afterDelete($event)
+	public function afterDelete()
     {
 		// remove any uploads if exist
 //		exec("rm -rf " . Yii::$app->params['privatePermanentUploadsPath'] . $this->uploadsPath");
@@ -46,42 +35,38 @@ class FileActiveRecordBehavior extends Behavior
 	 */
 	public function getPath()
 	{
-		static $path;
+		static $path = [];
 
 		// cache
-		if($path) {
-			return $path;
+		if(isset($path[$this->id])) {
+			return $path[$this->id];
 		}
 
-		$model = $this->owner;
-		
 		// calculate the path from the uploads directory
-		for($start = $model, $path = []; $model; $model = $model->parentModel) {
-			$path[] = $model->primaryKey;
+		for($model = $this, $path = []; $model; $model = $model->parentModel) {
+			if($model->primaryKey) {
+				$path[] = $model->primaryKey;
+			}
 			$path[] = $model->modelNameShort;
 		}
 
-		return $path = implode('/', array_reverse($path));
+		return $path[$this->id] = implode('/', array_reverse($path));
 	}
 	
 	/**
 	 * Load file info array into a model attribute, containing potentially existing loaded files, new files, and perhaps ignore some
 	 * @param string $attribute the model attribute to load files into
-	 * @param bool $loadExisting whether to load existing files from storage first
 	 * @param array $delete a list of files to ignore for this attribute i.e. don't load existing info for
 	 */
-	public function loadFileAttribute($attribute, $loadExisting = false, $ignore = []) {
-		$model = $this->owner;
+	public function loadFileAttribute($attribute, $ignore = []) {
 		// get the attributes path on storage of if attribute is files then files are against whole model
-		$path = $model->path;
+		$path = $this->path;
 		if($attribute != 'files') {
 			$path .= '/' . $attribute;
 		}
 		
 		// get existing from storage - just the names and details but not the files
-		$files = $loadExisting
-			? Yii::$app->resourceManager->listFiles($path . '/' . File::LARGE_IMAGE . '/')
-			: [];
+		$files = Yii::$app->resourceManager->listFiles($path . '/' . File::LARGE_IMAGE . '/');
 		
 		// handle posted deletes
 		foreach($files as $key => $file) {
@@ -92,18 +77,16 @@ class FileActiveRecordBehavior extends Behavior
 			}
 		}
 
-		$model->$attribute = array_merge($files, UploadedFile::getInstancesByName($attribute));
+		$this->$attribute = array_merge($files, UploadedFile::getInstancesByName($attribute));
 	}
 
 	/**
 	 * Load file info array into a model attributes, containing potentially existing loaded files, new files, and perhaps ignore some
-	 * @param bool $loadExisting whether to load existing files from storage first
 	 * @param array $delete a list of files to ignore i.e. don't load existing info for
 	 */
-	public function loadFileAttributes($loadExisting = false, $ignore = []) {
-		$model = $this->owner;
-		foreach($model->fileAttributes as $attribute) {
-			$this->loadFileAttribute($attribute, $loadExisting, isset($ignore[$attribute]) ?$ignore[$attribute] : []);
+	public function loadFileAttributes($ignore = []) {
+		foreach($this->fileAttributes as $attribute) {
+			$this->loadFileAttribute($attribute, isset($ignore[$attribute]) ?$ignore[$attribute] : []);
 		}
 	}
 

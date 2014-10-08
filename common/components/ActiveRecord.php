@@ -347,8 +347,15 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		$messages = array('1062' => 'Duplicates are not allowed');
 
 		// deal with unset attributes
-		foreach($this->attributes as $attributeName => $attribute) {
-			if((is_null($attribute) || $attribute == '')) {
+		$primaryKeys = $this->getTableSchema()->primaryKey;
+		foreach($this->attributes as $attributeName => $attributeValue) {
+			// leave out primary keys
+            if(in_array($attributeName, $primaryKeys) && $this->getAttribute($attributeName) === null) {
+				// skip primary key as null - probably insert
+				continue;
+			}
+			
+			if((is_null($attributeValue) || $attributeValue == '')) {
 				$column = $this->tableSchema->columns[$attributeName];
 				if($column->allowNull) {
 					$this->$attributeName = null;
@@ -369,21 +376,27 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		}
 
 		try {
+			$failedValidation = false;
 			if(!$attributeNames) {
 				// do separate validation here - one reason is that attribute may contain an array of UpdateFiles which need validating
 				// but update or create will error with array to string conversion
-				if ($runValidation && !$this->validate($attributeNames)) {
-					Yii::info('Model not updated due to validation error.', __METHOD__);
+				if ($runValidation) {
+					if(!$this->validate($attributeNames)) {
+						Yii::info('Model not updated due to validation error.', __METHOD__);
+						return;
+					}
+					$runValidation = false;
 				}
 	
 				$attributeNames = [];
-				foreach($this->attributes as $attribute => $value) {
-					if(!is_array($value)) {
-						$attributeNames[] = $attribute;
+				foreach($this->attributes as $attributeName => $attributeValue) {
+					if(!is_array($attributeValue)) {
+						$attributeNames[] = $attributeName;
 					}
 				}
 			}
-			return parent::save(false, $attributeNames);
+
+			return parent::save($runValidation, $attributeNames);
 		}
 		catch (\Exception $e) {
 			$msg = $e->getMessage();

@@ -14,6 +14,7 @@ class DetailView extends \kartik\detail\DetailView
 	public $template = '<div class="modal-body row"><div class="col-xs-3">{label}</div><div class="col-xs-9">{value}</div></div>';
 	public $options = [
 		'tag'=>'div',
+		'class'=>"overflow-hidden",
 	];
     /**
      * @var array https://github.com/blueimp/jQuery-File-Upload/wiki/Options
@@ -79,19 +80,6 @@ class DetailView extends \kartik\detail\DetailView
 
 		echo \dosamigos\fileupload\FileUploadUIAR::widget([
 			'model' => $this->model,
-//			'attribute' => 'image',
-			'name' => 'files[]',	// html name attribute for the file input button - needed if no attribute, otherwise derived from attribute
-			'url' => [				// controller action url for save
-				strtolower($this->model->formName()) . '/save',
-				'id' => $this->model->id
-			],
-			'urlGetExistingFiles' => [				// controller action url to get existing files
-				strtolower($this->model->formName()) . '/getexistingfiles',
-				'id' => $this->model->id
-			],
-			'fieldOptions' => [],	// html options the file input field
-			'options' => [],		// html options for the form
-			'clientOptions' => [],	// jquery-file-upload plugin options - https://github.com/blueimp/jQuery-File-Upload/wiki/Options
 		]);
 
         \yii\widgets\ActiveForm::end();

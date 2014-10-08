@@ -9,6 +9,7 @@ use kartik\helpers\Html;
 use yii\web\UploadedFile;
 use yii\web\Response;
 use common\components\File;
+use backend\components\DetailView;
 
 /**
  * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordBehavior and
@@ -19,29 +20,40 @@ use common\components\File;
 trait FileControllerTrait
 {
 
-	public function actionGetexistingfiles($id, $attribute = null)
+	public function actionGetexistingfiles($id = null, $attribute = null)
 	{
-		$inputName = $attribute ? $attribute : 'files';
 		$response = [];
-		$model = $this->findModel($id);
-		$path = $attribute ? $model->path . '/' . $attribute : $model->path;
-		$manager = Yii::$app->resourceManager;
-		$privacy = File::ISPUBLIC;
+		
+		if($id) {
+			$model = $this->findModel($id);
+			$inputName = $attribute ? $attribute : 'files';
 
-		// get list of existing files from storage
-		foreach($manager->listFiles($path . '/' . File::LARGE_IMAGE . '/') as $file) {
-			$response[$inputName . '[]'][] = [
-				'name' => $file['name'],
-				'type' => $file['type'],
-				'size' => $file['size'],
-				'url' => $manager->getUrl($file['path'], $privacy),
-				'thumbnailUrl' => $manager->getUrl($path . '/' . File::SMALL_IMAGE . '/' . $file['name'], $privacy),
-				// not actually url to delete but the file itself - easiest hack
-				'deleteUrl' => $file['name'],
-				'deleteType' => 'POST'
-			];
+			// $model->path is the base path in a file system for uploads for this model
+			$path = $attribute ? $model->path . '/' . $attribute : $model->path;
+			$manager = Yii::$app->resourceManager;
+			$privacy = File::ISPUBLIC;
+
+			// get list of existing files from storage
+			foreach($manager->listFiles($path . '/' . File::LARGE_IMAGE . '/') as $file) {
+				$response[$inputName . '[]'][] = [
+					'name' => $file['name'],
+					'type' => $file['type'],
+					'size' => $file['size'],
+					'url' => $manager->getUrl($file['path'], $privacy),
+					'thumbnailUrl' => $manager->getUrl($path . '/' . File::SMALL_IMAGE . '/' . $file['name'], $privacy),
+					// not actually url to delete but the file itself - easiest hack
+					'deleteUrl' => $file['name'],
+					'deleteType' => 'POST'
+				];
+			}
+
 		}
 
+		return $this->response($response);
+	}
+	
+	private function response($response)
+	{
 		Yii::$app->response->getHeaders()->set('Vary', 'Accept');
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -55,7 +67,7 @@ trait FileControllerTrait
 	 * @param array $deleteFiles in form [attribute => pathName]
 	 * @param bool $save true if good to save changes
 	 */
-	private function filesResponse($model, $deleteFiles, $save)
+	private function buildResponse($model, $save, $deleteFiles = [])
 	{
 		$response = [];
 
@@ -67,29 +79,31 @@ trait FileControllerTrait
 					continue;
 				}
 	
-				$file = new File(['file' => $uploadedFile, 'basePath' => $model->path]);
+				$file = new File([
+					'file' => $uploadedFile,
+					'basePath' => ($attribute == 'files') ? $model->path : $model->path . '/' . $attribute
+				]);
 				// validate this individual file
 				$file->validate();
 				// build response
 				$response[$attribute . '[]'][] = $file->jqueryFileUploadResponse();
-
-				// remove temporary file
-				@unlink($file->file->tempName);
 	
 				if($save) {
 					$file->save();
 				}
+
+				// remove temporary file
+				@unlink($file->file->tempName);
 			}
 			
 			// deletes
 			$manager = Yii::$app->resourceManager;
-			$path = $model->path;
 			foreach($deleteFiles as $attribute => $name) {
 				// if saving
 				if($save) {
-					$file = new File(['name' => $name, 'basePath', ($attribute == 'files') ? $path : $path . '/' . $attribute]);
+					$file = new File(['name' => $name, 'basePath', ($attribute == 'files') ? $model->path : $model->path . '/' . $attribute]);
 					// remove from storage
-	//				$file->delete();
+					$file->delete();
 					// response not important as redirect will occurr when saving
 				} else {	// response is important as not redirecting
 					// did validation fail for this attribute
@@ -110,35 +124,6 @@ trait FileControllerTrait
 			}
 		}
 		
-		return $response;
-	}
-
-	public function actionSave($id = null)
-	{
-		$response = [];
-	
-		$save = true;
-		$model = $this->findModel($id);
-		$model->load(Yii::$app->request->post());
-		$deleteFiles = isset($_POST['delete']) ? $_POST['delete'] : [];
-		$model->loadFileAttributes(true, $deleteFiles);
-
-		// allow rollback if any error occurrs with saving form data or file upload
-		$transaction = Yii::$app->db->beginTransaction();
-		if($save = $model->save()) {
-			// set redirect back to parent index view
-			$params[] = 'index';
-			$fullModelName = $this->modelName;
-			if($parentAttribute = $fullModelName::parentAttribute()) {
-				$params[$parentAttribute] = $model->$parentAttribute;
-			}
-//			$response += ['redirect' => Url::to($params)];
-			$transaction->commit();
-		}
-		else {
-			$transaction->rollback();
-		}
-
 		// save errors is property added to ActiveRecord to hold errors caught from attempting to save to database inside transaction that got
 		// past normal validation. These errors will only occurr on a a delete, insert or update of database and are potentially trigger related
 		// e.g. validating that an adjacency list doesn't create endless loop (force a trigger error and detect here)
@@ -153,15 +138,85 @@ trait FileControllerTrait
 			$response['activeformerrors'][Html::getInputId($model, $attribute)] = $errors;
 		}
 		
-		// get the files response - validattion errors in model
-		$response = array_merge($response, $this->filesResponse($model, $deleteFiles, $save));
-
-		Yii::$app->response->getHeaders()->set('Vary', 'Accept');
-		Yii::$app->response->format = Response::FORMAT_JSON;
-
-		return $response;
+		return $this->response($response);
 	}
-	
+
+	/**
+	 * @inheritDoc.
+	 */
+	public function actionCreate()
+	{
+		$model = $this->newModelWithDefaults;
+		$modelNameShort = $this->modelNameShort;
+		$model->load(Yii::$app->request->get());
+		
+		if($model->load(Yii::$app->request->post())) {
+			$response = [];
+			$model->loadFileAttributes();
+			// allow rollback if any error occurrs with saving form data or file upload
+			$transaction = Yii::$app->db->beginTransaction();
+			if($save = $model->save()) {
+				// if this model is leaf node in navigation
+				if(Model::findOne(['auth_item_name' => $this->modelNameShort])->isLeaf()) {
+					// go to the admin view of this node
+					$params[] = 'index';
+					$fullModelName = $this->modelName;
+					if($parentAttribute = $fullModelName::parentAttribute()) {
+						$params[$parentAttribute] = $model->$parentAttribute;
+					}
+				} else {
+					// go to the update view
+					$params = ['update', 'id' => $model->id];
+				}
+				$response += ['redirect' => Url::to($params)];
+				$transaction->commit();
+			}
+			else {
+				$transaction->rollback();
+			}
+
+			return array_merge($response, $this->buildResponse($model, $save));
+		}
+
+		// from http://www.yiiframework.com/wiki/690/render-a-form-in-a-modal-popup-using-ajax/
+        return $this->renderAjax('//' . $this->id . '/_form', [
+			'model' => $model,
+			'mode' => DetailView::MODE_EDIT,
+		]);
+	}
+
+	public function actionUpdate($id)
+	{
+		$model = $this->findModel($id);
+
+		if($model->load(Yii::$app->request->post())) {
+			$response = [];
+			$deleteFiles = isset($_POST['delete']) ? $_POST['delete'] : [];
+			$model->loadFileAttributes($deleteFiles);
+
+			// allow rollback if any error occurrs with saving form data or file upload
+			$transaction = Yii::$app->db->beginTransaction();
+			if($save = $model->save()) {
+				// set redirect back to parent index view
+				$params[] = 'index';
+				$fullModelName = $this->modelName;
+				if($parentAttribute = $fullModelName::parentAttribute()) {
+					$params[$parentAttribute] = $model->$parentAttribute;
+				}
+				$response += ['redirect' => Url::to($params)];
+				$transaction->commit();
+			}
+			else {
+				$transaction->rollback();
+			}
+
+			return array_merge($response, $this->buildResponse($model, $save, $deleteFiles));
+		}
+
+		return $this->render('@app/views/update', [
+			'model' => $model,
+		]);
+	}			
 }
 
 ?>
