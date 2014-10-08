@@ -426,7 +426,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	}
 	
 	/**
-	 * @inheritdoc. Supports soft delete.
+	 * @inheritdoc. Supports soft delete. Not actually intended for use of multiple deletes
 	 */
     public static function deleteAll($condition = '', $params = [])
     {

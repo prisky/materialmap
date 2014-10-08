@@ -18,16 +18,24 @@ trait FileActiveRecordTrait
 
 	/**
 	 * @inheritdoc. Unobtrusively clean out any uploaded files related to a model deleted from the database. Ideally
-	 * a database trigger would do this but not possible in MYSQL hence this is the best we can do. Event firing after delete
-	 * similar to an after delete trigger
+	 * a database trigger would do this but not possible in MySQL hence this is the best we can do. Potentially a slightly better option
+	 * could be to add an after delete trigger to each table and have this write the model name and pk to another table that serves as a feed
+	 * to a cron job that handles the deletes on s3 - though cascaded deletes probably unnessary due to the filename/path tree structure of
+	 * the files
 	 * @param type $event
 	 */
 	public function afterDelete()
-    {
-		// remove any uploads if exist
-//		exec("rm -rf " . Yii::$app->params['privatePermanentUploadsPath'] . $this->uploadsPath");
-    }
-
+	{
+		if($return = parent::delete()) {
+			// if there is no soft delete
+			if(!isset(static::getTableSchema()->columns['deleted'])) {
+				// hard deleted so remove this branch of files
+				Yii::$app->resourceManager-> deleteMatching($prefix);
+			}
+		}
+		
+		return $return;
+	}
 
 	/**
 	 * Calcualte the path component for uploads
