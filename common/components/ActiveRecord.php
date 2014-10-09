@@ -7,6 +7,7 @@ use common\models\Model;
 use yii\helpers\Inflector;
 use kartik\helpers\Html;
 use yii\db\Schema;
+use Aws\S3\Enum\CannedAcl;
 
 /**
  * @inheritdoc
@@ -334,6 +335,71 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			? Inflector::id2camel(preg_replace('/^' . Yii::$app->db->tablePrefix . '/', '', $keyColumnUsage[static::tableName()][$attribute]), '_')
 			: NULL;
 	}
+
+	/**
+	 * Calcualte the path file for uploads
+	 * @return string The path
+	 */
+	public function getPath()
+	{
+		static $path = [];
+
+		// cache
+		if(isset($path[$this->id])) {
+			return $path[$this->id];
+		}
+
+		// calculate the path from the uploads directory
+		for($model = $this, $path = []; $model; $model = $model->parentModel) {
+			if($model->primaryKey) {
+				$path[] = $model->primaryKey;
+			}
+			$path[] = $model->modelNameShort;
+		}
+
+		return $path[$this->id] = implode('/', array_reverse($path));
+	}
+
+	/**
+	 * Extract and save base64 images from html text string and return
+	 * @param string $attributeName the html attribute in the current model
+	 */
+	private function storeImages($attributeName)
+	{
+		$manager = Yii::$app->resourceManager;
+		$options = [
+			'Bucket' => $manager->bucket,
+			'ACL' => CannedAcl::PUBLIC_READ
+		];
+		$path = $this->path;
+
+		$this->$attributeName = preg_replace_callback(
+			"/src=\"data:([^\"]+)\"/",
+			function ($matches) use ($storedFiles, $manager, $options, $path)
+		{
+			list($contentType, $encContent) = explode(';', $matches[1]);
+			if (substr($encContent, 0, 6) != 'base64') {
+				return $matches[0]; // Don't understand, return as is
+			}
+			
+			switch($contentType) {
+				case 'image/jpeg':  $imgExt = '.jpg'; break;
+				case 'image/gif':   $imgExt = '.gif'; break;
+				case 'image/png':   $imgExt = '.png'; break;
+				default:            return $matches[0]; // Don't understand, return as is
+			}
+			
+			$imgBase64 = substr($encContent, 6);
+			$options['SourceFile'] = md5($imgBase64) . $imgExt;
+			file_put_contents($options['SourceFile'], base64_decode($imgBase64));
+			$options['Key'] = $path . '/' . $options['SourceFile'];
+			$manager->getClient()->putObject($options);
+			@unlink($options['SourceFile']);
+			
+			// permanent url
+			return 'src="' . $manager->getUrl($options['Key']) . '"'; 
+		}, $this->$attributeName);
+	}
 	
 	/**
 	 * @inheritdoc. Convert empty strings to nulls where null is allowed and perform other error testing that validate can't e.g.
@@ -377,6 +443,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
 		try {
 			$failedValidation = false;
+			
 			if(!$attributeNames) {
 				// do separate validation here - one reason is that attribute may contain an array of UpdateFiles which need validating
 				// but update or create will error with array to string conversion
@@ -396,7 +463,18 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 				}
 			}
 
-			return parent::save($runValidation, $attributeNames);
+			// if save is ok then need to re-save potentially to extract and store files from html fields
+			if($return = parent::save($runValidation, $attributeNames)) {
+				foreach($this->safeAttributes() as $attributeName) {
+					// transplate base64 images from html fields to s3
+					if (strpos($attributeName, 'help') !== false) {
+					   $this->storeImages($attributeName);
+					}
+				}
+				parent::save(false, $attributeNames);
+			}
+			
+			return $return;
 		}
 		catch (\Exception $e) {
 			$msg = $e->getMessage();

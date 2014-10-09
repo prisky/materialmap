@@ -36,30 +36,6 @@ trait FileActiveRecordTrait
 		
 		return $return;
 	}
-
-	/**
-	 * Calcualte the path component for uploads
-	 * @return string The path
-	 */
-	public function getPath()
-	{
-		static $path = [];
-
-		// cache
-		if(isset($path[$this->id])) {
-			return $path[$this->id];
-		}
-
-		// calculate the path from the uploads directory
-		for($model = $this, $path = []; $model; $model = $model->parentModel) {
-			if($model->primaryKey) {
-				$path[] = $model->primaryKey;
-			}
-			$path[] = $model->modelNameShort;
-		}
-
-		return $path[$this->id] = implode('/', array_reverse($path));
-	}
 	
 	/**
 	 * Load file info array into a model attribute, containing potentially existing loaded files, new files, and perhaps ignore some

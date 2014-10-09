@@ -21,19 +21,19 @@ use backend\components\DetailView;
 			['attribute' => 'label_plural', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
 			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
 				'widgetOptions' => [
-					'class' => 'yii\imperavi\Widget',
+/*					'class' => 'yii\imperavi\Widget',
 					// Some options, see http://imperavi.com/redactor/docs/
 					'options' => [
 						'css' => 'wym.css',
 						'imageUpload' => '/modules/upload.php'
-					],
-/*					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
+					],*/
+					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
 					'clientOptions' => [
 						'codemirror' => [
 							'theme' => 'monokai',
 							'lineNumbers' => true,
 						],
-					],*/
+					],
 				],
 			],
 		]

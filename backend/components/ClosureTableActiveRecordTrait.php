@@ -239,8 +239,4 @@ trait ClosureTableActiveRecordTrait
         return $cmd->execute();
     }
 	
-	public function getPath() {
-		
-	}
-	
 }
