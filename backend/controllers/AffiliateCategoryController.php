@@ -13,14 +13,15 @@ use yii\helpers\Inflector;
  */
 class AffiliateCategoryController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "level" => "#",
+        "root" => "#",
         "lft" => "#",
         "rgt" => "#",
-        "root" => "#"
+        "level" => "#"
     ];
 
 	/**
@@ -38,12 +39,12 @@ class AffiliateCategoryController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
-                "attribute" => "level",
+                "attribute" => "root",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
-                    "attribute1" => "from_level",
-                    "attribute2" => "to_level"
+                    "attribute1" => "from_root",
+                    "attribute2" => "to_root"
                 ]
             ],
             [
@@ -56,9 +57,6 @@ class AffiliateCategoryController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "name"
-            ],
-            [
                 "attribute" => "rgt",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
@@ -68,13 +66,16 @@ class AffiliateCategoryController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "root",
+                "attribute" => "level",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
-                    "attribute1" => "from_root",
-                    "attribute2" => "to_root"
+                    "attribute1" => "from_level",
+                    "attribute2" => "to_level"
                 ]
+            ],
+            [
+                "attribute" => "name"
             ]
         ];
 	}

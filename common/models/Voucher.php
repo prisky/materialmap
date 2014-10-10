@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_voucher".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property string $amount
  * @property string $uniqueid
  *
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class Voucher extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -37,7 +38,6 @@ class Voucher extends \common\components\ActiveRecord
             [['uniqueid'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

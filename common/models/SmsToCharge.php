@@ -6,9 +6,9 @@ namespace common\models;
  * This is the model class for table "tbl_sms_to_charge".
  *
  * @property integer $id
- * @property string $account_id
- * @property string $sms_id
- * @property string $charge_id
+ * @property integer $account_id
+ * @property integer $sms_id
+ * @property integer $charge_id
  *
  * @property Account $account
  * @property Sms $sms
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class SmsToCharge extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class SmsToCharge extends \common\components\ActiveRecord
             [['charge_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

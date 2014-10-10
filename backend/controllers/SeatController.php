@@ -13,14 +13,15 @@ use yii\helpers\Inflector;
  */
 class SeatController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "level" => "#",
+        "root" => "#",
         "lft" => "#",
         "rgt" => "#",
-        "root" => "#"
+        "level" => "#"
     ];
 
 	/**
@@ -29,12 +30,21 @@ class SeatController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "level",
+                "attribute" => "resource_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "resource");
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "root",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
-                    "attribute1" => "from_level",
-                    "attribute2" => "to_level"
+                    "attribute1" => "from_root",
+                    "attribute2" => "to_root"
                 ]
             ],
             [
@@ -47,18 +57,6 @@ class SeatController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "name"
-            ],
-            [
-                "attribute" => "resource_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Resource', ['account_id' => $searchModel->account_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "resource");
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "rgt",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
@@ -68,13 +66,16 @@ class SeatController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "root",
+                "attribute" => "level",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
-                    "attribute1" => "from_root",
-                    "attribute2" => "to_root"
+                    "attribute1" => "from_level",
+                    "attribute2" => "to_level"
                 ]
+            ],
+            [
+                "attribute" => "name"
             ],
             [
                 "attribute" => "x"

@@ -5,15 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_annual_charge".
  *
- * @property string $id
- * @property string $account_id
- * @property string $charge_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $charge_id
  *
  * @property Charge $charge
  * @property Account $account
  */
 class AnnualCharge extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,7 +34,6 @@ class AnnualCharge extends \common\components\ActiveRecord
             [['charge_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

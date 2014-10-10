@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class AuthItemChildController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="item-inventory-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
-			['attribute' => 'received', 'type' => DetailView::INPUT_DATETIME],
+            ['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
+            ['attribute' => 'received', 'type' => DetailView::INPUT_DATETIME],
 		]
 	]);	?>
 

@@ -27,10 +27,10 @@ class SummaryToItemSearch extends SummaryToItem
             'query' => $query,
         ]);
 
-		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
-		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
 		$query->andFilterWhere(['item_group_id' => $this->item_group_id]);
 		$query->andFilterWhere(['item_id' => $this->item_id]);
+		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
 		$query->andFilterGoogleStyle('quantity', $this->quantity);
 		
         return $dataProvider;

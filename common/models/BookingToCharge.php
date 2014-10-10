@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_booking_to_charge".
  *
- * @property string $id
- * @property string $account_id
- * @property string $booking_id
- * @property string $charge_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $booking_id
+ * @property integer $charge_id
  *
  * @property Booking $booking
  * @property Charge $charge
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class BookingToCharge extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class BookingToCharge extends \common\components\ActiveRecord
             [['booking_id', 'charge_id'], 'unique', 'targetAttribute' => ['booking_id', 'charge_id'], 'message' => 'The combination of Booking and Charge has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

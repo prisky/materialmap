@@ -5,14 +5,15 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_sms_thread".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  *
  * @property Sms[] $sms
  * @property Account $account
  */
 class SmsThread extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -31,7 +32,6 @@ class SmsThread extends \common\components\ActiveRecord
             [['account_id'], 'integer']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

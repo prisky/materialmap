@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="ticket-to-custom-field-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'custom_value', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
+            ['attribute' => 'custom_value', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
 		]
 	]);	?>
 

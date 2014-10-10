@@ -5,16 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_newsletter".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property string $subject
- * @property string $content
- * @property string $sent
+ * @property string $content_html
  *
  * @property Account $account
  */
 class Newsletter extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -29,14 +29,12 @@ class Newsletter extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'subject', 'content'], 'required'],
+            [['account_id', 'subject', 'content_html'], 'required'],
             [['account_id'], 'integer'],
-            [['content'], 'string'],
-            [['sent'], 'safe'],
+            [['content_html'], 'string'],
             [['subject'], 'string', 'max' => 255]
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

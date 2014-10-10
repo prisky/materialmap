@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_invoice".
  *
- * @property string $id
- * @property string $account_to_user_id
+ * @property integer $id
+ * @property integer $account_to_user_id
  * @property string $invoiced
  * @property string $paid
  *
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class Invoice extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class Invoice extends \common\components\ActiveRecord
             [['invoiced', 'paid'], 'safe']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

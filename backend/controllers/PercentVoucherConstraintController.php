@@ -13,12 +13,13 @@ use yii\helpers\Inflector;
  */
 class PercentVoucherConstraintController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "invalaid_to" => "hh:mm AM/PM on mmmm d, yy",
-        "invalid_from" => "hh:mm AM/PM on mmmm d, yy"
+        "invalid_from" => "hh:mm AM/PM on mmmm d, yy",
+        "invalaid_to" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
 	/**
@@ -27,12 +28,12 @@ class PercentVoucherConstraintController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "invalaid_to",
+                "attribute" => "invalid_from",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
-                    "attribute1" => "from_invalaid_to",
-                    "attribute2" => "to_invalaid_to",
+                    "attribute1" => "from_invalid_from",
+                    "attribute2" => "to_invalid_from",
                     "type" => "\\kartik\\widgets\\DateTimePicker",
                     "widgetOptions1" => [
                         "type" => 1,
@@ -49,12 +50,12 @@ class PercentVoucherConstraintController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "invalid_from",
+                "attribute" => "invalaid_to",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
                     "separator" => NULL,
-                    "attribute1" => "from_invalid_from",
-                    "attribute2" => "to_invalid_from",
+                    "attribute1" => "from_invalaid_to",
+                    "attribute2" => "to_invalaid_to",
                     "type" => "\\kartik\\widgets\\DateTimePicker",
                     "widgetOptions1" => [
                         "type" => 1,

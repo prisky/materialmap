@@ -5,12 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary_to_item".
  *
- * @property string $id
- * @property string $account_id
- * @property string $summary_id
- * @property string $field_set_id
- * @property string $item_group_id
- * @property string $item_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $summary_id
+ * @property integer $field_set_id
+ * @property integer $item_group_id
+ * @property integer $item_id
  * @property integer $level_id
  * @property string $amount
  * @property integer $quantity
@@ -23,6 +23,7 @@ namespace common\models;
  */
 class SummaryToItem extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -42,7 +43,6 @@ class SummaryToItem extends \common\components\ActiveRecord
             [['amount'], 'number']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

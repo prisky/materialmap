@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_account_to_affiliate_category".
  *
- * @property string $id
- * @property string $account_id
- * @property string $affiliate_category_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $affiliate_category_id
  * @property string $rate
  *
  * @property Account $account
@@ -15,6 +15,7 @@ namespace common\models;
  */
 class AccountToAffiliateCategory extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class AccountToAffiliateCategory extends \common\components\ActiveRecord
             [['account_id', 'affiliate_category_id'], 'unique', 'targetAttribute' => ['account_id', 'affiliate_category_id'], 'message' => 'The combination of Account and Affiliate category has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

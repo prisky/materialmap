@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="account-to-user-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,10 +17,11 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'immediate', 'type' => DetailView::INPUT_SWITCH],
-			['attribute' => 'newsletter', 'type' => DetailView::INPUT_SWITCH],
-			['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],
-			['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])],
+            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
+            ['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])],
+            ['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],
+            ['attribute' => 'newsletter', 'type' => DetailView::INPUT_SWITCH],
+            ['attribute' => 'immediate', 'type' => DetailView::INPUT_SWITCH],
 		]
 	]);	?>
 

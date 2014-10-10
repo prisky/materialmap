@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ResourceController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

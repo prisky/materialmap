@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ModelController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,13 +27,13 @@ class ModelController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "help"
-            ],
-            [
                 "attribute" => "label"
             ],
             [
                 "attribute" => "label_plural"
+            ],
+            [
+                "attribute" => "help_html"
             ]
         ];
 	}

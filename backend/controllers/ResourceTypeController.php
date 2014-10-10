@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ResourceTypeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,10 +27,19 @@ class ResourceTypeController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "comment"
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
             ],
             [
                 "attribute" => "name"
+            ],
+            [
+                "attribute" => "comment"
             ]
         ];
 	}

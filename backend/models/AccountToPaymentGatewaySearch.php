@@ -25,6 +25,7 @@ class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
             'query' => $query,
         ]);
 
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
 		
         return $dataProvider;

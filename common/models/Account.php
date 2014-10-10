@@ -109,11 +109,11 @@ class Account extends \common\components\ActiveRecord
 {
 	use \common\components\FileActiveRecordTrait;
 	
-	    /**
+    /**
      * @var string $logo_image is a file attribute
      */
 	public $logo_image;
-		
+	
 	/**
 	 * Get the attribute names for files
 	 *
@@ -122,8 +122,8 @@ class Account extends \common\components\ActiveRecord
 	public function getFileAttributes()
 	{
 		return [
-			    'logo_image',
-			];
+		    'logo_image',
+		];
 	}
 
     /**
@@ -145,10 +145,9 @@ class Account extends \common\components\ActiveRecord
             [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate'], 'number'],
             [['optimisation'], 'string'],
             [['phone_work'], 'string', 'max' => 20],
-            ['logo_image'], '\common\components\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2
+            [['logo_image'], '\common\components\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2]
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

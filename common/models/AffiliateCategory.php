@@ -5,12 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_affiliate_category".
  *
- * @property string $id
- * @property string $account_id
- * @property string $root
- * @property string $lft
- * @property string $rgt
- * @property string $level
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $root
+ * @property integer $lft
+ * @property integer $rgt
+ * @property integer $level
  * @property string $name
  *
  * @property AccountToAffiliateCategory[] $accountToAffiliateCategories
@@ -18,6 +18,7 @@ namespace common\models;
  */
 class AffiliateCategory extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -37,7 +38,6 @@ class AffiliateCategory extends \common\components\ActiveRecord
             [['name'], 'string', 'max' => 64]
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

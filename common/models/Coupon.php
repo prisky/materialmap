@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_coupon".
  *
- * @property string $id
- * @property string $account_id
- * @property string $reseller_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $reseller_id
  * @property string $uniqueid
  * @property string $expiry
  * @property string $created
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class Coupon extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -39,7 +40,6 @@ class Coupon extends \common\components\ActiveRecord
             [['account_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

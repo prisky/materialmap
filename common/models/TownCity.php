@@ -5,7 +5,7 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_town_city".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name
  * @property integer $state_province_region
  *
@@ -14,6 +14,7 @@ namespace common\models;
  */
 class TownCity extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class TownCity extends \common\components\ActiveRecord
             [['state_province_region', 'name'], 'unique', 'targetAttribute' => ['state_province_region', 'name'], 'message' => 'The combination of Name and State province region has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -5,11 +5,11 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_bid".
  *
- * @property string $id
- * @property string $account_id
- * @property string $question_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $question_id
  * @property string $offer
- * @property string $comment
+ * @property string $comment_markdown
  * @property string $deadline
  * @property string $updated
  *
@@ -19,6 +19,7 @@ namespace common\models;
  */
 class Bid extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,14 +34,13 @@ class Bid extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'question_id', 'offer', 'comment', 'deadline', 'updated'], 'required'],
+            [['account_id', 'question_id', 'offer', 'comment_markdown', 'deadline', 'updated'], 'required'],
             [['account_id', 'question_id'], 'integer'],
             [['offer'], 'number'],
-            [['comment'], 'string'],
+            [['comment_markdown'], 'string'],
             [['deadline', 'updated'], 'safe']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

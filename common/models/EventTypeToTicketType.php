@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_event_type_to_ticket_type".
  *
- * @property string $id
- * @property string $account_id
- * @property string $event_type_id
- * @property string $ticket_type_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $event_type_id
+ * @property integer $ticket_type_id
  * @property integer $deleted
  *
  * @property EventType $eventType
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class EventTypeToTicketType extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class EventTypeToTicketType extends \common\components\ActiveRecord
             [['event_type_id', 'ticket_type_id'], 'unique', 'targetAttribute' => ['event_type_id', 'ticket_type_id'], 'message' => 'The combination of Event type and Ticket type has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="ticket-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
-			['attribute' => 'ticket_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TicketType', ['account_id' => $model->account_id])],
+            ['attribute' => 'ticket_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('TicketType', ['account_id' => $model->account_id])],
+            ['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
 		]
 	]);	?>
 

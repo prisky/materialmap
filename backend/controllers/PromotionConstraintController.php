@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class PromotionConstraintController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

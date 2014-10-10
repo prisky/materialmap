@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class AnnualChargeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

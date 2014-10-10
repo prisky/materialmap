@@ -10,6 +10,7 @@ use yii\web\UploadedFile;
 use yii\web\Response;
 use common\components\File;
 use backend\components\DetailView;
+use yii\helpers\Inflector;
 
 /**
  * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordBehavior and
@@ -26,10 +27,10 @@ trait FileControllerTrait
 		
 		if($id) {
 			$model = $this->findModel($id);
-			$inputName = $attribute ? $attribute : 'files';
+			$inputName = $attribute;
 
 			// $model->path is the base path in a file system for uploads for this model
-			$path = $attribute ? $model->path . '/' . $attribute : $model->path;
+			$path = $model->path . '/' . $attribute;
 			$manager = Yii::$app->resourceManager;
 			$privacy = File::ISPUBLIC;
 
@@ -46,7 +47,6 @@ trait FileControllerTrait
 					'deleteType' => 'POST'
 				];
 			}
-
 		}
 
 		return $this->response($response);
@@ -81,7 +81,7 @@ trait FileControllerTrait
 	
 				$file = new File([
 					'file' => $uploadedFile,
-					'basePath' => ($attribute == 'files') ? $model->path : $model->path . '/' . $attribute
+					'basePath' => $model->path . '/' . $attribute
 				]);
 				// validate this individual file
 				$file->validate();
@@ -98,24 +98,27 @@ trait FileControllerTrait
 			
 			// deletes
 			$manager = Yii::$app->resourceManager;
-			foreach($deleteFiles as $attribute => $name) {
+			foreach($deleteFiles as $attribute => $fileNames) {
 				// if saving
 				if($save) {
-					$file = new File(['name' => $name, 'basePath', ($attribute == 'files') ? $model->path : $model->path . '/' . $attribute]);
-					// remove from storage
-					$file->delete();
-					// response not important as redirect will occurr when saving
+					foreach($fileNames as $name) {
+						$fileClass = $model->modelName . Inflector::id2camel($attribute, '_') . 'File';
+						$file = new $fileClass(['name' => $name, 'basePath' => $model->path . '/' . $attribute]);
+						// remove from storage
+						$file->delete();
+						// response not important as redirect will occurr when saving
+					}
 				} else {	// response is important as not redirecting
 					// did validation fail for this attribute
 					if($model->getErrors($attribute)) {
 						// did validataion fail possibly because of a mandatory requirement
 						foreach($model->getActiveValidators($attribute) as $validator) {
 							// if required validator
-							if($validator instanceof \yii\validators\RequiredValidator) {
+							if($validator instanceof \yii\validators\FileValidator) {
 								// if we have no files left
-								if(empty($model->$attribute)) {
+								if($validator->skipOnEmpty === false && empty($model->$attribute)) {
 									// indicate response to restore it
-									$response['restore'][$attribute] = $name;
+									$response['restore'][$attribute] = $fileNames;
 								}
 							}
 						}
@@ -189,7 +192,8 @@ trait FileControllerTrait
 	{
 		$model = $this->findModel($id);
 
-		if($model->load(Yii::$app->request->post())) {
+		if(Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
 			$response = [];
 			$deleteFiles = isset($_POST['delete']) ? $_POST['delete'] : [];
 			$model->loadFileAttributes($deleteFiles);

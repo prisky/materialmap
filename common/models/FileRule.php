@@ -17,6 +17,7 @@ namespace common\models;
  */
 class FileRule extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class FileRule extends \common\components\ActiveRecord
             [['column_id', 'validator', 'value'], 'unique', 'targetAttribute' => ['column_id', 'validator', 'value'], 'message' => 'The combination of ,  and  has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

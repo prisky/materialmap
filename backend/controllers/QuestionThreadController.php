@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class QuestionThreadController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

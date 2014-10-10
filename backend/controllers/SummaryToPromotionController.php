@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SummaryToPromotionController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

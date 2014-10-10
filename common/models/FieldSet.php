@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_field_set".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property integer $level_id
  * @property integer $deleted
  *
@@ -20,6 +20,7 @@ namespace common\models;
  */
 class FieldSet extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -38,7 +39,6 @@ class FieldSet extends \common\components\ActiveRecord
             [['account_id', 'level_id'], 'integer']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

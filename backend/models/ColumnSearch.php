@@ -10,9 +10,7 @@ use common\models\Column;
  */
 class ColumnSearch extends Column
 {
-    public $from_model_id;
-	public $to_model_id;
-	
+    
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -27,11 +25,10 @@ class ColumnSearch extends Column
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('help', $this->help);
-		$query->andFilterGoogleStyle('label', $this->label);
-		if(!is_null($this->from_model_id) && $this->from_model_id != '') $query->andWhere('`model_id` >= :from_model_id', [':from_model_id' => $this->from_model_id]);
-		if(!is_null($this->to_model_id) && $this->to_model_id != '') $query->andWhere('`model_id` <= :to_model_id', [':to_model_id' => $this->to_model_id]);
+		$query->andFilterWhere(['model_id' => $this->model_id]);
 		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('label', $this->label);
+		$query->andFilterGoogleStyle('help_html', $this->help_html);
 		
         return $dataProvider;
     }

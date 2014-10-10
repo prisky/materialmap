@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="percent-voucher-constraint-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'invalaid_to', 'type' => DetailView::INPUT_DATETIME],
-			['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
+            ['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
+            ['attribute' => 'invalaid_to', 'type' => DetailView::INPUT_DATETIME],
 		]
 	]);	?>
 

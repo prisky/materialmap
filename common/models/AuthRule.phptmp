@@ -13,6 +13,7 @@ namespace common\models;
  */
 class AuthRule extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -30,5 +31,4 @@ class AuthRule extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
-
 }

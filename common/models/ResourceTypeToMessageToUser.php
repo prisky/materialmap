@@ -5,16 +5,17 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_resource_type_to_message_to_user".
  *
- * @property string $id
- * @property string $account_id
- * @property string $resource_type_to_message
- * @property string $user_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $resource_type_to_message
+ * @property integer $user_id
  *
  * @property ResourceTypeToMessage $resourceTypeToMessage
  * @property Account $account
  */
 class ResourceTypeToMessageToUser extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class ResourceTypeToMessageToUser extends \common\components\ActiveRecord
             [['resource_type_to_message', 'user_id'], 'unique', 'targetAttribute' => ['resource_type_to_message', 'user_id'], 'message' => 'The combination of Message and User has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

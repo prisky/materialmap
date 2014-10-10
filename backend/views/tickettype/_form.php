@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="ticket-type-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,12 +17,13 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
-			['attribute' => 'booking_max', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
-			['attribute' => 'event_max', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'seats', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
+            ['attribute' => 'seats', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
+            ['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
+            ['attribute' => 'event_max', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'booking_max', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 		]
 	]);	?>
 

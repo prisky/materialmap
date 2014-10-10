@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="sms-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
-			['attribute' => 'outgoing', 'type' => DetailView::INPUT_SWITCH],
-			['attribute' => 'sms_message', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
+            ['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
+            ['attribute' => 'sms_message', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
+            ['attribute' => 'outgoing', 'type' => DetailView::INPUT_SWITCH],
 		]
 	]);	?>
 

@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SmsController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -35,12 +36,12 @@ class SmsController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
+                "attribute" => "sms_message"
+            ],
+            [
                 "attribute" => "outgoing",
                 "class" => "kartik\\grid\\BooleanColumn",
                 "filterType" => "\\kartik\\widgets\\SwitchInput"
-            ],
-            [
-                "attribute" => "sms_message"
             ]
         ];
 	}

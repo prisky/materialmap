@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_sms".
  *
- * @property string $id
- * @property string $account_id
- * @property string $contact_id
- * @property string $sms_thread_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $contact_id
+ * @property integer $sms_thread_id
  * @property string $sms_message
  * @property integer $outgoing
  * @property string $created
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class Sms extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -40,7 +41,6 @@ class Sms extends \common\components\ActiveRecord
             [['sms_message'], 'string', 'max' => 140]
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

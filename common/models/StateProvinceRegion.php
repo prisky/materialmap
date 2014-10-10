@@ -14,6 +14,7 @@ namespace common\models;
  */
 class StateProvinceRegion extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class StateProvinceRegion extends \common\components\ActiveRecord
             [['country_id', 'name'], 'unique', 'targetAttribute' => ['country_id', 'name'], 'message' => 'The combination of Name and Country has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

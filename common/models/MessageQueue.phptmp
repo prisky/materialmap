@@ -18,6 +18,7 @@ namespace common\models;
  */
 class MessageQueue extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class MessageQueue extends \common\components\ActiveRecord
             
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

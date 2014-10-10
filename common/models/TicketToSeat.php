@@ -5,11 +5,11 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_ticket_to_seat".
  *
- * @property string $id
- * @property string $account_id
- * @property string $ticket_id
- * @property string $event_type_id
- * @property string $seat_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $ticket_id
+ * @property integer $event_type_id
+ * @property integer $seat_id
  *
  * @property SurveyResultToTicketToSeat[] $surveyResultToTicketToSeats
  * @property Ticket $ticket
@@ -22,6 +22,7 @@ namespace common\models;
  */
 class TicketToSeat extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -41,7 +42,6 @@ class TicketToSeat extends \common\components\ActiveRecord
             [['ticket_id', 'seat_id'], 'unique', 'targetAttribute' => ['ticket_id', 'seat_id'], 'message' => 'The combination of Ticket and Seat has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

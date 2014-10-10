@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class BookingToItemController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -25,6 +26,15 @@ class BookingToItemController extends \backend\components\Controller
 	 */
 	public function gridColumns($searchModel) {
 		return [
+            [
+                "attribute" => "item_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Item', ['account_id' => $searchModel->account_id, 'item_group_id' => $searchModel->item_group_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
+							},
+                "format" => "raw"
+            ],
             [
                 "attribute" => "amount",
                 "filterType" => "backend\\components\\FieldRange",
@@ -45,15 +55,6 @@ class BookingToItemController extends \backend\components\Controller
                         ]
                     ]
                 ]
-            ],
-            [
-                "attribute" => "item_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Item', ['account_id' => $searchModel->account_id, 'item_group_id' => $searchModel->item_group_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
-							},
-                "format" => "raw"
             ],
             [
                 "attribute" => "quantity"

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="state-province-region-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'country_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'country_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
 		]
 	]);	?>
 

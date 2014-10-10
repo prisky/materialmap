@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="comment-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
-			['attribute' => 'content', 'type' => DetailView::INPUT_TEXTAREA],
+            ['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
+            ['attribute' => 'content_markdown', 'type' => DetailView::INPUT_TEXTAREA],
 		]
 	]);	?>
 

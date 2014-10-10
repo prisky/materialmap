@@ -5,15 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_agency".
  *
- * @property string $id
- * @property string $account_id
- * @property string $supplier_account_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $supplier_account_id
  *
  * @property Account $supplierAccount
  * @property Account $account
  */
 class Agency extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,7 +34,6 @@ class Agency extends \common\components\ActiveRecord
             [['account_id', 'supplier_account_id'], 'unique', 'targetAttribute' => ['account_id', 'supplier_account_id'], 'message' => 'The combination of Account and Supplier account has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

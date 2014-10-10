@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_payment_gateway".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name
- * @property string $account_id
+ * @property integer $account_id
  * @property integer $deleted
  * @property string $api_url
  * @property string $api_username
@@ -19,6 +19,7 @@ namespace common\models;
  */
 class PaymentGateway extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -40,7 +41,6 @@ class PaymentGateway extends \common\components\ActiveRecord
             [['account_id', 'name'], 'unique', 'targetAttribute' => ['account_id', 'name'], 'message' => 'The combination of Name and Account has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

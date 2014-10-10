@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary_to_charge".
  *
- * @property string $id
- * @property string $account_id
- * @property string $summary_id
- * @property string $charge_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $summary_id
+ * @property integer $charge_id
  *
  * @property Account $account
  * @property Summary $summary
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class SummaryToCharge extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class SummaryToCharge extends \common\components\ActiveRecord
             [['summary_id', 'charge_id'], 'unique', 'targetAttribute' => ['summary_id', 'charge_id'], 'message' => 'The combination of Summary and Charge has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

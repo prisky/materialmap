@@ -28,6 +28,11 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	public $modelNameShort;
 
 	/**
+	 * @var string the model name of the with namespace
+	 */
+	public $modelName;
+
+	/**
 	 * @var string The concatenated label returned when the models ActiveQuery::display method is used 
 	 */
 	public $text;
@@ -46,6 +51,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 	public function __construct($config = array())
 	{
  		$this->modelNameShort = static::modelNameShort();
+ 		$this->modelName = static::modelName();
 		
 		parent::__construct($config);
 	}

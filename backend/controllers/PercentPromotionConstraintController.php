@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class PercentPromotionConstraintController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

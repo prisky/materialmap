@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class StateProvinceRegionController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,10 +27,10 @@ class StateProvinceRegionController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "country_id"
+                "attribute" => "name"
             ],
             [
-                "attribute" => "name"
+                "attribute" => "country_id"
             ]
         ];
 	}

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="resource-type-to-message-to-user-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'user_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
+            ['attribute' => 'user_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
 		]
 	]);	?>
 

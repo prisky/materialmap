@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class BookingController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,15 +27,6 @@ class BookingController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "status",
-                "filter" => [
-                    "processing" => "processing",
-                    "booked" => "booked",
-                    "canceled" => "canceled",
-                    "wait_listed" => "wait_listed"
-                ]
-            ],
-            [
                 "attribute" => "summary_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Summary', ['account_id' => $searchModel->account_id]),
@@ -42,6 +34,15 @@ class BookingController extends \backend\components\Controller
 								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "summary");
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "status",
+                "filter" => [
+                    "processing" => "processing",
+                    "booked" => "booked",
+                    "canceled" => "canceled",
+                    "wait_listed" => "wait_listed"
+                ]
             ]
         ];
 	}

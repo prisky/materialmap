@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_event_type_to_resource_type".
  *
- * @property string $id
- * @property string $account_id
- * @property string $event_type_id
- * @property string $resource_type_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $event_type_id
+ * @property integer $resource_type_id
  * @property integer $deleted
  *
  * @property EventType $eventType
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class EventTypeToResourceType extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class EventTypeToResourceType extends \common\components\ActiveRecord
             [['account_id', 'event_type_id', 'resource_type_id'], 'integer']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

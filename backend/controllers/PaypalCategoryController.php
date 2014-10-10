@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class PaypalCategoryController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

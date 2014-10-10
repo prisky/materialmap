@@ -26,12 +26,12 @@ class CustomFieldSearch extends CustomField
         ]);
 
 		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterGoogleStyle('comment', $this->comment);
-		$query->andFilterWhere(['data_type' => $this->data_type]);
 		$query->andFilterGoogleStyle('label', $this->label);
-		$query->andFilterGoogleStyle('validation_error', $this->validation_error);
-		$query->andFilterGoogleStyle('validation_text', $this->validation_text);
 		$query->andFilterWhere(['validation_type' => $this->validation_type]);
+		$query->andFilterWhere(['data_type' => $this->data_type]);
+		$query->andFilterGoogleStyle('comment', $this->comment);
+		$query->andFilterGoogleStyle('validation_text', $this->validation_text);
+		$query->andFilterGoogleStyle('validation_error', $this->validation_error);
 		
         return $dataProvider;
     }

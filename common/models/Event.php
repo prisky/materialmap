@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_event".
  *
- * @property string $id
- * @property string $account_id
- * @property string $event_type_id
- * @property string $resource_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $event_type_id
+ * @property integer $resource_id
  * @property string $start
  * @property string $end
  * @property string $status
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class Event extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -41,7 +42,6 @@ class Event extends \common\components\ActiveRecord
             [['status'], 'string']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

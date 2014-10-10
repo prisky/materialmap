@@ -5,15 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_auth_item_child".
  *
- * @property string $id
+ * @property integer $id
  * @property string $parent
  * @property string $child
- * @property string $account_id
+ * @property integer $account_id
  *
  * @property Account $account
  */
 class AuthItemChild extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class AuthItemChild extends \common\components\ActiveRecord
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child'], 'message' => 'The combination of Parent and Child has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

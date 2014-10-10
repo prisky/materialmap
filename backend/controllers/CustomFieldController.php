@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class CustomFieldController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -36,16 +37,29 @@ class CustomFieldController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
+                "attribute" => "label"
+            ],
+            [
                 "attribute" => "allow_new",
                 "class" => "kartik\\grid\\BooleanColumn",
                 "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
-                "attribute" => "comment"
+                "attribute" => "validation_type",
+                "filter" => [
+                    "None" => "None",
+                    "PCRE" => "PCRE",
+                    "Range" => "Range",
+                    "Value list" => "Value list"
+                ]
             ],
             [
                 "attribute" => "data_type",
                 "filter" => [
+                    "None" => "None",
+                    "PCRE" => "PCRE",
+                    "Range" => "Range",
+                    "Value list" => "Value list",
                     "Date" => "Date",
                     "Float" => "Float",
                     "Int" => "Int",
@@ -54,32 +68,18 @@ class CustomFieldController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "label"
-            ],
-            [
                 "attribute" => "mandatory",
                 "class" => "kartik\\grid\\BooleanColumn",
                 "filterType" => "\\kartik\\widgets\\SwitchInput"
             ],
             [
-                "attribute" => "validation_error"
+                "attribute" => "comment"
             ],
             [
                 "attribute" => "validation_text"
             ],
             [
-                "attribute" => "validation_type",
-                "filter" => [
-                    "Date" => "Date",
-                    "Float" => "Float",
-                    "Int" => "Int",
-                    "Text" => "Text",
-                    "Time" => "Time",
-                    "None" => "None",
-                    "PCRE" => "PCRE",
-                    "Range" => "Range",
-                    "Value list" => "Value list"
-                ]
+                "attribute" => "validation_error"
             ]
         ];
 	}

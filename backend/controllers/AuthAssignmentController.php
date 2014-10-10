@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class AuthAssignmentController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,15 +27,6 @@ class AuthAssignmentController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "created_at",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_created_at",
-                    "attribute2" => "to_created_at"
-                ]
-            ],
-            [
                 "attribute" => "user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
@@ -42,6 +34,15 @@ class AuthAssignmentController extends \backend\components\Controller
 								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "created_at",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_created_at",
+                    "attribute2" => "to_created_at"
+                ]
             ]
         ];
 	}

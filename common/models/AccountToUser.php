@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_account_to_user".
  *
- * @property string $id
- * @property string $account_id
- * @property string $user_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $user_id
  * @property string $rate
  * @property integer $newsletter
  * @property integer $immediate
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class AccountToUser extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -41,7 +42,6 @@ class AccountToUser extends \common\components\ActiveRecord
             [['account_id', 'user_id'], 'unique', 'targetAttribute' => ['account_id', 'user_id'], 'message' => 'The combination of Account and User has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

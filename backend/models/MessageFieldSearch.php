@@ -25,8 +25,8 @@ class MessageFieldSearch extends MessageField
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('comment', $this->comment);
 		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('comment', $this->comment);
 		
         return $dataProvider;
     }

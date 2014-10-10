@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_ticket_to_seat_to_contact_to_sms".
  *
- * @property string $id
- * @property string $account_id
- * @property string $ticket_to_seat_to_contact_id
- * @property string $sms_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $ticket_to_seat_to_contact_id
+ * @property integer $sms_id
  *
  * @property TicketToSeatToContact $ticketToSeatToContact
  * @property Sms $sms
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class TicketToSeatToContactToSms extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
             [['sms_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

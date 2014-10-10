@@ -15,6 +15,7 @@ namespace common\models;
  */
 class ModelTree extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -32,7 +33,6 @@ class ModelTree extends \common\components\ActiveRecord
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child'], 'message' => 'The combination of  and  has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

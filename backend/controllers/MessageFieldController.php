@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class MessageFieldController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,10 +27,10 @@ class MessageFieldController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "comment"
+                "attribute" => "name"
             ],
             [
-                "attribute" => "name"
+                "attribute" => "comment"
             ]
         ];
 	}

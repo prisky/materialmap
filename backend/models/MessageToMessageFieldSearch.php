@@ -25,6 +25,7 @@ class MessageToMessageFieldSearch extends MessageToMessageField
             'query' => $query,
         ]);
 
+		$query->andFilterWhere(['message_id' => $this->message_id]);
 		$query->andFilterWhere(['message_field_id' => $this->message_field_id]);
 		
         return $dataProvider;

@@ -5,11 +5,11 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_payment".
  *
- * @property string $id
- * @property string $account_id
- * @property string $summary_id
- * @property string $payment_gateway_id
- * @property string $contact_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $summary_id
+ * @property integer $payment_gateway_id
+ * @property integer $contact_id
  * @property string $amount
  * @property string $created
  *
@@ -20,6 +20,7 @@ namespace common\models;
  */
 class Payment extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -39,7 +40,6 @@ class Payment extends \common\components\ActiveRecord
             [['amount'], 'number']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

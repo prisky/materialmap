@@ -5,13 +5,14 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_paypal_category".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name
  *
  * @property PaypalSubCategory[] $paypalSubCategories
  */
 class PaypalCategory extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -31,7 +32,6 @@ class PaypalCategory extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

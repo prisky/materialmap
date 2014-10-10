@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class EventTypeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,6 +27,21 @@ class EventTypeController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "name"
+            ],
+            [
+                "attribute" => "seats_max"
+            ],
+            [
                 "attribute" => "deposit",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
@@ -38,19 +54,13 @@ class EventTypeController extends \backend\components\Controller
                 "attribute" => "deposit_hours"
             ],
             [
-                "attribute" => "name"
-            ],
-            [
-                "attribute" => "private_note"
-            ],
-            [
-                "attribute" => "seats_max"
-            ],
-            [
                 "attribute" => "seats_min"
             ],
             [
                 "attribute" => "seats_min_hours"
+            ],
+            [
+                "attribute" => "private_note"
             ],
             [
                 "attribute" => "tooltip"

@@ -26,9 +26,9 @@ class SurveyResultToTicketToSeatSearch extends SurveyResultToTicketToSeat
         ]);
 
 		$query->andFilterWhere(['account_id' => $this->account_id]);
+		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
 		
         return $dataProvider;
     }

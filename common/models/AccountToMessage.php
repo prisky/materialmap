@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_account_to_message".
  *
- * @property string $id
- * @property string $account_id
- * @property string $message_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $message_id
  * @property string $email_message
  * @property string $email_subject
  * @property string $sms_message
@@ -18,6 +18,7 @@ namespace common\models;
  */
 class AccountToMessage extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -40,7 +41,6 @@ class AccountToMessage extends \common\components\ActiveRecord
             [['message_id', 'account_id'], 'unique', 'targetAttribute' => ['message_id', 'account_id'], 'message' => 'The combination of Account and Message has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

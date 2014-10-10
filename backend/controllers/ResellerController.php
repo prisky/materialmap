@@ -13,12 +13,13 @@ use yii\helpers\Inflector;
  */
 class ResellerController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "child_admin" => "[=0]\"No\";[=1]\"Yes\"",
-        "rate" => "0.00%"
+        "rate" => "0.00%",
+        "child_admin" => "[=0]\"No\";[=1]\"Yes\""
     ];
 
 	/**
@@ -36,9 +37,7 @@ class ResellerController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
-                "attribute" => "child_admin",
-                "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "\\kartik\\widgets\\SwitchInput"
+                "attribute" => "trial_days"
             ],
             [
                 "attribute" => "expiry_days"
@@ -68,7 +67,9 @@ class ResellerController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "trial_days"
+                "attribute" => "child_admin",
+                "class" => "kartik\\grid\\BooleanColumn",
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ]
         ];
 	}

@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_survey_to_resource_type".
  *
- * @property string $id
- * @property string $account_id
- * @property string $survey_id
- * @property string $resource_type_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $survey_id
+ * @property integer $resource_type_id
  * @property integer $deleted
  *
  * @property Survey $survey
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class SurveyToResourceType extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class SurveyToResourceType extends \common\components\ActiveRecord
             [['survey_id', 'resource_type_id'], 'unique', 'targetAttribute' => ['survey_id', 'resource_type_id'], 'message' => 'The combination of Survey and Resource type has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

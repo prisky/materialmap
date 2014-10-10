@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary_to_percent_voucher".
  *
- * @property string $id
- * @property string $account_id
- * @property string $summary_id
- * @property string $percent_voucher_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $summary_id
+ * @property integer $percent_voucher_id
  *
  * @property Summary $summary
  * @property PercentVoucher $percentVoucher
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class SummaryToPercentVoucher extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class SummaryToPercentVoucher extends \common\components\ActiveRecord
             [['percent_voucher_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

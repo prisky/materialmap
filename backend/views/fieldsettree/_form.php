@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="field-set-tree-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'child_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('FieldSet', ['account_id' => $model->account_id])],
-			['attribute' => 'depth', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
+            ['attribute' => 'child_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('FieldSet', ['account_id' => $model->account_id])],
+            ['attribute' => 'depth', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
 		]
 	]);	?>
 

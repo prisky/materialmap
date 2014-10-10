@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class TicketToSeatToCustomFieldController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -35,9 +36,6 @@ class TicketToSeatToCustomFieldController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
-                "attribute" => "custom_value"
-            ],
-            [
                 "attribute" => "ticket_to_seat_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat', ['account_id' => $searchModel->account_id, 'event_type_id' => $searchModel->event_type_id]),
@@ -45,6 +43,9 @@ class TicketToSeatToCustomFieldController extends \backend\components\Controller
 								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "custom_value"
             ]
         ];
 	}

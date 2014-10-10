@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class CouponController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -35,6 +36,18 @@ class CouponController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
+                "attribute" => "reseller_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Reseller', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "reseller");
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "uniqueid"
+            ],
+            [
                 "attribute" => "expiry",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
@@ -55,18 +68,6 @@ class CouponController extends \backend\components\Controller
                         ]
                     ]
                 ]
-            ],
-            [
-                "attribute" => "reseller_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Reseller', ['account_id' => $searchModel->account_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "reseller");
-							},
-                "format" => "raw"
-            ],
-            [
-                "attribute" => "uniqueid"
             ]
         ];
 	}

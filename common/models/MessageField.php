@@ -5,7 +5,7 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_message_field".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name
  * @property string $comment
  *
@@ -13,6 +13,7 @@ namespace common\models;
  */
 class MessageField extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,7 +34,6 @@ class MessageField extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

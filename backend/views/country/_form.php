@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="country-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,12 +17,12 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'code', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 2]],
-			['attribute' => 'currency_code', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 3]],
-			['attribute' => 'currency_symbol', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 1]],
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'phone_prefix', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
-			['attribute' => 'tax_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 256]],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'code', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 2]],
+            ['attribute' => 'currency_code', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 3]],
+            ['attribute' => 'currency_symbol', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 1]],
+            ['attribute' => 'phone_prefix', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
+            ['attribute' => 'tax_name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 256]],
 		]
 	]);	?>
 

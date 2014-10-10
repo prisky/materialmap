@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SummaryToPercentVoucherController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

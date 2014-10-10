@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ItemController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -25,6 +26,9 @@ class ItemController extends \backend\components\Controller
 	 */
 	public function gridColumns($searchModel) {
 		return [
+            [
+                "attribute" => "name"
+            ],
             [
                 "attribute" => "amount",
                 "filterType" => "backend\\components\\FieldRange",
@@ -45,9 +49,6 @@ class ItemController extends \backend\components\Controller
                         ]
                     ]
                 ]
-            ],
-            [
-                "attribute" => "name"
             ]
         ];
 	}

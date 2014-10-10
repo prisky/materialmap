@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_percent_promotion_constraint".
  *
- * @property string $id
- * @property string $account_id
- * @property string $percent_promotion_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $percent_promotion_id
  * @property string $invalid_from
  * @property string $invalid_to
  *
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class PercentPromotionConstraint extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -37,7 +38,6 @@ class PercentPromotionConstraint extends \common\components\ActiveRecord
             [['percent_promotion_id', 'invalid_to'], 'unique', 'targetAttribute' => ['percent_promotion_id', 'invalid_to'], 'message' => 'The combination of  and Percent promotion has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

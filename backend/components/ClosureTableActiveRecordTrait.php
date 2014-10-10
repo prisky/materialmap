@@ -84,7 +84,7 @@ trait ClosureTableActiveRecordTrait
      * @param $primaryKey
      * @return int
      */
-    public function markAsRoot($primaryKey)
+    public function markAsRoot()
     {
         $db = $this->getDb();
         $childAttribute = $db->quoteColumnName(static::childAttribute);
@@ -95,7 +95,7 @@ trait ClosureTableActiveRecordTrait
             'INSERT INTO ' . $closureTable
                 . '(' . $parentAttribute . ',' . $childAttribute . ',' . $depthAttribute . ') '
                 . 'VALUES (:nodeId,:nodeId,\'0\')',
-			[':nodeId' => $primaryKey]
+			[':nodeId' => $this->id]
         );
 		// bind paramaters
         return $cmd->execute();

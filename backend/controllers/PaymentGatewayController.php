@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class PaymentGatewayController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -25,6 +26,9 @@ class PaymentGatewayController extends \backend\components\Controller
 	 */
 	public function gridColumns($searchModel) {
 		return [
+            [
+                "attribute" => "name"
+            ],
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
@@ -39,9 +43,6 @@ class PaymentGatewayController extends \backend\components\Controller
             ],
             [
                 "attribute" => "api_username"
-            ],
-            [
-                "attribute" => "name"
             ]
         ];
 	}

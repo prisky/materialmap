@@ -5,14 +5,14 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_seat".
  *
- * @property string $id
- * @property string $account_id
- * @property string $resource_id
- * @property string $seat_type_id
- * @property string $root
- * @property string $lft
- * @property string $rgt
- * @property string $level
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $resource_id
+ * @property integer $seat_type_id
+ * @property integer $root
+ * @property integer $lft
+ * @property integer $rgt
+ * @property integer $level
  * @property string $name
  * @property integer $x
  * @property integer $y
@@ -26,6 +26,7 @@ namespace common\models;
  */
 class Seat extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -46,7 +47,6 @@ class Seat extends \common\components\ActiveRecord
             [['account_id', 'resource_id', 'level', 'name'], 'unique', 'targetAttribute' => ['account_id', 'resource_id', 'level', 'name'], 'message' => 'The combination of Account, Resource, Level and Name has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

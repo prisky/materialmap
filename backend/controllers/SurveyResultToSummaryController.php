@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SurveyResultToSummaryController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -35,6 +36,15 @@ class SurveyResultToSummaryController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
+                "attribute" => "summary_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Summary', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "summary");
+							},
+                "format" => "raw"
+            ],
+            [
                 "attribute" => "custom_field_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('CustomField', ['account_id' => $searchModel->account_id]),
@@ -45,15 +55,6 @@ class SurveyResultToSummaryController extends \backend\components\Controller
             ],
             [
                 "attribute" => "custom_value"
-            ],
-            [
-                "attribute" => "summary_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Summary', ['account_id' => $searchModel->account_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "summary");
-							},
-                "format" => "raw"
             ]
         ];
 	}

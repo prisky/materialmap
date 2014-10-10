@@ -25,8 +25,8 @@ class BookingSearch extends Booking
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['status' => $this->status]);
 		$query->andFilterWhere(['summary_id' => $this->summary_id]);
+		$query->andFilterWhere(['status' => $this->status]);
 		
         return $dataProvider;
     }

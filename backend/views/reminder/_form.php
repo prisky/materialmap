@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="reminder-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'hours_prior', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
+            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
+            ['attribute' => 'hours_prior', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
 		]
 	]);	?>
 

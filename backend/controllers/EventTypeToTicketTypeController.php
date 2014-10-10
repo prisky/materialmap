@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class EventTypeToTicketTypeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

@@ -6,11 +6,11 @@ namespace common\models;
  * This is the model class for table "tbl_referral".
  *
  * @property integer $id
- * @property string $account_id
- * @property string $first_referrer_user_id
- * @property string $summary_to_account_to_user_id
- * @property string $account_to_user_id
- * @property string $invoice_id
+ * @property integer $account_id
+ * @property integer $first_referrer_user_id
+ * @property integer $summary_to_account_to_user_id
+ * @property integer $account_to_user_id
+ * @property integer $invoice_id
  * @property string $rate
  *
  * @property SummaryToAccountToUser $summaryToAccountToUser
@@ -20,6 +20,7 @@ namespace common\models;
  */
 class Referral extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -40,7 +41,6 @@ class Referral extends \common\components\ActiveRecord
             [['summary_to_account_to_user_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

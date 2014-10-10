@@ -7,14 +7,13 @@ use backend\components\ClosureTableQuery;
 /**
  * This is the model class for table "tbl_model".
  *
- * @property string $id
+ * @property integer $id
  * @property string $auth_item_name
  * @property string $label
  * @property string $label_plural
- * @property string $help
+ * @property string $help_html
  *
  * @property Column[] $columns
- * @property AuthItem $authItemName
  * @property ModelTree[] $modelTrees
  */
 class Model extends \common\components\ActiveRecord
@@ -41,7 +40,7 @@ class Model extends \common\components\ActiveRecord
     {
         return [
             [['auth_item_name'], 'required'],
-            [['help'], 'string'],
+            [['help_html'], 'string'],
             [['auth_item_name', 'label', 'label_plural'], 'string', 'max' => 64],
             [['auth_item_name'], 'unique']
         ];
@@ -80,14 +79,6 @@ class Model extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthItemName()
-    {
-        return $this->hasOne(AuthItem::className(), ['name' => 'auth_item_name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getModelTrees()
     {
         return $this->hasMany(ModelTree::className(), ['child' => 'id']);
@@ -100,5 +91,5 @@ class Model extends \common\components\ActiveRecord
     {
         return $this->hasMany(ModelTree::className(), ['child' => 'auth_item_name']);
 	}
-	
+
 }

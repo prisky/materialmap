@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary_to_voucher".
  *
- * @property string $id
- * @property string $account_id
- * @property string $summary_id
- * @property string $voucher_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $summary_id
+ * @property integer $voucher_id
  * @property string $amount
  *
  * @property Summary $summary
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class SummaryToVoucher extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -37,7 +38,6 @@ class SummaryToVoucher extends \common\components\ActiveRecord
             [['summary_id', 'voucher_id'], 'unique', 'targetAttribute' => ['summary_id', 'voucher_id'], 'message' => 'The combination of Summary and Voucher has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

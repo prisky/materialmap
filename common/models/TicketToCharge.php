@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_ticket_to_charge".
  *
- * @property string $id
- * @property string $account_id
- * @property string $ticket_id
- * @property string $charge_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $ticket_id
+ * @property integer $charge_id
  *
  * @property Ticket $ticket
  * @property Charge $charge
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class TicketToCharge extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class TicketToCharge extends \common\components\ActiveRecord
             [['ticket_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

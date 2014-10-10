@@ -13,11 +13,12 @@ use yii\helpers\Inflector;
  */
 class ColumnController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "model_id" => "#"
+
     ];
 
 	/**
@@ -26,22 +27,22 @@ class ColumnController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "help"
+                "attribute" => "model_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Model', ['auth_item_name' => $searchModel->auth_item_name]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "model");
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "name"
             ],
             [
                 "attribute" => "label"
             ],
             [
-                "attribute" => "model_id",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_model_id",
-                    "attribute2" => "to_model_id"
-                ]
-            ],
-            [
-                "attribute" => "name"
+                "attribute" => "help_html"
             ]
         ];
 	}

@@ -179,7 +179,7 @@ class BuildModelTreeController extends Controller
 				exit;
 			}
 
-			$depth ? $model->appendTo($parent) : $model->saveNodeAsRoot();
+			$depth ? $model->appendTo($parent) : $model->markAsRoot();
 
 			if(is_array($value)) {
 				// recurse

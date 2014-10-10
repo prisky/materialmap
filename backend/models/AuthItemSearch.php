@@ -10,10 +10,10 @@ use common\models\AuthItem;
  */
 class AuthItemSearch extends AuthItem
 {
-    public $from_created_at;
-	public $to_created_at;
-	public $from_type;
+    public $from_type;
 	public $to_type;
+	public $from_created_at;
+	public $to_created_at;
 	public $from_updated_at;
 	public $to_updated_at;
 	
@@ -31,14 +31,15 @@ class AuthItemSearch extends AuthItem
             'query' => $query,
         ]);
 
-		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
-		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
-		$query->andFilterGoogleStyle('data', $this->data);
-		$query->andFilterGoogleStyle('description', $this->description);
 		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterGoogleStyle('rule_name', $this->rule_name);
 		if(!is_null($this->from_type) && $this->from_type != '') $query->andWhere('`type` >= :from_type', [':from_type' => $this->from_type]);
 		if(!is_null($this->to_type) && $this->to_type != '') $query->andWhere('`type` <= :to_type', [':to_type' => $this->to_type]);
+		$query->andFilterGoogleStyle('data', $this->data);
+		$query->andFilterGoogleStyle('rule_name', $this->rule_name);
+		$query->andFilterGoogleStyle('description', $this->description);
+		$query->andFilterWhere(['account_id' => $this->account_id]);
+		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
+		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
 		if(!is_null($this->from_updated_at) && $this->from_updated_at != '') $query->andWhere('`updated_at` >= :from_updated_at', [':from_updated_at' => $this->from_updated_at]);
 		if(!is_null($this->to_updated_at) && $this->to_updated_at != '') $query->andWhere('`updated_at` <= :to_updated_at', [':to_updated_at' => $this->to_updated_at]);
 		

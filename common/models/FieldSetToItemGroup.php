@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_field_set_to_item_group".
  *
- * @property string $id
- * @property string $account_id
- * @property string $field_set_id
- * @property string $item_group_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $field_set_id
+ * @property integer $item_group_id
  * @property integer $level_id
  * @property integer $deleted
  *
@@ -19,6 +19,7 @@ namespace common\models;
  */
 class FieldSetToItemGroup extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -38,7 +39,6 @@ class FieldSetToItemGroup extends \common\components\ActiveRecord
             [['item_group_id', 'level_id'], 'unique', 'targetAttribute' => ['item_group_id', 'level_id'], 'message' => 'The combination of Item group and Level has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

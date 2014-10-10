@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class BookingToCustomFieldController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

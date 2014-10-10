@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_reseller".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property integer $trial_days
  * @property integer $expiry_days
  * @property string $rate
@@ -18,6 +18,7 @@ namespace common\models;
  */
 class Reseller extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -38,7 +39,6 @@ class Reseller extends \common\components\ActiveRecord
             [['account_id'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

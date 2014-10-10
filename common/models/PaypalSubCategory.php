@@ -5,14 +5,15 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_paypal_sub_category".
  *
- * @property string $id
- * @property string $paypal_category_id
+ * @property integer $id
+ * @property integer $paypal_category_id
  * @property string $name
  *
  * @property PaypalCategory $paypalCategory
  */
 class PaypalSubCategory extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,7 +34,6 @@ class PaypalSubCategory extends \common\components\ActiveRecord
             [['paypal_category_id', 'name'], 'unique', 'targetAttribute' => ['paypal_category_id', 'name'], 'message' => 'The combination of Paypal category and Name has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

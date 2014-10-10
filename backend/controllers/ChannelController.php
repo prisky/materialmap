@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ChannelController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

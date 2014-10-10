@@ -59,6 +59,9 @@ use backend\components\DetailView;
 		'model'=>$model,
 		'condensed'=>true,
 		'hover'=>true,
+<?php if (in_array('\common\components\FileControllerTrait', $traits)): ?>
+		'button' => '<button type="button" class="btn btn-primary start"> <i class="glyphicon glyphicon-upload"></i> <span>Save</span></button>',
+<?php endif; ?>
 		'mode'=>$mode,
 		'attributes'=>[
 <?php foreach ($attributes as $attribute) {

@@ -27,14 +27,15 @@ class EventTypeSearch extends EventType
             'query' => $query,
         ]);
 
+		$query->andFilterWhere(['account_id' => $this->account_id]);
+		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('seats_max', $this->seats_max);
 		if(!is_null($this->from_deposit) && $this->from_deposit != '') $query->andWhere('`deposit` >= :from_deposit', [':from_deposit' => $this->from_deposit]);
 		if(!is_null($this->to_deposit) && $this->to_deposit != '') $query->andWhere('`deposit` <= :to_deposit', [':to_deposit' => $this->to_deposit]);
 		$query->andFilterGoogleStyle('deposit_hours', $this->deposit_hours);
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterGoogleStyle('private_note', $this->private_note);
-		$query->andFilterGoogleStyle('seats_max', $this->seats_max);
 		$query->andFilterGoogleStyle('seats_min', $this->seats_min);
 		$query->andFilterGoogleStyle('seats_min_hours', $this->seats_min_hours);
+		$query->andFilterGoogleStyle('private_note', $this->private_note);
 		$query->andFilterGoogleStyle('tooltip', $this->tooltip);
 		
         return $dataProvider;

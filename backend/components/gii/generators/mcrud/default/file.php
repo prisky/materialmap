@@ -21,14 +21,12 @@ namespace common\models;
 class <?= $className . Inflector::id2camel($attribute, '_') . 'File'?> extends \common\components\File
 {
 
-    public function rules()
-    {
-		/**
-		 * @inheritdoc
-		 */
-		public function rules()
-		{
-			return [<?= "\n            " . implode(",\n                ", $rules) . "\n            " ?>];
-		}
-    }
-5
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [<?= "\n            " . implode(",\n                ", $rules) . "\n            " ?>];
+	}
+
+}

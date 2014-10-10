@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SummaryToPercentPromotionController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

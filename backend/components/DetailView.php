@@ -16,11 +16,7 @@ class DetailView extends \kartik\detail\DetailView
 		'tag'=>'div',
 		'class'=>"overflow-hidden",
 	];
-    /**
-     * @var array https://github.com/blueimp/jQuery-File-Upload/wiki/Options
-     * If null then no model level files will be attachable. Setting this to [] will give model level uploads with dwfault options
-     */
-	public $uploadOptions;
+	public $button;
 	
 	/**
 	 * @inheritdoc
@@ -59,11 +55,14 @@ class DetailView extends \kartik\detail\DetailView
         ]);
         
 		if($this->mode == static::MODE_EDIT) {
-			$output .= Html::submitButton('Save', [
-				'id' => 'activFormSave',
-				'class' => 'btn btn-primary' . (is_null($this->uploadOptions) ? '' : ' hide')]);
+			$output .= $this->button
+				? $this->button
+				: Html::submitButton('Save', [
+					'id' => 'activFormSave',
+					'class' => 'btn btn-primary start',
+				]);
 		}
-
+		
 		// if there is errors but not specific attribute errors - may be trigger related
 		if(isset($this->model->saveErrors)) {
 			$output = Html::tag(
@@ -77,10 +76,6 @@ class DetailView extends \kartik\detail\DetailView
 		}
 
 		echo $output;
-
-		echo \dosamigos\fileupload\FileUploadUIAR::widget([
-			'model' => $this->model,
-		]);
 
         \yii\widgets\ActiveForm::end();
 

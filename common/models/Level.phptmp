@@ -15,6 +15,7 @@ namespace common\models;
  */
 class Level extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -32,7 +33,6 @@ class Level extends \common\components\ActiveRecord
             
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

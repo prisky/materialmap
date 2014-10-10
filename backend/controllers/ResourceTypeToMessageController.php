@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ResourceTypeToMessageController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,12 +27,6 @@ class ResourceTypeToMessageController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "email_message"
-            ],
-            [
-                "attribute" => "email_subject"
-            ],
-            [
                 "attribute" => "message_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Message', []),
@@ -39,6 +34,12 @@ class ResourceTypeToMessageController extends \backend\components\Controller
 								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "message");
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "email_html"
+            ],
+            [
+                "attribute" => "email_subject"
             ],
             [
                 "attribute" => "sms_message"

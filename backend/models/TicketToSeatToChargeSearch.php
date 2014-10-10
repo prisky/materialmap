@@ -26,8 +26,8 @@ class TicketToSeatToChargeSearch extends TicketToSeatToCharge
         ]);
 
 		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+		$query->andFilterWhere(['charge_id' => $this->charge_id]);
 		
         return $dataProvider;
     }

@@ -27,14 +27,15 @@ class ContactSearch extends Contact
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('address_line1', $this->address_line1);
-		$query->andFilterGoogleStyle('address_line2', $this->address_line2);
-		$query->andFilterGoogleStyle('email', $this->email);
 		$query->andFilterGoogleStyle('first_name', $this->first_name);
 		$query->andFilterGoogleStyle('last_name', $this->last_name);
+		$query->andFilterGoogleStyle('email', $this->email);
 		$query->andFilterGoogleStyle('phone_mobile', $this->phone_mobile);
-		$query->andFilterGoogleStyle('post_code', $this->post_code);
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['town_city_id' => $this->town_city_id]);
+		$query->andFilterGoogleStyle('post_code', $this->post_code);
+		$query->andFilterGoogleStyle('address_line1', $this->address_line1);
+		$query->andFilterGoogleStyle('address_line2', $this->address_line2);
 		if(!is_null($this->from_verified) && $this->from_verified != '') $query->andWhere('`verified` >= :from_verified', [':from_verified' => $this->from_verified]);
 		if(!is_null($this->to_verified) && $this->to_verified != '') $query->andWhere('`verified` <= :to_verified', [':to_verified' => $this->to_verified]);
 		

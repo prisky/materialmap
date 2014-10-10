@@ -26,17 +26,6 @@ class File extends \yii\base\Model
 	
 	public $urlExpiry = self::ISPRIVATE;
 
-    /**
-	 * These rules apply on a per file basis
-     * @return array the validation rules.
-     */
-    public function rules()
-    {
-        return [
-			[['file'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
-        ];
-    }
-	
 	public function save()
 	{
 		if ($this->file && $this->file instanceof UploadedFile && !empty($this->file->tempName)) {
@@ -77,8 +66,8 @@ class File extends \yii\base\Model
 	public function delete()
 	{
 		$manager = Yii::$app->resourceManager;
-		$manager->delete($this->basePath . '/' . self::SMALL_IMAGE . '/' . $this->file->name);
-		$manager->delete($this->basePath . '/' . self::LARGE_IMAGE . '/' . $this->file->name);
+		$manager->delete($this->basePath . '/' . self::SMALL_IMAGE . '/' . $this->name);
+		$manager->delete($this->basePath . '/' . self::LARGE_IMAGE . '/' . $this->name);
 	}
 	
 	public function jqueryFileUploadResponse()

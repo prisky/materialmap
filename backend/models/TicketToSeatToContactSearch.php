@@ -26,8 +26,8 @@ class TicketToSeatToContactSearch extends TicketToSeatToContact
         ]);
 
 		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		
         return $dataProvider;
     }

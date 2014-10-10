@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="event-type-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,14 +17,15 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'deposit', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
-			['attribute' => 'deposit_hours', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'private_note', 'type' => DetailView::INPUT_TEXTAREA],
-			['attribute' => 'seats_max', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'seats_min', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'seats_min_hours', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-			['attribute' => 'tooltip', 'type' => DetailView::INPUT_TEXTAREA],
+            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'seats_max', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'deposit', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
+            ['attribute' => 'deposit_hours', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'seats_min', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'seats_min_hours', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
+            ['attribute' => 'private_note', 'type' => DetailView::INPUT_TEXTAREA],
+            ['attribute' => 'tooltip', 'type' => DetailView::INPUT_TEXTAREA],
 		]
 	]);	?>
 

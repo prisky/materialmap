@@ -13,14 +13,15 @@ use yii\helpers\Inflector;
  */
 class CancellationPolicyController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "base_fee" => "#.#",
         "begin" => "hh:mm AM/PM on mmmm d, yy",
         "finish" => "hh:mm AM/PM on mmmm d, yy",
-        "rate" => "0.00%"
+        "rate" => "0.00%",
+        "base_fee" => "#.#"
     ];
 
 	/**
@@ -29,13 +30,13 @@ class CancellationPolicyController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "base_fee",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_base_fee",
-                    "attribute2" => "to_base_fee"
-                ]
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
             ],
             [
                 "attribute" => "begin",
@@ -60,9 +61,6 @@ class CancellationPolicyController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "days"
-            ],
-            [
                 "attribute" => "finish",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [
@@ -83,6 +81,9 @@ class CancellationPolicyController extends \backend\components\Controller
                         ]
                     ]
                 ]
+            ],
+            [
+                "attribute" => "days"
             ],
             [
                 "attribute" => "rate",
@@ -106,6 +107,15 @@ class CancellationPolicyController extends \backend\components\Controller
                             "verticaldownclass" => "glyphicon glyphicon-minus"
                         ]
                     ]
+                ]
+            ],
+            [
+                "attribute" => "base_fee",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_base_fee",
+                    "attribute2" => "to_base_fee"
                 ]
             ]
         ];

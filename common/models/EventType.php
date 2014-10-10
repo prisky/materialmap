@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_event_type".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property string $name
  * @property integer $seats_max
  * @property string $deposit
@@ -25,6 +25,7 @@ namespace common\models;
  */
 class EventType extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -46,7 +47,6 @@ class EventType extends \common\components\ActiveRecord
             [['name'], 'string', 'max' => 64]
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

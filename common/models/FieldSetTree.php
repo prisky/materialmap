@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_field_set_tree".
  *
- * @property string $id
- * @property string $account_id
- * @property string $parent_id
- * @property string $child_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $parent_id
+ * @property integer $child_id
  * @property integer $depth
  *
  * @property Account $account
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class FieldSetTree extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class FieldSetTree extends \common\components\ActiveRecord
             [['account_id', 'parent_id', 'child_id', 'depth'], 'integer']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

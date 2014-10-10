@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_survey_to_field_set".
  *
- * @property string $id
- * @property string $account_id
- * @property string $survey_id
- * @property string $field_set_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $survey_id
+ * @property integer $field_set_id
  * @property integer $level_id
  * @property integer $deleted
  *
@@ -19,6 +19,7 @@ namespace common\models;
  */
 class SurveyToFieldSet extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -38,7 +39,6 @@ class SurveyToFieldSet extends \common\components\ActiveRecord
             [['survey_id', 'field_set_id', 'account_id'], 'unique', 'targetAttribute' => ['survey_id', 'field_set_id', 'account_id'], 'message' => 'The combination of Account, Survey and Field set has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

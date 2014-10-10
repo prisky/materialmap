@@ -5,11 +5,11 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_comment".
  *
- * @property string $id
- * @property string $account_id
- * @property string $event_id
- * @property string $contact_id
- * @property string $content
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $event_id
+ * @property integer $contact_id
+ * @property string $content_markdown
  * @property string $created
  *
  * @property Account $account
@@ -18,6 +18,7 @@ namespace common\models;
  */
 class Comment extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -32,12 +33,11 @@ class Comment extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'event_id', 'contact_id', 'content'], 'required'],
+            [['account_id', 'event_id', 'contact_id', 'content_markdown'], 'required'],
             [['account_id', 'event_id', 'contact_id'], 'integer'],
-            [['content'], 'string']
+            [['content_markdown'], 'string']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

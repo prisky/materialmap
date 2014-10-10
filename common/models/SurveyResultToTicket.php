@@ -5,12 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_survey_result_to_ticket".
  *
- * @property string $id
- * @property string $account_id
- * @property string $ticket_id
- * @property string $survey_id
- * @property string $custom_field_id
- * @property string $field_set_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $ticket_id
+ * @property integer $survey_id
+ * @property integer $custom_field_id
+ * @property integer $field_set_id
  * @property integer $level_id
  * @property string $custom_value
  *
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class SurveyResultToTicket extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -41,7 +42,6 @@ class SurveyResultToTicket extends \common\components\ActiveRecord
             [['survey_id', 'ticket_id'], 'unique', 'targetAttribute' => ['survey_id', 'ticket_id'], 'message' => 'The combination of Ticket and Survey has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="event-type-to-resource-type-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'resource_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ResourceType', ['account_id' => $model->account_id])],
+            ['attribute' => 'resource_type_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('ResourceType', ['account_id' => $model->account_id])],
 		]
 	]);	?>
 

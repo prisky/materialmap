@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class MessageController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,21 +27,21 @@ class MessageController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
+                "attribute" => "name"
+            ],
+            [
+                "attribute" => "system",
+                "class" => "kartik\\grid\\BooleanColumn",
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
+            ],
+            [
                 "attribute" => "email_html"
             ],
             [
                 "attribute" => "email_subject"
             ],
             [
-                "attribute" => "name"
-            ],
-            [
                 "attribute" => "sms_text"
-            ],
-            [
-                "attribute" => "system",
-                "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ]
         ];
 	}

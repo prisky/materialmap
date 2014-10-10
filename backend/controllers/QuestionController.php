@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class QuestionController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,13 +27,25 @@ class QuestionController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "answer",
+                "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('QuestionThread', ['account_id' => $searchModel->account_id]),
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "questionThread");
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "comment_markdown"
+            ],
+            [
+                "attribute" => "offer",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_offer",
+                    "attribute2" => "to_offer"
+                ]
             ],
             [
                 "attribute" => "bid_id",
@@ -44,16 +57,13 @@ class QuestionController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
-                "attribute" => "comment"
-            ],
-            [
-                "attribute" => "offer",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_offer",
-                    "attribute2" => "to_offer"
-                ]
+                "attribute" => "answer",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('QuestionThread', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "questionThread");
+							},
+                "format" => "raw"
             ]
         ];
 	}

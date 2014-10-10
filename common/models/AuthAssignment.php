@@ -5,15 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_auth_assignment".
  *
- * @property string $id
+ * @property integer $id
  * @property string $item_name
- * @property string $user_id
+ * @property integer $user_id
  * @property integer $created_at
  *
  * @property User $user
  */
 class AuthAssignment extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class AuthAssignment extends \common\components\ActiveRecord
             [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id'], 'message' => 'The combination of Item name and User has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -5,11 +5,11 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_booking".
  *
- * @property string $id
- * @property string $account_id
- * @property string $event_id
- * @property string $event_type_id
- * @property string $summary_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $event_id
+ * @property integer $event_type_id
+ * @property integer $summary_id
  * @property string $status
  *
  * @property Summary $summary
@@ -22,6 +22,7 @@ namespace common\models;
  */
 class Booking extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -42,7 +43,6 @@ class Booking extends \common\components\ActiveRecord
             [['event_id', 'summary_id'], 'unique', 'targetAttribute' => ['event_id', 'summary_id'], 'message' => 'The combination of Event and Summary has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

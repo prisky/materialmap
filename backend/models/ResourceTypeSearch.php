@@ -25,8 +25,9 @@ class ResourceTypeSearch extends ResourceType
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('comment', $this->comment);
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('name', $this->name);
+		$query->andFilterGoogleStyle('comment', $this->comment);
 		
         return $dataProvider;
     }

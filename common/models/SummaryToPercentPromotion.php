@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary_to_percent_promotion".
  *
- * @property string $id
- * @property string $account_id
- * @property string $summary_id
- * @property string $percent_promotion_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $summary_id
+ * @property integer $percent_promotion_id
  *
  * @property Summary $summary
  * @property PercentPromotion $percentPromotion
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class SummaryToPercentPromotion extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
             [['summary_id', 'percent_promotion_id'], 'unique', 'targetAttribute' => ['summary_id', 'percent_promotion_id'], 'message' => 'The combination of Summary and Percent promotion has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

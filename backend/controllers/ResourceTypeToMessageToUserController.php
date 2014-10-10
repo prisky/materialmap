@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ResourceTypeToMessageToUserController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

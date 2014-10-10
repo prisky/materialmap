@@ -5,15 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_standard_setup".
  *
- * @property string $id
- * @property string $account_id
- * @property string $reseller_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $reseller_id
  *
  * @property Account $account
  * @property Reseller $reseller
  */
 class StandardSetup extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,7 +34,6 @@ class StandardSetup extends \common\components\ActiveRecord
             [['account_id', 'reseller_id'], 'unique', 'targetAttribute' => ['account_id', 'reseller_id'], 'message' => 'The combination of Account and Reseller has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class EventTypeToResourceTypeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

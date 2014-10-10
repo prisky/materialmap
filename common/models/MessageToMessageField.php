@@ -5,15 +5,16 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_message_to_message_field".
  *
- * @property string $id
- * @property string $message_id
- * @property string $message_field_id
+ * @property integer $id
+ * @property integer $message_id
+ * @property integer $message_field_id
  *
  * @property Message $message
  * @property MessageField $messageField
  */
 class MessageToMessageField extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,7 +34,6 @@ class MessageToMessageField extends \common\components\ActiveRecord
             [['message_id', 'message_field_id'], 'unique', 'targetAttribute' => ['message_id', 'message_field_id'], 'message' => 'The combination of Message and Message field has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

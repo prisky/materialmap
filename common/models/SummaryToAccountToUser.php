@@ -5,12 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary_to_account_to_user".
  *
- * @property string $id
- * @property string $account_id
- * @property string $user_id
- * @property string $summary_id
- * @property string $account_to_user_id
- * @property string $invoice_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $user_id
+ * @property integer $summary_id
+ * @property integer $account_to_user_id
+ * @property integer $invoice_id
  * @property string $rate
  *
  * @property Referral[] $referrals
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class SummaryToAccountToUser extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -41,7 +42,6 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
             [['summary_id', 'account_to_user_id'], 'unique', 'targetAttribute' => ['summary_id', 'account_to_user_id'], 'message' => 'The combination of Summary and User has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

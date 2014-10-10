@@ -26,9 +26,9 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
         ]);
 
 		$query->andFilterWhere(['account_id' => $this->account_id]);
+		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
 		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		$query->andFilterWhere(['summary_id' => $this->summary_id]);
 		
         return $dataProvider;
     }

@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_summary".
  *
- * @property string $id
- * @property string $account_id
- * @property string $contact_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $contact_id
  * @property string $created
  *
  * @property Booking[] $bookings
@@ -26,6 +26,7 @@ namespace common\models;
  */
 class Summary extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -44,7 +45,6 @@ class Summary extends \common\components\ActiveRecord
             [['account_id', 'contact_id'], 'integer']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

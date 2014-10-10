@@ -14,7 +14,6 @@ use common\components\File;
  */
 trait FileActiveRecordTrait
 {
-
 	/**
 	 * @inheritdoc. Unobtrusively clean out any uploaded files related to a model deleted from the database. Ideally
 	 * a database trigger would do this but not possible in MySQL hence this is the best we can do. Potentially a slightly better option
@@ -43,10 +42,7 @@ trait FileActiveRecordTrait
 	 */
 	public function loadFileAttribute($attribute, $ignore = []) {
 		// get the attributes path on storage of if attribute is files then files are against whole model
-		$path = $this->path;
-		if($attribute != 'files') {
-			$path .= '/' . $attribute;
-		}
+		$path = $this->path . '/' . $attribute;
 		
 		// get existing from storage - just the names and details but not the files
 		$files = Yii::$app->resourceManager->listFiles($path . '/' . File::LARGE_IMAGE . '/');

@@ -5,13 +5,13 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_question".
  *
- * @property string $id
- * @property string $account_id
- * @property string $comment
+ * @property integer $id
+ * @property integer $account_id
+ * @property string $comment_markdown
  * @property string $offer
  * @property string $created
- * @property string $bid_id
- * @property string $answer
+ * @property integer $bid_id
+ * @property integer $answer
  *
  * @property Bid[] $bs
  * @property Bid $bid
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class Question extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,13 +36,12 @@ class Question extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'comment', 'offer'], 'required'],
+            [['account_id', 'comment_markdown', 'offer'], 'required'],
             [['account_id', 'bid_id', 'answer'], 'integer'],
-            [['comment'], 'string'],
+            [['comment_markdown'], 'string'],
             [['offer'], 'number']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -5,10 +5,10 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_event_type_to_field_set".
  *
- * @property string $id
- * @property string $account_id
- * @property string $event_type_id
- * @property string $field_set_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $event_type_id
+ * @property integer $field_set_id
  * @property integer $deleted
  *
  * @property Account $account
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class EventTypeToFieldSet extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -35,7 +36,6 @@ class EventTypeToFieldSet extends \common\components\ActiveRecord
             [['account_id', 'event_type_id', 'field_set_id'], 'integer']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -5,13 +5,13 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_booking_to_item".
  *
- * @property string $id
- * @property string $account_id
- * @property string $booking_id
- * @property string $event_type_id
- * @property string $item_id
- * @property string $field_set_id
- * @property string $item_group_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $booking_id
+ * @property integer $event_type_id
+ * @property integer $item_id
+ * @property integer $field_set_id
+ * @property integer $item_group_id
  * @property integer $level_id
  * @property string $amount
  * @property integer $quantity
@@ -23,6 +23,7 @@ namespace common\models;
  */
 class BookingToItem extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -42,7 +43,6 @@ class BookingToItem extends \common\components\ActiveRecord
             [['amount'], 'number']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -13,6 +13,7 @@ namespace common\models;
  */
 class TicketToLevel extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -30,7 +31,6 @@ class TicketToLevel extends \common\components\ActiveRecord
             
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

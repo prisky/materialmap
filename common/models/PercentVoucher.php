@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_percent_voucher".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property string $rate
  *
  * @property Account $account
@@ -15,6 +15,7 @@ namespace common\models;
  */
 class PercentVoucher extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class PercentVoucher extends \common\components\ActiveRecord
             [['rate'], 'number']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

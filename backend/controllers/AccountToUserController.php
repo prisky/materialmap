@@ -13,13 +13,14 @@ use yii\helpers\Inflector;
  */
 class AccountToUserController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "immediate" => "[=0]\"No\";[=1]\"Yes\"",
+        "rate" => "0.00%",
         "newsletter" => "[=0]\"No\";[=1]\"Yes\"",
-        "rate" => "0.00%"
+        "immediate" => "[=0]\"No\";[=1]\"Yes\""
     ];
 
 	/**
@@ -28,14 +29,22 @@ class AccountToUserController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "immediate",
-                "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "\\kartik\\widgets\\SwitchInput"
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
             ],
             [
-                "attribute" => "newsletter",
-                "class" => "kartik\\grid\\BooleanColumn",
-                "filterType" => "\\kartik\\widgets\\SwitchInput"
+                "attribute" => "user_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
+							},
+                "format" => "raw"
             ],
             [
                 "attribute" => "rate",
@@ -62,13 +71,14 @@ class AccountToUserController extends \backend\components\Controller
                 ]
             ],
             [
-                "attribute" => "user_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
-							},
-                "format" => "raw"
+                "attribute" => "newsletter",
+                "class" => "kartik\\grid\\BooleanColumn",
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
+            ],
+            [
+                "attribute" => "immediate",
+                "class" => "kartik\\grid\\BooleanColumn",
+                "filterType" => "\\kartik\\widgets\\SwitchInput"
             ]
         ];
 	}

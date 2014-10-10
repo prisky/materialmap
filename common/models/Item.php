@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_item".
  *
- * @property string $id
- * @property string $account_id
- * @property string $item_group_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $item_group_id
  * @property string $name
  * @property string $amount
  * @property integer $deleted
@@ -21,6 +21,7 @@ namespace common\models;
  */
 class Item extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -42,7 +43,6 @@ class Item extends \common\components\ActiveRecord
             [['item_group_id', 'name'], 'unique', 'targetAttribute' => ['item_group_id', 'name'], 'message' => 'The combination of Item group and Name has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

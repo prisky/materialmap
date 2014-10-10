@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SummaryToAccountToUserController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

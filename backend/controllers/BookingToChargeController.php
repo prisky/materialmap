@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class BookingToChargeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

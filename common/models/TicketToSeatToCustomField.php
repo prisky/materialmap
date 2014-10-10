@@ -5,12 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_ticket_to_seat_to_custom_field".
  *
- * @property string $id
- * @property string $account_id
- * @property string $ticket_to_seat_id
- * @property string $event_type_id
- * @property string $field_set_id
- * @property string $custom_field_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $ticket_to_seat_id
+ * @property integer $event_type_id
+ * @property integer $field_set_id
+ * @property integer $custom_field_id
  * @property integer $level_id
  * @property string $custom_value
  *
@@ -20,6 +20,7 @@ namespace common\models;
  */
 class TicketToSeatToCustomField extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -40,7 +41,6 @@ class TicketToSeatToCustomField extends \common\components\ActiveRecord
             [['ticket_to_seat_id', 'event_type_id'], 'unique', 'targetAttribute' => ['ticket_to_seat_id', 'event_type_id'], 'message' => 'The combination of Seat and Event type has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

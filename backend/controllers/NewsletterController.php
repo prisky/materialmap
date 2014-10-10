@@ -13,11 +13,12 @@ use yii\helpers\Inflector;
  */
 class NewsletterController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "sent" => "hh:mm AM/PM on mmmm d, yy"
+
     ];
 
 	/**
@@ -26,32 +27,19 @@ class NewsletterController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "content"
-            ],
-            [
-                "attribute" => "sent",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_sent",
-                    "attribute2" => "to_sent",
-                    "type" => "\\kartik\\widgets\\DateTimePicker",
-                    "widgetOptions1" => [
-                        "type" => 1,
-                        "pluginOptions" => [
-                            "autoclose" => TRUE
-                        ]
-                    ],
-                    "widgetOptions2" => [
-                        "type" => 1,
-                        "pluginOptions" => [
-                            "autoclose" => TRUE
-                        ]
-                    ]
-                ]
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
             ],
             [
                 "attribute" => "subject"
+            ],
+            [
+                "attribute" => "content_html"
             ]
         ];
 	}

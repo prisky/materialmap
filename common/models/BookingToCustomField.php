@@ -5,12 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_booking_to_custom_field".
  *
- * @property string $id
- * @property string $account_id
- * @property string $booking_id
- * @property string $event_type_id
- * @property string $field_set_id
- * @property string $custom_field_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $booking_id
+ * @property integer $event_type_id
+ * @property integer $field_set_id
+ * @property integer $custom_field_id
  * @property integer $level_id
  * @property string $custom_value
  *
@@ -20,6 +20,7 @@ namespace common\models;
  */
 class BookingToCustomField extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -40,7 +41,6 @@ class BookingToCustomField extends \common\components\ActiveRecord
             [['booking_id', 'custom_field_id'], 'unique', 'targetAttribute' => ['booking_id', 'custom_field_id'], 'message' => 'The combination of Booking and Custom field has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

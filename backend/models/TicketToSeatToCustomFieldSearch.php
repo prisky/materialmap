@@ -26,8 +26,8 @@ class TicketToSeatToCustomFieldSearch extends TicketToSeatToCustomField
         ]);
 
 		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
 		
         return $dataProvider;
     }

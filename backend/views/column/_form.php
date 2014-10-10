@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="column-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,14 +17,19 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
+            ['attribute' => 'model_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', ['auth_item_name' => $model->auth_item_name])],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'help_html', 'type' => DetailView::INPUT_WIDGET,
 				'widgetOptions' => [
-					'class' => 'kartik\markdown\MarkdownEditor',
-					'showExport' => false,
-				],
-			],
+					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
+					'clientOptions' => [
+						'codemirror' => [
+							'theme' => 'monokai',
+							'lineNumbers' => true,
+						],
+					],
+				],],
 		]
 	]);	?>
 

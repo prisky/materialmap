@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_question_thread".
  *
- * @property string $id
- * @property string $account_id
- * @property string $question_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $question_id
  * @property string $comment
  * @property string $created
  *
@@ -17,6 +17,7 @@ namespace common\models;
  */
 class QuestionThread extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class QuestionThread extends \common\components\ActiveRecord
             [['comment'], 'string']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -5,11 +5,12 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_channel".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name
  */
 class Channel extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -29,5 +30,4 @@ class Channel extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
-
 }

@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="item-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,8 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
-			['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
 		]
 	]);	?>
 

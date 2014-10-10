@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class CountryController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,6 +27,9 @@ class CountryController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
+                "attribute" => "name"
+            ],
+            [
                 "attribute" => "code"
             ],
             [
@@ -33,9 +37,6 @@ class CountryController extends \backend\components\Controller
             ],
             [
                 "attribute" => "currency_symbol"
-            ],
-            [
-                "attribute" => "name"
             ],
             [
                 "attribute" => "phone_prefix"

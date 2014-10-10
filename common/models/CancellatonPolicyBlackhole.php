@@ -14,6 +14,7 @@ namespace common\models;
  */
 class CancellatonPolicyBlackhole extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -31,5 +32,4 @@ class CancellatonPolicyBlackhole extends \common\components\ActiveRecord
             
         ];
     }
-
 }

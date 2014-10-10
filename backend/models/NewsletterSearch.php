@@ -10,9 +10,7 @@ use common\models\Newsletter;
  */
 class NewsletterSearch extends Newsletter
 {
-    public $from_sent;
-	public $to_sent;
-	
+    
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -27,10 +25,9 @@ class NewsletterSearch extends Newsletter
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('content', $this->content);
-		if(!is_null($this->from_sent) && $this->from_sent != '') $query->andWhere('`sent` >= :from_sent', [':from_sent' => $this->from_sent]);
-		if(!is_null($this->to_sent) && $this->to_sent != '') $query->andWhere('`sent` <= :to_sent', [':to_sent' => $this->to_sent]);
+		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('subject', $this->subject);
+		$query->andFilterGoogleStyle('content_html', $this->content_html);
 		
         return $dataProvider;
     }

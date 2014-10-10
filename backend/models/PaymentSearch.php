@@ -27,10 +27,10 @@ class PaymentSearch extends Payment
             'query' => $query,
         ]);
 
+		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
+		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
 		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		$query->andFilterWhere(['contact_id' => $this->contact_id]);
-		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
 		
         return $dataProvider;
     }

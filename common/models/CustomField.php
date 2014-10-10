@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_custom_field".
  *
- * @property string $id
- * @property string $account_id
+ * @property integer $id
+ * @property integer $account_id
  * @property string $label
  * @property integer $allow_new
  * @property string $validation_type
@@ -26,6 +26,7 @@ namespace common\models;
  */
 class CustomField extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -48,7 +49,6 @@ class CustomField extends \common\components\ActiveRecord
             [['account_id', 'label'], 'unique', 'targetAttribute' => ['account_id', 'label'], 'message' => 'The combination of Account and Label has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

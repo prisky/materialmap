@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class InvoiceController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

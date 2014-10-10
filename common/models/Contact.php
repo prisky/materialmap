@@ -5,13 +5,13 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_contact".
  *
- * @property string $id
+ * @property integer $id
  * @property string $first_name
  * @property string $last_name
  * @property string $email
  * @property string $phone_mobile
- * @property string $account_id
- * @property string $town_city_id
+ * @property integer $account_id
+ * @property integer $town_city_id
  * @property string $post_code
  * @property string $address_line1
  * @property string $address_line2
@@ -29,6 +29,7 @@ namespace common\models;
  */
 class Contact extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -53,7 +54,6 @@ class Contact extends \common\components\ActiveRecord
             [['email', 'account_id'], 'unique', 'targetAttribute' => ['email', 'account_id'], 'message' => 'The combination of Email and Account has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

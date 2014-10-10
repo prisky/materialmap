@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class ContactController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -26,25 +27,25 @@ class ContactController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "address_line1"
-            ],
-            [
-                "attribute" => "address_line2"
-            ],
-            [
-                "attribute" => "email"
-            ],
-            [
                 "attribute" => "first_name"
             ],
             [
                 "attribute" => "last_name"
             ],
             [
+                "attribute" => "email"
+            ],
+            [
                 "attribute" => "phone_mobile"
             ],
             [
-                "attribute" => "post_code"
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
             ],
             [
                 "attribute" => "town_city_id",
@@ -54,6 +55,15 @@ class ContactController extends \backend\components\Controller
 								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "townCity");
 							},
                 "format" => "raw"
+            ],
+            [
+                "attribute" => "post_code"
+            ],
+            [
+                "attribute" => "address_line1"
+            ],
+            [
+                "attribute" => "address_line2"
             ],
             [
                 "attribute" => "verified",

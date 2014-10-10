@@ -27,11 +27,12 @@ class ReferralSearch extends Referral
             'query' => $query,
         ]);
 
+		$query->andFilterWhere(['account_id' => $this->account_id]);
+		$query->andFilterWhere(['summary_to_account_to_user_id' => $this->summary_to_account_to_user_id]);
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		$query->andFilterWhere(['invoice_id' => $this->invoice_id]);
 		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
 		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
-		$query->andFilterWhere(['summary_to_account_to_user_id' => $this->summary_to_account_to_user_id]);
 		
         return $dataProvider;
     }

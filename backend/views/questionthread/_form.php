@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="question-thread-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,7 +17,7 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
+            ['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
 		]
 	]);	?>
 

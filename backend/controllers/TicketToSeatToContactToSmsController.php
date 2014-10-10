@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class TicketToSeatToContactToSmsController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -35,20 +36,20 @@ class TicketToSeatToContactToSmsController extends \backend\components\Controlle
                 "format" => "raw"
             ],
             [
-                "attribute" => "sms_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Sms', ['account_id' => $searchModel->account_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "sms");
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "ticket_to_seat_to_contact_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeatToContact', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
 								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeatToContact");
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "sms_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Sms', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "sms");
 							},
                 "format" => "raw"
             ]

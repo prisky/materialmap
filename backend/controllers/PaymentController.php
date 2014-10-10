@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class PaymentController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -25,6 +26,24 @@ class PaymentController extends \backend\components\Controller
 	 */
 	public function gridColumns($searchModel) {
 		return [
+            [
+                "attribute" => "payment_gateway_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('PaymentGateway', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "paymentGateway");
+							},
+                "format" => "raw"
+            ],
+            [
+                "attribute" => "contact_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Contact', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "contact");
+							},
+                "format" => "raw"
+            ],
             [
                 "attribute" => "amount",
                 "filterType" => "backend\\components\\FieldRange",
@@ -45,24 +64,6 @@ class PaymentController extends \backend\components\Controller
                         ]
                     ]
                 ]
-            ],
-            [
-                "attribute" => "contact_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Contact', []),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "contact");
-							},
-                "format" => "raw"
-            ],
-            [
-                "attribute" => "payment_gateway_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('PaymentGateway', []),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "paymentGateway");
-							},
-                "format" => "raw"
             ]
         ];
 	}

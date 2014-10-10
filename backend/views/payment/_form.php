@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div id="payment-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
-			['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
-			['attribute' => 'payment_gateway_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PaymentGateway', [])],
+            ['attribute' => 'payment_gateway_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('PaymentGateway', [])],
+            ['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
+            ['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
 		]
 	]);	?>
 

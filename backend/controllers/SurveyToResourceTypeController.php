@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SurveyToResourceTypeController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

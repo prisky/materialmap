@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class TicketController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -25,6 +26,15 @@ class TicketController extends \backend\components\Controller
 	 */
 	public function gridColumns($searchModel) {
 		return [
+            [
+                "attribute" => "ticket_type_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketType', ['account_id' => $searchModel->account_id]),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketType");
+							},
+                "format" => "raw"
+            ],
             [
                 "attribute" => "amount",
                 "filterType" => "backend\\components\\FieldRange",
@@ -45,15 +55,6 @@ class TicketController extends \backend\components\Controller
                         ]
                     ]
                 ]
-            ],
-            [
-                "attribute" => "ticket_type_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('TicketType', ['account_id' => $searchModel->account_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketType");
-							},
-                "format" => "raw"
             ]
         ];
 	}

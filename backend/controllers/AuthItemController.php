@@ -13,12 +13,13 @@ use yii\helpers\Inflector;
  */
 class AuthItemController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
 	public $excelFormats = [
-        "created_at" => "hh:mm AM/PM on mmmm d, yy",
         "type" => "#",
+        "created_at" => "hh:mm AM/PM on mmmm d, yy",
         "updated_at" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
@@ -27,6 +28,36 @@ class AuthItemController extends \backend\components\Controller
 	 */
 	public function gridColumns($searchModel) {
 		return [
+            [
+                "attribute" => "name"
+            ],
+            [
+                "attribute" => "type",
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_type",
+                    "attribute2" => "to_type"
+                ]
+            ],
+            [
+                "attribute" => "data"
+            ],
+            [
+                "attribute" => "rule_name"
+            ],
+            [
+                "attribute" => "description"
+            ],
+            [
+                "attribute" => "account_id",
+                "filterType" => "\\kartik\\widgets\\Select2",
+                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
+                "value" => function($model, $key, $index, $widget) {
+								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+							},
+                "format" => "raw"
+            ],
             [
                 "attribute" => "created_at",
                 "filterType" => "backend\\components\\FieldRange",
@@ -47,27 +78,6 @@ class AuthItemController extends \backend\components\Controller
                             "autoclose" => TRUE
                         ]
                     ]
-                ]
-            ],
-            [
-                "attribute" => "data"
-            ],
-            [
-                "attribute" => "description"
-            ],
-            [
-                "attribute" => "name"
-            ],
-            [
-                "attribute" => "rule_name"
-            ],
-            [
-                "attribute" => "type",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_type",
-                    "attribute2" => "to_type"
                 ]
             ],
             [

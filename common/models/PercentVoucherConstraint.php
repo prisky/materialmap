@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_percent_voucher_constraint".
  *
- * @property string $id
- * @property string $account_id
- * @property string $percent_voucher_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $percent_voucher_id
  * @property string $invalid_from
  * @property string $invalaid_to
  *
@@ -16,6 +16,7 @@ namespace common\models;
  */
 class PercentVoucherConstraint extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -37,7 +38,6 @@ class PercentVoucherConstraint extends \common\components\ActiveRecord
             [['percent_voucher_id', 'invalaid_to'], 'unique', 'targetAttribute' => ['percent_voucher_id', 'invalaid_to'], 'message' => 'The combination of  and Percent voucher has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

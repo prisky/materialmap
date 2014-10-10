@@ -5,7 +5,7 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_message".
  *
- * @property string $id
+ * @property integer $id
  * @property string $name
  * @property integer $system
  * @property string $email_html
@@ -18,6 +18,7 @@ namespace common\models;
  */
 class Message extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -41,7 +42,6 @@ class Message extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

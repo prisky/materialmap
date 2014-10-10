@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class SurveyResultToBookingController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */

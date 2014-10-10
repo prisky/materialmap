@@ -193,7 +193,7 @@ class Generator extends \yii\gii\generators\crud\Generator
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-                $files[] = new CodeFile("$viewPath/$file", $this->render("views/$file"));
+                $files[] = new CodeFile("$viewPath/$file", $this->render("views/$file", ['traits' => $traits]));
             }
         }
 
@@ -869,36 +869,36 @@ class Generator extends \yii\gii\generators\crud\Generator
 							break;
 						case 'text' :
 						case 'mediumtext' :
-							$inputType = 'DetailView::INPUT_TEXTAREA';
+							if (substr($attribute, -strlen('_html')) === '_html') {
+								// if html input i.e. column name ends in _html
+								$inputType = "DetailView::INPUT_WIDGET,
+				'widgetOptions' => [
+					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
+					'clientOptions' => [
+						'codemirror' => [
+							'theme' => 'monokai',
+							'lineNumbers' => true,
+						],
+					],
+				],";
+								} else {
+									$inputType = 'DetailView::INPUT_TEXTAREA';
+								}
 							break;
 						default :
-							if (substr($attribute, -strlen('_html') === '_html')) {
-							// if html input i.e. column name ends in _html
-							$inputType = "DetailView::INPUT_WIDGET,
-								'widgetOptions' => [
-									'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
-									'clientOptions' => [
-										'codemirror' => [
-											'theme' => 'monokai',
-											'lineNumbers' => true,
-										],
-									],
-								],";
-								} else {
-								$inputType = "DetailView::INPUT_TEXT";
-								if($column->size) {
-									$inputType .= ", 'options' => ['maxlength' => {$column->size}]";
-								}
+							$inputType = "DetailView::INPUT_TEXT";
+							if($column->size) {
+								$inputType .= ", 'options' => ['maxlength' => {$column->size}]";
 							}
 					}
 				}
 			}
 		} else {	// must be file input field
-			$inputType = "DetailView::INPUT_WIDGET, 
-				'widgetOptions' => [
-					'class' => '\dosamigos\fileupload\FileUploadUIARA',
-					'model' => \$model,
-				],";
+			$inputType = 'DetailView::INPUT_WIDGET, 
+				"widgetOptions" => [
+					"class" => \'\dosamigos\fileupload\FileUploadUIARA\',
+					"model" => $model,
+				],';
 		}
 
         return "            ['attribute' => '$attribute', 'type' => $inputType],";

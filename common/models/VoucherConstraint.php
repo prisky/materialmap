@@ -5,9 +5,9 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_voucher_constraint".
  *
- * @property string $id
- * @property string $account_id
- * @property string $voucher_id
+ * @property integer $id
+ * @property integer $account_id
+ * @property integer $voucher_id
  * @property string $invalid_from
  * @property string $invalid_to
  *
@@ -15,6 +15,7 @@ namespace common\models;
  */
 class VoucherConstraint extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,6 @@ class VoucherConstraint extends \common\components\ActiveRecord
             [['voucher_id', 'invalid_to'], 'unique', 'targetAttribute' => ['voucher_id', 'invalid_to'], 'message' => 'The combination of  and Voucher has already been taken.']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

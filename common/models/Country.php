@@ -17,6 +17,7 @@ namespace common\models;
  */
 class Country extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -42,7 +43,6 @@ class Country extends \common\components\ActiveRecord
             [['code'], 'unique']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

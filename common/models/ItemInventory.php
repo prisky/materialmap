@@ -6,8 +6,8 @@ namespace common\models;
  * This is the model class for table "tbl_item_inventory".
  *
  * @property integer $id
- * @property string $item_id
- * @property string $account_id
+ * @property integer $item_id
+ * @property integer $account_id
  * @property integer $quantity
  * @property string $received
  *
@@ -15,6 +15,7 @@ namespace common\models;
  */
 class ItemInventory extends \common\components\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -34,7 +35,6 @@ class ItemInventory extends \common\components\ActiveRecord
             [['received'], 'safe']
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

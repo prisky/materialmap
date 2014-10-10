@@ -91,7 +91,7 @@ abstract class Controller extends \common\components\Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view', 'index', 'export', 'list'],
+                        'actions' => ['view', 'index', 'export', 'list', 'getexistingfiles'],
                         'roles' => [$this->modelNameShort . 'Read'],
                     ],
                 ],

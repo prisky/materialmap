@@ -9,7 +9,7 @@ use backend\components\DetailView;
  */
 ?>
 
-<div class="model-form">
+<div id="form-container">
 
     <?= DetailView::widget([
 		'model'=>$model,
@@ -17,9 +17,9 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-			['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'label_plural', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
-			['attribute' => 'help', 'type' => DetailView::INPUT_WIDGET,
+            ['attribute' => 'label', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'label_plural', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 64]],
+            ['attribute' => 'help_html', 'type' => DetailView::INPUT_WIDGET,
 				'widgetOptions' => [
 					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
 					'clientOptions' => [
@@ -28,8 +28,7 @@ use backend\components\DetailView;
 							'lineNumbers' => true,
 						],
 					],
-				],
-			],
+				],],
 		]
 	]);	?>
 

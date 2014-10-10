@@ -13,6 +13,7 @@ use yii\helpers\Inflector;
  */
 class CommentController extends \backend\components\Controller
 {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -35,7 +36,7 @@ class CommentController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
-                "attribute" => "content"
+                "attribute" => "content_markdown"
             ]
         ];
 	}

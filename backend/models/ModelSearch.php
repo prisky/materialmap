@@ -25,9 +25,9 @@ class ModelSearch extends Model
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('help', $this->help);
 		$query->andFilterGoogleStyle('label', $this->label);
 		$query->andFilterGoogleStyle('label_plural', $this->label_plural);
+		$query->andFilterGoogleStyle('help_html', $this->help_html);
 		
         return $dataProvider;
     }
