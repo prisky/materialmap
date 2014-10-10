@@ -28,7 +28,6 @@ $parentAttribute = Yii::$app->db->createCommand('
 	])->queryScalar();
 // get all columns that have labels
 $attributesSet = \common\models\Column::find()
-	->joinWith('model')
 	->where(['auth_item_name' => $modelNameShort])
 	->asArray()
 	->all();

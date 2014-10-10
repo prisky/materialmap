@@ -7,24 +7,28 @@
  * @var string $attribute the relevant attribute name
  */
 
+use yii\helpers\Inflector;
+
 echo "<?php\n";
 ?>
 
 namespace common\models;
 
 /**
- * @inheritdoc. This contains the rules for the "<?= $attribute ?>" file attribute for the "<?= $className ?>" .
+ * @inheritdoc
+ * This contains the rules for the "<?= $attribute ?>" file attribute for the "<?= $className ?>ActiveRecord" model.
  */
 class <?= $className . Inflector::id2camel($attribute, '_') . 'File'?> extends \common\components\File
 {
 
     public function rules()
     {
-		<?='        return ['?>
-		<?php
-		foreach($rules as $validator => $rule) {
-			echo "            [['file'], {$validator}" . implode(',', $rule) . '],';
+		/**
+		 * @inheritdoc
+		 */
+		public function rules()
+		{
+			return [<?= "\n            " . implode(",\n                ", $rules) . "\n            " ?>];
 		}
-		?>
-        <?='        ];'?>
-   }
+    }
+5

@@ -17,6 +17,7 @@ use yii\base\NotSupportedException;
 use yii\helpers\StringHelper;
 use backend\components\FieldRange;
 use kartik\grid\GridView;
+use common\models\FileRule;
 
 /**
  * This generator will generate one or multiple ActiveRecord classes for the specified database table and crud
@@ -169,9 +170,10 @@ class Generator extends \yii\gii\generators\crud\Generator
      * Generate CRUD, called from generate to merge model and crud generation.
 	 * @param string $className the model name
 	 * @param string $tableName the table name
+	 * @param [] of strings $traits
 	 * @return \yii\gii\CodeFile
 	 */
-    private function generateCrud($className, $tableName)
+    private function generateCrud($className, $tableName, $traits = [])
     {
 		$this->controllerClass = $this->controllerNs . '\\' . $className . 'Controller';
 		$this->searchModelClass = $this->searchModelNs . '\\' . $className . 'Search';
@@ -179,7 +181,7 @@ class Generator extends \yii\gii\generators\crud\Generator
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
         $files = [
-            new CodeFile($controllerFile, $this->render('controller.php', ['tableName' => $tableName])),
+            new CodeFile($controllerFile, $this->render('controller.php', ['tableName' => $tableName, 'traits' => $traits])),
         ];
 
         if (!empty($this->searchModelClass)) {
@@ -225,15 +227,63 @@ class Generator extends \yii\gii\generators\crud\Generator
 				$this->modelClass = $className;
 			}
             $tableSchema = $db->getTableSchema($tableName);
+			$activeRecordFileRules = [];
+			$perFileRules = [];
             $params = [
                 'tableName' => $tableName,
                 'className' => $className,
                 'tableSchema' => $tableSchema,
-                'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$className]) ? $relations[$className] : [],
             ];
 			
+			// generate File class for each file attribute for a model
+			$params['fileAttributes'] = $fileAttributes = Yii::$app->db->createCommand("
+				SELECT DISTINCT column_name
+				FROM tbl_file_rule
+				WHERE auth_item_name = :auth_item_name", [
+					':auth_item_name' => $className
+				])->queryAll();
+			foreach($fileAttributes as $fileAttribute) {
+				foreach(FileRule::findAll(['auth_item_name'=>$className, 'column_name'=>$fileAttribute['column_name']]) as $fileRule) {
+					// there are two types of file rules, those that apply per file and those across all. Maxfiles and required apply across all and
+					// are therefore relevant to be validated by ActiveRecord::validate fwhereas specific file rules apply to the ..File classes e.g.
+					// file type validator is per file.Our custom validator is used in the ActiveRecord rules and can be used to seperate these
+					if($fileRule->validator == '\common\components\FileValidator') {
+						$activeRecordFileRules[$fileAttribute['column_name']][$fileRule->validator][$fileRule->key] = $fileRule->value;
+					}
+					else {
+						$perFileRules[$fileRule->validator][$fileRule->key] = $fileRule->value;
+					}
+				}
+				$rules = [];
+				foreach($perFileRules as $validator => $rule) {
+					array_walk($rule, function (&$value, $key) { $value = "'$key' => $value";});
+					$rules[] = "[['file'], '$validator', " . implode(', ', $rule) . ']';
+				}
+				$params['rules'] = $rules;
+				$params['attribute'] = $fileAttribute['column_name'];
+				$files[] = $codeFile = new CodeFile(
+					Yii::getAlias('@' . str_replace('\\', '/', $this->ns))
+						. "/$className" . Inflector::id2camel($fileAttribute['column_name'], '_') . 'File.php'
+						, $this->render('file.php', $params)
+				);
+			}
+
+			// generate the ActiveQuery
+            $files[] = $codeFile = new CodeFile(
+                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . "/$className" . 'Query.php',
+                $this->render('activequery.php', $params)
+            );
+			
 			// generate the model
+			$rules = [];
+			foreach($activeRecordFileRules as $attibute => $activeRecordFileRule) {
+				foreach($activeRecordFileRule as $validator => $rule) {
+					array_walk($rule, function (&$value, $key) { $value = "'$key' => $value";});
+					$rules[] = "[['$attibute'], '$validator', " . implode(', ', $rule) . ']';
+				}
+			}
+			$params['rules'] = array_merge($this->generateRules($tableSchema), $rules);
             $files[] = $codeFile = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . '.php',
                 $this->render('model.php', $params)
@@ -247,39 +297,21 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 			$codeFile->save();
 			
-			// generate the ActiveQuery
-            $files[] = $codeFile = new CodeFile(
-                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . 'Query'. '.php',
-                $this->render('activequery.php', $params)
-            );
-			
-			// generate File class for each file attribute for a model
-			$fileAttributes = Yii::$app->db->createCommand("
-				SELECT column_name
-				FROM tbl_file_rule
-				WHERE auth_item_name = :auth_item_name", [
-					':auth_item_name' => $className
-				])->queryAll();
-			foreach($fileAttributes as $fileAttribute) {
-				foreach(FileRule::findAll(['auth_item_name'=>$className, 'column_name'=>$fileAttribute->column_name]) as $fileRule) {
-					$rules[$fileRule->validator][$fileRule->key] = $fileRule->value;
-				}
-				$param['rules'] = $rules;
-				$files[] = $codeFile = new CodeFile(
-					Yii::getAlias('@' . str_replace('\\', '/', $this->ns))
-						. '/' . $className . Inflector::id2camel($attribute, '_') . 'File.php'
-						, $this->render('file.php', $params)
-				);
-			}
+			// generate crud only if in our navigation structure
+			if(\common\models\Model::findOne(['auth_item_name' => $className])) {
+				// crud generateor expectes modelName to be namespaced
+				$this->modelClass = $this->ns . '\\' . $className;
+				$files = array_merge($files, $this->generateCrud(
+					$className,
+					$tableName,
+					$fileAttributes ? ['\common\components\FileControllerTrait'] : []
+				));
 
-			// crud generateor expectes modelName to be namespaced
-			$this->modelClass = $this->ns . '\\' . $className;
-			$files = array_merge($files, $this->generateCrud($className, $tableName));
-			
-			if(isset($modelTempName)) {
-				rename($modelTempName, $modelName);
-				unset($modelName);
-				unset($modelTempName);
+				if(isset($modelTempName)) {
+					rename($modelTempName, $modelName);
+					unset($modelName);
+					unset($modelTempName);
+				}
 			}
 			
 			$this->modelClass = NULL;
@@ -775,79 +807,101 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public function generateActiveField($attribute)
     {
         $tableSchema = $this->getTableSchema();
-        $column = $tableSchema->columns[$attribute];
+		if(isset($tableSchema->columns[$attribute])) {
+			$column = $tableSchema->columns[$attribute];
 
-		if (preg_match('/(password|pass|passwd|passcode)/i', $column->name)) {
-			$inputType = 'DetailView::INPUT_PASSWORD';
-		}
-		elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $column->name)) {
-			$inputType = 'DetailView::INPUT_MONEY';
-		}
-		elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $column->name)) {
-			$inputType = 'DetailView::INPUT_SPIN';
-		}
-		elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
-			$dropDownOptions = [];
-			foreach ($column->enumValues as $enumValue) {
-				$dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+			if (preg_match('/(password|pass|passwd|passcode)/i', $column->name)) {
+				$inputType = 'DetailView::INPUT_PASSWORD';
 			}
-			$inputType = "DetailView::INPUT_DROPDOWN_LIST,
-				'options' => ['prompt' => ''],
-				'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '    '));
-		}
-		else {
-			if($column->type == 'integer') {
-				// if the field is in a foreign key
-				foreach($tableSchema->foreignKeys as $tableKeys) {
-					// if in this foreign key and identifying
-					if(isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
-						$where = [];
-						// get any other attributes in this foreign key
-						foreach($tableKeys as $referencing => $referenced) {
-							// ignore array index 0 as is tablename, and ignore the identifying one
-							if($referencing && $referenced != 'id') {
-								$where[] = "'$referenced'" . ' => $model->' . $referencing;
+			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $column->name)) {
+				$inputType = 'DetailView::INPUT_MONEY';
+			}
+			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $column->name)) {
+				$inputType = 'DetailView::INPUT_SPIN';
+			}
+			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
+				$dropDownOptions = [];
+				foreach ($column->enumValues as $enumValue) {
+					$dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+				}
+				$inputType = "DetailView::INPUT_DROPDOWN_LIST,
+					'options' => ['prompt' => ''],
+					'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '    '));
+			}
+			else {
+				if($column->type == 'integer') {
+					// if the field is in a foreign key
+					foreach($tableSchema->foreignKeys as $tableKeys) {
+						// if in this foreign key and identifying
+						if(isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
+							$where = [];
+							// get any other attributes in this foreign key
+							foreach($tableKeys as $referencing => $referenced) {
+								// ignore array index 0 as is tablename, and ignore the identifying one
+								if($referencing && $referenced != 'id') {
+									$where[] = "'$referenced'" . ' => $model->' . $referencing;
+								}
 							}
+							$inputType = "DetailView::INPUT_SELECT2, 'widgetOptions' => \$this->context->fKWidgetOptions('"
+								. $this->generateClassName($tableKeys[0])
+								. "', ["
+								. implode(', ', $where)
+								. "])";
+							break;
 						}
-						$inputType = "DetailView::INPUT_SELECT2, 'widgetOptions' => \$this->context->fKWidgetOptions('"
-							. $this->generateClassName($tableKeys[0])
-							. "', ["
-							. implode(', ', $where)
-							. "])";
-						break;
+					}
+				}
+
+				if(!isset($inputType)) {
+					switch($column->dbType) {
+						case 'tinyint(1)' :
+							$inputType = 'DetailView::INPUT_SWITCH';
+							break;
+						case 'date' :
+							$inputType = 'DetailView::INPUT_DATE';
+							break;
+						case 'time' :
+							$inputType = 'DetailView::INPUT_TIME';
+							break;
+						case 'datetime' :
+						case 'timestamp' :
+							$inputType = 'DetailView::INPUT_DATETIME';
+							break;
+						case 'text' :
+						case 'mediumtext' :
+							$inputType = 'DetailView::INPUT_TEXTAREA';
+							break;
+						default :
+							if (substr($attribute, -strlen('_html') === '_html')) {
+							// if html input i.e. column name ends in _html
+							$inputType = "DetailView::INPUT_WIDGET,
+								'widgetOptions' => [
+									'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
+									'clientOptions' => [
+										'codemirror' => [
+											'theme' => 'monokai',
+											'lineNumbers' => true,
+										],
+									],
+								],";
+								} else {
+								$inputType = "DetailView::INPUT_TEXT";
+								if($column->size) {
+									$inputType .= ", 'options' => ['maxlength' => {$column->size}]";
+								}
+							}
 					}
 				}
 			}
-
-			if(!isset($inputType)) {
-				switch($column->dbType) {
-					case 'tinyint(1)' :
-						$inputType = 'DetailView::INPUT_SWITCH';
-						break;
-					case 'date' :
-						$inputType = 'DetailView::INPUT_DATE';
-						break;
-					case 'time' :
-						$inputType = 'DetailView::INPUT_TIME';
-						break;
-					case 'datetime' :
-					case 'timestamp' :
-						$inputType = 'DetailView::INPUT_DATETIME';
-						break;
-					case 'text' :
-					case 'mediumtext' :
-						$inputType = 'DetailView::INPUT_TEXTAREA';
-						break;
-					default :
-						$inputType = "DetailView::INPUT_TEXT";
-						if($column->size) {
-							$inputType .= ", 'options' => ['maxlength' => {$column->size}]";
-						}
-				}
-			}
+		} else {	// must be file input field
+			$inputType = "DetailView::INPUT_WIDGET, 
+				'widgetOptions' => [
+					'class' => '\dosamigos\fileupload\FileUploadUIARA',
+					'model' => \$model,
+				],";
 		}
 
-        return "\t\t\t['attribute' => '$attribute', 'type' => $inputType],";
+        return "            ['attribute' => '$attribute', 'type' => $inputType],";
 	}
 	
 	/**
@@ -870,7 +924,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 
  		// get all columns that have labels
 		$attributesSet = \common\models\Column::find()
-			->joinWith('model')
 			->where(['auth_item_name' => $modelNameShort])
 			->asArray()
 			->all();
@@ -880,6 +933,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 		}
 		
 		foreach($this->removeNonDisplayAttributes($modelName, $attributes) as $attribute) {
+// TODO hide image columns for now - but ultimately show if single image or gallery if multi
+if(!isset($columns[$attribute])) {
+	continue;
+}
 			$column = $columns[$attribute];
 
 			$gridColumn = ['attribute' => $attribute];

@@ -34,6 +34,10 @@ use yii\helpers\Inflector;
  */
 class <?= $controllerClass ?> extends <?= '\\' . $generator->baseControllerClass . "\n" ?>
 {
+<?php foreach ($traits as $trait): ?>
+	use <?=$trait?>;
+<?php endforeach; ?>
+
 	/**
 	 * @inheritdoc
 	 */

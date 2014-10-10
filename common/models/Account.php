@@ -5,8 +5,8 @@ namespace common\models;
 /**
  * This is the model class for table "tbl_account".
  *
- * @property string $id
- * @property string $user_id
+ * @property integer $id
+ * @property integer $user_id
  * @property string $phone_work
  * @property string $balance
  * @property string $summary_charge
@@ -109,11 +109,22 @@ class Account extends \common\components\ActiveRecord
 {
 	use \common\components\FileActiveRecordTrait;
 	
+	    /**
+     * @var string $logo_image is a file attribute
+     */
+	public $logo_image;
+		
 	/**
+	 * Get the attribute names for files
 	 *
-	 * @var array $files Virtual attribute to hold information about uploaded files associated to this model
+	 * @return array or strings - file attribute names
 	 */
-	public $files;
+	public function getFileAttributes()
+	{
+		return [
+			    'logo_image',
+			];
+	}
 
     /**
      * @inheritdoc
@@ -129,23 +140,15 @@ class Account extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'phone_work', 'balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'rate', 'optimisation', 'annual_charge', 'files'], 'required'],
+            [['user_id', 'phone_work', 'balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate', 'optimisation'], 'required'],
             [['user_id'], 'integer'],
-            [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'rate'], 'number'],
+            [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate'], 'number'],
             [['optimisation'], 'string'],
             [['phone_work'], 'string', 'max' => 20],
-			// attribute level file validation - e.g. maxFiles
-			[['annual_charge', 'files'], '\common\components\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2],
+            ['logo_image'], '\common\components\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2
         ];
     }
 
-	public function getFileAttributes()
-	{
-		return [
-			'files',
-			'annual_charge',
-		];
-	}
 
     /**
      * @return \yii\db\ActiveQuery

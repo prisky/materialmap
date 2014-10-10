@@ -32,6 +32,31 @@ namespace <?= $generator->ns ?>;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
+<?php if ($fileAttributes): ?>
+	use \common\components\FileActiveRecordTrait;
+	
+<?php foreach($fileAttributes as $fileAttribute): ?>
+    /**
+     * @var string $<?=$fileAttribute['column_name']?> is a file attribute
+     */
+	public $<?=$fileAttribute['column_name']?>;
+<?php endforeach; ?>
+	
+	/**
+	 * Get the attribute names for files
+	 *
+	 * @return array or strings - file attribute names
+	 */
+	public function getFileAttributes()
+	{
+		return [
+<?php foreach($fileAttributes as $fileAttribute): ?>
+		    '<?=$fileAttribute['column_name']?>',
+<?php endforeach; ?>
+		];
+	}
+<?php endif; ?>
+
     /**
      * @inheritdoc
      */
@@ -57,7 +82,6 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return [<?= "\n            " . implode(",\n            ", $rules) . "\n        " ?>];
     }
-
 <?php foreach ($relations as $name => $relation): ?>
 
     /**
