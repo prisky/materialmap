@@ -108,6 +108,12 @@ namespace common\models;
 class Account extends \common\components\ActiveRecord
 {
 	use \common\components\FileActiveRecordTrait;
+	
+	/**
+	 *
+	 * @var array $files Virtual attribute to hold information about uploaded files associated to this model
+	 */
+	public $files;
 
     /**
      * @inheritdoc

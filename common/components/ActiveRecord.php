@@ -467,7 +467,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			if($return = parent::save($runValidation, $attributeNames)) {
 				foreach($this->safeAttributes() as $attributeName) {
 					// transplate base64 images from html fields to s3
-					if (strpos($attributeName, 'help') !== false) {
+					if (strpos($attributeName, '_html') !== false) {
 					   $this->storeImages($attributeName);
 					}
 				}

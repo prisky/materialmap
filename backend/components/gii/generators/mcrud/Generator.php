@@ -247,11 +247,30 @@ class Generator extends \yii\gii\generators\crud\Generator
 			}
 			$codeFile->save();
 			
-			// geerate the ActiveQuery
+			// generate the ActiveQuery
             $files[] = $codeFile = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . 'Query'. '.php',
                 $this->render('activequery.php', $params)
             );
+			
+			// generate File class for each file attribute for a model
+			$fileAttributes = Yii::$app->db->createCommand("
+				SELECT column_name
+				FROM tbl_file_rule
+				WHERE auth_item_name = :auth_item_name", [
+					':auth_item_name' => $className
+				])->queryAll();
+			foreach($fileAttributes as $fileAttribute) {
+				foreach(FileRule::findAll(['auth_item_name'=>$className, 'column_name'=>$fileAttribute->column_name]) as $fileRule) {
+					$rules[$fileRule->validator][$fileRule->key] = $fileRule->value;
+				}
+				$param['rules'] = $rules;
+				$files[] = $codeFile = new CodeFile(
+					Yii::getAlias('@' . str_replace('\\', '/', $this->ns))
+						. '/' . $className . Inflector::id2camel($attribute, '_') . 'File.php'
+						, $this->render('file.php', $params)
+				);
+			}
 
 			// crud generateor expectes modelName to be namespaced
 			$this->modelClass = $this->ns . '\\' . $className;

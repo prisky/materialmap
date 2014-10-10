@@ -14,7 +14,6 @@ use common\components\File;
  */
 trait FileActiveRecordTrait
 {
-	public $files;
 
 	/**
 	 * @inheritdoc. Unobtrusively clean out any uploaded files related to a model deleted from the database. Ideally

@@ -86,7 +86,7 @@ class DetailView extends \kartik\detail\DetailView
 
 $js = <<<JS
 // get the form id and set the event
-$('form#{$this->model->formName()}').on('beforeSubmit', function(e) {
+$('form#{$this->formOptions['id']}').on('beforeSubmit', function(e) {
 	var form = $(this);
 	$.post(
 		form.attr("action"),

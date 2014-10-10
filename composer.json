@@ -84,10 +84,6 @@
     "repositories": [
 		{
             "type": "vcs",
-            "url": "https://github.com/andrewblake1/yii2-summernote-widget"
-        },
-		{
-            "type": "vcs",
             "url": "https://github.com/andrewblake1/yii2-file-upload-widget"
         }
     ]
