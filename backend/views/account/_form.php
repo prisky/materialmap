@@ -20,7 +20,7 @@ use backend\components\DetailView;
 		'attributes'=>[
             ['attribute' => 'logo_image', 'type' => DetailView::INPUT_WIDGET, 
 				"widgetOptions" => [
-					"class" => '\dosamigos\fileupload\FileUploadUIARA',
+					"class" => '\dosamigos\fileupload\FileUploadUIAR',
 					"model" => $model,
 				],],
             ['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])],

@@ -881,6 +881,13 @@ class Generator extends \yii\gii\generators\crud\Generator
 						],
 					],
 				],";
+								} else if (substr($attribute, -strlen('_markdown')) === '_markdown') {
+								// if html input i.e. column name ends in _html
+								$inputType = "DetailView::INPUT_WIDGET,
+				'widgetOptions' => [
+					'class' => 'kartik\markdown\MarkdownEditor',
+					'showExport' => false,
+				],";
 								} else {
 									$inputType = 'DetailView::INPUT_TEXTAREA';
 								}
@@ -896,7 +903,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		} else {	// must be file input field
 			$inputType = 'DetailView::INPUT_WIDGET, 
 				"widgetOptions" => [
-					"class" => \'\dosamigos\fileupload\FileUploadUIARA\',
+					"class" => \'\dosamigos\fileupload\FileUploadUIAR\',
 					"model" => $model,
 				],';
 		}

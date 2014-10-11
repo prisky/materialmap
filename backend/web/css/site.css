@@ -253,7 +253,6 @@ a.desc:after {
 #search-resultbox li a .description {
     padding: 10px 20px 10px 20px;
     display: block;
-
     text-decoration: none;
     font-weight: normal;
     font-size: 90%;
@@ -264,26 +263,9 @@ a.desc:after {
     background: #44B5F6;
     text-decoration: none;
 }
-/* jquery file upload files list inside row of kartik details form */
-.table-striped .table-striped > tbody > tr:first-child > td {
-	border-top: none;
-}
-.table-striped table.table-striped {
-	margin-bottom:0;
+.note-editable {
+	background: white;
 }
 .overflow-hidden {
 	overflow:hidden;
-}
-.no-gutter {
-    padding-left:0 !important;
-    padding-right:0 !important;
-}
-.break-word {
-	-ms-word-break: break-all;
-	word-break: break-all;
-	/* Non standard for webkit */
-	word-break: break-word;
-}
-.size {
-	padding-right: 8px;
 }

@@ -381,7 +381,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
 		$this->$attributeName = preg_replace_callback(
 			"/src=\"data:([^\"]+)\"/",
-			function ($matches) use ($storedFiles, $manager, $options, $path)
+			function ($matches) use ($manager, $options, $path)
 		{
 			list($contentType, $encContent) = explode(';', $matches[1]);
 			if (substr($encContent, 0, 6) != 'base64') {

@@ -60,7 +60,7 @@ use backend\components\DetailView;
 		'condensed'=>true,
 		'hover'=>true,
 <?php if (in_array('\common\components\FileControllerTrait', $traits)): ?>
-		'button' => '<button type="button" class="btn btn-primary start"> <i class="glyphicon glyphicon-upload"></i> <span>Save</span></button>',
+		'button' => $this->context->renderPartial('@vendor/2amigos/yii2-file-upload-widget/views/saveButtonBar.php'),
 <?php endif; ?>
 		'mode'=>$mode,
 		'attributes'=>[
