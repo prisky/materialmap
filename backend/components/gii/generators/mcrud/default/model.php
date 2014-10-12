@@ -11,7 +11,6 @@
  * @var string[] $rules list of validation rules
  * @var array $relations list of relations (name => relation declaration)
  */
-
 echo "<?php\n";
 ?>
 
@@ -33,28 +32,28 @@ namespace <?= $generator->ns ?>;
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
 <?php if ($fileAttributes): ?>
-	use \common\components\FileActiveRecordTrait;
-	
-<?php foreach($fileAttributes as $fileAttribute): ?>
+    use \common\components\FileActiveRecordTrait;
+
+    <?php foreach ($fileAttributes as $fileAttribute): ?>
     /**
-     * @var string $<?=$fileAttribute['column_name']?> is a file attribute
+     * @var string $<?= $fileAttribute['column_name'] ?> is a file attribute
      */
-	public $<?=$fileAttribute['column_name']?>;
-<?php endforeach; ?>
-	
-	/**
-	 * Get the attribute names for files
-	 *
-	 * @return array or strings - file attribute names
-	 */
-	public function getFileAttributes()
-	{
-		return [
-<?php foreach($fileAttributes as $fileAttribute): ?>
-		    '<?=$fileAttribute['column_name']?>',
-<?php endforeach; ?>
-		];
-	}
+    public $<?= $fileAttribute['column_name'] ?>;
+    <?php endforeach; ?>
+
+    /**
+     * Get the attribute names for files
+     *
+     * @return array or strings - file attribute names
+     */
+    public function getFileAttributes()
+    {
+        return [
+    <?php foreach ($fileAttributes as $fileAttribute): ?>
+            '<?= $fileAttribute['column_name'] ?>',
+    <?php endforeach; ?>
+        ];
+    }
 <?php endif; ?>
 
     /**
@@ -89,7 +88,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
      */
     public function get<?= $name ?>()
     {
-        <?= $relation[0] . "\n" ?>
+        <?= $relation[0];?>
+
     }
+
 <?php endforeach; ?>
 }

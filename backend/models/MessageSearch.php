@@ -10,7 +10,7 @@ use common\models\Message;
  */
 class MessageSearch extends Message
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,15 +21,13 @@ class MessageSearch extends Message
     {
         $query = Message::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterGoogleStyle('email_html', $this->email_html);
-		$query->andFilterGoogleStyle('email_subject', $this->email_subject);
-		$query->andFilterGoogleStyle('sms_text', $this->sms_text);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        $query->andFilterGoogleStyle('email_html', $this->email_html);
+        $query->andFilterGoogleStyle('email_subject', $this->email_subject);
+        $query->andFilterGoogleStyle('sms_text', $this->sms_text);
+
         return $dataProvider;
     }
 }

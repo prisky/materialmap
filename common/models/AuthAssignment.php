@@ -43,4 +43,5 @@ class AuthAssignment extends \common\components\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
 }

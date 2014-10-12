@@ -48,6 +48,7 @@ class Survey extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -56,6 +57,7 @@ class Survey extends \common\components\ActiveRecord
         return $this->hasMany(SurveyToFieldSet::className(), ['survey_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -63,4 +65,5 @@ class Survey extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyToResourceType::className(), ['survey_id' => 'id']);
     }
+
 }

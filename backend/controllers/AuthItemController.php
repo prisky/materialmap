@@ -9,25 +9,25 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AuthItemController implements the CRUD actions for AuthItem model.
- */
+* AuthItemController implements the CRUD actions for AuthItem model.
+*/
 class AuthItemController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "type" => "#",
         "created_at" => "hh:mm AM/PM on mmmm d, yy",
         "updated_at" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -94,6 +94,6 @@ class AuthItemController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

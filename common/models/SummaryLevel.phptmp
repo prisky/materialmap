@@ -40,6 +40,7 @@ class SummaryLevel extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToCustomField::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -48,6 +49,7 @@ class SummaryLevel extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToItem::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,4 +57,5 @@ class SummaryLevel extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyResultToSummary::className(), ['level_id' => 'id']);
     }
+
 }

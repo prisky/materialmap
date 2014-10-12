@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * ItemController implements the CRUD actions for Item model.
- */
+* ItemController implements the CRUD actions for Item model.
+*/
 class ItemController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -51,6 +51,6 @@ class ItemController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

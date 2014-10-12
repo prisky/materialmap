@@ -8,22 +8,16 @@ use backend\components\DetailView;
  * @var yii\widgets\ActiveForm $form
  */
 ?>
-
 <div id="form-container">
-
     <?= DetailView::widget([
-		'model'=>$model,
-		'condensed'=>true,
-		'hover'=>true,
-		'mode'=>$mode,
-		'attributes'=>[
-            ['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])
-            ],
-            ['attribute' => 'sms_message', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]
-            ],
-            ['attribute' => 'outgoing', 'type' => DetailView::INPUT_SWITCH
-            ],
-		]
-	]);	?>
-
+        'model'=>$model,
+        'condensed'=>true,
+        'hover'=>true,
+        'mode'=>$mode,
+        'attributes'=>[
+            ['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
+            ['attribute' => 'sms_message', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
+            ['attribute' => 'outgoing', 'type' => DetailView::INPUT_SWITCH],
+        ],
+    ]);?>
 </div>

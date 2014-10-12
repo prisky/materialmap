@@ -47,6 +47,7 @@ class Promotion extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,6 +56,7 @@ class Promotion extends \common\components\ActiveRecord
         return $this->hasMany(PromotionConstraint::className(), ['promotion_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -62,4 +64,5 @@ class Promotion extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToPromotion::className(), ['promotion_id' => 'id']);
     }
+
 }

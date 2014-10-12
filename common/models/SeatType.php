@@ -45,6 +45,7 @@ class SeatType extends \common\components\ActiveRecord
         return $this->hasMany(Seat::className(), ['seat_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -52,4 +53,5 @@ class SeatType extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

@@ -10,7 +10,7 @@ use common\models\SurveyResultToTicketToSeat;
  */
 class SurveyResultToTicketToSeatSearch extends SurveyResultToTicketToSeat
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,15 +21,13 @@ class SurveyResultToTicketToSeatSearch extends SurveyResultToTicketToSeat
     {
         $query = SurveyResultToTicketToSeat::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
-		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
-		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+        $query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+        $query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+        $query->andFilterGoogleStyle('custom_value', $this->custom_value);
+
         return $dataProvider;
     }
 }

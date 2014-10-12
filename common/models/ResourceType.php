@@ -50,6 +50,7 @@ class ResourceType extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToResourceType::className(), ['resource_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -57,6 +58,7 @@ class ResourceType extends \common\components\ActiveRecord
     {
         return $this->hasMany(Resource::className(), ['resource_type_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -66,6 +68,7 @@ class ResourceType extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -74,6 +77,7 @@ class ResourceType extends \common\components\ActiveRecord
         return $this->hasMany(ResourceTypeToMessage::className(), ['resource_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -81,4 +85,5 @@ class ResourceType extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyToResourceType::className(), ['resource_type_id' => 'id']);
     }
+
 }

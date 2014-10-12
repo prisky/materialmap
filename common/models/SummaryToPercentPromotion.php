@@ -45,6 +45,7 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,6 +54,7 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
         return $this->hasOne(PercentPromotion::className(), ['id' => 'percent_promotion_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,4 +62,5 @@ class SummaryToPercentPromotion extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

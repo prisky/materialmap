@@ -45,6 +45,7 @@ class FieldSetTree extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,6 +54,7 @@ class FieldSetTree extends \common\components\ActiveRecord
         return $this->hasOne(FieldSet::className(), ['id' => 'parent_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,4 +62,5 @@ class FieldSetTree extends \common\components\ActiveRecord
     {
         return $this->hasOne(FieldSet::className(), ['id' => 'child_id']);
     }
+
 }

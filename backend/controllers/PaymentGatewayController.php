@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * PaymentGatewayController implements the CRUD actions for PaymentGateway model.
- */
+* PaymentGatewayController implements the CRUD actions for PaymentGateway model.
+*/
 class PaymentGatewayController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -34,8 +34,8 @@ class PaymentGatewayController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -45,6 +45,6 @@ class PaymentGatewayController extends \backend\components\Controller
                 "attribute" => "api_username"
             ]
         ];
-	}
+    }
 
 }

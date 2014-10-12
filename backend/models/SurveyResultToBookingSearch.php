@@ -11,8 +11,8 @@ use common\models\SurveyResultToBooking;
 class SurveyResultToBookingSearch extends SurveyResultToBooking
 {
     public $from_booking_id;
-	public $to_booking_id;
-	
+    public $to_booking_id;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,16 +23,14 @@ class SurveyResultToBookingSearch extends SurveyResultToBooking
     {
         $query = SurveyResultToBooking::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		if(!is_null($this->from_booking_id) && $this->from_booking_id != '') $query->andWhere('`booking_id` >= :from_booking_id', [':from_booking_id' => $this->from_booking_id]);
-		if(!is_null($this->to_booking_id) && $this->to_booking_id != '') $query->andWhere('`booking_id` <= :to_booking_id', [':to_booking_id' => $this->to_booking_id]);
-		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
-		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+        if(!is_null($this->from_booking_id) && $this->from_booking_id != '') $query->andWhere('`booking_id` >= :from_booking_id', [':from_booking_id' => $this->from_booking_id]);
+        if(!is_null($this->to_booking_id) && $this->to_booking_id != '') $query->andWhere('`booking_id` <= :to_booking_id', [':to_booking_id' => $this->to_booking_id]);
+        $query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+        $query->andFilterGoogleStyle('custom_value', $this->custom_value);
+
         return $dataProvider;
     }
 }

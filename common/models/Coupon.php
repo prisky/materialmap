@@ -49,6 +49,7 @@ class Coupon extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -56,4 +57,5 @@ class Coupon extends \common\components\ActiveRecord
     {
         return $this->hasOne(Reseller::className(), ['id' => 'reseller_id']);
     }
+
 }

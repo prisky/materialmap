@@ -10,10 +10,9 @@ use yii\helpers\StringHelper;
  * @var yii\gii\generators\crud\Generator $generator
  * @var string $tableName full table name
  */
-
 $controllerClass = StringHelper::basename($generator->controllerClass);
 $modelClass = StringHelper::basename($generator->modelClass);
-$db =  $generator->getDbConnection();
+$db = $generator->getDbConnection();
 $tableSchema = $db->getTableSchema($tableName);
 $excelFormats = [];
 $gridColumns = $generator->generateGridColumns($generator->modelClass, $modelClass, $excelFormats);
@@ -30,24 +29,24 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
- */
+* <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
+*/
 class <?= $controllerClass ?> extends <?= '\\' . $generator->baseControllerClass . "\n" ?>
 {
 <?php foreach ($traits as $trait): ?>
-	use <?=$trait?>;
+    use <?= $trait ?>;
 <?php endforeach; ?>
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = <?= $generator->var_export54($excelFormats, '    ') ?>;
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = <?= $generator->var_export54($excelFormats, '    ') ?>;
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return <?= $generator->var_export54($gridColumns, '        ') ?>;
-	}
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return <?= $generator->var_export54($gridColumns, '        ') ?>;
+    }
 
 }

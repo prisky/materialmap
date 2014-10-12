@@ -10,7 +10,7 @@ use common\models\FieldSet;
  */
 class FieldSetSearch extends FieldSet
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,11 +21,9 @@ class FieldSetSearch extends FieldSet
     {
         $query = FieldSet::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		
+
         return $dataProvider;
     }
 }

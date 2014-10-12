@@ -42,6 +42,7 @@ class ModelTree extends \common\components\ActiveRecord
         return $this->hasOne(Model::className(), ['id' => 'parent']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -49,4 +50,5 @@ class ModelTree extends \common\components\ActiveRecord
     {
         return $this->hasOne(Model::className(), ['id' => 'child']);
     }
+
 }

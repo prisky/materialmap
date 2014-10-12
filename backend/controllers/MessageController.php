@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * MessageController implements the CRUD actions for Message model.
- */
+* MessageController implements the CRUD actions for Message model.
+*/
 class MessageController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "system" => "[=0]\"No\";[=1]\"Yes\""
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -44,6 +44,6 @@ class MessageController extends \backend\components\Controller
                 "attribute" => "sms_text"
             ]
         ];
-	}
+    }
 
 }

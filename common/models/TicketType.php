@@ -54,6 +54,7 @@ class TicketType extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToTicketType::className(), ['ticket_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -61,6 +62,7 @@ class TicketType extends \common\components\ActiveRecord
     {
         return $this->hasMany(SeatToTicketType::className(), ['ticket_type_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -70,6 +72,7 @@ class TicketType extends \common\components\ActiveRecord
         return $this->hasMany(Ticket::className(), ['ticket_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,4 +80,5 @@ class TicketType extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

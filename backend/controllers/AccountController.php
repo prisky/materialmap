@@ -9,16 +9,16 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AccountController implements the CRUD actions for Account model.
- */
+* AccountController implements the CRUD actions for Account model.
+*/
 class AccountController extends \backend\components\Controller
 {
-	use \common\components\FileControllerTrait;
+    use \common\components\FileControllerTrait;
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "balance" => "\$#,##0.00;[Red]-\$#,##0.00",
         "summary_charge" => "\$#,##0.00;[Red]-\$#,##0.00",
         "booking_charge" => "\$#,##0.00;[Red]-\$#,##0.00",
@@ -29,18 +29,18 @@ class AccountController extends \backend\components\Controller
         "rate" => "0.00%"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
+                            },
                 "format" => "raw"
             ],
             [
@@ -226,6 +226,6 @@ class AccountController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

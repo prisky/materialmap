@@ -11,8 +11,8 @@ use common\models\AuthAssignment;
 class AuthAssignmentSearch extends AuthAssignment
 {
     public $from_created_at;
-	public $to_created_at;
-	
+    public $to_created_at;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,14 +23,12 @@ class AuthAssignmentSearch extends AuthAssignment
     {
         $query = AuthAssignment::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['user_id' => $this->user_id]);
-		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
-		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
-		
+        $query->andFilterWhere(['user_id' => $this->user_id]);
+        if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
+        if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
+
         return $dataProvider;
     }
 }

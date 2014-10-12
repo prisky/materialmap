@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -24,6 +25,7 @@ use common\models\FileRule;
  */
 class Generator extends \yii\gii\generators\crud\Generator
 {
+
     public $db = 'db';
     public $ns = 'common\models';
     public $tableName;
@@ -34,7 +36,7 @@ class Generator extends \yii\gii\generators\crud\Generator
     public $baseControllerClass = 'backend\components\Controller';
     public $controllerNs = 'backend\controllers';
     public $searchModelNs = 'backend\models';
-	public $enableI18N = true;
+    public $enableI18N = true;
 
     /**
      * @inheritdoc
@@ -58,11 +60,11 @@ class Generator extends \yii\gii\generators\crud\Generator
      */
     public function rules()
     {
-		// remove rules not required due to extending crud generator
-		$rules = parent::rules();
-		unset($rules[3][0][0]);	// modelClass required
-		unset($rules[3][0][1]);	// controllerClass required
-		
+        // remove rules not required due to extending crud generator
+        $rules = parent::rules();
+        unset($rules[3][0][0]); // modelClass required
+        unset($rules[3][0][1]); // controllerClass required
+
         return array_merge($rules, [
             [['db', 'ns', 'searchModelNs', 'controllerNs', 'tableName', 'modelClass', 'baseClass'], 'filter', 'filter' => 'trim'],
             [['db', 'ns', 'searchModelNs', 'controllerNs', 'tableName', 'baseClass'], 'required'],
@@ -152,10 +154,10 @@ class Generator extends \yii\gii\generators\crud\Generator
     public function requiredTemplates()
     {
         return [
-			'model.php',
-			'controller.php',
-			'search.php',
-		];
+            'model.php',
+            'controller.php',
+            'search.php',
+        ];
     }
 
     /**
@@ -168,15 +170,15 @@ class Generator extends \yii\gii\generators\crud\Generator
 
     /**
      * Generate CRUD, called from generate to merge model and crud generation.
-	 * @param string $className the model name
-	 * @param string $tableName the table name
-	 * @param [] of strings $traits
-	 * @return \yii\gii\CodeFile
-	 */
+     * @param string $className the model name
+     * @param string $tableName the table name
+     * @param [] of strings $traits
+     * @return \yii\gii\CodeFile
+     */
     private function generateCrud($className, $tableName, $traits = [])
     {
-		$this->controllerClass = $this->controllerNs . '\\' . $className . 'Controller';
-		$this->searchModelClass = $this->searchModelNs . '\\' . $className . 'Search';
+        $this->controllerClass = $this->controllerNs . '\\' . $className . 'Controller';
+        $this->searchModelClass = $this->searchModelNs . '\\' . $className . 'Search';
 
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
@@ -200,121 +202,120 @@ class Generator extends \yii\gii\generators\crud\Generator
         return $files;
     }
 
-   /**
-    * Overwritten this as the original left hyphens in which isn't in the controller id I think
-    * @return string the controller ID (without the module ID prefix)
-    */
+    /**
+     * Overwritten this as the original left hyphens in which isn't in the controller id I think
+     * @return string the controller ID (without the module ID prefix)
+     */
     public function getControllerID()
     {
         $pos = strrpos($this->controllerClass, '\\');
         $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
 
-		return strtolower($class);
+        return strtolower($class);
     }
-	
+
     /**
      * @inheritdoc
      */
     public function generate()
     {
-		// model
+        // model
         $files = [];
         $relations = $this->generateRelations();
         $db = $this->getDbConnection();
         foreach ($this->getTableNames() as $tableName) {
             $className = $this->generateClassName($tableName);
-			if(!$this->modelClass) {
-				$this->modelClass = $className;
-			}
+            if (!$this->modelClass) {
+                $this->modelClass = $className;
+            }
             $tableSchema = $db->getTableSchema($tableName);
-			$activeRecordFileRules = [];
-			$perFileRules = [];
+            $activeRecordFileRules = [];
+            $perFileRules = [];
             $params = [
                 'tableName' => $tableName,
                 'className' => $className,
                 'tableSchema' => $tableSchema,
                 'relations' => isset($relations[$className]) ? $relations[$className] : [],
             ];
-			
-			// generate File class for each file attribute for a model
-			$params['fileAttributes'] = $fileAttributes = Yii::$app->db->createCommand("
-				SELECT DISTINCT column_name
-				FROM tbl_file_rule
-				WHERE auth_item_name = :auth_item_name", [
-					':auth_item_name' => $className
-				])->queryAll();
-			foreach($fileAttributes as $fileAttribute) {
-				foreach(FileRule::findAll(['auth_item_name'=>$className, 'column_name'=>$fileAttribute['column_name']]) as $fileRule) {
-					// there are two types of file rules, those that apply per file and those across all. Maxfiles and required apply across all and
-					// are therefore relevant to be validated by ActiveRecord::validate fwhereas specific file rules apply to the ..File classes e.g.
-					// file type validator is per file.Our custom validator is used in the ActiveRecord rules and can be used to seperate these
-					if($fileRule->validator == '\common\components\FileValidator') {
-						$activeRecordFileRules[$fileAttribute['column_name']][$fileRule->validator][$fileRule->key] = $fileRule->value;
-					}
-					else {
-						$perFileRules[$fileRule->validator][$fileRule->key] = $fileRule->value;
-					}
-				}
-				$rules = [];
-				foreach($perFileRules as $validator => $rule) {
-					array_walk($rule, function (&$value, $key) { $value = "'$key' => $value";});
-					$rules[] = "[['file'], '$validator', " . implode(', ', $rule) . ']';
-				}
-				$params['rules'] = $rules;
-				$params['attribute'] = $fileAttribute['column_name'];
-				$files[] = $codeFile = new CodeFile(
-					Yii::getAlias('@' . str_replace('\\', '/', $this->ns))
-						. "/$className" . Inflector::id2camel($fileAttribute['column_name'], '_') . 'File.php'
-						, $this->render('file.php', $params)
-				);
-			}
 
-			// generate the ActiveQuery
-            $files[] = $codeFile = new CodeFile(
-                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . "/$className" . 'Query.php',
-                $this->render('activequery.php', $params)
-            );
-			
-			// generate the model
-			$rules = [];
-			foreach($activeRecordFileRules as $attibute => $activeRecordFileRule) {
-				foreach($activeRecordFileRule as $validator => $rule) {
-					array_walk($rule, function (&$value, $key) { $value = "'$key' => $value";});
-					$rules[] = "[['$attibute'], '$validator', " . implode(', ', $rule) . ']';
-				}
-			}
-			$params['rules'] = array_merge($this->generateRules($tableSchema), $rules);
-            $files[] = $codeFile = new CodeFile(
-                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . '.php',
-                $this->render('model.php', $params)
-            );
-			
-			// actually need the model file to exist here in order to generate crud but don't want to loose the old either
-			if(file_exists($codeFile->path)) {
-				$modelTempName = $codeFile->path . 'tmp';
-				$modelName = $codeFile->path;
-				rename($modelName, $modelTempName);
-			}
-			$codeFile->save();
-			
-			// generate crud only if in our navigation structure
-			if(\common\models\Model::findOne(['auth_item_name' => $className])) {
-				// crud generateor expectes modelName to be namespaced
-				$this->modelClass = $this->ns . '\\' . $className;
-				$files = array_merge($files, $this->generateCrud(
-					$className,
-					$tableName,
-					$fileAttributes ? ['\common\components\FileControllerTrait'] : []
-				));
+            // generate File class for each file attribute for a model
+            $params['fileAttributes'] = $fileAttributes = Yii::$app->db->createCommand("
+                SELECT DISTINCT column_name
+                FROM tbl_file_rule
+                WHERE auth_item_name = :auth_item_name", [
+                    ':auth_item_name' => $className
+                ])->queryAll();
+            foreach ($fileAttributes as $fileAttribute) {
+                foreach (FileRule::findAll(['auth_item_name' => $className, 'column_name' => $fileAttribute['column_name']]) as $fileRule) {
+                    // there are two types of file rules, those that apply per file and those across all. Maxfiles and required apply across all and
+                    // are therefore relevant to be validated by ActiveRecord::validate fwhereas specific file rules apply to the ..File classes e.g.
+                    // file type validator is per file.Our custom validator is used in the ActiveRecord rules and can be used to seperate these
+                    if ($fileRule->validator == '\common\components\FileValidator') {
+                        $activeRecordFileRules[$fileAttribute['column_name']][$fileRule->validator][$fileRule->key] = $fileRule->value;
+                    } else {
+                        $perFileRules[$fileRule->validator][$fileRule->key] = $fileRule->value;
+                    }
+                }
+                $rules = [];
+                foreach ($perFileRules as $validator => $rule) {
+                    array_walk($rule, function (&$value, $key) {
+                        $value = "'$key' => $value";
+                    });
+                    $rules[] = "[['file'], '$validator', " . implode(', ', $rule) . ']';
+                }
+                $params['rules'] = $rules;
+                $params['attribute'] = $fileAttribute['column_name'];
+                $files[] = $codeFile = new CodeFile(
+                    Yii::getAlias('@' . str_replace('\\', '/', $this->ns))
+                    . "/$className" . Inflector::id2camel($fileAttribute['column_name'], '_') . 'File.php'
+                    , $this->render('file.php', $params)
+                );
+            }
 
-				if(isset($modelTempName)) {
-					rename($modelTempName, $modelName);
-					unset($modelName);
-					unset($modelTempName);
-				}
-			}
-			
-			$this->modelClass = NULL;
+            // generate the ActiveQuery
+            $files[] = $codeFile = new CodeFile(
+                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . "/$className" . 'Query.php', $this->render('activequery.php', $params)
+            );
+
+            // generate the model
+            $rules = [];
+            foreach ($activeRecordFileRules as $attibute => $activeRecordFileRule) {
+                foreach ($activeRecordFileRule as $validator => $rule) {
+                    array_walk($rule, function (&$value, $key) {
+                        $value = "'$key' => $value";
+                    });
+                    $rules[] = "[['$attibute'], '$validator', " . implode(', ', $rule) . ']';
+                }
+            }
+            $params['rules'] = array_merge($this->generateRules($tableSchema), $rules);
+            $files[] = $codeFile = new CodeFile(
+                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . '.php', $this->render('model.php', $params)
+            );
+
+            // actually need the model file to exist here in order to generate crud but don't want to loose the old either
+            if (file_exists($codeFile->path)) {
+                $modelTempName = $codeFile->path . 'tmp';
+                $modelName = $codeFile->path;
+                rename($modelName, $modelTempName);
+            }
+            $codeFile->save();
+
+            // generate crud only if in our navigation structure
+            if (\common\models\Model::findOne(['auth_item_name' => $className])) {
+                // crud generateor expectes modelName to be namespaced
+                $this->modelClass = $this->ns . '\\' . $className;
+                $files = array_merge($files, $this->generateCrud(
+                        $className, $tableName, $fileAttributes ? ['\common\components\FileControllerTrait'] : []
+                ));
+
+                if (isset($modelTempName)) {
+                    rename($modelTempName, $modelName);
+                    unset($modelName);
+                    unset($modelTempName);
+                }
+            }
+
+            $this->modelClass = NULL;
         }
 
         return $files;
@@ -327,16 +328,17 @@ class Generator extends \yii\gii\generators\crud\Generator
      */
     public function generateLabels($table)
     {
-		$labels = [];
+        $labels = [];
         foreach ($table->columns as $column) {
-			$labels[$column->name] = Yii::$app->db->createCommand("
-				SELECT tbl_column.label FROM tbl_column JOIN tbl_model ON tbl_column.model_id = tbl_model.id
-				WHERE tbl_model.auth_item_name = REPLACE(bookaspot.ucwords(REPLACE(REPLACE(LOWER(:table), 'tbl_', ''), '_', ' ')), ' ', '')
-				AND tbl_column.name = :column_name", [
-					':table' => $table->name,
-					':column_name' => $column->name,
-				])->queryScalar();;
-         }
+            $labels[$column->name] = Yii::$app->db->createCommand("
+                SELECT tbl_column.label FROM tbl_column JOIN tbl_model ON tbl_column.model_id = tbl_model.id
+                WHERE tbl_model.auth_item_name = REPLACE(bookaspot.ucwords(REPLACE(REPLACE(LOWER(:table), 'tbl_', ''), '_', ' ')), ' ', '')
+                AND tbl_column.name = :column_name", [
+                    ':table' => $table->name,
+                    ':column_name' => $column->name,
+                ])->queryScalar();
+            ;
+        }
 
         return $labels;
     }
@@ -350,11 +352,11 @@ class Generator extends \yii\gii\generators\crud\Generator
     {
         $types = [];
         $lengths = [];
-		
-		$labels = $this->generateLabels($table);
-	
+
+        $labels = $this->generateLabels($table);
+
         foreach ($table->columns as $column) {
-			// no rules for autoincrement or non-labeled attributes
+            // no rules for autoincrement or non-labeled attributes
             if ($column->autoIncrement || empty($labels[$column->name])) {
                 continue;
             }
@@ -416,7 +418,8 @@ class Generator extends \yii\gii\generators\crud\Generator
                     }
                 }
             }
-        } catch (NotSupportedException $e) {
+        }
+        catch (NotSupportedException $e) {
             // doesn't support unique indexes information...do nothing
         }
 
@@ -447,15 +450,15 @@ class Generator extends \yii\gii\generators\crud\Generator
             foreach ($table->foreignKeys as $refs) {
                 $refTable = $refs[0];
                 unset($refs[0]);
-				// only interested in primary keys i.e. id columns except maybe with RBAC stuff
-				foreach($refs as $key => $value) {
-					if($value != 'id' && $key != 'id') {
-						unset($refs[$key]);
-					}
-				}
-				if(!$refs) {
-					continue;
-				}
+                // only interested in primary keys i.e. id columns except maybe with RBAC stuff
+                foreach ($refs as $key => $value) {
+                    if ($value != 'id' && $key != 'id') {
+                        unset($refs[$key]);
+                    }
+                }
+                if (!$refs) {
+                    continue;
+                }
                 $fks = array_keys($refs);
                 $refClassName = $this->generateClassName($refTable);
 
@@ -622,9 +625,9 @@ class Generator extends \yii\gii\generators\crud\Generator
         if ($this->isReservedKeyword($this->modelClass)) {
             $this->addError('modelClass', 'Class name cannot be a reserved PHP keyword.');
         }
-/*        if (substr($this->tableName, -1) !== '*' && $this->modelClass == '') {
-            $this->addError('modelClass', 'Model Class cannot be blank if table name does not end with asterisk.');
-        }*/
+        /*        if (substr($this->tableName, -1) !== '*' && $this->modelClass == '') {
+          $this->addError('modelClass', 'Model Class cannot be blank if table name does not end with asterisk.');
+          } */
     }
 
     /**
@@ -771,456 +774,444 @@ class Generator extends \yii\gii\generators\crud\Generator
 
         return false;
     }
-	
-	/**
-	 * Tidy var_export using php 5.4 short array syntax as per http://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
-	 * preceding with a pipe character in position 0 means not to quote or add slashes
-	 * @param type $var
-	 * @param type $indent
-	 * @return type
-	 */
-	public function var_export54($var, $indent="") {
-		switch (gettype($var)) {
-			case "string":
-				return ((strpos($var, '|') === 0))
-					? str_replace('|', '', $var)
-					: '"' . addcslashes($var, "\\\$\"\r\n\t\v\f") . '"';
-			case "array":
-				$indexed = array_keys($var) === range(0, count($var) - 1);
-				$r = [];
-				foreach ($var as $key => $value) {
-					$r[] = "$indent    "
-						 . ($indexed ? "" : $this->var_export54($key) . " => ")
-						 . $this->var_export54($value, "$indent    ");
-				}
-				return "[\n" . implode(",\n", $r) . "\n" . $indent . "]";
-			case "boolean":
-				return $var ? "TRUE" : "FALSE";
-			default:
-				return var_export($var, TRUE);
-		}
-	}
 
-	/**
-	 * @inheritdoc
-	 */
-	public function generateActiveField($attribute)
+    /**
+     * Tidy var_export using php 5.4 short array syntax as per http://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
+     * preceding with a pipe character in position 0 means not to quote or add slashes
+     * @param type $var
+     * @param type $indent
+     * @return type
+     */
+    public function var_export54($var, $indent = "")
+    {
+        switch (gettype($var)) {
+            case "string":
+                return ((strpos($var, '|') === 0)) ? str_replace('|', '', $var) : '"' . addcslashes($var, "\\\$\"\r\n\t\v\f") . '"';
+            case "array":
+                $indexed = array_keys($var) === range(0, count($var) - 1);
+                $r = [];
+                foreach ($var as $key => $value) {
+                    $r[] = "$indent    "
+                        . ($indexed ? "" : $this->var_export54($key) . " => ")
+                        . $this->var_export54($value, "$indent    ");
+                }
+                return "[\n" . implode(",\n", $r) . "\n" . $indent . "]";
+            case "boolean":
+                return $var ? "TRUE" : "FALSE";
+            default:
+                return var_export($var, TRUE);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function generateActiveField($attribute)
     {
         $tableSchema = $this->getTableSchema();
-		if(isset($tableSchema->columns[$attribute])) {
-			$column = $tableSchema->columns[$attribute];
+        if (isset($tableSchema->columns[$attribute])) {
+            $column = $tableSchema->columns[$attribute];
 
-			if (preg_match('/(password|pass|passwd|passcode)/i', $column->name)) {
-				$inputType = 'DetailView::INPUT_PASSWORD';
-			}
-			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $column->name)) {
-				$inputType = 'DetailView::INPUT_MONEY';
-			}
-			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $column->name)) {
-				$inputType = 'DetailView::INPUT_SPIN';
-			}
-			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
-				$dropDownOptions = [];
-				foreach ($column->enumValues as $enumValue) {
-					$dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
-				}
-				$inputType = "DetailView::INPUT_DROPDOWN_LIST,
-					'options' => ['prompt' => ''],
-					'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '    '));
-			}
-			else {
-				if($column->type == 'integer') {
-					// if the field is in a foreign key
-					foreach($tableSchema->foreignKeys as $tableKeys) {
-						// if in this foreign key and identifying
-						if(isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
-							$where = [];
-							// get any other attributes in this foreign key
-							foreach($tableKeys as $referencing => $referenced) {
-								// ignore array index 0 as is tablename, and ignore the identifying one
-								if($referencing && $referenced != 'id') {
-									$where[] = "'$referenced'" . ' => $model->' . $referencing;
-								}
-							}
-							$inputType = "DetailView::INPUT_SELECT2, 'widgetOptions' => \$this->context->fKWidgetOptions('"
-								. $this->generateClassName($tableKeys[0])
-								. "', ["
-								. implode(', ', $where)
-								. "])";
-							break;
-						}
-					}
-				}
+            if (preg_match('/(password|pass|passwd|passcode)/i', $column->name)) {
+                $inputType = 'DetailView::INPUT_PASSWORD';
+            } elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $column->name)) {
+                $inputType = 'DetailView::INPUT_MONEY';
+            } elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $column->name)) {
+                $inputType = 'DetailView::INPUT_SPIN';
+            } elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
+                $dropDownOptions = [];
+                foreach ($column->enumValues as $enumValue) {
+                    $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+                }
+                $inputType = "DetailView::INPUT_DROPDOWN_LIST,
+                'options' => ['prompt' => ''],
+                'items' => " . preg_replace("/\n\s*/", ' ', $this->var_export54($dropDownOptions, '    '));
+            } else {
+                if ($column->type == 'integer') {
+                    // if the field is in a foreign key
+                    foreach ($tableSchema->foreignKeys as $tableKeys) {
+                        // if in this foreign key and identifying
+                        if (isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
+                            $where = [];
+                            // get any other attributes in this foreign key
+                            foreach ($tableKeys as $referencing => $referenced) {
+                                // ignore array index 0 as is tablename, and ignore the identifying one
+                                if ($referencing && $referenced != 'id') {
+                                    $where[] = "'$referenced'" . ' => $model->' . $referencing;
+                                }
+                            }
+                            $inputType = "DetailView::INPUT_SELECT2, 'widgetOptions' => \$this->context->fKWidgetOptions('"
+                                . $this->generateClassName($tableKeys[0])
+                                . "', ["
+                                . implode(', ', $where)
+                                . "])";
+                            break;
+                        }
+                    }
+                }
 
-				if(!isset($inputType)) {
-					switch($column->dbType) {
-						case 'tinyint(1)' :
-							$inputType = 'DetailView::INPUT_SWITCH';
-							break;
-						case 'date' :
-							$inputType = 'DetailView::INPUT_DATE';
-							break;
-						case 'time' :
-							$inputType = 'DetailView::INPUT_TIME';
-							break;
-						case 'datetime' :
-						case 'timestamp' :
-							$inputType = 'DetailView::INPUT_DATETIME';
-							break;
-						case 'text' :
-						case 'mediumtext' :
-							if (substr($attribute, -strlen('_html')) === '_html') {
-								$inputType =
-									"DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditor'],";
-							} else if (substr($attribute, -strlen('_html_basic')) === '_html_basic') {
-								$inputType =
-									"DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditorBasic'],";
-							} else {
-								$inputType = 'DetailView::INPUT_TEXTAREA';
-							}
-							break;
-						default :
-							$inputType = "DetailView::INPUT_TEXT";
-							if($column->size) {
-								$inputType .= ", 'options' => ['maxlength' => {$column->size}]";
-							}
-					}
-				}
-			}
-		} else {	// must be file input field
-			$inputType = 'DetailView::INPUT_WIDGET, 
-				"widgetOptions" => [
-					"class" => \'\dosamigos\fileupload\FileUploadUIAR\',
-					"model" => $model,
-				],';
-		}
+                if (!isset($inputType)) {
+                    switch ($column->dbType) {
+                        case 'tinyint(1)' :
+                            $inputType = 'DetailView::INPUT_SWITCH';
+                            break;
+                        case 'date' :
+                            $inputType = 'DetailView::INPUT_DATE';
+                            break;
+                        case 'time' :
+                            $inputType = 'DetailView::INPUT_TIME';
+                            break;
+                        case 'datetime' :
+                        case 'timestamp' :
+                            $inputType = 'DetailView::INPUT_DATETIME';
+                            break;
+                        case 'text' :
+                        case 'mediumtext' :
+                            if (substr($attribute, -strlen('_html')) === '_html') {
+                                $inputType = "DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditor'],";
+                            } else if (substr($attribute, -strlen('_html_basic')) === '_html_basic') {
+                                $inputType = "DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditorBasic'],";
+                            } else {
+                                $inputType = 'DetailView::INPUT_TEXTAREA';
+                            }
+                            break;
+                        default :
+                            $inputType = "DetailView::INPUT_TEXT";
+                            if ($column->size) {
+                                $inputType .= ", 'options' => ['maxlength' => {$column->size}]";
+                            }
+                    }
+                }
+            }
+        } else { // must be file input field
+            $inputType = 'DetailView::INPUT_WIDGET, 
+                "widgetOptions" => [
+                    "class" => \'\dosamigos\fileupload\FileUploadUIAR\',
+                    "model" => $model,
+                ],';
+        }
 
-        return "            ['attribute' => '$attribute', 'type' => $inputType\n            ],";
-	}
-	
-	/**
-	 * Generate list of columns to show in index view - grid.
-	 * @param string $modelName name spaced model name
-	 * @param string $modelNameShort model name without namespace
-	 * @param array $excelFormats format strings for use when exporting to excel
-	 * @param array $searchConditions for use in search model
-	 * @param array $searchAttributes for use in search model
-	 * @param array $searchRules for use in search model
-	 * @return array the grid columns
-	 */
-	public function generateGridColumns($modelName, $modelNameShort, &$excelFormats, &$searchConditions = [], &$searchAttributes = [], &$searchRules = [])
-	{
-		$tableSchema =  Yii::$app->db->getTableSchema($modelName::tableName());
- 		$columns = $tableSchema->columns;
-		$gridColumns = [];
-		$types = [];
-		$attributes = [];
+        return "['attribute' => '$attribute', 'type' => $inputType],\n";
+    }
 
- 		// get all columns that have labels
-		$attributesSet = \common\models\Column::find()
-			->where(['auth_item_name' => $modelNameShort])
-			->asArray()
-			->all();
-		
-		foreach($attributesSet as $attribute) {
-			$attributes[$attribute['name']] = $attribute['name'];
-		}
-		
-		foreach($this->removeNonDisplayAttributes($modelName, $attributes) as $attribute) {
+    /**
+     * Generate list of columns to show in index view - grid.
+     * @param string $modelName name spaced model name
+     * @param string $modelNameShort model name without namespace
+     * @param array $excelFormats format strings for use when exporting to excel
+     * @param array $searchConditions for use in search model
+     * @param array $searchAttributes for use in search model
+     * @param array $searchRules for use in search model
+     * @return array the grid columns
+     */
+    public function generateGridColumns($modelName, $modelNameShort, &$excelFormats, &$searchConditions = [], &$searchAttributes = [], &$searchRules = [])
+    {
+        $tableSchema = Yii::$app->db->getTableSchema($modelName::tableName());
+        $columns = $tableSchema->columns;
+        $gridColumns = [];
+        $types = [];
+        $attributes = [];
+
+        // get all columns that have labels
+        $attributesSet = \common\models\Column::find()
+            ->where(['auth_item_name' => $modelNameShort])
+            ->asArray()
+            ->all();
+
+        foreach ($attributesSet as $attribute) {
+            $attributes[$attribute['name']] = $attribute['name'];
+        }
+
+        foreach ($this->removeNonDisplayAttributes($modelName, $attributes) as $attribute) {
 // TODO hide image columns for now - but ultimately show if single image or gallery if multi
-if(!isset($columns[$attribute])) {
-	continue;
-}
-			$column = $columns[$attribute];
+            if (!isset($columns[$attribute])) {
+                continue;
+            }
+            $column = $columns[$attribute];
 
-			$gridColumn = ['attribute' => $attribute];
+            $gridColumn = ['attribute' => $attribute];
 
-			if (preg_match('/(password|pass|passwd|passcode)/i', $attribute)) {
-				continue;
-			}
-			elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
-				$gridColumn['filterType'] = 'backend\components\FieldRange';
-				$gridColumn['filterWidgetOptions'] = [
-					'separator' => null,
-					'attribute1' => "from_$attribute",
-					'attribute2' => "to_$attribute",
-					'type' => FieldRange::INPUT_WIDGET,
-					'widgetClass' => GridView::FILTER_MONEY,
-					'widgetOptions1' => [
-						'pluginOptions' => [
-							'allowEmpty' => true,
-						],
-					],
-					'widgetOptions2' => [
-						'pluginOptions' => [
-							'allowEmpty' => true,
-						],
-					],
-				];
-				$types['number'][] = $attribute;
-				$types['number'][] = "from_$attribute";
-				$types['number'][] = "to_$attribute";
-				$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
-				$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
-				$searchAttributes[] = "from_$attribute";
-				$searchAttributes[] = "to_$attribute";
-				$excelFormats[$attribute] = '$#,##0.00;[Red]-$#,##0.00';
-			}
-			elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
-				$gridColumn['filterType'] = 'backend\components\FieldRange';
-				$gridColumn['filterWidgetOptions'] = [
-					'separator' => null,
-					'attribute1' => "from_$attribute",
-					'attribute2' => "to_$attribute",
-					'type' => FieldRange::INPUT_SPIN,
-					'widgetOptions1' => [
-						'pluginOptions' => [
-							'verticalbuttons' => true,
-							'verticalupclass' => 'glyphicon glyphicon-plus',
-							'verticaldownclass' => 'glyphicon glyphicon-minus',
-								],
-						],
-					'widgetOptions2' => [
-						'pluginOptions' => [
-							'verticalbuttons' => true,
-							'verticalupclass' => 'glyphicon glyphicon-plus',
-							'verticaldownclass' => 'glyphicon glyphicon-minus',
-						],
-					],
-				];
-				$types['number'][] = $attribute;
-				$types['number'][] = "from_$attribute";
-				$types['number'][] = "to_$attribute";
-				$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
-				$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
-				$searchAttributes[] = "from_$attribute";
-				$searchAttributes[] = "to_$attribute";
-				$excelFormats[$attribute] = '0.00%';
-			}
-			elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
-				foreach ($column->enumValues as $enumValue) {
-					$dropDownOptions[$enumValue] = $enumValue;
-				}
-				$gridColumn['filter'] = $dropDownOptions;
-				$types['string'][] = $attribute;
-				$searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
-			}
-			else {
-				if($column->type == 'integer') {
-					foreach($tableSchema->foreignKeys as $tableKeys) {
-						// if in this foreign key and identifying
-						if(isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
-							$where = [];
-							// get any other attributes in this foreign key
-							foreach($tableKeys as $referencing => $referenced) {
-								// ignore array index 0 as is tablename, and ignore the identifying one
-								if($referencing && $referenced != 'id') {
-									$where[] = "'$referenced'" . ' => $searchModel->' . $referencing;
-								}
-							}
-							$foreignKeyModelNameShort = Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_');
-							$foreignKeyRelationName = lcfirst($foreignKeyModelNameShort);
-							$gridColumn['filterType'] = GridView::FILTER_SELECT2;
-							$gridColumn['filterWidgetOptions'] =
-								'|Controller::fKWidgetOptions(\''
-								. $foreignKeyModelNameShort
-								. "', ["
-								. implode(', ', $where)
-								. "])";
-							$gridColumn['value'] = '|function($model, $key, $index, $widget) {
-								return \\backend\\components\\GridView::foreignKeyValue($model, $key, $index, $widget, "' . $foreignKeyRelationName . '");
-							}';
-							$types['integer'][] = $attribute;
-							$searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
-							$gridColumn['format'] = 'raw';
-							break;
-						}
-					}
-				}
+            if (preg_match('/(password|pass|passwd|passcode)/i', $attribute)) {
+                continue;
+            } elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $attribute)) {
+                $gridColumn['filterType'] = 'backend\components\FieldRange';
+                $gridColumn['filterWidgetOptions'] = [
+                    'separator' => null,
+                    'attribute1' => "from_$attribute",
+                    'attribute2' => "to_$attribute",
+                    'type' => FieldRange::INPUT_WIDGET,
+                    'widgetClass' => GridView::FILTER_MONEY,
+                    'widgetOptions1' => [
+                        'pluginOptions' => [
+                            'allowEmpty' => true,
+                        ],
+                    ],
+                    'widgetOptions2' => [
+                        'pluginOptions' => [
+                            'allowEmpty' => true,
+                        ],
+                    ],
+                ];
+                $types['number'][] = $attribute;
+                $types['number'][] = "from_$attribute";
+                $types['number'][] = "to_$attribute";
+                $searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+                $searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
+                $searchAttributes[] = "from_$attribute";
+                $searchAttributes[] = "to_$attribute";
+                $excelFormats[$attribute] = '$#,##0.00;[Red]-$#,##0.00';
+            } elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $attribute)) {
+                $gridColumn['filterType'] = 'backend\components\FieldRange';
+                $gridColumn['filterWidgetOptions'] = [
+                    'separator' => null,
+                    'attribute1' => "from_$attribute",
+                    'attribute2' => "to_$attribute",
+                    'type' => FieldRange::INPUT_SPIN,
+                    'widgetOptions1' => [
+                        'pluginOptions' => [
+                            'verticalbuttons' => true,
+                            'verticalupclass' => 'glyphicon glyphicon-plus',
+                            'verticaldownclass' => 'glyphicon glyphicon-minus',
+                        ],
+                    ],
+                    'widgetOptions2' => [
+                        'pluginOptions' => [
+                            'verticalbuttons' => true,
+                            'verticalupclass' => 'glyphicon glyphicon-plus',
+                            'verticaldownclass' => 'glyphicon glyphicon-minus',
+                        ],
+                    ],
+                ];
+                $types['number'][] = $attribute;
+                $types['number'][] = "from_$attribute";
+                $types['number'][] = "to_$attribute";
+                $searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+                $searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
+                $searchAttributes[] = "from_$attribute";
+                $searchAttributes[] = "to_$attribute";
+                $excelFormats[$attribute] = '0.00%';
+            } elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
+                foreach ($column->enumValues as $enumValue) {
+                    $dropDownOptions[$enumValue] = $enumValue;
+                }
+                $gridColumn['filter'] = $dropDownOptions;
+                $types['string'][] = $attribute;
+                $searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
+            } else {
+                if ($column->type == 'integer') {
+                    foreach ($tableSchema->foreignKeys as $tableKeys) {
+                        // if in this foreign key and identifying
+                        if (isset($tableKeys[$column->name]) && $tableKeys[$column->name] == 'id') {
+                            $where = [];
+                            // get any other attributes in this foreign key
+                            foreach ($tableKeys as $referencing => $referenced) {
+                                // ignore array index 0 as is tablename, and ignore the identifying one
+                                if ($referencing && $referenced != 'id') {
+                                    $where[] = "'$referenced'" . ' => $searchModel->' . $referencing;
+                                }
+                            }
+                            $foreignKeyModelNameShort = Inflector::id2camel(str_replace('tbl_', '', $tableKeys[0]), '_');
+                            $foreignKeyRelationName = lcfirst($foreignKeyModelNameShort);
+                            $gridColumn['filterType'] = GridView::FILTER_SELECT2;
+                            $gridColumn['filterWidgetOptions'] = '|Controller::fKWidgetOptions(\''
+                                . $foreignKeyModelNameShort
+                                . "', ["
+                                . implode(', ', $where)
+                                . "])";
+                            $gridColumn['value'] = '|function($model, $key, $index, $widget) {
+                                return \\backend\\components\\GridView::foreignKeyValue($model, $key, $index, $widget, "' . $foreignKeyRelationName . '");
+                            }';
+                            $types['integer'][] = $attribute;
+                            $searchConditions[] = "\$query->andFilterWhere(['{$attribute}' => \$this->{$attribute}])";
+                            $gridColumn['format'] = 'raw';
+                            break;
+                        }
+                    }
+                }
 
-				if(!isset($gridColumn['filterType'])) {
-					switch($column->dbType) {
-						case 'tinyint(1)' :
-							$gridColumn['class'] = 'kartik\grid\BooleanColumn';
-							$excelFormats[$attribute] = '[=0]"No";[=1]"Yes"';
-							$gridColumn['filterType'] = GridView::FILTER_SWITCH;
-							$types['boolean'][] = $attribute;
-							break;
-						case 'date' :
-							$gridColumn['filterType'] = 'backend\components\FieldRange';
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-								'type' => FieldRange::INPUT_DATE,
-								'widgetOptions1' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-								'widgetOptions2' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-							];
-							$types['number'][] = $attribute;
-							$types['number'][] = "from_$attribute";
-							$types['number'][] = "to_$attribute";
-							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
-							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
-							$searchAttributes[] = "from_$attribute";
-							$searchAttributes[] = "to_$attribute";
-							$excelFormats[$attribute] = 'mmmm d", "yy';
-							break;
-						case 'time' :
-							$gridColumn['filterType'] = 'backend\components\FieldRange';
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-								'type' => FieldRange::INPUT_TIME,
-								'widgetOptions1' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-								'widgetOptions2' => [
-									'pluginOptions' => ['autoclose' => true,],
-								],
-							];
-							$types['number'][] = $attribute;
-							$types['number'][] = "from_$attribute";
-							$types['number'][] = "to_$attribute";
-							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
-							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
-							$searchAttributes[] = "from_$attribute";
-							$searchAttributes[] = "to_$attribute";
-							$excelFormats[$attribute] = 'hh:mm AM/PM';
-							break;
-						case 'datetime' :
-						case 'timestamp' :
-							$gridColumn['filterType'] = 'backend\components\FieldRange';
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-								'type' => FieldRange::INPUT_DATETIME,
-								'widgetOptions1' => [
-									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
-									'pluginOptions' => ['autoclose' => true,],
-								],
-								'widgetOptions2' => [
-									'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
-									'pluginOptions' => ['autoclose' => true,],
-								],
-							];
-							$types['number'][] = $attribute;
-							$types['number'][] = "from_$attribute";
-							$types['number'][] = "to_$attribute";
-							$excelFormats[$attribute] = 'hh:mm AM/PM on mmmm d, yy';
-							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
-							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
-							$searchAttributes[] = "from_$attribute";
-							$searchAttributes[] = "to_$attribute";
-					}
-				
-					// last resort
-					if(!isset($gridColumn['filterType'])) {
-						switch($column->type) {
-							case 'integer' :
-								$excelFormats[$attribute] = '#';
-								$types['integer'][] = $attribute;
-								break;
-							case 'decimal' :
-								$types['number'][] = $attribute;
-								$excelFormats[$attribute] = '#.#';
-								break;
-						}
-						if(isset($excelFormats[$attribute])) {
-							$gridColumn['filterType'] = 'backend\components\FieldRange';
-							$gridColumn['filterWidgetOptions'] = [
-								'separator' => null,
-								'attribute1' => "from_$attribute",
-								'attribute2' => "to_$attribute",
-							];
-							$searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
-							$searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
-							$searchAttributes[] = "from_$attribute";
-							$searchAttributes[] = "to_$attribute";
-						}
-						else {
-							$types['safe'][] = $attribute;
-							$searchConditions[] = "\$query->andFilterGoogleStyle('{$attribute}', \$this->{$attribute})";
-						}
-					}
-				}
-			}
-			
-			$gridColumns[] = $gridColumn;
-		}
+                if (!isset($gridColumn['filterType'])) {
+                    switch ($column->dbType) {
+                        case 'tinyint(1)' :
+                            $gridColumn['class'] = 'kartik\grid\BooleanColumn';
+                            $excelFormats[$attribute] = '[=0]"No";[=1]"Yes"';
+                            $gridColumn['filterType'] = GridView::FILTER_SWITCH;
+                            $types['boolean'][] = $attribute;
+                            break;
+                        case 'date' :
+                            $gridColumn['filterType'] = 'backend\components\FieldRange';
+                            $gridColumn['filterWidgetOptions'] = [
+                                'separator' => null,
+                                'attribute1' => "from_$attribute",
+                                'attribute2' => "to_$attribute",
+                                'type' => FieldRange::INPUT_DATE,
+                                'widgetOptions1' => [
+                                    'pluginOptions' => ['autoclose' => true,],
+                                ],
+                                'widgetOptions2' => [
+                                    'pluginOptions' => ['autoclose' => true,],
+                                ],
+                            ];
+                            $types['number'][] = $attribute;
+                            $types['number'][] = "from_$attribute";
+                            $types['number'][] = "to_$attribute";
+                            $searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+                            $searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
+                            $searchAttributes[] = "from_$attribute";
+                            $searchAttributes[] = "to_$attribute";
+                            $excelFormats[$attribute] = 'mmmm d", "yy';
+                            break;
+                        case 'time' :
+                            $gridColumn['filterType'] = 'backend\components\FieldRange';
+                            $gridColumn['filterWidgetOptions'] = [
+                                'separator' => null,
+                                'attribute1' => "from_$attribute",
+                                'attribute2' => "to_$attribute",
+                                'type' => FieldRange::INPUT_TIME,
+                                'widgetOptions1' => [
+                                    'pluginOptions' => ['autoclose' => true,],
+                                ],
+                                'widgetOptions2' => [
+                                    'pluginOptions' => ['autoclose' => true,],
+                                ],
+                            ];
+                            $types['number'][] = $attribute;
+                            $types['number'][] = "from_$attribute";
+                            $types['number'][] = "to_$attribute";
+                            $searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+                            $searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
+                            $searchAttributes[] = "from_$attribute";
+                            $searchAttributes[] = "to_$attribute";
+                            $excelFormats[$attribute] = 'hh:mm AM/PM';
+                            break;
+                        case 'datetime' :
+                        case 'timestamp' :
+                            $gridColumn['filterType'] = 'backend\components\FieldRange';
+                            $gridColumn['filterWidgetOptions'] = [
+                                'separator' => null,
+                                'attribute1' => "from_$attribute",
+                                'attribute2' => "to_$attribute",
+                                'type' => FieldRange::INPUT_DATETIME,
+                                'widgetOptions1' => [
+                                    'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
+                                    'pluginOptions' => ['autoclose' => true,],
+                                ],
+                                'widgetOptions2' => [
+                                    'type' => \kartik\widgets\DateTimePicker::TYPE_INPUT,
+                                    'pluginOptions' => ['autoclose' => true,],
+                                ],
+                            ];
+                            $types['number'][] = $attribute;
+                            $types['number'][] = "from_$attribute";
+                            $types['number'][] = "to_$attribute";
+                            $excelFormats[$attribute] = 'hh:mm AM/PM on mmmm d, yy';
+                            $searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+                            $searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
+                            $searchAttributes[] = "from_$attribute";
+                            $searchAttributes[] = "to_$attribute";
+                    }
+
+                    // last resort
+                    if (!isset($gridColumn['filterType'])) {
+                        switch ($column->type) {
+                            case 'integer' :
+                                $excelFormats[$attribute] = '#';
+                                $types['integer'][] = $attribute;
+                                break;
+                            case 'decimal' :
+                                $types['number'][] = $attribute;
+                                $excelFormats[$attribute] = '#.#';
+                                break;
+                        }
+                        if (isset($excelFormats[$attribute])) {
+                            $gridColumn['filterType'] = 'backend\components\FieldRange';
+                            $gridColumn['filterWidgetOptions'] = [
+                                'separator' => null,
+                                'attribute1' => "from_$attribute",
+                                'attribute2' => "to_$attribute",
+                            ];
+                            $searchConditions[] = "if(!is_null(\$this->from_{$attribute}) && \$this->from_{$attribute} != '') \$query->andWhere('`$attribute` >= :from_{$attribute}', [':from_{$attribute}' => \$this->from_{$attribute}])";
+                            $searchConditions[] = "if(!is_null(\$this->to_{$attribute}) && \$this->to_{$attribute} != '') \$query->andWhere('`$attribute` <= :to_{$attribute}', [':to_{$attribute}' => \$this->to_{$attribute}])";
+                            $searchAttributes[] = "from_$attribute";
+                            $searchAttributes[] = "to_$attribute";
+                        } else {
+                            $types['safe'][] = $attribute;
+                            $searchConditions[] = "\$query->andFilterGoogleStyle('{$attribute}', \$this->{$attribute})";
+                        }
+                    }
+                }
+            }
+
+            $gridColumns[] = $gridColumn;
+        }
 
         $searchRules = [];
         foreach ($types as $type => $columns) {
             $searchRules[] = "[['" . implode("', '", $columns) . "'], '$type']";
         }
 
-		return $gridColumns;
-	}
+        return $gridColumns;
+    }
 
-	/**
-	 * Remove any non identifying attributes (i.e. if none of the foreign keys using the attribute point at an id column in the
-	 * referenced table). Basically used out attributes that have a sole purpose of enforcing referencial integrity.
-	 * @param string $modelName The name of the model for which to remove non identifying attributes
-	 * @param array $attributes
-	 * @return array
-	 */
-	private function removeNonIdentifyingAttributes($modelName, $attributes) {
-		$foreignKeyAttributes = [];
-		$identifyingAttributes = [];
-			
-		// loop thru attributes
-		foreach($attributes as $attributeName) {
-			// loop thru all foreign keys using this attribute
-			foreach($modelName::getTableSchema()->foreignKeys as $foreignKey) {
-				// if the foreign key uses this attribute
-				if(isset($foreignKey[$attributeName])) {
-					// record that this is a foreign key attribute
-					$foreignKeyAttributes[$attributeName] = $attributeName;
-					// if this attribute is identifying i.e. points at the pk (id) of the referenced table
-					if($foreignKey[$attributeName] == 'id') {
-						// record that it is identifying
-						$identifyingAttributes[$attributeName] = $attributeName;
-					}
-				}
-			}
-		}
+    /**
+     * Remove any non identifying attributes (i.e. if none of the foreign keys using the attribute point at an id column in the
+     * referenced table). Basically used out attributes that have a sole purpose of enforcing referencial integrity.
+     * @param string $modelName The name of the model for which to remove non identifying attributes
+     * @param array $attributes
+     * @return array
+     */
+    private function removeNonIdentifyingAttributes($modelName, $attributes)
+    {
+        $foreignKeyAttributes = [];
+        $identifyingAttributes = [];
 
-		// remove the difference between foreign key attributes and identifying attributes are the attributes we want to remove
-		foreach(array_diff($foreignKeyAttributes, $identifyingAttributes) as $removeAttribute) {
-			unset($attributes[array_search($removeAttribute, $attributes)]);
-		}
+        // loop thru attributes
+        foreach ($attributes as $attributeName) {
+            // loop thru all foreign keys using this attribute
+            foreach ($modelName::getTableSchema()->foreignKeys as $foreignKey) {
+                // if the foreign key uses this attribute
+                if (isset($foreignKey[$attributeName])) {
+                    // record that this is a foreign key attribute
+                    $foreignKeyAttributes[$attributeName] = $attributeName;
+                    // if this attribute is identifying i.e. points at the pk (id) of the referenced table
+                    if ($foreignKey[$attributeName] == 'id') {
+                        // record that it is identifying
+                        $identifyingAttributes[$attributeName] = $attributeName;
+                    }
+                }
+            }
+        }
 
-		return $attributes;
-	}
+        // remove the difference between foreign key attributes and identifying attributes are the attributes we want to remove
+        foreach (array_diff($foreignKeyAttributes, $identifyingAttributes) as $removeAttribute) {
+            unset($attributes[array_search($removeAttribute, $attributes)]);
+        }
 
-	/**
-	 * Remove non display attributes
-	 * @param string $modelName The name of the model for which to remove non displayable attributes
-	 * @param array $attributes The attributes
-	 * @return array Attributes with certain attributes removed
-	 */
-	public function removeNonDisplayAttributes($modelName, $attributes) {
-		$nonDisplayable = ['id', 'deleted', 'created', 'level_id'];
+        return $attributes;
+    }
 
-		// if there is a parent then we don't want account_id
-		if($parentAttribute = $modelName::parentAttribute()) {
-			$nonDisplayable[] = $parentAttribute;
-			$nonDisplayable[] = 'account_id';
-		}
+    /**
+     * Remove non display attributes
+     * @param string $modelName The name of the model for which to remove non displayable attributes
+     * @param array $attributes The attributes
+     * @return array Attributes with certain attributes removed
+     */
+    public function removeNonDisplayAttributes($modelName, $attributes)
+    {
+        $nonDisplayable = ['id', 'deleted', 'created', 'level_id'];
 
-		foreach($nonDisplayable as $attribute) {
-			if(($key = array_search($attribute, $attributes)) !== false) {
-				unset($attributes[$key]);
-			}
-		}
-		
-		return $this->removeNonIdentifyingAttributes($modelName, $attributes);
-	}
+        // if there is a parent then we don't want account_id
+        if ($parentAttribute = $modelName::parentAttribute()) {
+            $nonDisplayable[] = $parentAttribute;
+            $nonDisplayable[] = 'account_id';
+        }
 
+        foreach ($nonDisplayable as $attribute) {
+            if (($key = array_search($attribute, $attributes)) !== false) {
+                unset($attributes[$key]);
+            }
+        }
+
+        return $this->removeNonIdentifyingAttributes($modelName, $attributes);
+    }
 
 }

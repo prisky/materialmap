@@ -10,7 +10,7 @@ use common\models\BookingToCharge;
  */
 class BookingToChargeSearch extends BookingToCharge
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class BookingToChargeSearch extends BookingToCharge
     {
         $query = BookingToCharge::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['charge_id' => $this->charge_id]);
-		
+        $query->andFilterWhere(['charge_id' => $this->charge_id]);
+
         return $dataProvider;
     }
 }

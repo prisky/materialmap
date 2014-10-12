@@ -52,6 +52,7 @@ class TicketToSeatToItem extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,6 +60,7 @@ class TicketToSeatToItem extends \common\components\ActiveRecord
     {
         return $this->hasOne(Item::className(), ['id' => 'item_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -68,6 +70,7 @@ class TicketToSeatToItem extends \common\components\ActiveRecord
         return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -75,4 +78,5 @@ class TicketToSeatToItem extends \common\components\ActiveRecord
     {
         return $this->hasOne(TicketToSeatToLevel::className(), ['id' => 'level_id']);
     }
+
 }

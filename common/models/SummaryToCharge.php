@@ -45,6 +45,7 @@ class SummaryToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,6 +54,7 @@ class SummaryToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,4 +62,5 @@ class SummaryToCharge extends \common\components\ActiveRecord
     {
         return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
+
 }

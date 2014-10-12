@@ -10,7 +10,7 @@ use common\models\BookingToCustomField;
  */
 class BookingToCustomFieldSearch extends BookingToCustomField
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class BookingToCustomFieldSearch extends BookingToCustomField
     {
         $query = BookingToCustomField::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		
+        $query->andFilterGoogleStyle('custom_value', $this->custom_value);
+
         return $dataProvider;
     }
 }

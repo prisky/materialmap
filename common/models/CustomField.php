@@ -58,6 +58,7 @@ class CustomField extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,6 +66,7 @@ class CustomField extends \common\components\ActiveRecord
     {
         return $this->hasMany(FieldSetToCustomField::className(), ['custom_field_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -74,6 +76,7 @@ class CustomField extends \common\components\ActiveRecord
         return $this->hasMany(SurveyResultToBooking::className(), ['custom_field_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -81,6 +84,7 @@ class CustomField extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyResultToSummary::className(), ['custom_field_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -90,6 +94,7 @@ class CustomField extends \common\components\ActiveRecord
         return $this->hasMany(SurveyResultToTicket::className(), ['custom_field_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -97,4 +102,5 @@ class CustomField extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyResultToTicketToSeat::className(), ['custom_field_id' => 'id']);
     }
+
 }

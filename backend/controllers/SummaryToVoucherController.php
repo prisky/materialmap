@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * SummaryToVoucherController implements the CRUD actions for SummaryToVoucher model.
- */
+* SummaryToVoucherController implements the CRUD actions for SummaryToVoucher model.
+*/
 class SummaryToVoucherController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "voucher_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Voucher', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "voucher");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "voucher");
+                            },
                 "format" => "raw"
             ],
             [
@@ -57,6 +57,6 @@ class SummaryToVoucherController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

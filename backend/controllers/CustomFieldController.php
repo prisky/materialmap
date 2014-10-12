@@ -9,31 +9,31 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * CustomFieldController implements the CRUD actions for CustomField model.
- */
+* CustomFieldController implements the CRUD actions for CustomField model.
+*/
 class CustomFieldController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "allow_new" => "[=0]\"No\";[=1]\"Yes\"",
         "mandatory" => "[=0]\"No\";[=1]\"Yes\""
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -82,6 +82,6 @@ class CustomFieldController extends \backend\components\Controller
                 "attribute" => "validation_error"
             ]
         ];
-	}
+    }
 
 }

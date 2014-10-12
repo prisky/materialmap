@@ -10,7 +10,7 @@ use common\models\SummaryToPromotion;
  */
 class SummaryToPromotionSearch extends SummaryToPromotion
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SummaryToPromotionSearch extends SummaryToPromotion
     {
         $query = SummaryToPromotion::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['promotion_id' => $this->promotion_id]);
-		
+        $query->andFilterWhere(['promotion_id' => $this->promotion_id]);
+
         return $dataProvider;
     }
 }

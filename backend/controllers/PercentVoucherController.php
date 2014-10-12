@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * PercentVoucherController implements the CRUD actions for PercentVoucher model.
- */
+* PercentVoucherController implements the CRUD actions for PercentVoucher model.
+*/
 class PercentVoucherController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "rate" => "0.00%"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "rate",
                 "filterType" => "backend\\components\\FieldRange",
@@ -51,6 +51,6 @@ class PercentVoucherController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * PercentPromotionController implements the CRUD actions for PercentPromotion model.
- */
+* PercentPromotionController implements the CRUD actions for PercentPromotion model.
+*/
 class PercentPromotionController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "rate" => "0.00%"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "rate",
                 "filterType" => "backend\\components\\FieldRange",
@@ -51,6 +51,6 @@ class PercentPromotionController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

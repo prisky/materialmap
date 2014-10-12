@@ -11,8 +11,8 @@ use common\models\Item;
 class ItemSearch extends Item
 {
     public $from_amount;
-	public $to_amount;
-	
+    public $to_amount;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,14 +23,12 @@ class ItemSearch extends Item
     {
         $query = Item::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
-		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+        if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+
         return $dataProvider;
     }
 }

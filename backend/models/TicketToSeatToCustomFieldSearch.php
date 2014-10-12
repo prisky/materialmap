@@ -10,7 +10,7 @@ use common\models\TicketToSeatToCustomField;
  */
 class TicketToSeatToCustomFieldSearch extends TicketToSeatToCustomField
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,14 +21,12 @@ class TicketToSeatToCustomFieldSearch extends TicketToSeatToCustomField
     {
         $query = TicketToSeatToCustomField::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
-		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+        $query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+        $query->andFilterGoogleStyle('custom_value', $this->custom_value);
+
         return $dataProvider;
     }
 }

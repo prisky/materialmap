@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AccountToMessageToUserController implements the CRUD actions for AccountToMessageToUser model.
- */
+* AccountToMessageToUserController implements the CRUD actions for AccountToMessageToUser model.
+*/
 class AccountToMessageToUserController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "user_id" => "#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_to_message",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToMessage', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "accountToMessage");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "accountToMessage");
+                            },
                 "format" => "raw"
             ],
             [
@@ -45,6 +45,6 @@ class AccountToMessageToUserController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

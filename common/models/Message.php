@@ -51,6 +51,7 @@ class Message extends \common\components\ActiveRecord
         return $this->hasMany(AccountToMessage::className(), ['message_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,6 +60,7 @@ class Message extends \common\components\ActiveRecord
         return $this->hasMany(MessageToMessageField::className(), ['message_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -66,4 +68,5 @@ class Message extends \common\components\ActiveRecord
     {
         return $this->hasMany(ResourceTypeToMessage::className(), ['message_id' => 'id']);
     }
+
 }

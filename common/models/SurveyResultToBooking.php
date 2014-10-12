@@ -50,6 +50,7 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,6 +59,7 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,4 +67,5 @@ class SurveyResultToBooking extends \common\components\ActiveRecord
     {
         return $this->hasOne(BookingLevel::className(), ['id' => 'level_id']);
     }
+
 }

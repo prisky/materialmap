@@ -9,27 +9,27 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * BookingToCustomFieldController implements the CRUD actions for BookingToCustomField model.
- */
+* BookingToCustomFieldController implements the CRUD actions for BookingToCustomField model.
+*/
 class BookingToCustomFieldController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "custom_value"
             ]
         ];
-	}
+    }
 
 }

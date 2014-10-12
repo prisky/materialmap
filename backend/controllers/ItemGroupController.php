@@ -9,27 +9,27 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * ItemGroupController implements the CRUD actions for ItemGroup model.
- */
+* ItemGroupController implements the CRUD actions for ItemGroup model.
+*/
 class ItemGroupController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ]
         ];
-	}
+    }
 
 }

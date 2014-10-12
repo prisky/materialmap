@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * ResourceTypeToMessageToUserController implements the CRUD actions for ResourceTypeToMessageToUser model.
- */
+* ResourceTypeToMessageToUserController implements the CRUD actions for ResourceTypeToMessageToUser model.
+*/
 class ResourceTypeToMessageToUserController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "user_id" => "#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "user_id",
                 "filterType" => "backend\\components\\FieldRange",
@@ -36,6 +36,6 @@ class ResourceTypeToMessageToUserController extends \backend\components\Controll
                 ]
             ]
         ];
-	}
+    }
 
 }

@@ -10,7 +10,7 @@ use common\models\Resource;
  */
 class ResourceSearch extends Resource
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class ResourceSearch extends Resource
     {
         $query = Resource::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+
         return $dataProvider;
     }
 }

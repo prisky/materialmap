@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * BookingToItemController implements the CRUD actions for BookingToItem model.
- */
+* BookingToItemController implements the CRUD actions for BookingToItem model.
+*/
 class BookingToItemController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "item_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Item', ['account_id' => $searchModel->account_id, 'item_group_id' => $searchModel->item_group_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
+                            },
                 "format" => "raw"
             ],
             [
@@ -60,6 +60,6 @@ class BookingToItemController extends \backend\components\Controller
                 "attribute" => "quantity"
             ]
         ];
-	}
+    }
 
 }

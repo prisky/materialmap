@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * TicketToSeatToItemController implements the CRUD actions for TicketToSeatToItem model.
- */
+* TicketToSeatToItemController implements the CRUD actions for TicketToSeatToItem model.
+*/
 class TicketToSeatToItemController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -40,8 +40,8 @@ class TicketToSeatToItemController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat', ['account_id' => $searchModel->account_id, 'event_type_id' => $searchModel->event_type_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
+                            },
                 "format" => "raw"
             ],
             [
@@ -49,8 +49,8 @@ class TicketToSeatToItemController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Item', ['account_id' => $searchModel->account_id, 'item_group_id' => $searchModel->item_group_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "item");
+                            },
                 "format" => "raw"
             ],
             [
@@ -78,6 +78,6 @@ class TicketToSeatToItemController extends \backend\components\Controller
                 "attribute" => "quantity"
             ]
         ];
-	}
+    }
 
 }

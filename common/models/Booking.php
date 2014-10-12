@@ -52,6 +52,7 @@ class Booking extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,6 +60,7 @@ class Booking extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -68,6 +70,7 @@ class Booking extends \common\components\ActiveRecord
         return $this->hasOne(Event::className(), ['id' => 'event_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -75,6 +78,7 @@ class Booking extends \common\components\ActiveRecord
     {
         return $this->hasMany(BookingToCharge::className(), ['booking_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -84,6 +88,7 @@ class Booking extends \common\components\ActiveRecord
         return $this->hasMany(BookingToCustomField::className(), ['booking_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -92,6 +97,7 @@ class Booking extends \common\components\ActiveRecord
         return $this->hasMany(BookingToItem::className(), ['booking_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -99,4 +105,5 @@ class Booking extends \common\components\ActiveRecord
     {
         return $this->hasMany(Ticket::className(), ['booking_id' => 'id']);
     }
+
 }

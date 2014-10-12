@@ -11,8 +11,8 @@ use common\models\ResourceTypeToMessageToUser;
 class ResourceTypeToMessageToUserSearch extends ResourceTypeToMessageToUser
 {
     public $from_user_id;
-	public $to_user_id;
-	
+    public $to_user_id;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,13 +23,11 @@ class ResourceTypeToMessageToUserSearch extends ResourceTypeToMessageToUser
     {
         $query = ResourceTypeToMessageToUser::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);
-		if(!is_null($this->to_user_id) && $this->to_user_id != '') $query->andWhere('`user_id` <= :to_user_id', [':to_user_id' => $this->to_user_id]);
-		
+        if(!is_null($this->from_user_id) && $this->from_user_id != '') $query->andWhere('`user_id` >= :from_user_id', [':from_user_id' => $this->from_user_id]);
+        if(!is_null($this->to_user_id) && $this->to_user_id != '') $query->andWhere('`user_id` <= :to_user_id', [':to_user_id' => $this->to_user_id]);
+
         return $dataProvider;
     }
 }

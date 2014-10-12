@@ -48,6 +48,7 @@ class Charge extends \common\components\ActiveRecord
         return $this->hasMany(AnnualCharge::className(), ['charge_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,6 +56,7 @@ class Charge extends \common\components\ActiveRecord
     {
         return $this->hasMany(BookingToCharge::className(), ['charge_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -64,6 +66,7 @@ class Charge extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -71,6 +74,7 @@ class Charge extends \common\components\ActiveRecord
     {
         return $this->hasMany(SmsToCharge::className(), ['charge_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -80,6 +84,7 @@ class Charge extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToCharge::className(), ['charge_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -88,6 +93,7 @@ class Charge extends \common\components\ActiveRecord
         return $this->hasMany(TicketToCharge::className(), ['charge_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -95,4 +101,5 @@ class Charge extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeatToCharge::className(), ['charge_id' => 'id']);
     }
+
 }

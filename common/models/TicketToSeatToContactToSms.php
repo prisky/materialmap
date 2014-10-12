@@ -45,6 +45,7 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
         return $this->hasOne(TicketToSeatToContact::className(), ['id' => 'ticket_to_seat_to_contact_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,6 +54,7 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
         return $this->hasOne(Sms::className(), ['id' => 'sms_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,4 +62,5 @@ class TicketToSeatToContactToSms extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

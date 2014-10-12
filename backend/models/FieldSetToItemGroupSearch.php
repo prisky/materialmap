@@ -10,7 +10,7 @@ use common\models\FieldSetToItemGroup;
  */
 class FieldSetToItemGroupSearch extends FieldSetToItemGroup
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class FieldSetToItemGroupSearch extends FieldSetToItemGroup
     {
         $query = FieldSetToItemGroup::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['item_group_id' => $this->item_group_id]);
-		
+        $query->andFilterWhere(['item_group_id' => $this->item_group_id]);
+
         return $dataProvider;
     }
 }

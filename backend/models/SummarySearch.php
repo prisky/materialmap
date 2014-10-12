@@ -10,7 +10,7 @@ use common\models\Summary;
  */
 class SummarySearch extends Summary
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SummarySearch extends Summary
     {
         $query = Summary::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['contact_id' => $this->contact_id]);
-		
+        $query->andFilterWhere(['contact_id' => $this->contact_id]);
+
         return $dataProvider;
     }
 }

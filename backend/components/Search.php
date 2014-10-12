@@ -7,6 +7,7 @@ namespace backend\components;
  */
 trait Search
 {
+
     public function rules()
     {
         return [
@@ -53,4 +54,5 @@ trait Search
 
         return $dataProvider;
     }
+
 }

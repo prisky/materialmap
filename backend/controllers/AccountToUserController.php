@@ -9,32 +9,32 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AccountToUserController implements the CRUD actions for AccountToUser model.
- */
+* AccountToUserController implements the CRUD actions for AccountToUser model.
+*/
 class AccountToUserController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "rate" => "0.00%",
         "newsletter" => "[=0]\"No\";[=1]\"Yes\"",
         "immediate" => "[=0]\"No\";[=1]\"Yes\""
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
+                            },
                 "format" => "raw"
             ],
             [
@@ -72,6 +72,6 @@ class AccountToUserController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\SwitchInput"
             ]
         ];
-	}
+    }
 
 }

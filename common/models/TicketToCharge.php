@@ -46,6 +46,7 @@ class TicketToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -54,6 +55,7 @@ class TicketToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -61,4 +63,5 @@ class TicketToCharge extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

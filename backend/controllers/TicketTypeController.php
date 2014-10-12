@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * TicketTypeController implements the CRUD actions for TicketType model.
- */
+* TicketTypeController implements the CRUD actions for TicketType model.
+*/
 class TicketTypeController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "seats"
             ],
@@ -63,6 +63,6 @@ class TicketTypeController extends \backend\components\Controller
                 "attribute" => "booking_max"
             ]
         ];
-	}
+    }
 
 }

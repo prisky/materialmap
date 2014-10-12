@@ -10,7 +10,7 @@ use common\models\AccountToMessage;
  */
 class AccountToMessageSearch extends AccountToMessage
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,15 +21,13 @@ class AccountToMessageSearch extends AccountToMessage
     {
         $query = AccountToMessage::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['message_id' => $this->message_id]);
-		$query->andFilterGoogleStyle('email_message', $this->email_message);
-		$query->andFilterGoogleStyle('email_subject', $this->email_subject);
-		$query->andFilterGoogleStyle('sms_message', $this->sms_message);
-		
+        $query->andFilterWhere(['message_id' => $this->message_id]);
+        $query->andFilterGoogleStyle('email_message', $this->email_message);
+        $query->andFilterGoogleStyle('email_subject', $this->email_subject);
+        $query->andFilterGoogleStyle('sms_message', $this->sms_message);
+
         return $dataProvider;
     }
 }

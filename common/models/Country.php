@@ -51,4 +51,5 @@ class Country extends \common\components\ActiveRecord
     {
         return $this->hasMany(StateProvinceRegion::className(), ['country_id' => 'id']);
     }
+
 }

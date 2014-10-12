@@ -10,7 +10,7 @@ use common\models\MessageToMessageField;
  */
 class MessageToMessageFieldSearch extends MessageToMessageField
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class MessageToMessageFieldSearch extends MessageToMessageField
     {
         $query = MessageToMessageField::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['message_field_id' => $this->message_field_id]);
-		
+        $query->andFilterWhere(['message_field_id' => $this->message_field_id]);
+
         return $dataProvider;
     }
 }

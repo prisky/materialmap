@@ -45,4 +45,5 @@ class VoucherConstraint extends \common\components\ActiveRecord
     {
         return $this->hasOne(Voucher::className(), ['id' => 'voucher_id']);
     }
+
 }

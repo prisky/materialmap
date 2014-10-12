@@ -42,6 +42,7 @@ class Level extends \common\components\ActiveRecord
         return $this->hasMany(FieldSet::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -49,6 +50,7 @@ class Level extends \common\components\ActiveRecord
     {
         return $this->hasMany(FieldSetToCustomField::className(), ['level_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -58,6 +60,7 @@ class Level extends \common\components\ActiveRecord
         return $this->hasMany(FieldSetToItemGroup::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,4 +68,5 @@ class Level extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyToFieldSet::className(), ['level_id' => 'id']);
     }
+
 }

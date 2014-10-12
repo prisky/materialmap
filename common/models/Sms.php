@@ -50,6 +50,7 @@ class Sms extends \common\components\ActiveRecord
         return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -57,6 +58,7 @@ class Sms extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -66,6 +68,7 @@ class Sms extends \common\components\ActiveRecord
         return $this->hasOne(SmsThread::className(), ['id' => 'sms_thread_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -74,6 +77,7 @@ class Sms extends \common\components\ActiveRecord
         return $this->hasMany(SmsToCharge::className(), ['sms_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -81,4 +85,5 @@ class Sms extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeatToContactToSms::className(), ['sms_id' => 'id']);
     }
+
 }

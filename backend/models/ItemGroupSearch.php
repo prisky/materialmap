@@ -10,7 +10,7 @@ use common\models\ItemGroup;
  */
 class ItemGroupSearch extends ItemGroup
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class ItemGroupSearch extends ItemGroup
     {
         $query = ItemGroup::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+
         return $dataProvider;
     }
 }

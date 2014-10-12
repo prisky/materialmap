@@ -10,7 +10,7 @@ use common\models\SummaryToPercentPromotion;
  */
 class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SummaryToPercentPromotionSearch extends SummaryToPercentPromotion
     {
         $query = SummaryToPercentPromotion::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
-		
+        $query->andFilterWhere(['percent_promotion_id' => $this->percent_promotion_id]);
+
         return $dataProvider;
     }
 }

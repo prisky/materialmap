@@ -3,6 +3,7 @@
 namespace backend\components;
 
 use yii\db\ActiveRecord;
+
 /**
  * ClosureTableActiveRecordTrait class file.
  * Provides tree set functionality for an ActiveRecord.
@@ -13,37 +14,38 @@ use yii\db\ActiveRecord;
  */
 trait ClosureTableActiveRecordTrait
 {
+
     /**
      * @inheritdoc
      * @return Query
      */
     public static function find()
     {
-		$modelNameQuery = static::modelName() . 'Query';
-		
-		if(class_exists($modelNameQuery)) {
-			$modelNameQuery = new $modelNameQuery(get_called_class());
-			$modelNameQuery->attachBehavior(NULL, new ClosureTableQueryBehavior(get_called_class(), [
-				'modelClass' => get_called_class(),
-				'closureTableName' => static::closureTableName,
-				'childAttribute' => static::childAttribute,
-				'parentAttribute' => static::parentAttribute,
-				'depthAttribute' => static::depthAttribute,
-			]));
+        $modelNameQuery = static::modelName() . 'Query';
 
-			return $modelNameQuery;
-		}
+        if (class_exists($modelNameQuery)) {
+            $modelNameQuery = new $modelNameQuery(get_called_class());
+            $modelNameQuery->attachBehavior(NULL, new ClosureTableQueryBehavior(get_called_class(), [
+                'modelClass' => get_called_class(),
+                'closureTableName' => static::closureTableName,
+                'childAttribute' => static::childAttribute,
+                'parentAttribute' => static::parentAttribute,
+                'depthAttribute' => static::depthAttribute,
+            ]));
+
+            return $modelNameQuery;
+        }
     }
 
-	/**
-	 * Determine if a model is a leaf node 
+    /**
+     * Determine if a model is a leaf node 
      * @return bool true if model is a leaf node
-	 */
+     */
     public function isLeaf()
     {
-       return (boolean) static::find()->childrenOf($this->id);
+        return (boolean) static::find()->childrenOf($this->id);
     }
-	
+
     /**
      * Save node and insert closure table records with transaction
      * @param boolean $runValidation whether to perform validation before saving the record.
@@ -70,7 +72,8 @@ trait ClosureTableActiveRecordTrait
             if (isset($transaction)) {
                 $transaction->commit();
             }
-        } catch (DbException $e) {
+        }
+        catch (DbException $e) {
             if (isset($transaction)) {
                 $transaction->rollback();
             }
@@ -93,11 +96,10 @@ trait ClosureTableActiveRecordTrait
         $closureTable = $db->quoteTableName(static::closureTableName);
         $cmd = $db->createCommand(
             'INSERT INTO ' . $closureTable
-                . '(' . $parentAttribute . ',' . $childAttribute . ',' . $depthAttribute . ') '
-                . 'VALUES (:nodeId,:nodeId,\'0\')',
-			[':nodeId' => $this->id]
+            . '(' . $parentAttribute . ',' . $childAttribute . ',' . $depthAttribute . ') '
+            . 'VALUES (:nodeId,:nodeId,\'0\')', [':nodeId' => $this->id]
         );
-		// bind paramaters
+        // bind paramaters
         return $cmd->execute();
     }
 
@@ -134,12 +136,10 @@ trait ClosureTableActiveRecordTrait
             . ',' . $depthAttribute . '+1 '
             . 'FROM ' . $closureTable
             . 'WHERE ' . $childAttribute . '=:pk '
-            . 'UNION ALL SELECT :nodeId,:nodeId,\'0\'',
-			[':nodeId' => $nodeId, ':pk' => $primaryKey]
+            . 'UNION ALL SELECT :nodeId,:nodeId,\'0\'', [':nodeId' => $nodeId, ':pk' => $primaryKey]
         );
         return $cmd->execute();
     }
-
 
     /**
      * Appends target to node as child.
@@ -186,8 +186,7 @@ trait ClosureTableActiveRecordTrait
                 . 'JOIN ' . $closureTable . ' d ON a.' . $childAttribute . '=d.' . $childAttribute
                 . 'LEFT JOIN ' . $closureTable . ' x ON x.' . $parentAttribute . '=d.' . $parentAttribute
                 . 'AND x.' . $childAttribute . '=a.' . $parentAttribute
-                . 'WHERE d.' . $parentAttribute . '=? AND x.' . $parentAttribute . ' IS NULL',
-				[$nodeId]
+                . 'WHERE d.' . $parentAttribute . '=? AND x.' . $parentAttribute . ' IS NULL', [$nodeId]
             );
             if (!$cmd->execute()) {
                 throw new DbException('Node had no records in closure table', 200);
@@ -197,8 +196,7 @@ trait ClosureTableActiveRecordTrait
                 . 'SELECT u.' . $parentAttribute . ',b.' . $childAttribute
                 . ',u.' . $depthAttribute . '+b.' . $depthAttribute . '+1 '
                 . 'FROM ' . $closureTable . ' u JOIN ' . $closureTable . ' b '
-                . 'WHERE b.' . $parentAttribute . '=? AND u.' . $childAttribute . '=?',
-				[$nodeId, $targetId]
+                . 'WHERE b.' . $parentAttribute . '=? AND u.' . $childAttribute . '=?', [$nodeId, $targetId]
             );
             if (!$cmd->execute()) {
                 throw new DbException('Target node does not exist', 201);
@@ -206,7 +204,8 @@ trait ClosureTableActiveRecordTrait
             if (isset($transaction)) {
                 $transaction->commit();
             }
-        } catch (DbException $e) {
+        }
+        catch (DbException $e) {
             if (isset($transaction)) {
                 $transaction->rollback();
             }
@@ -233,10 +232,9 @@ trait ClosureTableActiveRecordTrait
             . 'FROM ' . $closureTable . ' t '
             . 'JOIN ' . $closureTable . ' tt ON t.' . $childAttribute . '= tt.' . $childAttribute
             . 'JOIN ' . $this->tableName() . ' f ON t.' . $childAttribute . '=f.' . $primaryKeyName
-            . 'WHERE tt.' . $db->quoteColumnName(static::parentAttribute) . '=?',
-			[$primaryKey]
+            . 'WHERE tt.' . $db->quoteColumnName(static::parentAttribute) . '=?', [$primaryKey]
         );
         return $cmd->execute();
     }
-	
+
 }

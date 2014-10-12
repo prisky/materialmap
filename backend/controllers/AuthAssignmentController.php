@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AuthAssignmentController implements the CRUD actions for AuthAssignment model.
- */
+* AuthAssignmentController implements the CRUD actions for AuthAssignment model.
+*/
 class AuthAssignmentController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "created_at" => "#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('User', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "user");
+                            },
                 "format" => "raw"
             ],
             [
@@ -45,6 +45,6 @@ class AuthAssignmentController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

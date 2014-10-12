@@ -44,6 +44,7 @@ class StateProvinceRegion extends \common\components\ActiveRecord
         return $this->hasOne(Country::className(), ['id' => 'country_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -51,4 +52,5 @@ class StateProvinceRegion extends \common\components\ActiveRecord
     {
         return $this->hasMany(TownCity::className(), ['state_province_region' => 'id']);
     }
+
 }

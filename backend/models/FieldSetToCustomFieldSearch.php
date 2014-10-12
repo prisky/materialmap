@@ -10,7 +10,7 @@ use common\models\FieldSetToCustomField;
  */
 class FieldSetToCustomFieldSearch extends FieldSetToCustomField
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class FieldSetToCustomFieldSearch extends FieldSetToCustomField
     {
         $query = FieldSetToCustomField::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
-		
+        $query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+
         return $dataProvider;
     }
 }

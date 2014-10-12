@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * CountryController implements the CRUD actions for Country model.
- */
+* CountryController implements the CRUD actions for Country model.
+*/
 class CountryController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -45,6 +45,6 @@ class CountryController extends \backend\components\Controller
                 "attribute" => "tax_name"
             ]
         ];
-	}
+    }
 
 }

@@ -54,6 +54,7 @@ class Model extends \common\components\ActiveRecord
         return $this->hasMany(Column::className(), ['model_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -68,6 +69,6 @@ class Model extends \common\components\ActiveRecord
     public function getModelTreeChilds()
     {
         return $this->hasMany(ModelTree::className(), ['child' => 'auth_item_name']);
-}
+    }
 
 }

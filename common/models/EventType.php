@@ -56,6 +56,7 @@ class EventType extends \common\components\ActiveRecord
         return $this->hasMany(Event::className(), ['event_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -63,6 +64,7 @@ class EventType extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -72,6 +74,7 @@ class EventType extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToFieldSet::className(), ['event_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -80,6 +83,7 @@ class EventType extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToResourceType::className(), ['event_type_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -87,4 +91,5 @@ class EventType extends \common\components\ActiveRecord
     {
         return $this->hasMany(EventTypeToTicketType::className(), ['event_type_id' => 'id']);
     }
+
 }

@@ -8,7 +8,6 @@ use yii\helpers\StringHelper;
  * @var yii\web\View $this
  * @var yii\gii\generators\crud\Generator $generator
  */
-
 $modelClass = StringHelper::basename($generator->modelClass);
 $searchModelClass = StringHelper::basename($generator->searchModelClass);
 if ($modelClass === $searchModelClass) {
@@ -35,9 +34,9 @@ use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelA
 class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $modelClass ?>
 
 {
-    <?php foreach($searchAttributes as $searchAttribute) {
-		echo "public $$searchAttribute;\n\t";
-	} ?>
+<?php foreach ($searchAttributes as $searchAttribute):?>
+    public $<?=$searchAttribute;?>;
+<?php endforeach;?>
 
     public function scenarios()
     {
@@ -49,13 +48,11 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     {
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		<?php foreach($searchConditions as $searchCondition) {
-			echo "$searchCondition;\n\t\t";
-		} ?>
+<?php foreach ($searchConditions as $searchCondition): ?>
+        <?=$searchCondition;?>;
+<?php endforeach;?>
 
         return $dataProvider;
     }

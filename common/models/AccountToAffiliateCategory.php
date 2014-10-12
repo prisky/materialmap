@@ -45,6 +45,7 @@ class AccountToAffiliateCategory extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -52,4 +53,5 @@ class AccountToAffiliateCategory extends \common\components\ActiveRecord
     {
         return $this->hasOne(AffiliateCategory::className(), ['id' => 'affiliate_category_id']);
     }
+
 }

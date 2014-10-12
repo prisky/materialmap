@@ -49,6 +49,7 @@ class Payment extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -56,6 +57,7 @@ class Payment extends \common\components\ActiveRecord
     {
         return $this->hasOne(PaymentGateway::className(), ['id' => 'payment_gateway_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -65,6 +67,7 @@ class Payment extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -72,4 +75,5 @@ class Payment extends \common\components\ActiveRecord
     {
         return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
     }
+
 }

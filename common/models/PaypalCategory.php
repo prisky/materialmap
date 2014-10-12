@@ -40,4 +40,5 @@ class PaypalCategory extends \common\components\ActiveRecord
     {
         return $this->hasMany(PaypalSubCategory::className(), ['paypal_category_id' => 'id']);
     }
+
 }

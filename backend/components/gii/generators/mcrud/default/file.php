@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the template for generating the File class of a specified attribute for a model.
  *
@@ -6,7 +7,6 @@
  * @var yii\gii\generators\model\Generator $generator
  * @var string $attribute the relevant attribute name
  */
-
 use yii\helpers\Inflector;
 
 echo "<?php\n";
@@ -18,17 +18,17 @@ namespace common\models;
  * @inheritdoc
  * This contains the rules for the "<?= $attribute ?>" file attribute for the "<?= $className ?>ActiveRecord" model.
  */
-class <?= $className . Inflector::id2camel($attribute, '_') . 'File'?> extends \common\components\File
+class <?= $className . Inflector::id2camel($attribute, '_') . 'File' ?> extends \common\components\File
 {
 
-	public $privacy = self::ISPRIVATE;
+    public $privacy = self::ISPRIVATE;
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [<?= "\n            " . implode(",\n                ", $rules) . "\n            " ?>];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [<?= "\n            " . implode(",\n                ", $rules) . "\n            " ?>];
+    }
 
 }

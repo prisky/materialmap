@@ -9,25 +9,25 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AgencyController implements the CRUD actions for Agency model.
- */
+* AgencyController implements the CRUD actions for Agency model.
+*/
 class AgencyController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
 
         ];
-	}
+    }
 
 }

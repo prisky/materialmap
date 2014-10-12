@@ -11,8 +11,8 @@ use common\models\Charge;
 class ChargeSearch extends Charge
 {
     public $from_amount;
-	public $to_amount;
-	
+    public $to_amount;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,13 +23,11 @@ class ChargeSearch extends Charge
     {
         $query = Charge::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
-		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		
+        if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+        if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+
         return $dataProvider;
     }
 }

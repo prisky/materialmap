@@ -10,7 +10,7 @@ use common\models\Reminder;
  */
 class ReminderSearch extends Reminder
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class ReminderSearch extends Reminder
     {
         $query = Reminder::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('hours_prior', $this->hours_prior);
-		
+        $query->andFilterGoogleStyle('hours_prior', $this->hours_prior);
+
         return $dataProvider;
     }
 }

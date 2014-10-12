@@ -48,6 +48,7 @@ class Column extends \common\components\ActiveRecord
         return $this->hasOne(Model::className(), ['id' => 'model_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,4 +56,5 @@ class Column extends \common\components\ActiveRecord
     {
         return $this->hasMany(FileRule::className(), ['column_id' => 'id']);
     }
+
 }

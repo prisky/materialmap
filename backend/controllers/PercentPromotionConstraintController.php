@@ -9,24 +9,24 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * PercentPromotionConstraintController implements the CRUD actions for PercentPromotionConstraint model.
- */
+* PercentPromotionConstraintController implements the CRUD actions for PercentPromotionConstraint model.
+*/
 class PercentPromotionConstraintController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "invalid_from" => "hh:mm AM/PM on mmmm d, yy",
         "invalid_to" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "invalid_from",
                 "filterType" => "backend\\components\\FieldRange",
@@ -72,6 +72,6 @@ class PercentPromotionConstraintController extends \backend\components\Controlle
                 ]
             ]
         ];
-	}
+    }
 
 }

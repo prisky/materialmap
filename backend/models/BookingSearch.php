@@ -10,7 +10,7 @@ use common\models\Booking;
  */
 class BookingSearch extends Booking
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class BookingSearch extends Booking
     {
         $query = Booking::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['summary_id' => $this->summary_id]);
-		$query->andFilterWhere(['status' => $this->status]);
-		
+        $query->andFilterWhere(['summary_id' => $this->summary_id]);
+        $query->andFilterWhere(['status' => $this->status]);
+
         return $dataProvider;
     }
 }

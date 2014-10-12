@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * ItemInventoryController implements the CRUD actions for ItemInventory model.
- */
+* ItemInventoryController implements the CRUD actions for ItemInventory model.
+*/
 class ItemInventoryController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "received" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "quantity"
             ],
@@ -52,6 +52,6 @@ class ItemInventoryController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

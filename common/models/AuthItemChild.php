@@ -43,4 +43,5 @@ class AuthItemChild extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

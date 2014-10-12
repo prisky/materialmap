@@ -46,6 +46,7 @@ class SmsToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -54,6 +55,7 @@ class SmsToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Sms::className(), ['id' => 'sms_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -61,4 +63,5 @@ class SmsToCharge extends \common\components\ActiveRecord
     {
         return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
+
 }

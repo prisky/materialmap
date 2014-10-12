@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * SurveyController implements the CRUD actions for Survey model.
- */
+* SurveyController implements the CRUD actions for Survey model.
+*/
 class SurveyController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -33,6 +33,6 @@ class SurveyController extends \backend\components\Controller
                 "attribute" => "comment"
             ]
         ];
-	}
+    }
 
 }

@@ -10,7 +10,7 @@ use common\models\TicketToSeatToCharge;
  */
 class TicketToSeatToChargeSearch extends TicketToSeatToCharge
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,14 +21,12 @@ class TicketToSeatToChargeSearch extends TicketToSeatToCharge
     {
         $query = TicketToSeatToCharge::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
-		$query->andFilterWhere(['charge_id' => $this->charge_id]);
-		
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+        $query->andFilterWhere(['ticket_to_seat_id' => $this->ticket_to_seat_id]);
+        $query->andFilterWhere(['charge_id' => $this->charge_id]);
+
         return $dataProvider;
     }
 }

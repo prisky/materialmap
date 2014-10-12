@@ -43,4 +43,5 @@ class ItemInventory extends \common\components\ActiveRecord
     {
         return $this->hasOne(Item::className(), ['id' => 'item_id']);
     }
+
 }

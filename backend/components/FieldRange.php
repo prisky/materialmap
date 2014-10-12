@@ -1,12 +1,11 @@
 <?php
 
-/* 
+/*
  * Copyright Andrew Blake 2014. 
  * 
  */
 
 namespace backend\components;
-
 
 use Yii;
 use yii\base\Model;
@@ -24,10 +23,11 @@ use kartik\field\FieldRangeAsset;
  */
 class FieldRange extends \yii\base\Widget
 {
-	// dummy needed because of Controller::getGridColumns
-	public $attribute;
 
-	/**
+    // dummy needed because of Controller::getGridColumns
+    public $attribute;
+
+    /**
      * @var ActiveForm the form instance, if used with active form
      */
     public $form;
@@ -188,7 +188,6 @@ class FieldRange extends \yii\base\Widget
     const INPUT_FILE = 'fileInput';
     const INPUT_HTML5_INPUT = 'input';
     const INPUT_WIDGET = 'widget';
-
     // input widget classes
     const INPUT_DEPDROP = '\kartik\widgets\DepDrop';
     const INPUT_SELECT2 = '\kartik\widgets\Select2';
@@ -218,7 +217,6 @@ class FieldRange extends \yii\base\Widget
         self::INPUT_FILE => 'fileInput',
         self::INPUT_WIDGET => 'widget',
     ];
-
     private static $_inputWidgets = [
         self::INPUT_DEPDROP => '\kartik\widgets\DepDrop',
         self::INPUT_SELECT2 => '\kartik\widgets\Select2',
@@ -234,13 +232,11 @@ class FieldRange extends \yii\base\Widget
         self::INPUT_RATING => '\kartik\widgets\StarRating',
         self::INPUT_FILEINPUT => '\kartik\widgets\FileInput',
     ];
-
     private static $_dropDownInputs = [
         self::INPUT_LIST_BOX => 'listBox',
         self::INPUT_DROPDOWN_LIST => 'dropDownList',
         self::INPUT_CHECKBOX_LIST => 'checkboxList',
         self::INPUT_RADIO_LIST => 'radioList',
-
     ];
 
     /**
@@ -257,7 +253,6 @@ class FieldRange extends \yii\base\Widget
      * @var array the HTML options for the main container
      */
     public $container = [];
-
     private $_isHorizontalForm = false;
 
     /**
@@ -307,15 +302,15 @@ class FieldRange extends \yii\base\Widget
                 '<span class="input-group-addon kv-field-separator">' . $this->separator . '</span>' .
                 Html::tag('div', $this->getInput(2), ['class' => 'kv-container-to']);
             $widget = Html::tag('div', $widget, $this->separator ? $this->options : []);
-         }
+        }
         $widget = Html::tag('div', $widget, $this->widgetContainer);
         $error = Html::tag('div', '<div class="help-block"></div>', $this->errorContainer);
 
         echo Html::tag('div', strtr($this->template, [
-            '{label}' =>$this->separator ?  Html::label($this->label, null, $this->labelOptions) : '',
+            '{label}' => $this->separator ? Html::label($this->label, null, $this->labelOptions) : '',
             '{widget}' => $widget,
             '{error}' => $error
-        ]), $this->container);
+            ]), $this->container);
     }
 
     public function validateSettings()
@@ -360,10 +355,10 @@ class FieldRange extends \yii\base\Widget
         if (empty($this->errorContainer['id'])) {
             $this->errorContainer['id'] = $this->options1['id'] . '-error';
         }
-		if(empty($this->separator)) {
-			$this->options1['placeholder'] = Yii::t('app', 'From');
-			$this->options2['placeholder'] = Yii::t('app', 'To');
-		}
+        if (empty($this->separator)) {
+            $this->options1['placeholder'] = Yii::t('app', 'From');
+            $this->options2['placeholder'] = Yii::t('app', 'To');
+        }
         $this->container['id'] = $this->options['id'] . '-container';
     }
 
@@ -377,33 +372,33 @@ class FieldRange extends \yii\base\Widget
         $class = self::INPUT_DATE;
         $this->widgetOptions1['type'] = $class::TYPE_RANGE;
         $this->widgetOptions1['separator'] = $this->separator;
-       if ($this->hasModel()) {
+        if ($this->hasModel()) {
             $this->widgetOptions1 = ArrayHelper::merge($this->widgetOptions1, [
-                'model' => $this->model,
-                'attribute' => $this->attribute1,
-                'attribute2' => $this->attribute2,
-                'options' => $this->options,
-                'options2' => $this->options2,
+                    'model' => $this->model,
+                    'attribute' => $this->attribute1,
+                    'attribute2' => $this->attribute2,
+                    'options' => $this->options,
+                    'options2' => $this->options2,
             ]);
         } else {
             $this->widgetOptions1 = ArrayHelper::merge($this->widgetOptions1, [
-                'name' => $this->name1,
-                'name2' => $this->name2,
-                'value' => isset($this->value1) ? $this->value1 : null,
-                'value2' => isset($this->value2) ? $this->value2 : null,
-                'options' => $this->options1,
-                'options2' => $this->options2,
+                    'name' => $this->name1,
+                    'name2' => $this->name2,
+                    'value' => isset($this->value1) ? $this->value1 : null,
+                    'value2' => isset($this->value2) ? $this->value2 : null,
+                    'options' => $this->options1,
+                    'options2' => $this->options2,
             ]);
         }
         if (isset($this->form)) {
             $this->widgetOptions1['form'] = $this->form;
         }
-		if(empty($this->separator)) {
-			$this->widgetOptions1['options']['placeholder'] = Yii::t('app', 'From');
+        if (empty($this->separator)) {
+            $this->widgetOptions1['options']['placeholder'] = Yii::t('app', 'From');
             Html::addCssClass($this->widgetOptions1['options'], 'kv-field-from');
-		}
- 		$this->widgetOptions1['options']['placeholder'] = 'From';
-		
+        }
+        $this->widgetOptions1['options']['placeholder'] = 'From';
+
         return $class::widget($this->widgetOptions1);
     }
 
@@ -429,7 +424,6 @@ class FieldRange extends \yii\base\Widget
         if ($this->type === self::INPUT_HTML5_INPUT) {
             $input1 = $field1->$fieldType(ArrayHelper::remove($this->options1, 'type', 'text'), $this->options1);
             $input2 = $field2->$fieldType(ArrayHelper::remove($this->options2, 'type', 'text'), $this->options2);
-
         } elseif ($this->_isDropdown) {
             $input1 = $field1->$fieldType($this->items1, $this->options1);
             $input2 = $field2->$fieldType($this->items2, $this->options2);
@@ -441,7 +435,6 @@ class FieldRange extends \yii\base\Widget
             $this->setWidgetOptions(2);
             $input1 = $field1->widget($this->widgetClass, $this->widgetOptions1);
             $input2 = $field2->widget($this->widgetClass, $this->widgetOptions2);
-
         }
         return $input1 . '<span class="input-group-addon kv-field-separator">' . $this->separator . '</span>' . $input2;
     }
@@ -500,15 +493,15 @@ class FieldRange extends \yii\base\Widget
         $widgetOptions = "widgetOptions{$i}";
         if ($this->hasModel()) {
             $this->$widgetOptions = ArrayHelper::merge($this->$widgetOptions, [
-                'model' => $this->model,
-                'attribute' => $this->$attribute,
-                'options' => $this->$options
+                    'model' => $this->model,
+                    'attribute' => $this->$attribute,
+                    'options' => $this->$options
             ]);
         } else {
             $this->$widgetOptions = ArrayHelper::merge($this->$widgetOptions, [
-                'name' => $this->$name,
-                'value' => $this->$value,
-                'options' => $this->$options
+                    'name' => $this->$name,
+                    'value' => $this->$value,
+                    'options' => $this->$options
             ]);
         }
     }
@@ -523,9 +516,9 @@ class FieldRange extends \yii\base\Widget
         FieldRangeAsset::register($view);
         $id = '$("#' . $this->options2['id'] . '")';
         $options = Json::encode([
-            'attrFrom' => $this->options1['id'],
-            'container' => $this->container['id'],
-            'errorContainer' => $this->errorContainer['id'],
+                'attrFrom' => $this->options1['id'],
+                'container' => $this->container['id'],
+                'errorContainer' => $this->errorContainer['id'],
         ]);
         $hashVar = $name . '_' . hash('crc32', $options);
         $this->options['data-plugin-name'] = $name;

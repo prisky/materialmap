@@ -10,7 +10,7 @@ use common\models\AnnualCharge;
  */
 class AnnualChargeSearch extends AnnualCharge
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,11 +21,9 @@ class AnnualChargeSearch extends AnnualCharge
     {
         $query = AnnualCharge::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		
+
         return $dataProvider;
     }
 }

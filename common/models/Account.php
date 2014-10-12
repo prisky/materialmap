@@ -107,24 +107,24 @@ namespace common\models;
  */
 class Account extends \common\components\ActiveRecord
 {
-	use \common\components\FileActiveRecordTrait;
-	
-    /**
+    use \common\components\FileActiveRecordTrait;
+
+        /**
      * @var string $logo_image is a file attribute
      */
-	public $logo_image;
-	
-	/**
-	 * Get the attribute names for files
-	 *
-	 * @return array or strings - file attribute names
-	 */
-	public function getFileAttributes()
-	{
-		return [
-		    'logo_image',
-		];
-	}
+    public $logo_image;
+    
+    /**
+     * Get the attribute names for files
+     *
+     * @return array or strings - file attribute names
+     */
+    public function getFileAttributes()
+    {
+        return [
+                'logo_image',
+            ];
+    }
 
     /**
      * @inheritdoc
@@ -157,6 +157,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -164,6 +165,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(AccountToAffiliateCategory::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -173,6 +175,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(AccountToMessage::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -180,6 +183,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(AccountToMessageToUser::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -189,6 +193,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(AccountToPaymentGateway::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -196,6 +201,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(AccountToUser::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -205,6 +211,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(AffiliateCategory::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -212,6 +219,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Agency::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -221,6 +229,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(AnnualCharge::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -228,6 +237,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(AuthItem::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -237,6 +247,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(AuthItemChild::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -244,6 +255,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Bid::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -253,6 +265,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Booking::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -260,6 +273,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(BookingToCharge::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -269,6 +283,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(BookingToCustomField::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -276,6 +291,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(BookingToItem::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -285,6 +301,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(CancellationPolicy::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -292,6 +309,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Charge::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -301,6 +319,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Comment::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -308,6 +327,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Contact::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -317,6 +337,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Coupon::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -324,6 +345,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(CustomField::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -333,6 +355,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Event::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -340,6 +363,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(EventType::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -349,6 +373,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToFieldSet::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -356,6 +381,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(EventTypeToResourceType::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -365,6 +391,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToTicketType::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -372,6 +399,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(FieldSet::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -381,6 +409,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(FieldSetToItemGroup::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -388,6 +417,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(FieldSetTree::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -397,6 +427,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(ItemGroup::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -404,6 +435,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(MessageQueue::className(), ['from' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -413,6 +445,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Newsletter::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -420,6 +453,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Payment::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -429,6 +463,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(PaymentGateway::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -436,6 +471,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(PercentPromotion::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -445,6 +481,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(PercentPromotionConstraint::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -452,6 +489,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(PercentVoucher::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -461,6 +499,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(PercentVoucherConstraint::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -468,6 +507,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Promotion::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -477,6 +517,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(PromotionConstraint::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -484,6 +525,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Question::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -493,6 +535,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(QuestionThread::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -500,6 +543,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Referral::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -509,6 +553,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Reminder::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -516,6 +561,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Reseller::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -525,6 +571,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Resource::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -532,6 +579,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(ResourceType::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -541,6 +589,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(ResourceTypeToMessage::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -548,6 +597,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(ResourceTypeToMessageToUser::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -557,6 +607,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Seat::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -564,6 +615,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SeatToTicketType::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -573,6 +625,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SeatType::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -580,6 +633,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Sms::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -589,6 +643,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SmsThread::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -596,6 +651,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SmsToCharge::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -605,6 +661,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(StandardSetup::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -612,6 +669,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Summary::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -621,6 +679,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToAccountToUser::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -628,6 +687,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToCharge::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -637,6 +697,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToCustomField::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -644,6 +705,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToItem::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -653,6 +715,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToPercentPromotion::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -660,6 +723,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToPercentVoucher::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -669,6 +733,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToPromotion::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -676,6 +741,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToVoucher::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -685,6 +751,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(Survey::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -692,6 +759,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyResultToBooking::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -701,6 +769,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SurveyResultToSummary::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -708,6 +777,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyResultToTicket::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -717,6 +787,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SurveyResultToTicketToSeat::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -724,6 +795,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyToFieldSet::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -733,6 +805,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(SurveyToResourceType::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -740,6 +813,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Ticket::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -749,6 +823,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(TicketToCharge::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -756,6 +831,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToCustomField::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -765,6 +841,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(TicketToItem::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -772,6 +849,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeat::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -781,6 +859,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(TicketToSeatToCharge::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -788,6 +867,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeatToContact::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -797,6 +877,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(TicketToSeatToContactToSms::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -804,6 +885,7 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeatToCustomField::className(), ['account_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -813,6 +895,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(TicketToSeatToItem::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -821,6 +904,7 @@ class Account extends \common\components\ActiveRecord
         return $this->hasMany(TicketType::className(), ['account_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -828,4 +912,5 @@ class Account extends \common\components\ActiveRecord
     {
         return $this->hasMany(Voucher::className(), ['account_id' => 'id']);
     }
+
 }

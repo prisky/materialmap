@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * TicketToSeatToChargeController implements the CRUD actions for TicketToSeatToCharge model.
- */
+* TicketToSeatToChargeController implements the CRUD actions for TicketToSeatToCharge model.
+*/
 class TicketToSeatToChargeController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -40,8 +40,8 @@ class TicketToSeatToChargeController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
+                            },
                 "format" => "raw"
             ],
             [
@@ -49,11 +49,11 @@ class TicketToSeatToChargeController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Charge', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "charge");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "charge");
+                            },
                 "format" => "raw"
             ]
         ];
-	}
+    }
 
 }

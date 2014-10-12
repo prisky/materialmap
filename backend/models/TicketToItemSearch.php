@@ -11,8 +11,8 @@ use common\models\TicketToItem;
 class TicketToItemSearch extends TicketToItem
 {
     public $from_amount;
-	public $to_amount;
-	
+    public $to_amount;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,15 +23,13 @@ class TicketToItemSearch extends TicketToItem
     {
         $query = TicketToItem::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['item_id' => $this->item_id]);
-		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
-		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		$query->andFilterGoogleStyle('quantity', $this->quantity);
-		
+        $query->andFilterWhere(['item_id' => $this->item_id]);
+        if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+        if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+        $query->andFilterGoogleStyle('quantity', $this->quantity);
+
         return $dataProvider;
     }
 }

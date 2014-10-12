@@ -51,6 +51,7 @@ class AccountToUser extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,6 +59,7 @@ class AccountToUser extends \common\components\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -67,6 +69,7 @@ class AccountToUser extends \common\components\ActiveRecord
         return $this->hasMany(Invoice::className(), ['account_to_user_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -75,6 +78,7 @@ class AccountToUser extends \common\components\ActiveRecord
         return $this->hasMany(Referral::className(), ['account_to_user_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -82,4 +86,5 @@ class AccountToUser extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToAccountToUser::className(), ['account_to_user_id' => 'id']);
     }
+
 }

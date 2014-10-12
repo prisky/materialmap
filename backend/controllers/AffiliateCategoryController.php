@@ -9,33 +9,33 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AffiliateCategoryController implements the CRUD actions for AffiliateCategory model.
- */
+* AffiliateCategoryController implements the CRUD actions for AffiliateCategory model.
+*/
 class AffiliateCategoryController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "root" => "#",
         "lft" => "#",
         "rgt" => "#",
         "level" => "#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -78,6 +78,6 @@ class AffiliateCategoryController extends \backend\components\Controller
                 "attribute" => "name"
             ]
         ];
-	}
+    }
 
 }

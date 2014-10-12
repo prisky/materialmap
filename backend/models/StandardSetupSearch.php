@@ -10,7 +10,7 @@ use common\models\StandardSetup;
  */
 class StandardSetupSearch extends StandardSetup
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class StandardSetupSearch extends StandardSetup
     {
         $query = StandardSetup::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);
-		
+        $query->andFilterWhere(['reseller_id' => $this->reseller_id]);
+
         return $dataProvider;
     }
 }

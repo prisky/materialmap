@@ -10,7 +10,7 @@ use common\models\EventTypeToTicketType;
  */
 class EventTypeToTicketTypeSearch extends EventTypeToTicketType
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class EventTypeToTicketTypeSearch extends EventTypeToTicketType
     {
         $query = EventTypeToTicketType::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
-		
+        $query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
+
         return $dataProvider;
     }
 }

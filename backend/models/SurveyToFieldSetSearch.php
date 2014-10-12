@@ -10,7 +10,7 @@ use common\models\SurveyToFieldSet;
  */
 class SurveyToFieldSetSearch extends SurveyToFieldSet
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SurveyToFieldSetSearch extends SurveyToFieldSet
     {
         $query = SurveyToFieldSet::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
-		
+        $query->andFilterWhere(['field_set_id' => $this->field_set_id]);
+
         return $dataProvider;
     }
 }

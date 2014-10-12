@@ -10,7 +10,7 @@ use common\models\QuestionThread;
  */
 class QuestionThreadSearch extends QuestionThread
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class QuestionThreadSearch extends QuestionThread
     {
         $query = QuestionThread::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('comment_html_basic', $this->comment_html_basic);
-		
+        $query->andFilterGoogleStyle('comment_html_basic', $this->comment_html_basic);
+
         return $dataProvider;
     }
 }

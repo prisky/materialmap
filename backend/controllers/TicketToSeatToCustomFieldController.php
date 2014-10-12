@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * TicketToSeatToCustomFieldController implements the CRUD actions for TicketToSeatToCustomField model.
- */
+* TicketToSeatToCustomFieldController implements the CRUD actions for TicketToSeatToCustomField model.
+*/
 class TicketToSeatToCustomFieldController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -40,14 +40,14 @@ class TicketToSeatToCustomFieldController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('TicketToSeat', ['account_id' => $searchModel->account_id, 'event_type_id' => $searchModel->event_type_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "ticketToSeat");
+                            },
                 "format" => "raw"
             ],
             [
                 "attribute" => "custom_value"
             ]
         ];
-	}
+    }
 
 }

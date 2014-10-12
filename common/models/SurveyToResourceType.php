@@ -46,6 +46,7 @@ class SurveyToResourceType extends \common\components\ActiveRecord
         return $this->hasOne(Survey::className(), ['id' => 'survey_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -54,6 +55,7 @@ class SurveyToResourceType extends \common\components\ActiveRecord
         return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -61,4 +63,5 @@ class SurveyToResourceType extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 }

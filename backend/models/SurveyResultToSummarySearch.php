@@ -10,7 +10,7 @@ use common\models\SurveyResultToSummary;
  */
 class SurveyResultToSummarySearch extends SurveyResultToSummary
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,15 +21,13 @@ class SurveyResultToSummarySearch extends SurveyResultToSummary
     {
         $query = SurveyResultToSummary::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['summary_id' => $this->summary_id]);
-		$query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
-		$query->andFilterGoogleStyle('custom_value', $this->custom_value);
-		
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+        $query->andFilterWhere(['summary_id' => $this->summary_id]);
+        $query->andFilterWhere(['custom_field_id' => $this->custom_field_id]);
+        $query->andFilterGoogleStyle('custom_value', $this->custom_value);
+
         return $dataProvider;
     }
 }

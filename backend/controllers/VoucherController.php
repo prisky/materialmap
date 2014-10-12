@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * VoucherController implements the CRUD actions for Voucher model.
- */
+* VoucherController implements the CRUD actions for Voucher model.
+*/
 class VoucherController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "amount",
                 "filterType" => "backend\\components\\FieldRange",
@@ -51,6 +51,6 @@ class VoucherController extends \backend\components\Controller
                 "attribute" => "uniqueid"
             ]
         ];
-	}
+    }
 
 }

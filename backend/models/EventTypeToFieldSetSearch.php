@@ -10,7 +10,7 @@ use common\models\EventTypeToFieldSet;
  */
 class EventTypeToFieldSetSearch extends EventTypeToFieldSet
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class EventTypeToFieldSetSearch extends EventTypeToFieldSet
     {
         $query = EventTypeToFieldSet::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['field_set_id' => $this->field_set_id]);
-		
+        $query->andFilterWhere(['field_set_id' => $this->field_set_id]);
+
         return $dataProvider;
     }
 }

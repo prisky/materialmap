@@ -10,7 +10,7 @@ use common\models\Agency;
  */
 class AgencySearch extends Agency
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,11 +21,9 @@ class AgencySearch extends Agency
     {
         $query = Agency::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		
+
         return $dataProvider;
     }
 }

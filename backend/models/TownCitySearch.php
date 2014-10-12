@@ -10,7 +10,7 @@ use common\models\TownCity;
  */
 class TownCitySearch extends TownCity
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class TownCitySearch extends TownCity
     {
         $query = TownCity::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterWhere(['state_province_region' => $this->state_province_region]);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        $query->andFilterWhere(['state_province_region' => $this->state_province_region]);
+
         return $dataProvider;
     }
 }

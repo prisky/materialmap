@@ -43,4 +43,5 @@ class FileRule extends \common\components\ActiveRecord
     {
         return $this->hasOne(Column::className(), ['id' => 'column_id']);
     }
+
 }

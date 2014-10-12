@@ -9,26 +9,26 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * CancellationPolicyController implements the CRUD actions for CancellationPolicy model.
- */
+* CancellationPolicyController implements the CRUD actions for CancellationPolicy model.
+*/
 class CancellationPolicyController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "begin" => "hh:mm AM/PM on mmmm d, yy",
         "finish" => "hh:mm AM/PM on mmmm d, yy",
         "rate" => "0.00%",
         "base_fee" => "#.#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "begin",
                 "filterType" => "backend\\components\\FieldRange",
@@ -110,6 +110,6 @@ class CancellationPolicyController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

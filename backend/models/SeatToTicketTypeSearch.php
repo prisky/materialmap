@@ -10,7 +10,7 @@ use common\models\SeatToTicketType;
  */
 class SeatToTicketTypeSearch extends SeatToTicketType
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SeatToTicketTypeSearch extends SeatToTicketType
     {
         $query = SeatToTicketType::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
-		
+        $query->andFilterWhere(['ticket_type_id' => $this->ticket_type_id]);
+
         return $dataProvider;
     }
 }

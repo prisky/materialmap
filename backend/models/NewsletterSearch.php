@@ -10,7 +10,7 @@ use common\models\Newsletter;
  */
 class NewsletterSearch extends Newsletter
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class NewsletterSearch extends Newsletter
     {
         $query = Newsletter::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('subject', $this->subject);
-		$query->andFilterGoogleStyle('content_html', $this->content_html);
-		
+        $query->andFilterGoogleStyle('subject', $this->subject);
+        $query->andFilterGoogleStyle('content_html', $this->content_html);
+
         return $dataProvider;
     }
 }

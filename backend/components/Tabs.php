@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extend yiis boostrap tabs
  */
@@ -14,7 +15,8 @@ use yii\bootstrap\Dropdown;
  */
 class Tabs extends \yii\bootstrap\Tabs
 {
-	 /**
+
+    /**
      * @inheritdoc
      */
     protected function renderItems()
@@ -51,10 +53,10 @@ class Tabs extends \yii\bootstrap\Tabs
                     Html::addCssClass($options, 'active');
                     Html::addCssClass($headerOptions, 'active');
                 }
- //               $linkOptions['data-toggle'] = 'tab';
-				// AB altered to here to allow the link to be set - not how tabls normally operate with content included but
-				// am using more as a menu to display child options
-				$header = Html::a($label, isset($linkOptions['href']) ? $linkOptions['href'] : '#' . $options['id'], $linkOptions);
+                //               $linkOptions['data-toggle'] = 'tab';
+                // AB altered to here to allow the link to be set - not how tabls normally operate with content included but
+                // am using more as a menu to display child options
+                $header = Html::a($label, isset($linkOptions['href']) ? $linkOptions['href'] : '#' . $options['id'], $linkOptions);
                 $panes[] = Html::tag('div', $item['content'], $options);
             } else {
                 throw new InvalidConfigException("Either the 'content' or 'items' option must be set.");
@@ -64,8 +66,7 @@ class Tabs extends \yii\bootstrap\Tabs
         }
 
         return Html::tag('ul', implode("\n", $headers), $this->options) . "\n"
-        . Html::tag('div', implode("\n", $panes), ['class' => 'tab-content']);
+            . Html::tag('div', implode("\n", $panes), ['class' => 'tab-content']);
     }
-
 
 }

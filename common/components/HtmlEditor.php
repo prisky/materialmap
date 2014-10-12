@@ -6,11 +6,13 @@ use Zelenin\yii\widgets\Summernote\Summernote;
 
 class HtmlEditor extends Summernote
 {
-	public $clientOptions = [
-		'focus' => true,
-		'codemirror' => [
-			'theme' => 'monokai',
-			'lineNumbers' => true,
-		],
-	];
+
+    public $clientOptions = [
+        'focus' => true,
+        'codemirror' => [
+            'theme' => 'monokai',
+            'lineNumbers' => true,
+        ],
+    ];
+
 }

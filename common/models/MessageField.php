@@ -42,4 +42,5 @@ class MessageField extends \common\components\ActiveRecord
     {
         return $this->hasMany(MessageToMessageField::className(), ['message_field_id' => 'id']);
     }
+
 }

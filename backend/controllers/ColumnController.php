@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * ColumnController implements the CRUD actions for Column model.
- */
+* ColumnController implements the CRUD actions for Column model.
+*/
 class ColumnController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -36,6 +36,6 @@ class ColumnController extends \backend\components\Controller
                 "attribute" => "help_html"
             ]
         ];
-	}
+    }
 
 }

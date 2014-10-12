@@ -10,7 +10,7 @@ use common\models\PaypalSubCategory;
  */
 class PaypalSubCategorySearch extends PaypalSubCategory
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class PaypalSubCategorySearch extends PaypalSubCategory
     {
         $query = PaypalSubCategory::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['paypal_category_id' => $this->paypal_category_id]);
-		$query->andFilterGoogleStyle('name', $this->name);
-		
+        $query->andFilterWhere(['paypal_category_id' => $this->paypal_category_id]);
+        $query->andFilterGoogleStyle('name', $this->name);
+
         return $dataProvider;
     }
 }

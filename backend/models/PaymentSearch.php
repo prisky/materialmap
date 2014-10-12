@@ -11,8 +11,8 @@ use common\models\Payment;
 class PaymentSearch extends Payment
 {
     public $from_amount;
-	public $to_amount;
-	
+    public $to_amount;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,15 +23,13 @@ class PaymentSearch extends Payment
     {
         $query = Payment::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
-		$query->andFilterWhere(['contact_id' => $this->contact_id]);
-		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
-		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		
+        $query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
+        $query->andFilterWhere(['contact_id' => $this->contact_id]);
+        if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+        if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+
         return $dataProvider;
     }
 }

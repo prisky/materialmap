@@ -10,7 +10,7 @@ use common\models\AccountToPaymentGateway;
  */
 class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class AccountToPaymentGatewaySearch extends AccountToPaymentGateway
     {
         $query = AccountToPaymentGateway::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
-		
+        $query->andFilterWhere(['payment_gateway_id' => $this->payment_gateway_id]);
+
         return $dataProvider;
     }
 }

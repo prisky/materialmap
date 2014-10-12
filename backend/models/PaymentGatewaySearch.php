@@ -10,7 +10,7 @@ use common\models\PaymentGateway;
  */
 class PaymentGatewaySearch extends PaymentGateway
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,15 +21,13 @@ class PaymentGatewaySearch extends PaymentGateway
     {
         $query = PaymentGateway::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterGoogleStyle('api_url', $this->api_url);
-		$query->andFilterGoogleStyle('api_username', $this->api_username);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+        $query->andFilterGoogleStyle('api_url', $this->api_url);
+        $query->andFilterGoogleStyle('api_username', $this->api_username);
+
         return $dataProvider;
     }
 }

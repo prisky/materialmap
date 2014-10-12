@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * SmsController implements the CRUD actions for Sms model.
- */
+* SmsController implements the CRUD actions for Sms model.
+*/
 class SmsController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "outgoing" => "[=0]\"No\";[=1]\"Yes\""
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "contact_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Contact', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "contact");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "contact");
+                            },
                 "format" => "raw"
             ],
             [
@@ -44,6 +44,6 @@ class SmsController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\SwitchInput"
             ]
         ];
-	}
+    }
 
 }

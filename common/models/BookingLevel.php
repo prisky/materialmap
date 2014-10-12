@@ -40,6 +40,7 @@ class BookingLevel extends \common\components\ActiveRecord
         return $this->hasMany(BookingToCustomField::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -48,6 +49,7 @@ class BookingLevel extends \common\components\ActiveRecord
         return $this->hasMany(BookingToItem::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,4 +57,5 @@ class BookingLevel extends \common\components\ActiveRecord
     {
         return $this->hasMany(SurveyResultToBooking::className(), ['level_id' => 'id']);
     }
+
 }

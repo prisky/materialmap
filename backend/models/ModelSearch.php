@@ -10,7 +10,7 @@ use common\models\Model;
  */
 class ModelSearch extends Model
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,14 +21,12 @@ class ModelSearch extends Model
     {
         $query = Model::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('label', $this->label);
-		$query->andFilterGoogleStyle('label_plural', $this->label_plural);
-		$query->andFilterGoogleStyle('help_html', $this->help_html);
-		
+        $query->andFilterGoogleStyle('label', $this->label);
+        $query->andFilterGoogleStyle('label_plural', $this->label_plural);
+        $query->andFilterGoogleStyle('help_html', $this->help_html);
+
         return $dataProvider;
     }
 }

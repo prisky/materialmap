@@ -10,7 +10,7 @@ use common\models\SurveyToResourceType;
  */
 class SurveyToResourceTypeSearch extends SurveyToResourceType
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SurveyToResourceTypeSearch extends SurveyToResourceType
     {
         $query = SurveyToResourceType::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['resource_type_id' => $this->resource_type_id]);
-		
+        $query->andFilterWhere(['resource_type_id' => $this->resource_type_id]);
+
         return $dataProvider;
     }
 }

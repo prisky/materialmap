@@ -10,7 +10,7 @@ use common\models\User;
  */
 class UserSearch extends User
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class UserSearch extends User
     {
         $query = User::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('auth_key', $this->auth_key);
-		$query->andFilterWhere(['contact_id' => $this->contact_id]);
-		
+        $query->andFilterWhere(['contact_id' => $this->contact_id]);
+        $query->andFilterGoogleStyle('auth_key', $this->auth_key);
+
         return $dataProvider;
     }
 }

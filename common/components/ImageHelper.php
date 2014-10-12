@@ -1,4 +1,5 @@
 <?php
+
 namespace common\components;
 
 use yii\imagine\Image;
@@ -8,12 +9,13 @@ use Imagine\Image\Box;
 
 class ImageHelper
 {
+
     public static function saveTemporaryImage($filename, $name, $size, $basePath)
     {
         list($width, $height) = explode('x', str_replace('/', '', $size));
 
-		$runtimeDir = Yii::$app->getRuntimePath() . '/' . $basePath . '/' . $size;
-		exec("mkdir -p $runtimeDir");
+        $runtimeDir = Yii::$app->getRuntimePath() . '/' . $basePath . '/' . $size;
+        exec("mkdir -p $runtimeDir");
         $name = $runtimeDir . '/' . $name;
 
         $file = Image::getImagine()->open($filename);
@@ -31,4 +33,5 @@ class ImageHelper
 
         return $name;
     }
+
 }

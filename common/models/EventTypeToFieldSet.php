@@ -45,6 +45,7 @@ class EventTypeToFieldSet extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,6 +54,7 @@ class EventTypeToFieldSet extends \common\components\ActiveRecord
         return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,4 +62,5 @@ class EventTypeToFieldSet extends \common\components\ActiveRecord
     {
         return $this->hasOne(FieldSet::className(), ['id' => 'field_set_id']);
     }
+
 }

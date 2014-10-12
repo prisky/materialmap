@@ -10,7 +10,7 @@ use common\models\AuthItemChild;
  */
 class AuthItemChildSearch extends AuthItemChild
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class AuthItemChildSearch extends AuthItemChild
     {
         $query = AuthItemChild::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		
+        $query->andFilterWhere(['account_id' => $this->account_id]);
+
         return $dataProvider;
     }
 }

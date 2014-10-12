@@ -9,25 +9,25 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * FieldSetController implements the CRUD actions for FieldSet model.
- */
+* FieldSetController implements the CRUD actions for FieldSet model.
+*/
 class FieldSetController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
 
         ];
-	}
+    }
 
 }

@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * SummaryToAccountToUserController implements the CRUD actions for SummaryToAccountToUser model.
- */
+* SummaryToAccountToUserController implements the CRUD actions for SummaryToAccountToUser model.
+*/
 class SummaryToAccountToUserController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "rate" => "0.00%"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_to_user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToUser', ['user_id' => $searchModel->user_id, 'account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "accountToUser");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "accountToUser");
+                            },
                 "format" => "raw"
             ],
             [
@@ -40,8 +40,8 @@ class SummaryToAccountToUserController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Invoice', ['account_to_user_id' => $searchModel->account_to_user_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "invoice");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "invoice");
+                            },
                 "format" => "raw"
             ],
             [
@@ -69,6 +69,6 @@ class SummaryToAccountToUserController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

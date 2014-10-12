@@ -13,6 +13,6 @@ $this->title = $this->context->label($model->id);
 
     <?= $this->render('//' . $this->context->id . '/_form', [
         'model' => $model,
-		'mode' => \backend\components\DetailView::MODE_EDIT,
+        'mode' => \backend\components\DetailView::MODE_EDIT,
     ]) ?>
 </div>

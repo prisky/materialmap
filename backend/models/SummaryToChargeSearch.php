@@ -10,7 +10,7 @@ use common\models\SummaryToCharge;
  */
 class SummaryToChargeSearch extends SummaryToCharge
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SummaryToChargeSearch extends SummaryToCharge
     {
         $query = SummaryToCharge::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['charge_id' => $this->charge_id]);
-		
+        $query->andFilterWhere(['charge_id' => $this->charge_id]);
+
         return $dataProvider;
     }
 }

@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * PaymentController implements the CRUD actions for Payment model.
- */
+* PaymentController implements the CRUD actions for Payment model.
+*/
 class PaymentController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "payment_gateway_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('PaymentGateway', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "paymentGateway");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "paymentGateway");
+                            },
                 "format" => "raw"
             ],
             [
@@ -40,8 +40,8 @@ class PaymentController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Contact', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "contact");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "contact");
+                            },
                 "format" => "raw"
             ],
             [
@@ -66,6 +66,6 @@ class PaymentController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

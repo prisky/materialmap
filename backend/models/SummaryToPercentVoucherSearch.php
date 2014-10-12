@@ -10,7 +10,7 @@ use common\models\SummaryToPercentVoucher;
  */
 class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SummaryToPercentVoucherSearch extends SummaryToPercentVoucher
     {
         $query = SummaryToPercentVoucher::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['percent_voucher_id' => $this->percent_voucher_id]);
-		
+        $query->andFilterWhere(['percent_voucher_id' => $this->percent_voucher_id]);
+
         return $dataProvider;
     }
 }

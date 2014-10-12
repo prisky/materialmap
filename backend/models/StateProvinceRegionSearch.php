@@ -10,7 +10,7 @@ use common\models\StateProvinceRegion;
  */
 class StateProvinceRegionSearch extends StateProvinceRegion
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class StateProvinceRegionSearch extends StateProvinceRegion
     {
         $query = StateProvinceRegion::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterGoogleStyle('country_id', $this->country_id);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        $query->andFilterGoogleStyle('country_id', $this->country_id);
+
         return $dataProvider;
     }
 }

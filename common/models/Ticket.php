@@ -53,6 +53,7 @@ class Ticket extends \common\components\ActiveRecord
         return $this->hasMany(SurveyResultToTicket::className(), ['ticket_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,6 +61,7 @@ class Ticket extends \common\components\ActiveRecord
     {
         return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -69,6 +71,7 @@ class Ticket extends \common\components\ActiveRecord
         return $this->hasOne(Booking::className(), ['id' => 'booking_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -76,6 +79,7 @@ class Ticket extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -85,6 +89,7 @@ class Ticket extends \common\components\ActiveRecord
         return $this->hasMany(TicketToCharge::className(), ['ticket_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -92,6 +97,7 @@ class Ticket extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToCustomField::className(), ['ticket_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -101,6 +107,7 @@ class Ticket extends \common\components\ActiveRecord
         return $this->hasMany(TicketToItem::className(), ['ticket_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -108,4 +115,5 @@ class Ticket extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeat::className(), ['ticket_id' => 'id']);
     }
+
 }

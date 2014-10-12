@@ -11,8 +11,8 @@ use common\models\TicketType;
 class TicketTypeSearch extends TicketType
 {
     public $from_amount;
-	public $to_amount;
-	
+    public $to_amount;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,18 +23,16 @@ class TicketTypeSearch extends TicketType
     {
         $query = TicketType::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('seats', $this->seats);
-		$query->andFilterGoogleStyle('name', $this->name);
-		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
-		if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
-		$query->andFilterGoogleStyle('comment', $this->comment);
-		$query->andFilterGoogleStyle('event_max', $this->event_max);
-		$query->andFilterGoogleStyle('booking_max', $this->booking_max);
-		
+        $query->andFilterGoogleStyle('seats', $this->seats);
+        $query->andFilterGoogleStyle('name', $this->name);
+        if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);
+        if(!is_null($this->to_amount) && $this->to_amount != '') $query->andWhere('`amount` <= :to_amount', [':to_amount' => $this->to_amount]);
+        $query->andFilterGoogleStyle('comment', $this->comment);
+        $query->andFilterGoogleStyle('event_max', $this->event_max);
+        $query->andFilterGoogleStyle('booking_max', $this->booking_max);
+
         return $dataProvider;
     }
 }

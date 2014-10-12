@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * NewsletterController implements the CRUD actions for Newsletter model.
- */
+* NewsletterController implements the CRUD actions for Newsletter model.
+*/
 class NewsletterController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "subject"
             ],
@@ -33,6 +33,6 @@ class NewsletterController extends \backend\components\Controller
                 "attribute" => "content_html"
             ]
         ];
-	}
+    }
 
 }

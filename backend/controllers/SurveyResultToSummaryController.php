@@ -9,30 +9,30 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * SurveyResultToSummaryController implements the CRUD actions for SurveyResultToSummary model.
- */
+* SurveyResultToSummaryController implements the CRUD actions for SurveyResultToSummary model.
+*/
 class SurveyResultToSummaryController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -40,8 +40,8 @@ class SurveyResultToSummaryController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Summary', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "summary");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "summary");
+                            },
                 "format" => "raw"
             ],
             [
@@ -49,14 +49,14 @@ class SurveyResultToSummaryController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('CustomField', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "customField");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "customField");
+                            },
                 "format" => "raw"
             ],
             [
                 "attribute" => "custom_value"
             ]
         ];
-	}
+    }
 
 }

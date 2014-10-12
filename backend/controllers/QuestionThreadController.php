@@ -9,27 +9,27 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * QuestionThreadController implements the CRUD actions for QuestionThread model.
- */
+* QuestionThreadController implements the CRUD actions for QuestionThread model.
+*/
 class QuestionThreadController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "comment_html_basic"
             ]
         ];
-	}
+    }
 
 }

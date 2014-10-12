@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * QuestionController implements the CRUD actions for Question model.
- */
+* QuestionController implements the CRUD actions for Question model.
+*/
 class QuestionController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "offer" => "#.#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "comment_html_basic"
             ],
@@ -43,8 +43,8 @@ class QuestionController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Bid', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "bid");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "bid");
+                            },
                 "format" => "raw"
             ],
             [
@@ -52,11 +52,11 @@ class QuestionController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('QuestionThread', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "questionThread");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "questionThread");
+                            },
                 "format" => "raw"
             ]
         ];
-	}
+    }
 
 }

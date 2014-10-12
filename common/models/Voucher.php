@@ -47,6 +47,7 @@ class Voucher extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToVoucher::className(), ['voucher_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,6 +56,7 @@ class Voucher extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -62,4 +64,5 @@ class Voucher extends \common\components\ActiveRecord
     {
         return $this->hasMany(VoucherConstraint::className(), ['voucher_id' => 'id']);
     }
+
 }

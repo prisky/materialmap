@@ -10,7 +10,7 @@ use common\models\Survey;
  */
 class SurveySearch extends Survey
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class SurveySearch extends Survey
     {
         $query = Survey::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterGoogleStyle('comment', $this->comment);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        $query->andFilterGoogleStyle('comment', $this->comment);
+
         return $dataProvider;
     }
 }

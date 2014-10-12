@@ -9,31 +9,31 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * EventController implements the CRUD actions for Event model.
- */
+* EventController implements the CRUD actions for Event model.
+*/
 class EventController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "start" => "hh:mm AM/PM on mmmm d, yy",
         "end" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "event_type_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('EventType', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "eventType");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "eventType");
+                            },
                 "format" => "raw"
             ],
             [
@@ -41,8 +41,8 @@ class EventController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Resource', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "resource");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "resource");
+                            },
                 "format" => "raw"
             ],
             [
@@ -98,6 +98,6 @@ class EventController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

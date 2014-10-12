@@ -10,7 +10,7 @@ use common\models\SmsThread;
  */
 class SmsThreadSearch extends SmsThread
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,11 +21,9 @@ class SmsThreadSearch extends SmsThread
     {
         $query = SmsThread::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		
+
         return $dataProvider;
     }
 }

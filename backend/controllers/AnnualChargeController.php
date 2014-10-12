@@ -9,25 +9,25 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * AnnualChargeController implements the CRUD actions for AnnualCharge model.
- */
+* AnnualChargeController implements the CRUD actions for AnnualCharge model.
+*/
 class AnnualChargeController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
 
         ];
-	}
+    }
 
 }

@@ -10,7 +10,7 @@ use common\models\SmsToCharge;
  */
 class SmsToChargeSearch extends SmsToCharge
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SmsToChargeSearch extends SmsToCharge
     {
         $query = SmsToCharge::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['charge_id' => $this->charge_id]);
-		
+        $query->andFilterWhere(['charge_id' => $this->charge_id]);
+
         return $dataProvider;
     }
 }

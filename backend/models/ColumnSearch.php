@@ -10,7 +10,7 @@ use common\models\Column;
  */
 class ColumnSearch extends Column
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,14 +21,12 @@ class ColumnSearch extends Column
     {
         $query = Column::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		$query->andFilterGoogleStyle('label', $this->label);
-		$query->andFilterGoogleStyle('help_html', $this->help_html);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+        $query->andFilterGoogleStyle('label', $this->label);
+        $query->andFilterGoogleStyle('help_html', $this->help_html);
+
         return $dataProvider;
     }
 }

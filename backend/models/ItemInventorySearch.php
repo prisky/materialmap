@@ -11,8 +11,8 @@ use common\models\ItemInventory;
 class ItemInventorySearch extends ItemInventory
 {
     public $from_received;
-	public $to_received;
-	
+    public $to_received;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,14 +23,12 @@ class ItemInventorySearch extends ItemInventory
     {
         $query = ItemInventory::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('quantity', $this->quantity);
-		if(!is_null($this->from_received) && $this->from_received != '') $query->andWhere('`received` >= :from_received', [':from_received' => $this->from_received]);
-		if(!is_null($this->to_received) && $this->to_received != '') $query->andWhere('`received` <= :to_received', [':to_received' => $this->to_received]);
-		
+        $query->andFilterGoogleStyle('quantity', $this->quantity);
+        if(!is_null($this->from_received) && $this->from_received != '') $query->andWhere('`received` >= :from_received', [':from_received' => $this->from_received]);
+        if(!is_null($this->to_received) && $this->to_received != '') $query->andWhere('`received` <= :to_received', [':to_received' => $this->to_received]);
+
         return $dataProvider;
     }
 }

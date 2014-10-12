@@ -9,27 +9,27 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * TicketToCustomFieldController implements the CRUD actions for TicketToCustomField model.
- */
+* TicketToCustomFieldController implements the CRUD actions for TicketToCustomField model.
+*/
 class TicketToCustomFieldController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "custom_value"
             ]
         ];
-	}
+    }
 
 }

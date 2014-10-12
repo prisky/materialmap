@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * EventTypeController implements the CRUD actions for EventType model.
- */
+* EventTypeController implements the CRUD actions for EventType model.
+*/
 class EventTypeController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "deposit" => "#.#"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -57,6 +57,6 @@ class EventTypeController extends \backend\components\Controller
                 "attribute" => "tooltip"
             ]
         ];
-	}
+    }
 
 }

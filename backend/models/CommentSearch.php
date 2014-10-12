@@ -10,7 +10,7 @@ use common\models\Comment;
  */
 class CommentSearch extends Comment
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,13 +21,11 @@ class CommentSearch extends Comment
     {
         $query = Comment::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterWhere(['contact_id' => $this->contact_id]);
-		$query->andFilterGoogleStyle('content_html_basic', $this->content_html_basic);
-		
+        $query->andFilterWhere(['contact_id' => $this->contact_id]);
+        $query->andFilterGoogleStyle('content_html_basic', $this->content_html_basic);
+
         return $dataProvider;
     }
 }

@@ -9,32 +9,32 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * BidController implements the CRUD actions for Bid model.
- */
+* BidController implements the CRUD actions for Bid model.
+*/
 class BidController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "offer" => "#.#",
         "deadline" => "hh:mm AM/PM on mmmm d, yy",
         "updated" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "account_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
+                            },
                 "format" => "raw"
             ],
             [
@@ -42,8 +42,8 @@ class BidController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('Question', ['account_id' => $searchModel->account_id]),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "question");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "question");
+                            },
                 "format" => "raw"
             ],
             [
@@ -103,6 +103,6 @@ class BidController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

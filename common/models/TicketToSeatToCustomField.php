@@ -50,6 +50,7 @@ class TicketToSeatToCustomField extends \common\components\ActiveRecord
         return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,6 +59,7 @@ class TicketToSeatToCustomField extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,4 +67,5 @@ class TicketToSeatToCustomField extends \common\components\ActiveRecord
     {
         return $this->hasOne(TicketToSeatToLevel::className(), ['id' => 'level_id']);
     }
+
 }

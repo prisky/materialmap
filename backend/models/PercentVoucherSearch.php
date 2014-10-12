@@ -11,8 +11,8 @@ use common\models\PercentVoucher;
 class PercentVoucherSearch extends PercentVoucher
 {
     public $from_rate;
-	public $to_rate;
-	
+    public $to_rate;
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -23,13 +23,11 @@ class PercentVoucherSearch extends PercentVoucher
     {
         $query = PercentVoucher::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
-		if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
-		
+        if(!is_null($this->from_rate) && $this->from_rate != '') $query->andWhere('`rate` >= :from_rate', [':from_rate' => $this->from_rate]);
+        if(!is_null($this->to_rate) && $this->to_rate != '') $query->andWhere('`rate` <= :to_rate', [':to_rate' => $this->to_rate]);
+
         return $dataProvider;
     }
 }

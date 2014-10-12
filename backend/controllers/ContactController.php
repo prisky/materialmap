@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * ContactController implements the CRUD actions for Contact model.
- */
+* ContactController implements the CRUD actions for Contact model.
+*/
 class ContactController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "verified" => "hh:mm AM/PM on mmmm d, yy"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "first_name"
             ],
@@ -43,8 +43,8 @@ class ContactController extends \backend\components\Controller
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('TownCity', []),
                 "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "townCity");
-							},
+                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "townCity");
+                            },
                 "format" => "raw"
             ],
             [
@@ -79,6 +79,6 @@ class ContactController extends \backend\components\Controller
                 ]
             ]
         ];
-	}
+    }
 
 }

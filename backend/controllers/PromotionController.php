@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * PromotionController implements the CRUD actions for Promotion model.
- */
+* PromotionController implements the CRUD actions for Promotion model.
+*/
 class PromotionController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
         "amount" => "\$#,##0.00;[Red]-\$#,##0.00"
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "amount",
                 "filterType" => "backend\\components\\FieldRange",
@@ -51,6 +51,6 @@ class PromotionController extends \backend\components\Controller
                 "attribute" => "uniqueid"
             ]
         ];
-	}
+    }
 
 }

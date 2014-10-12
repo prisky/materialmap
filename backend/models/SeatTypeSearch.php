@@ -10,7 +10,7 @@ use common\models\SeatType;
  */
 class SeatTypeSearch extends SeatType
 {
-    
+
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -21,12 +21,10 @@ class SeatTypeSearch extends SeatType
     {
         $query = SeatType::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-		$query->andFilterGoogleStyle('name', $this->name);
-		
+        $query->andFilterGoogleStyle('name', $this->name);
+
         return $dataProvider;
     }
 }

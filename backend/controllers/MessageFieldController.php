@@ -9,23 +9,23 @@ use backend\components\Controller;
 use yii\helpers\Inflector;
 
 /**
- * MessageFieldController implements the CRUD actions for MessageField model.
- */
+* MessageFieldController implements the CRUD actions for MessageField model.
+*/
 class MessageFieldController extends \backend\components\Controller
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $excelFormats = [
+    /**
+     * @inheritdoc
+     */
+    public $excelFormats = [
 
     ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public function gridColumns($searchModel) {
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function gridColumns($searchModel) {
+        return [
             [
                 "attribute" => "name"
             ],
@@ -33,6 +33,6 @@ class MessageFieldController extends \backend\components\Controller
                 "attribute" => "comment"
             ]
         ];
-	}
+    }
 
 }

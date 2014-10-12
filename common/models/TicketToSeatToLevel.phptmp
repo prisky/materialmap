@@ -40,6 +40,7 @@ class TicketToSeatToLevel extends \common\components\ActiveRecord
         return $this->hasMany(SurveyResultToTicketToSeat::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -48,6 +49,7 @@ class TicketToSeatToLevel extends \common\components\ActiveRecord
         return $this->hasMany(TicketToSeatToCustomField::className(), ['level_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,4 +57,5 @@ class TicketToSeatToLevel extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeatToItem::className(), ['level_id' => 'id']);
     }
+
 }

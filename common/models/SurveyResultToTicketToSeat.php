@@ -51,6 +51,7 @@ class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
         return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,6 +59,7 @@ class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -67,6 +69,7 @@ class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -74,4 +77,5 @@ class SurveyResultToTicketToSeat extends \common\components\ActiveRecord
     {
         return $this->hasOne(TicketToSeatToLevel::className(), ['id' => 'level_id']);
     }
+
 }
