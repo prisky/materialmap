@@ -33,7 +33,6 @@ class CancellationPolicySearch extends CancellationPolicy
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		if(!is_null($this->from_begin) && $this->from_begin != '') $query->andWhere('`begin` >= :from_begin', [':from_begin' => $this->from_begin]);
 		if(!is_null($this->to_begin) && $this->to_begin != '') $query->andWhere('`begin` <= :to_begin', [':to_begin' => $this->to_begin]);
 		if(!is_null($this->from_finish) && $this->from_finish != '') $query->andWhere('`finish` >= :from_finish', [':from_finish' => $this->from_finish]);

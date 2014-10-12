@@ -27,15 +27,6 @@ class ReferralController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "account_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', ['user_id' => $searchModel->first_referrer_user_id]),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "summary_to_account_to_user_id",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('SummaryToAccountToUser', ['user_id' => $searchModel->first_referrer_user_id]),

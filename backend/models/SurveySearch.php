@@ -25,7 +25,6 @@ class SurveySearch extends Survey
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterGoogleStyle('comment', $this->comment);
 		

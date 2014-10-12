@@ -17,11 +17,16 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
-            ['attribute' => 'trial_days', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-            ['attribute' => 'expiry_days', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]],
-            ['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],
-            ['attribute' => 'child_admin', 'type' => DetailView::INPUT_SWITCH],
+            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])
+            ],
+            ['attribute' => 'trial_days', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]
+            ],
+            ['attribute' => 'expiry_days', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 5]
+            ],
+            ['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN
+            ],
+            ['attribute' => 'child_admin', 'type' => DetailView::INPUT_SWITCH
+            ],
 		]
 	]);	?>
 

@@ -9,14 +9,16 @@ namespace common\models;
 class AccountLogoImageFile extends \common\components\File
 {
 
-		/**
-		 * @inheritdoc
-		 */
-		public function rules()
-		{
-			return [
-				[['file'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png']
+	public $privacy = self::ISPRIVATE;
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+            [['file'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png']
             ];
-		}
- 
+	}
+
 }

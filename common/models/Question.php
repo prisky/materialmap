@@ -7,7 +7,7 @@ namespace common\models;
  *
  * @property integer $id
  * @property integer $account_id
- * @property string $comment_markdown
+ * @property string $comment_html_basic
  * @property string $offer
  * @property string $created
  * @property integer $bid_id
@@ -36,9 +36,9 @@ class Question extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'comment_markdown', 'offer'], 'required'],
+            [['account_id', 'comment_html_basic', 'offer'], 'required'],
             [['account_id', 'bid_id', 'answer'], 'integer'],
-            [['comment_markdown'], 'string'],
+            [['comment_html_basic'], 'string'],
             [['offer'], 'number']
         ];
     }

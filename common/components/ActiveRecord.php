@@ -8,7 +8,7 @@ use yii\helpers\Inflector;
 use kartik\helpers\Html;
 use yii\db\Schema;
 use Aws\S3\Enum\CannedAcl;
-
+use yii\helpers\HtmlPurifier;
 /**
  * @inheritdoc
  *
@@ -379,20 +379,22 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 		];
 		$path = $this->path;
 
-		$this->$attributeName = preg_replace_callback(
-			"/src=\"data:([^\"]+)\"/",
-			function ($matches) use ($manager, $options, $path)
-		{
+		$this->$attributeName = preg_replace_callback("/src=\"data:([^\"]+)\"/",
+		function ($matches) use ($manager, $options, $path) {
 			list($contentType, $encContent) = explode(';', $matches[1]);
 			if (substr($encContent, 0, 6) != 'base64') {
 				return $matches[0]; // Don't understand, return as is
 			}
 			
 			switch($contentType) {
-				case 'image/jpeg':  $imgExt = '.jpg'; break;
-				case 'image/gif':   $imgExt = '.gif'; break;
-				case 'image/png':   $imgExt = '.png'; break;
-				default:            return $matches[0]; // Don't understand, return as is
+				case 'image/jpeg':  $imgExt = '.jpg';
+					break;
+				case 'image/gif':   $imgExt = '.gif'; 
+					break;
+				case 'image/png':   $imgExt = '.png';
+					break;
+				default:
+					return $matches[0]; // Don't understand, return as is
 			}
 			
 			$imgBase64 = substr($encContent, 6);
@@ -405,6 +407,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			// permanent url
 			return 'src="' . $manager->getUrl($options['Key']) . '"'; 
 		}, $this->$attributeName);
+		
 	}
 	
 	/**
@@ -473,10 +476,12 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 			if($return = parent::save($runValidation, $attributeNames)) {
 				foreach($this->safeAttributes() as $attributeName) {
 					// transplate base64 images from html fields to s3
-					if (strpos($attributeName, '_html') !== false) {
+					if (strpos($attributeName,'_html') !== false) {
 					   $this->storeImages($attributeName);
 					}
 				}
+				// purify any html
+				$this->purifyHtmlAttributes();
 				parent::save(false, $attributeNames);
 			}
 			
@@ -631,12 +636,28 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
     }
 
 	/**
+	 * Run htmlpurifier over any html attributes
+	 */
+	private function purifyHtmlAttributes()
+	{
+		foreach($this->attributes as $attributeName => $content) {
+			if (strpos($attributeName, '_html') !== false) {
+//				$this->$attributeName = HtmlPurifier::process($content);
+				$this->$attributeName = HtmlPurifier::process($content, function($config) {
+					$config->getHTMLDefinition(true)
+					       ->addAttribute('img', 'data-type', 'Text');
+				});
+			}
+		}
+
+	}
+	/**
 	 * @inheritdoc. Attempt to resolve any unset null attributes used in foreign keys -- for enforcing referencial integrity most probably.
 	 */
 	public function beforeValidate()
 	{
 		// keep looping until no changes are made in one complete cycle. We do this because once an attribute has been resolved then
-		// this might help us to reolve another attribute we have already passed over.
+		// this might help us to resolve another attribute we have already passed over.
 		while(true) {
 			$haveSetAttributeValue = false;
 			// loop thru attributes

@@ -29,7 +29,6 @@ class EventSearch extends Event
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['event_type_id' => $this->event_type_id]);
 		$query->andFilterWhere(['resource_id' => $this->resource_id]);
 		if(!is_null($this->from_start) && $this->from_start != '') $query->andWhere('`start` >= :from_start', [':from_start' => $this->from_start]);

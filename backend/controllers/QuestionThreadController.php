@@ -27,7 +27,7 @@ class QuestionThreadController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "comment"
+                "attribute" => "comment_html_basic"
             ]
         ];
 	}

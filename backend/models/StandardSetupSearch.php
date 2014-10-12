@@ -25,7 +25,6 @@ class StandardSetupSearch extends StandardSetup
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['reseller_id' => $this->reseller_id]);
 		
         return $dataProvider;

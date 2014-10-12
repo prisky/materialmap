@@ -27,7 +27,6 @@ class TicketTypeSearch extends TicketType
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('seats', $this->seats);
 		$query->andFilterGoogleStyle('name', $this->name);
 		if(!is_null($this->from_amount) && $this->from_amount != '') $query->andWhere('`amount` >= :from_amount', [':from_amount' => $this->from_amount]);

@@ -25,8 +25,6 @@ class AgencySearch extends Agency
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
-		$query->andFilterWhere(['supplier_account_id' => $this->supplier_account_id]);
 		
         return $dataProvider;
     }

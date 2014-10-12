@@ -17,7 +17,12 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
+            ['attribute' => 'id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]
+            ],
+            ['attribute' => 'level_id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 3]
+            ],
+            ['attribute' => 'deleted', 'type' => DetailView::INPUT_SWITCH
+            ],
 		]
 	]);	?>
 

@@ -17,8 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'voucher_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Voucher', ['account_id' => $model->account_id])],
-            ['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY],
+            ['attribute' => 'voucher_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Voucher', ['account_id' => $model->account_id])
+            ],
+            ['attribute' => 'amount', 'type' => DetailView::INPUT_MONEY
+            ],
 		]
 	]);	?>
 

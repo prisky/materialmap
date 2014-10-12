@@ -17,11 +17,14 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
-            ['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])],
-            ['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN],
-            ['attribute' => 'newsletter', 'type' => DetailView::INPUT_SWITCH],
-            ['attribute' => 'immediate', 'type' => DetailView::INPUT_SWITCH],
+            ['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])
+            ],
+            ['attribute' => 'rate', 'type' => DetailView::INPUT_SPIN
+            ],
+            ['attribute' => 'newsletter', 'type' => DetailView::INPUT_SWITCH
+            ],
+            ['attribute' => 'immediate', 'type' => DetailView::INPUT_SWITCH
+            ],
 		]
 	]);	?>
 

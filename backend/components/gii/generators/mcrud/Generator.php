@@ -870,27 +870,14 @@ class Generator extends \yii\gii\generators\crud\Generator
 						case 'text' :
 						case 'mediumtext' :
 							if (substr($attribute, -strlen('_html')) === '_html') {
-								// if html input i.e. column name ends in _html
-								$inputType = "DetailView::INPUT_WIDGET,
-				'widgetOptions' => [
-					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
-					'clientOptions' => [
-						'codemirror' => [
-							'theme' => 'monokai',
-							'lineNumbers' => true,
-						],
-					],
-				],";
-								} else if (substr($attribute, -strlen('_markdown')) === '_markdown') {
-								// if html input i.e. column name ends in _html
-								$inputType = "DetailView::INPUT_WIDGET,
-				'widgetOptions' => [
-					'class' => 'kartik\markdown\MarkdownEditor',
-					'showExport' => false,
-				],";
-								} else {
-									$inputType = 'DetailView::INPUT_TEXTAREA';
-								}
+								$inputType =
+									"DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditor'],";
+							} else if (substr($attribute, -strlen('_html_basic')) === '_html_basic') {
+								$inputType =
+									"DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditorBasic'],";
+							} else {
+								$inputType = 'DetailView::INPUT_TEXTAREA';
+							}
 							break;
 						default :
 							$inputType = "DetailView::INPUT_TEXT";
@@ -908,7 +895,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 				],';
 		}
 
-        return "            ['attribute' => '$attribute', 'type' => $inputType],";
+        return "            ['attribute' => '$attribute', 'type' => $inputType\n            ],";
 	}
 	
 	/**

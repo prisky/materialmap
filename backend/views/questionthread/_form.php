@@ -17,7 +17,8 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'comment', 'type' => DetailView::INPUT_TEXTAREA],
+            ['attribute' => 'comment_html_basic', 'type' => DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditorBasic'],
+            ],
 		]
 	]);	?>
 

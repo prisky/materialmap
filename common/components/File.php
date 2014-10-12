@@ -24,7 +24,7 @@ class File extends \yii\base\Model
 	
 	public $basePath;
 	
-	public $urlExpiry = self::ISPRIVATE;
+	public $privacy = self::ISPRIVATE;
 
 	public function save()
 	{
@@ -59,7 +59,7 @@ class File extends \yii\base\Model
 	{
 		return Yii::$app->resourceManager->getUrl(
 			$this->basePath . '/' . $type . '/' . $this->name,
-			$this->urlExpiry
+			$this->privacy
 		);
 	}
 	

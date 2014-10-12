@@ -17,8 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]],
-            ['attribute' => 'received', 'type' => DetailView::INPUT_DATETIME],
+            ['attribute' => 'quantity', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 6]
+            ],
+            ['attribute' => 'received', 'type' => DetailView::INPUT_DATETIME
+            ],
 		]
 	]);	?>
 

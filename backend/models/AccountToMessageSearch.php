@@ -25,7 +25,6 @@ class AccountToMessageSearch extends AccountToMessage
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['message_id' => $this->message_id]);
 		$query->andFilterGoogleStyle('email_message', $this->email_message);
 		$query->andFilterGoogleStyle('email_subject', $this->email_subject);

@@ -25,7 +25,6 @@ class SmsThreadSearch extends SmsThread
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		
         return $dataProvider;
     }

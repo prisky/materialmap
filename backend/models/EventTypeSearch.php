@@ -27,7 +27,6 @@ class EventTypeSearch extends EventType
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterGoogleStyle('seats_max', $this->seats_max);
 		if(!is_null($this->from_deposit) && $this->from_deposit != '') $query->andWhere('`deposit` >= :from_deposit', [':from_deposit' => $this->from_deposit]);

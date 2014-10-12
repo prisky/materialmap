@@ -50,15 +50,6 @@ class AuthItemController extends \backend\components\Controller
                 "attribute" => "description"
             ],
             [
-                "attribute" => "account_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "created_at",
                 "filterType" => "backend\\components\\FieldRange",
                 "filterWidgetOptions" => [

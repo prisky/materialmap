@@ -17,8 +17,10 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME],
-            ['attribute' => 'invalaid_to', 'type' => DetailView::INPUT_DATETIME],
+            ['attribute' => 'invalid_from', 'type' => DetailView::INPUT_DATETIME
+            ],
+            ['attribute' => 'invalaid_to', 'type' => DetailView::INPUT_DATETIME
+            ],
 		]
 	]);	?>
 

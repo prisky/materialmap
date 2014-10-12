@@ -25,7 +25,6 @@ class SummarySearch extends Summary
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
 		
         return $dataProvider;

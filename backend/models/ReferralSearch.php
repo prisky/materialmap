@@ -27,7 +27,6 @@ class ReferralSearch extends Referral
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterWhere(['summary_to_account_to_user_id' => $this->summary_to_account_to_user_id]);
 		$query->andFilterWhere(['account_to_user_id' => $this->account_to_user_id]);
 		$query->andFilterWhere(['invoice_id' => $this->invoice_id]);

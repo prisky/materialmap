@@ -26,7 +26,7 @@ class CommentSearch extends Comment
         ]);
 
 		$query->andFilterWhere(['contact_id' => $this->contact_id]);
-		$query->andFilterGoogleStyle('content_markdown', $this->content_markdown);
+		$query->andFilterGoogleStyle('content_html_basic', $this->content_html_basic);
 		
         return $dataProvider;
     }

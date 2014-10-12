@@ -17,9 +17,12 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'account_to_user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AccountToUser', [])],
-            ['attribute' => 'invoiced', 'type' => DetailView::INPUT_DATETIME],
-            ['attribute' => 'paid', 'type' => DetailView::INPUT_DATETIME],
+            ['attribute' => 'account_to_user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('AccountToUser', [])
+            ],
+            ['attribute' => 'invoiced', 'type' => DetailView::INPUT_DATETIME
+            ],
+            ['attribute' => 'paid', 'type' => DetailView::INPUT_DATETIME
+            ],
 		]
 	]);	?>
 

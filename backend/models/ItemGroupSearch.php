@@ -25,7 +25,6 @@ class ItemGroupSearch extends ItemGroup
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('name', $this->name);
 		
         return $dataProvider;

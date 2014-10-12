@@ -8,7 +8,7 @@ namespace common\models;
  * @property integer $id
  * @property integer $account_id
  * @property integer $question_id
- * @property string $comment
+ * @property string $comment_html_basic
  * @property string $created
  *
  * @property Question[] $questions
@@ -32,9 +32,9 @@ class QuestionThread extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'question_id', 'comment'], 'required'],
+            [['account_id', 'question_id', 'comment_html_basic'], 'required'],
             [['account_id', 'question_id'], 'integer'],
-            [['comment'], 'string']
+            [['comment_html_basic'], 'string']
         ];
     }
 

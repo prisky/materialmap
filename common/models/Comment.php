@@ -9,7 +9,7 @@ namespace common\models;
  * @property integer $account_id
  * @property integer $event_id
  * @property integer $contact_id
- * @property string $content_markdown
+ * @property string $content_html_basic
  * @property string $created
  *
  * @property Account $account
@@ -33,9 +33,9 @@ class Comment extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'event_id', 'contact_id', 'content_markdown'], 'required'],
+            [['account_id', 'event_id', 'contact_id', 'content_html_basic'], 'required'],
             [['account_id', 'event_id', 'contact_id'], 'integer'],
-            [['content_markdown'], 'string']
+            [['content_html_basic'], 'string']
         ];
     }
 

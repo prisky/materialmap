@@ -21,6 +21,8 @@ namespace common\models;
 class <?= $className . Inflector::id2camel($attribute, '_') . 'File'?> extends \common\components\File
 {
 
+	public $privacy = self::ISPRIVATE;
+
 	/**
 	 * @inheritdoc
 	 */

@@ -27,15 +27,6 @@ class AccountToMessageToUserController extends \backend\components\Controller
 	public function gridColumns($searchModel) {
 		return [
             [
-                "attribute" => "account_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('Account', []),
-                "value" => function($model, $key, $index, $widget) {
-								return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "account");
-							},
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "account_to_message",
                 "filterType" => "\\kartik\\widgets\\Select2",
                 "filterWidgetOptions" => Controller::fKWidgetOptions('AccountToMessage', ['account_id' => $searchModel->account_id]),

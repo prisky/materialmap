@@ -17,20 +17,16 @@ use backend\components\DetailView;
 		'hover'=>true,
 		'mode'=>$mode,
 		'attributes'=>[
-            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]],
-            ['attribute' => 'system', 'type' => DetailView::INPUT_SWITCH],
-            ['attribute' => 'email_html', 'type' => DetailView::INPUT_WIDGET,
-				'widgetOptions' => [
-					'class' => 'Zelenin\yii\widgets\Summernote\Summernote',
-					'clientOptions' => [
-						'codemirror' => [
-							'theme' => 'monokai',
-							'lineNumbers' => true,
-						],
-					],
-				],],
-            ['attribute' => 'email_subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 100]],
-            ['attribute' => 'sms_text', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 255]
+            ],
+            ['attribute' => 'system', 'type' => DetailView::INPUT_SWITCH
+            ],
+            ['attribute' => 'email_html', 'type' => DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditor'],
+            ],
+            ['attribute' => 'email_subject', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 100]
+            ],
+            ['attribute' => 'sms_text', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 140]
+            ],
 		]
 	]);	?>
 

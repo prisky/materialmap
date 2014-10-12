@@ -25,7 +25,7 @@ class QuestionThreadSearch extends QuestionThread
             'query' => $query,
         ]);
 
-		$query->andFilterGoogleStyle('comment', $this->comment);
+		$query->andFilterGoogleStyle('comment_html_basic', $this->comment_html_basic);
 		
         return $dataProvider;
     }

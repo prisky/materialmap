@@ -47,28 +47,6 @@ class Model extends \common\components\ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     * @return Query
-     */
-    public static function find()
-    {
-		$modelNameQuery = static::modelName() . 'Query';
-
-		if(class_exists($modelNameQuery)) {
-			$modelNameQuery = new $modelNameQuery(get_called_class());
-			$modelNameQuery->attachBehavior(NULL, new \backend\components\ClosureTableQueryBehavior(get_called_class(), [
-				'modelClass' => get_called_class(),
-				'closureTableName' => static::closureTableName,
-				'childAttribute' => static::childAttribute,
-				'parentAttribute' => static::parentAttribute,
-				'depthAttribute' => static::depthAttribute,
-			]));
-
-			return $modelNameQuery;
-		}
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getColumns()
@@ -90,6 +68,6 @@ class Model extends \common\components\ActiveRecord
     public function getModelTreeChilds()
     {
         return $this->hasMany(ModelTree::className(), ['child' => 'auth_item_name']);
-	}
+}
 
 }

@@ -36,7 +36,7 @@ class CommentController extends \backend\components\Controller
                 "format" => "raw"
             ],
             [
-                "attribute" => "content_markdown"
+                "attribute" => "content_html_basic"
             ]
         ];
 	}

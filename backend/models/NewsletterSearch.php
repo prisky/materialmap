@@ -25,7 +25,6 @@ class NewsletterSearch extends Newsletter
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('subject', $this->subject);
 		$query->andFilterGoogleStyle('content_html', $this->content_html);
 		

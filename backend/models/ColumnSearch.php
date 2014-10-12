@@ -25,7 +25,6 @@ class ColumnSearch extends Column
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['model_id' => $this->model_id]);
 		$query->andFilterGoogleStyle('name', $this->name);
 		$query->andFilterGoogleStyle('label', $this->label);
 		$query->andFilterGoogleStyle('help_html', $this->help_html);

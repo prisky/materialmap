@@ -25,7 +25,6 @@ class ReminderSearch extends Reminder
             'query' => $query,
         ]);
 
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		$query->andFilterGoogleStyle('hours_prior', $this->hours_prior);
 		
         return $dataProvider;

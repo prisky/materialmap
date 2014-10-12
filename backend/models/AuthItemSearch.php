@@ -37,7 +37,6 @@ class AuthItemSearch extends AuthItem
 		$query->andFilterGoogleStyle('data', $this->data);
 		$query->andFilterGoogleStyle('rule_name', $this->rule_name);
 		$query->andFilterGoogleStyle('description', $this->description);
-		$query->andFilterWhere(['account_id' => $this->account_id]);
 		if(!is_null($this->from_created_at) && $this->from_created_at != '') $query->andWhere('`created_at` >= :from_created_at', [':from_created_at' => $this->from_created_at]);
 		if(!is_null($this->to_created_at) && $this->to_created_at != '') $query->andWhere('`created_at` <= :to_created_at', [':to_created_at' => $this->to_created_at]);
 		if(!is_null($this->from_updated_at) && $this->from_updated_at != '') $query->andWhere('`updated_at` >= :from_updated_at', [':from_updated_at' => $this->from_updated_at]);
