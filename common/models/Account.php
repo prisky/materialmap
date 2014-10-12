@@ -145,7 +145,7 @@ class Account extends \common\components\ActiveRecord
             [['balance', 'summary_charge', 'booking_charge', 'ticket_charge', 'seat_charge', 'sms_charge', 'annual_charge', 'rate'], 'number'],
             [['optimisation'], 'string'],
             [['phone_work'], 'string', 'max' => 20],
-            [['logo_image'], '\common\components\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2]
+            [['logo_image'], '\dosamigos\fileupload\FileValidator', 'skipOnEmpty' => false, 'maxFiles' => 2]
         ];
     }
 

@@ -28,7 +28,7 @@ class <?= $className . Inflector::id2camel($attribute, '_') . 'File' ?> extends 
      */
     public function rules()
     {
-        return [<?= "\n            " . implode(",\n                ", $rules) . "\n            " ?>];
+        return [<?= "\n            " . implode(",\n                ", $rules) . "\n        " ?>];
     }
 
 }

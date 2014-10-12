@@ -91,6 +91,6 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         <?= $relation[0];?>
 
     }
-
 <?php endforeach; ?>
+
 }

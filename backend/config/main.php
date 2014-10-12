@@ -13,11 +13,11 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
-		'request' => [
-			'enableCookieValidation' => true,
-			'enableCsrfValidation' => true,
-			'cookieValidationKey' => 'as43bvfd234',
-		],
+        'request' => [
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => 'as43bvfd234',
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -32,22 +32,22 @@ return [
         ],
     ],
     'params' => $params,
-	'modules' => [
-	   'gridview' =>  [
-			'class' => '\kartik\grid\Module',
-		],
-		'markdown' => [
-			// the module class
-			'class' => 'kartik\markdown\Module',
+    'modules' => [
+       'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+        ],
+        'markdown' => [
+            // the module class
+            'class' => 'kartik\markdown\Module',
 
-			// the controller action route used for downloading the markdown exported file
-			 'downloadAction' => '/markdown/parse/download',
+            // the controller action route used for downloading the markdown exported file
+             'downloadAction' => '/markdown/parse/download',
         
-			// the controller action route used for markdown editor preview
-			'previewAction' => '/markdown/parse/preview',
+            // the controller action route used for markdown editor preview
+            'previewAction' => '/markdown/parse/preview',
 
-			// whether to use PHP SmartyPantsTypographer to process Markdown output
-			'smartyPants' => true
-		],
-	],
+            // whether to use PHP SmartyPantsTypographer to process Markdown output
+            'smartyPants' => true
+        ],
+    ],
 ];

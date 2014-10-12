@@ -250,7 +250,7 @@ class Generator extends \yii\gii\generators\crud\Generator
                     // there are two types of file rules, those that apply per file and those across all. Maxfiles and required apply across all and
                     // are therefore relevant to be validated by ActiveRecord::validate fwhereas specific file rules apply to the ..File classes e.g.
                     // file type validator is per file.Our custom validator is used in the ActiveRecord rules and can be used to seperate these
-                    if ($fileRule->validator == '\common\components\FileValidator') {
+                    if ($fileRule->validator == '\dosamigos\fileupload\FileValidator') {
                         $activeRecordFileRules[$fileAttribute['column_name']][$fileRule->validator][$fileRule->key] = $fileRule->value;
                     } else {
                         $perFileRules[$fileRule->validator][$fileRule->key] = $fileRule->value;

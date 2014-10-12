@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @copyright Andrew Blake
+ * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ */
 namespace common\components;
 
 use Yii;
@@ -8,19 +11,30 @@ use common\models\Model;
 use kartik\helpers\Html;
 use yii\web\UploadedFile;
 use yii\web\Response;
-use common\components\File;
+use dosamigos\fileupload\File;
 use backend\components\DetailView;
 use yii\helpers\Inflector;
 
 /**
- * FileControllerTrait adds file upload functionality to a controller. To be used in conjuction with FileActiveRecordBehavior and
- * dosamigos\fileupload\FileUploadUI, a Yii2 Widget encapsulating http://blueimp.github.io/jQuery-File-Upload/
+ * FileControllerTrait adds file upload functionality to a controller. To be used
+ * in conjuction with FileActiveRecordBehavior and FileUploadUIAR
  *
  * @author Andrew Blake <admin@newzealandfishing.com>
+ * @package dosamigos\fileupload
  */
 trait FileControllerTrait
 {
 
+    /**
+     * Produce json response for jquery file upload plugin, containing existing
+     * stored files, for display within the widge
+     * 
+     * @param string $id The primary key value for the model
+     * @param string $attribute The name of the attribute within the model that
+     * is the files 
+     * @return array the response as an array but with headers and response
+     * format set to json
+     */
     public function actionGetexistingfiles($id = null, $attribute = null)
     {
         $response = [];
@@ -41,7 +55,10 @@ trait FileControllerTrait
                     'type' => $file['type'],
                     'size' => $file['size'],
                     'url' => $manager->getUrl($file['path'], $privacy),
-                    'thumbnailUrl' => $manager->getUrl($path . '/' . File::SMALL_IMAGE . '/' . $file['name'], $privacy),
+                    'thumbnailUrl' => $manager->getUrl(
+                        $path . '/' . File::SMALL_IMAGE . '/' . $file['name'],
+                        $privacy
+                    ),
                     // not actually url to delete but the file itself - easiest hack
                     'deleteUrl' => $file['name'],
                     'deleteType' => 'POST'
@@ -52,6 +69,12 @@ trait FileControllerTrait
         return $this->response($response);
     }
 
+    /**
+     * Set the response format to json - pass thru the response array for
+     * readability
+     * @param array $response
+     * @return type
+     */
     private function response($response)
     {
         Yii::$app->response->getHeaders()->set('Vary', 'Accept');
@@ -61,8 +84,10 @@ trait FileControllerTrait
     }
 
     /**
-     * When generating the response for jquery-file-upload, need to be careful to return a similarly indexed array as this is what jquery file
-     * upload expects.
+     * When generating the response for jquery-file-upload, need to be careful
+     * to return a similarly indexed array as this is what jquery file
+     * upload expects - with a few extrax for the FileUPloadUIAR widget
+     * like deletes, redirect, and form errors
      * @param ActiveRecord $model
      * @param array $deleteFiles in form [attribute => pathName]
      * @param bool $save true if good to save changes
@@ -73,7 +98,8 @@ trait FileControllerTrait
 
         foreach ($model->fileAttributes as $attribute) {
             foreach ($model->$attribute as $uploadedFile) {
-                // the files array may contain existing uploads which will be arrays rather than UploadedFile's
+                // the files array may contain existing uploads which will be
+                // arrays rather than UploadedFile's
                 if (!$uploadedFile instanceof UploadedFile) {
                     // skip existing
                     continue;
@@ -102,8 +128,13 @@ trait FileControllerTrait
                 // if saving
                 if ($save) {
                     foreach ($fileNames as $name) {
-                        $fileClass = $model->modelName . Inflector::id2camel($attribute, '_') . 'File';
-                        $file = new $fileClass(['name' => $name, 'basePath' => $model->path . '/' . $attribute]);
+                        $fileClass = $model->modelName
+                            . Inflector::id2camel($attribute, '_')
+                            . 'File';
+                        $file = new $fileClass([
+                            'name' => $name,
+                            'basePath' => $model->path . '/' . $attribute
+                        ]);
                         // remove from storage
                         $file->delete();
                         // response not important as redirect will occurr when saving
@@ -127,24 +158,40 @@ trait FileControllerTrait
             }
         }
 
-        // save errors is property added to ActiveRecord to hold errors caught from attempting to save to database inside transaction that got
-        // past normal validation. These errors will only occurr on a a delete, insert or update of database and are potentially trigger related
-        // e.g. validating that an adjacency list doesn't create endless loop (force a trigger error and detect here)
+        // save errors is property added to ActiveRecord to hold errors caught
+        // from attempting to save to database inside transaction that got past
+        // normal validation. These errors will only occurr on a a delete, insert
+        // or update of database and are potentially trigger related e.g.
+        // validating that an adjacency list doesn't create endless loop (force
+        // a trigger error and detect here)
         if ($model->saveErrors) {
             // send these thru but format the html here - an error block above form
-            $response['nonattributeerrors'] = Html::listGroup($model->saveErrors, ['class' => 'list-group'], 'ul', 'li class="list-group-item list-group-item-danger"');
+            $response['nonattributeerrors'] = Html::listGroup(
+                $model->saveErrors,
+                ['class' => 'list-group'],
+                'ul',
+                'li class="list-group-item list-group-item-danger"'
+            );
         }
 
-        // add form errors for blueimp fileuploadfinished callback - borrowed from \yii\widgets\ActiveForm::validate()
+        // add form errors for blueimp fileuploadfinished callback - borrowed
+        // from \yii\widgets\ActiveForm::validate()
         foreach ($model->getErrors() as $attribute => $errors) {
-            $response['activeformerrors'][Html::getInputId($model, $attribute)] = $errors;
+            $response['activeformerrors'][Html::getInputId($model, $attribute)]
+                = $errors;
         }
 
         return $this->response($response);
     }
 
     /**
-     * @inheritDoc.
+     * @inheritDoc
+     * This create is designed for use in kartik-v detail view within modal
+     * loaded dynamically hence the renderAjax call at the bottom - which would
+     * likely need changing for other projects as would the determination of
+     * redirect url inside if ($save = $model->save()){...} which is specific
+     * to this application
+     * @return string Either html if get request or json if post request
      */
     public function actionCreate()
     {
@@ -187,6 +234,14 @@ trait FileControllerTrait
         ]);
     }
 
+    /**
+     * 
+     * @param string $id The id of the model to update
+     * @return string Either html if get request or json if post request will
+     * be ajax initiated.
+     * Inside if ($save = $model->save()) {...} would need to be altered for other
+     * projects
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

@@ -1,90 +1,89 @@
 {
-	"description": "SAAS booking engine",
-	"homepage": "http://www.bookaspot.com/",
-	"type": "project",
-	"license": "proprietary",
-	"support": {
-		"issues": "https://github.com/andrewblake1/bookaspot/issues?state=open",
-		"source": "https://github.com/andrewblake1/bookaspot"
-	},
-	"authors": [
+    "description": "SAAS booking engine",
+    "homepage": "http://www.bookaspot.com/",
+    "type": "project",
+    "license": "proprietary",
+    "support": {
+        "issues": "https://github.com/andrewblake1/bookaspot/issues?state=open",
+        "source": "https://github.com/andrewblake1/bookaspot"
+    },
+    "authors": [
         {
             "name": "Andrew Blake",
             "email": "admin@newzealandfishing.com",
             "role": "Developer"
         }
     ],
-	"minimum-stability": "dev",
-	"require": {
-		"php": ">=5.4.0",
-		"yiisoft/yii2": "*",
-		"yiisoft/yii2-bootstrap": "*",
-		"yiisoft/yii2-swiftmailer": "*",
-		"kartik-v/yii2-helpers": "*",
-		"kartik-v/yii2-detail-view": "*",
-		"kartik-v/yii2-grid": "*",
-		"kartik-v/yii2-widgets": "dev-master",
-		"kartik-v/yii2-icons": "dev-master",
-		"kartik-v/yii2-field-range": "*",
-		"phpoffice/phpexcel": "dev-develop",
-		"kartik-v/yii2-label-inplace": "*",
-		"yiisoft/yii2-apidoc": "dev-master",
-		"cebe/markdown": "dev-master as 0.9.0",
-		"kartik-v/yii2-markdown": "*",
-		"bower-asset/jquery": "@stable",
-		"bower-asset/bootstrap": "@stable",
-		"bower-asset/jquery-ui": "@stable",
-		"bower-asset/jquery.inputmask": "@stable",
-		"bower-asset/punycode": "@stable",
-		"zelenin/yii2-summernote-widget": "dev-master",
-		"asofter/yii2-imperavi-redactor": "*",
-		"2amigos/yii2-file-upload-widget": "*",
-		"2amigos/yii2-resource-manager-component": "*",
-		"yiisoft/yii2-imagine": "*"
-	},
-	"require-dev": {
-		"yiisoft/yii2-codeception": "*",
-		"yiisoft/yii2-debug": "*",
-		"yiisoft/yii2-gii": "*",
-		"codeception/codeception": "*",
-		"codeception/specify": "*",
-		"codeception/verify": "*",
-		"yiisoft/yii2-faker": "*"
-	},
-	"suggest": {
-		"codeception/codeception": "Codeception, 1.8.*@dev is currently works well with Yii.",
-		"codeception/specify": "BDD style code blocks for PHPUnit and Codeception",
-		"codeception/verify": "BDD Assertions for PHPUnit and Codeception",
-		"yiisoft/yii2-faker": "Fixtures generator for Yii2 based on Faker lib"
-	},
-	"scripts": {
-		"post-create-project-cmd": [
-			"yii\\composer\\Installer::setPermission"
-		]
-	},
-	"config": {
-		"process-timeout": 1800
-	},
-	"extra": {
-		"writable": [
-			"backend/runtime",
-			"backend/web/assets",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*",
+        "kartik-v/yii2-helpers": "*",
+        "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-grid": "*",
+        "kartik-v/yii2-widgets": "dev-master",
+        "kartik-v/yii2-icons": "dev-master",
+        "kartik-v/yii2-field-range": "*",
+        "phpoffice/phpexcel": "dev-develop",
+        "kartik-v/yii2-label-inplace": "*",
+        "yiisoft/yii2-apidoc": "dev-master",
+        "bower-asset/jquery": "@stable",
+        "bower-asset/bootstrap": "@stable",
+        "bower-asset/jquery-ui": "@stable",
+        "bower-asset/jquery.inputmask": "@stable",
+        "bower-asset/punycode": "@stable",
+        "zelenin/yii2-summernote-widget": "dev-master",
+        "2amigos/yii2-file-upload-widget": "*"
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "*",
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*",
+        "codeception/codeception": "*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
+        "yiisoft/yii2-faker": "*"
+    },
+    "suggest": {
+        "codeception/codeception": "Codeception, 1.8.*@dev is currently works well with Yii.",
+        "codeception/specify": "BDD style code blocks for PHPUnit and Codeception",
+        "codeception/verify": "BDD Assertions for PHPUnit and Codeception",
+        "yiisoft/yii2-faker": "Fixtures generator for Yii2 based on Faker lib"
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::setPermission"
+        ]
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "extra": {
+        "writable": [
+            "backend/runtime",
+            "backend/web/assets",
 
-			"console/runtime",
-			"console/migrations",
+            "console/runtime",
+            "console/migrations",
 
-			"frontend/runtime",
-			"frontend/web/assets"
-		],
+            "frontend/runtime",
+            "frontend/web/assets"
+        ],
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
         }
-	},
+    },
     "repositories": [
-		{
+        {
             "type": "vcs",
             "url": "https://github.com/andrewblake1/yii2-file-upload-widget"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/andrewblake1/yii2-resource-manager-component"
         }
     ]
 }
