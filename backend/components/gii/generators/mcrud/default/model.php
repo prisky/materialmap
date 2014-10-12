@@ -34,12 +34,12 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php if ($fileAttributes): ?>
     use \common\components\FileActiveRecordTrait;
 
-    <?php foreach ($fileAttributes as $fileAttribute): ?>
+<?php foreach ($fileAttributes as $fileAttribute): ?>
     /**
      * @var string $<?= $fileAttribute['column_name'] ?> is a file attribute
      */
     public $<?= $fileAttribute['column_name'] ?>;
-    <?php endforeach; ?>
+<?php endforeach; ?>
 
     /**
      * Get the attribute names for files
@@ -49,9 +49,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public function getFileAttributes()
     {
         return [
-    <?php foreach ($fileAttributes as $fileAttribute): ?>
+<?php foreach ($fileAttributes as $fileAttribute): ?>
             '<?= $fileAttribute['column_name'] ?>',
-    <?php endforeach; ?>
+<?php endforeach; ?>
         ];
     }
 <?php endif; ?>

@@ -152,7 +152,8 @@ trait FileControllerTrait
         $modelNameShort = $this->modelNameShort;
         $model->load(Yii::$app->request->get());
 
-        if ($model->load(Yii::$app->request->post())) {
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
             $response = [];
             $model->loadFileAttributes();
             // allow rollback if any error occurrs with saving form data or file upload

@@ -121,7 +121,7 @@ a.desc:after {
 
 .panel-default > .panel-heading {
     color: #333;
-    background: none;
+    background: none !important;
 }
 
 .detail-view {

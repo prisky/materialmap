@@ -109,11 +109,11 @@ class Account extends \common\components\ActiveRecord
 {
     use \common\components\FileActiveRecordTrait;
 
-        /**
+    /**
      * @var string $logo_image is a file attribute
      */
     public $logo_image;
-    
+
     /**
      * Get the attribute names for files
      *
@@ -122,8 +122,8 @@ class Account extends \common\components\ActiveRecord
     public function getFileAttributes()
     {
         return [
-                'logo_image',
-            ];
+            'logo_image',
+        ];
     }
 
     /**
