@@ -47,7 +47,6 @@ class SummaryToVoucher extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,7 +54,6 @@ class SummaryToVoucher extends \common\components\ActiveRecord
     {
         return $this->hasOne(Voucher::className(), ['id' => 'voucher_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

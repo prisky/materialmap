@@ -50,7 +50,6 @@ class Bid extends \common\components\ActiveRecord
         return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,7 +57,6 @@ class Bid extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

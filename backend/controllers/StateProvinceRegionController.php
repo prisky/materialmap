@@ -28,9 +28,6 @@ class StateProvinceRegionController extends \backend\components\Controller
         return [
             [
                 "attribute" => "name"
-            ],
-            [
-                "attribute" => "country_id"
             ]
         ];
     }

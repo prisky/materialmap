@@ -50,7 +50,6 @@ class PaymentGateway extends \common\components\ActiveRecord
         return $this->hasMany(AccountToPaymentGateway::className(), ['payment_gateway_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,7 +57,6 @@ class PaymentGateway extends \common\components\ActiveRecord
     {
         return $this->hasMany(Payment::className(), ['payment_gateway_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

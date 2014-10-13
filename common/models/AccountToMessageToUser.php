@@ -44,7 +44,6 @@ class AccountToMessageToUser extends \common\components\ActiveRecord
         return $this->hasOne(AccountToMessage::className(), ['id' => 'account_to_message']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -45,7 +45,6 @@ class EventTypeToResourceType extends \common\components\ActiveRecord
         return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,7 +52,6 @@ class EventTypeToResourceType extends \common\components\ActiveRecord
     {
         return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -48,7 +48,6 @@ class Column extends \common\components\ActiveRecord
         return $this->hasOne(Model::className(), ['id' => 'model_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

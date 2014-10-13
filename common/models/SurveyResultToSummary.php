@@ -51,7 +51,6 @@ class SurveyResultToSummary extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,7 +59,6 @@ class SurveyResultToSummary extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -68,7 +66,6 @@ class SurveyResultToSummary extends \common\components\ActiveRecord
     {
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

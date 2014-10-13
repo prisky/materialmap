@@ -54,7 +54,6 @@ class Summary extends \common\components\ActiveRecord
         return $this->hasMany(Booking::className(), ['summary_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -62,7 +61,6 @@ class Summary extends \common\components\ActiveRecord
     {
         return $this->hasMany(Payment::className(), ['summary_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -72,7 +70,6 @@ class Summary extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -80,7 +77,6 @@ class Summary extends \common\components\ActiveRecord
     {
         return $this->hasOne(Contact::className(), ['id' => 'contact_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -90,7 +86,6 @@ class Summary extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToAccountToUser::className(), ['summary_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -98,7 +93,6 @@ class Summary extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToCharge::className(), ['summary_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -108,7 +102,6 @@ class Summary extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToCustomField::className(), ['summary_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -116,7 +109,6 @@ class Summary extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToItem::className(), ['summary_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -126,7 +118,6 @@ class Summary extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToPercentPromotion::className(), ['summary_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -134,7 +125,6 @@ class Summary extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToPercentVoucher::className(), ['summary_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -144,7 +134,6 @@ class Summary extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToPromotion::className(), ['summary_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -152,7 +141,6 @@ class Summary extends \common\components\ActiveRecord
     {
         return $this->hasMany(SummaryToVoucher::className(), ['summary_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

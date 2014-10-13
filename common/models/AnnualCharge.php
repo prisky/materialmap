@@ -43,7 +43,6 @@ class AnnualCharge extends \common\components\ActiveRecord
         return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

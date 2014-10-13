@@ -47,7 +47,6 @@ class AffiliateCategory extends \common\components\ActiveRecord
         return $this->hasMany(AccountToAffiliateCategory::className(), ['affiliate_category_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

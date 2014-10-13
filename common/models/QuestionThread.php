@@ -46,7 +46,6 @@ class QuestionThread extends \common\components\ActiveRecord
         return $this->hasMany(Question::className(), ['answer' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -54,7 +53,6 @@ class QuestionThread extends \common\components\ActiveRecord
     {
         return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

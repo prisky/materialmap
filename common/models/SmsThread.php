@@ -41,7 +41,6 @@ class SmsThread extends \common\components\ActiveRecord
         return $this->hasMany(Sms::className(), ['sms_thread_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

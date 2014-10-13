@@ -48,7 +48,6 @@ class Resource extends \common\components\ActiveRecord
         return $this->hasMany(Event::className(), ['resource_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -57,7 +56,6 @@ class Resource extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,7 +63,6 @@ class Resource extends \common\components\ActiveRecord
     {
         return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -30,4 +30,5 @@ class Channel extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
+
 }

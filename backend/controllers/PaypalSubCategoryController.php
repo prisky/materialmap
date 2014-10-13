@@ -27,15 +27,6 @@ class PaypalSubCategoryController extends \backend\components\Controller
     public function gridColumns($searchModel) {
         return [
             [
-                "attribute" => "paypal_category_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('PaypalCategory', []),
-                "value" => function($model, $key, $index, $widget) {
-                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "paypalCategory");
-                            },
-                "format" => "raw"
-            ],
-            [
                 "attribute" => "name"
             ]
         ];

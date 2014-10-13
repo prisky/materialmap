@@ -45,7 +45,6 @@ class MessageQueue extends \common\components\ActiveRecord
         return $this->hasOne(Contact::className(), ['id' => 'to']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

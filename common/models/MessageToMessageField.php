@@ -43,7 +43,6 @@ class MessageToMessageField extends \common\components\ActiveRecord
         return $this->hasOne(Message::className(), ['id' => 'message_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

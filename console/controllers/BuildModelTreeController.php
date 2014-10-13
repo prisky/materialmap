@@ -33,6 +33,7 @@ class BuildModelTreeController extends Controller
 				'AuthItemChild',
 			],
 			'CancellationPolicy',
+            'CustomField',
 			'Event' => [
 				'Booking' => [
 					'BookingToCharge',
@@ -94,6 +95,7 @@ class BuildModelTreeController extends Controller
 				'PromotionConstraint',
 			],
 			'Question' => [
+                'Bid',
 				'QuestionThread',
 			],
 			'Referral',
@@ -130,11 +132,12 @@ class BuildModelTreeController extends Controller
 			],
 		],
 		'AffiliateCategory',
-		'Bid',
 		'Channel',
-		'Country',
-		'Coupon',
-		'CustomField',
+		'Country' => [
+            'StateProvinceRegion' => [
+                'TownCity',
+            ],
+        ],
 		'Message' => [
 			'MessageToMessageField',
 		],
@@ -143,11 +146,12 @@ class BuildModelTreeController extends Controller
 			'Column',
 		],
 		'PaymentGateway',
-		'PaypalCategory',
-		'PaypalSubCategory',
-		'Reseller',
-		'StateProvinceRegion',
-		'TownCity',
+		'PaypalCategory' => [
+            'PaypalSubCategory',
+        ],
+		'Reseller' => [
+            'Coupon',
+        ],
 	];
 
 	/**

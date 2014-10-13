@@ -50,7 +50,6 @@ class Referral extends \common\components\ActiveRecord
         return $this->hasOne(SummaryToAccountToUser::className(), ['id' => 'summary_to_account_to_user_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,7 +58,6 @@ class Referral extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -67,7 +65,6 @@ class Referral extends \common\components\ActiveRecord
     {
         return $this->hasOne(Invoice::className(), ['id' => 'invoice_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

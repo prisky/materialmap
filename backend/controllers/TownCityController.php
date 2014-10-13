@@ -28,15 +28,6 @@ class TownCityController extends \backend\components\Controller
         return [
             [
                 "attribute" => "name"
-            ],
-            [
-                "attribute" => "state_province_region",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('StateProvinceRegion', []),
-                "value" => function($model, $key, $index, $widget) {
-                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "stateProvinceRegion");
-                            },
-                "format" => "raw"
             ]
         ];
     }

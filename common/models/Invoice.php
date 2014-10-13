@@ -45,7 +45,6 @@ class Invoice extends \common\components\ActiveRecord
         return $this->hasOne(AccountToUser::className(), ['id' => 'account_to_user_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,7 +52,6 @@ class Invoice extends \common\components\ActiveRecord
     {
         return $this->hasMany(Referral::className(), ['invoice_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

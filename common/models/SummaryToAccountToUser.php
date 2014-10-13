@@ -51,7 +51,6 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
         return $this->hasMany(Referral::className(), ['summary_to_account_to_user_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,7 +58,6 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -69,7 +67,6 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
         return $this->hasOne(AccountToUser::className(), ['id' => 'account_to_user_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,7 +74,6 @@ class SummaryToAccountToUser extends \common\components\ActiveRecord
     {
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

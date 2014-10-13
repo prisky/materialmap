@@ -23,7 +23,6 @@ class CustomFieldSearch extends CustomField
 
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-        $query->andFilterWhere(['account_id' => $this->account_id]);
         $query->andFilterGoogleStyle('label', $this->label);
         $query->andFilterWhere(['validation_type' => $this->validation_type]);
         $query->andFilterWhere(['data_type' => $this->data_type]);

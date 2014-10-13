@@ -23,7 +23,6 @@ class PaypalSubCategorySearch extends PaypalSubCategory
 
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-        $query->andFilterWhere(['paypal_category_id' => $this->paypal_category_id]);
         $query->andFilterGoogleStyle('name', $this->name);
 
         return $dataProvider;

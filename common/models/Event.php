@@ -51,7 +51,6 @@ class Event extends \common\components\ActiveRecord
         return $this->hasMany(Booking::className(), ['event_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,7 +58,6 @@ class Event extends \common\components\ActiveRecord
     {
         return $this->hasMany(Comment::className(), ['event_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -69,7 +67,6 @@ class Event extends \common\components\ActiveRecord
         return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,7 +74,6 @@ class Event extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

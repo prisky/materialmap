@@ -43,7 +43,6 @@ class Agency extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'supplier_account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

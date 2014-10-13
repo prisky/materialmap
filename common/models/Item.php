@@ -52,7 +52,6 @@ class Item extends \common\components\ActiveRecord
         return $this->hasMany(BookingToItem::className(), ['item_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,7 +59,6 @@ class Item extends \common\components\ActiveRecord
     {
         return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -70,7 +68,6 @@ class Item extends \common\components\ActiveRecord
         return $this->hasMany(ItemInventory::className(), ['item_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -79,7 +76,6 @@ class Item extends \common\components\ActiveRecord
         return $this->hasMany(SummaryToItem::className(), ['item_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -87,7 +83,6 @@ class Item extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToItem::className(), ['item_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

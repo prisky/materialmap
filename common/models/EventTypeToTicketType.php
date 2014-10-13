@@ -46,7 +46,6 @@ class EventTypeToTicketType extends \common\components\ActiveRecord
         return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -54,7 +53,6 @@ class EventTypeToTicketType extends \common\components\ActiveRecord
     {
         return $this->hasOne(TicketType::className(), ['id' => 'ticket_type_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

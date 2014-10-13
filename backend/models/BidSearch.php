@@ -29,8 +29,6 @@ class BidSearch extends Bid
 
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-        $query->andFilterWhere(['account_id' => $this->account_id]);
-        $query->andFilterWhere(['question_id' => $this->question_id]);
         if(!is_null($this->from_offer) && $this->from_offer != '') $query->andWhere('`offer` >= :from_offer', [':from_offer' => $this->from_offer]);
         if(!is_null($this->to_offer) && $this->to_offer != '') $query->andWhere('`offer` <= :to_offer', [':to_offer' => $this->to_offer]);
         $query->andFilterGoogleStyle('comment_markdown', $this->comment_markdown);

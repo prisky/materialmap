@@ -48,7 +48,6 @@ class FieldSetToCustomField extends \common\components\ActiveRecord
         return $this->hasOne(FieldSet::className(), ['id' => 'field_set_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -56,7 +55,6 @@ class FieldSetToCustomField extends \common\components\ActiveRecord
     {
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -56,7 +56,6 @@ class Seat extends \common\components\ActiveRecord
         return $this->hasOne(Resource::className(), ['id' => 'resource_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -64,7 +63,6 @@ class Seat extends \common\components\ActiveRecord
     {
         return $this->hasOne(SeatType::className(), ['id' => 'seat_type_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -74,7 +72,6 @@ class Seat extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -82,7 +79,6 @@ class Seat extends \common\components\ActiveRecord
     {
         return $this->hasMany(SeatToTicketType::className(), ['seat_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

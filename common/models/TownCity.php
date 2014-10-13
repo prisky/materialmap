@@ -44,7 +44,6 @@ class TownCity extends \common\components\ActiveRecord
         return $this->hasMany(Contact::className(), ['town_city_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

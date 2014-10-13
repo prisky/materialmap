@@ -24,7 +24,6 @@ class StateProvinceRegionSearch extends StateProvinceRegion
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
         $query->andFilterGoogleStyle('name', $this->name);
-        $query->andFilterGoogleStyle('country_id', $this->country_id);
 
         return $dataProvider;
     }

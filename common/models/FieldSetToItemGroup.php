@@ -48,7 +48,6 @@ class FieldSetToItemGroup extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -57,7 +56,6 @@ class FieldSetToItemGroup extends \common\components\ActiveRecord
         return $this->hasOne(FieldSet::className(), ['id' => 'field_set_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,7 +63,6 @@ class FieldSetToItemGroup extends \common\components\ActiveRecord
     {
         return $this->hasOne(ItemGroup::className(), ['id' => 'item_group_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

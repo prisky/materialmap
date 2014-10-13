@@ -14,6 +14,7 @@ namespace common\models;
  * @property integer $level_id
  * @property string $custom_value
  *
+ * @property Prisk[] $prisks
  * @property Ticket $ticket
  * @property Account $account
  * @property CustomField $customField
@@ -46,11 +47,18 @@ class SurveyResultToTicket extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getPrisks()
+    {
+        return $this->hasMany(Prisk::className(), ['survey_result_to_ticket_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTicket()
     {
         return $this->hasOne(Ticket::className(), ['id' => 'ticket_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -60,7 +68,6 @@ class SurveyResultToTicket extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -68,7 +75,6 @@ class SurveyResultToTicket extends \common\components\ActiveRecord
     {
         return $this->hasOne(CustomField::className(), ['id' => 'custom_field_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

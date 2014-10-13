@@ -24,7 +24,6 @@ class TownCitySearch extends TownCity
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
         $query->andFilterGoogleStyle('name', $this->name);
-        $query->andFilterWhere(['state_province_region' => $this->state_province_region]);
 
         return $dataProvider;
     }

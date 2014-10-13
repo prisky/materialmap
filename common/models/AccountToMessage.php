@@ -50,7 +50,6 @@ class AccountToMessage extends \common\components\ActiveRecord
         return $this->hasOne(Message::className(), ['id' => 'message_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -58,7 +57,6 @@ class AccountToMessage extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -45,7 +45,6 @@ class BookingToCharge extends \common\components\ActiveRecord
         return $this->hasOne(Booking::className(), ['id' => 'booking_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,7 +52,6 @@ class BookingToCharge extends \common\components\ActiveRecord
     {
         return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

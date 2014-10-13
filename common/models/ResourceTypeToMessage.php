@@ -52,7 +52,6 @@ class ResourceTypeToMessage extends \common\components\ActiveRecord
         return $this->hasOne(ResourceType::className(), ['id' => 'resource_type_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -61,7 +60,6 @@ class ResourceTypeToMessage extends \common\components\ActiveRecord
         return $this->hasOne(Message::className(), ['id' => 'message_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -69,7 +67,6 @@ class ResourceTypeToMessage extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

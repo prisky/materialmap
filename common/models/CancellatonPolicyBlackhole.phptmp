@@ -32,4 +32,5 @@ class CancellatonPolicyBlackhole extends \common\components\ActiveRecord
             
         ];
     }
+
 }

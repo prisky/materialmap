@@ -47,7 +47,6 @@ class Comment extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -55,7 +54,6 @@ class Comment extends \common\components\ActiveRecord
     {
         return $this->hasOne(Event::className(), ['id' => 'event_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

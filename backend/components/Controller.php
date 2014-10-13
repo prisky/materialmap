@@ -479,15 +479,15 @@ abstract class Controller extends \common\components\Controller
             $model = Model::findOne(['auth_item_name' => $this->modelNameShort]);
             // heading - model
             echo '<div class="table-responsive modal-body">';
-            echo '<h1> ' . Markdown::convert($model->label) . '</h1>';
-            echo '<p>' . Markdown::convert($model->help) . '</p>';
+            echo "<h1>{$model->label}</h1>";
+            echo "<p>{$model->help_html}</p>";
             echo '<table class="detail-view table table-hover table-bordered table-striped">';
             echo '<tbody>';
             // table of attributes
             foreach ($model->columns as $column) {
                 echo "<tr>";
                 echo "<th>{$column->label}</th>";
-                echo "<td>" . Markdown::convert($column->help) . "</td";
+                echo "<td>{$column->help_html}</td";
                 echo "/<tr>";
             }
             echo "</tbody>";

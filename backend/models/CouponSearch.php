@@ -25,8 +25,6 @@ class CouponSearch extends Coupon
 
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-        $query->andFilterWhere(['account_id' => $this->account_id]);
-        $query->andFilterWhere(['reseller_id' => $this->reseller_id]);
         $query->andFilterGoogleStyle('uniqueid', $this->uniqueid);
         if(!is_null($this->from_expiry) && $this->from_expiry != '') $query->andWhere('`expiry` >= :from_expiry', [':from_expiry' => $this->from_expiry]);
         if(!is_null($this->to_expiry) && $this->to_expiry != '') $query->andWhere('`expiry` <= :to_expiry', [':to_expiry' => $this->to_expiry]);

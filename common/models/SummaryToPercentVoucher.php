@@ -46,7 +46,6 @@ class SummaryToPercentVoucher extends \common\components\ActiveRecord
         return $this->hasOne(Summary::className(), ['id' => 'summary_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -54,7 +53,6 @@ class SummaryToPercentVoucher extends \common\components\ActiveRecord
     {
         return $this->hasOne(PercentVoucher::className(), ['id' => 'percent_voucher_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

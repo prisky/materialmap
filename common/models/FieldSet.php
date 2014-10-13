@@ -48,7 +48,6 @@ class FieldSet extends \common\components\ActiveRecord
         return $this->hasMany(EventTypeToFieldSet::className(), ['field_set_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -56,7 +55,6 @@ class FieldSet extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -66,7 +64,6 @@ class FieldSet extends \common\components\ActiveRecord
         return $this->hasOne(Level::className(), ['id' => 'level_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -74,7 +71,6 @@ class FieldSet extends \common\components\ActiveRecord
     {
         return $this->hasMany(FieldSetToCustomField::className(), ['field_set_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -84,7 +80,6 @@ class FieldSet extends \common\components\ActiveRecord
         return $this->hasMany(FieldSetToItemGroup::className(), ['field_set_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -92,7 +87,6 @@ class FieldSet extends \common\components\ActiveRecord
     {
         return $this->hasMany(FieldSetTree::className(), ['child_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

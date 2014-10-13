@@ -44,7 +44,6 @@ class ResourceTypeToMessageToUser extends \common\components\ActiveRecord
         return $this->hasOne(ResourceTypeToMessage::className(), ['id' => 'resource_type_to_message']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */

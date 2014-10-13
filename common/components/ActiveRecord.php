@@ -426,7 +426,12 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
                 // skip primary key as null - probably insert
                 continue;
             }
-
+            
+            // skip if foreign key column
+            if($this->isForeignkey($attributeName)) {
+                continue;
+            }
+ 
             if ((is_null($attributeValue) || $attributeValue == '')) {
                 $column = $this->tableSchema->columns[$attributeName];
                 if ($column->allowNull) {
@@ -643,6 +648,9 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
      */
     public function beforeValidate()
     {
+        $foreignKeys = $this->tableSchema->foreignKeys;
+        $columns = $this->tableSchema->columns;
+      
         // keep looping until no changes are made in one complete cycle. We do this because once an attribute has been resolved then
         // this might help us to resolve another attribute we have already passed over.
         while (true) {
@@ -650,9 +658,9 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
             // loop thru attributes
             foreach ($this->attributes as $attributeName => $attribute) {
                 // if we have a null value on a not null attribute
-                if (is_null($attribute) && !$this->tableSchema->columns[$attributeName]->allowNull) {
+                if (is_null($attribute) && !$columns[$attributeName]->allowNull) {
                     // loop thru all foreign keys using this attribute
-                    foreach ($this->tableSchema->foreignKeys as $foreignKey) {
+                    foreach ($foreignKeys as $foreignKey) {
                         // if the foreign key uses this attribute
                         if (isset($foreignKey[$attributeName])) {
                             // see if we can uniquely can identify a row in the foreign key table
@@ -663,8 +671,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
                             foreach ($foreignKey as $thisTableAttribute => $foreignTableAttribute) {
                                 // if not that table name which array index 0
                                 if ($thisTableAttribute) {
-                                    $t = $this->$thisTableAttribute;
-                                    if (!is_null($this->$thisTableAttribute)) {
+                                   if (!is_null($this->$thisTableAttribute)) {
                                         $queryParams[":$foreignTableAttribute"] = $this->$thisTableAttribute;
                                         $whereArray[$foreignTableAttribute] = "$foreignTableAttribute = :$foreignTableAttribute";
                                     }
@@ -703,6 +710,21 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
         }
 
         return parent::beforeValidate();
+    }
+    
+    /**
+     * Determine if attribute is a foreing key column
+     * @return bool true if the attribute is part of a foreign key
+     */
+    public function isForeignkey($attribute)
+    {
+        // loop thru all foreign keys using this attribute
+        foreach ($this->tableSchema->foreignKeys as $foreignKey) {
+            // if the foreign key uses this attribute
+            if (isset($foreignKey[$attribute])) {
+                return true;
+            }
+        }
     }
 
 }

@@ -45,7 +45,6 @@ class TicketToSeatToCharge extends \common\components\ActiveRecord
         return $this->hasOne(TicketToSeat::className(), ['id' => 'ticket_to_seat_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -53,7 +52,6 @@ class TicketToSeatToCharge extends \common\components\ActiveRecord
     {
         return $this->hasOne(Charge::className(), ['id' => 'charge_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

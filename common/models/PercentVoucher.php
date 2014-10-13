@@ -44,7 +44,6 @@ class PercentVoucher extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -52,7 +51,6 @@ class PercentVoucher extends \common\components\ActiveRecord
     {
         return $this->hasMany(PercentVoucherConstraint::className(), ['percent_voucher_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

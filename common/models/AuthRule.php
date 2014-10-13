@@ -31,4 +31,5 @@ class AuthRule extends \common\components\ActiveRecord
             [['name'], 'unique']
         ];
     }
+
 }

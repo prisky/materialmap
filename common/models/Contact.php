@@ -63,7 +63,6 @@ class Contact extends \common\components\ActiveRecord
         return $this->hasMany(Comment::className(), ['contact_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -71,7 +70,6 @@ class Contact extends \common\components\ActiveRecord
     {
         return $this->hasOne(TownCity::className(), ['id' => 'town_city_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -81,7 +79,6 @@ class Contact extends \common\components\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -89,7 +86,6 @@ class Contact extends \common\components\ActiveRecord
     {
         return $this->hasMany(MessageQueue::className(), ['to' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -99,7 +95,6 @@ class Contact extends \common\components\ActiveRecord
         return $this->hasMany(Payment::className(), ['contact_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -107,7 +102,6 @@ class Contact extends \common\components\ActiveRecord
     {
         return $this->hasMany(Sms::className(), ['contact_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -117,7 +111,6 @@ class Contact extends \common\components\ActiveRecord
         return $this->hasMany(Summary::className(), ['contact_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -125,7 +118,6 @@ class Contact extends \common\components\ActiveRecord
     {
         return $this->hasMany(TicketToSeatToContact::className(), ['contact_id' => 'id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery

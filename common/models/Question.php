@@ -51,7 +51,6 @@ class Question extends \common\components\ActiveRecord
         return $this->hasMany(Bid::className(), ['question_id' => 'id']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -59,7 +58,6 @@ class Question extends \common\components\ActiveRecord
     {
         return $this->hasOne(Bid::className(), ['id' => 'bid_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -69,7 +67,6 @@ class Question extends \common\components\ActiveRecord
         return $this->hasOne(QuestionThread::className(), ['id' => 'answer']);
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,7 +74,6 @@ class Question extends \common\components\ActiveRecord
     {
         return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
