@@ -16,6 +16,8 @@ use backend\components\DetailView;
 use yii\helpers\Inflector;
 
 /**
+
+Priskiy test
  * FileControllerTrait adds file upload functionality to a controller. To be used
  * in conjuction with FileActiveRecordBehavior and FileUploadUIAR
  *
