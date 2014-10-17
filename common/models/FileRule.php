@@ -32,7 +32,10 @@ class FileRule extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['column_id', 'validator', 'value'], 'unique', 'targetAttribute' => ['column_id', 'validator', 'value'], 'message' => 'The combination of ,  and  has already been taken.']
+            [['column_id', 'auth_item_name', 'column_name', 'validator'], 'required'],
+            [['column_id'], 'integer'],
+            [['auth_item_name', 'column_name', 'validator', 'key', 'value'], 'string', 'max' => 64],
+            [['column_id', 'validator', 'value'], 'unique', 'targetAttribute' => ['column_id', 'validator', 'value'], 'message' => 'The combination of Column, Validator and Value has already been taken.']
         ];
     }
 

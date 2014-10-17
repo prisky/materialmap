@@ -8,20 +8,16 @@ use backend\components\DetailView;
  * @var yii\widgets\ActiveForm $form
  */
 ?>
-
-<div id="model-tree-form">
-
+<div id="form-container">
     <?= DetailView::widget([
-		'model'=>$model,
-		'condensed'=>true,
-		'hover'=>true,
-		'mode'=>$mode,
-		'attributes'=>[
-			['attribute' => 'id', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 10]],
-			['attribute' => 'parent', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', [])],
-			['attribute' => 'child', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', [])],
-			['attribute' => 'depth', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 11]],
-		]
-	]);	?>
-
+        'model'=>$model,
+        'condensed'=>true,
+        'hover'=>true,
+        'mode'=>$mode,
+        'attributes'=>[
+            ['attribute' => 'parent', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', [])],
+            ['attribute' => 'child', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', [])],
+            ['attribute' => 'depth', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 11], 'options' => ['data-focus' => 'data-focus']],
+        ],
+    ]);?>
 </div>

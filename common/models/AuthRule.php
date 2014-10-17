@@ -28,6 +28,10 @@ class AuthRule extends \common\components\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
+            [['data'], 'string'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['name'], 'string', 'max' => 64],
             [['name'], 'unique']
         ];
     }

@@ -25,6 +25,7 @@ class Discipline extends \common\components\ActiveRecord
     public function rules()
     {
         return [
+            [['discipline'], 'string', 'max' => 255],
             [['discipline'], 'unique']
         ];
     }
