@@ -16,9 +16,9 @@ use backend\components\DetailView;
         'mode'=>$mode,
         'attributes'=>[
             ['attribute' => 'contact_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Contact', [])],
-            ['attribute' => 'auth_key', 'type' => DetailView::INPUT_TEXT, 'options' => ['maxlength' => 32]],
-            ['attribute' => 'password_hash', 'type' => DetailView::INPUT_PASSWORD],
-            ['attribute' => 'password_reset_token', 'type' => DetailView::INPUT_PASSWORD],
+            ['attribute' => 'auth_key', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 32], 'options' => ['data-focus' => 'data-focus']],
+            ['attribute' => 'password_hash', 'type' => DetailView::INPUT_PASSWORD, 'options' => ['data-focus' => 'data-focus']],
+            ['attribute' => 'password_reset_token', 'type' => DetailView::INPUT_PASSWORD, 'options' => ['data-focus' => 'data-focus']],
         ],
     ]);?>
 </div>

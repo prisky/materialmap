@@ -10,8 +10,8 @@ use common\models\Contact;
  */
 class ContactSearch extends Contact
 {
-    public $from_verified;
-    public $to_verified;
+    public $from_town_city_id;
+    public $to_town_city_id;
 
     public function scenarios()
     {
@@ -29,12 +29,11 @@ class ContactSearch extends Contact
         $query->andFilterGoogleStyle('last_name', $this->last_name);
         $query->andFilterGoogleStyle('email', $this->email);
         $query->andFilterGoogleStyle('phone_mobile', $this->phone_mobile);
-        $query->andFilterWhere(['town_city_id' => $this->town_city_id]);
+        if(!is_null($this->from_town_city_id) && $this->from_town_city_id != '') $query->andWhere('`town_city_id` >= :from_town_city_id', [':from_town_city_id' => $this->from_town_city_id]);
+        if(!is_null($this->to_town_city_id) && $this->to_town_city_id != '') $query->andWhere('`town_city_id` <= :to_town_city_id', [':to_town_city_id' => $this->to_town_city_id]);
         $query->andFilterGoogleStyle('post_code', $this->post_code);
         $query->andFilterGoogleStyle('address_line1', $this->address_line1);
         $query->andFilterGoogleStyle('address_line2', $this->address_line2);
-        if(!is_null($this->from_verified) && $this->from_verified != '') $query->andWhere('`verified` >= :from_verified', [':from_verified' => $this->from_verified]);
-        if(!is_null($this->to_verified) && $this->to_verified != '') $query->andWhere('`verified` <= :to_verified', [':to_verified' => $this->to_verified]);
 
         return $dataProvider;
     }

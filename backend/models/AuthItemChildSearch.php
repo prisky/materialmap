@@ -23,7 +23,6 @@ class AuthItemChildSearch extends AuthItemChild
 
         $dataProvider = new ActiveDataProvider(['query' => $query,]);
 
-        $query->andFilterWhere(['account_id' => $this->account_id]);
 
         return $dataProvider;
     }

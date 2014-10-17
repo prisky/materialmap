@@ -332,7 +332,7 @@ class Generator extends \yii\gii\generators\crud\Generator
         foreach ($table->columns as $column) {
             $labels[$column->name] = Yii::$app->db->createCommand("
                 SELECT tbl_column.label FROM tbl_column JOIN tbl_model ON tbl_column.model_id = tbl_model.id
-                WHERE tbl_model.auth_item_name = REPLACE(bookaspot.ucwords(REPLACE(REPLACE(LOWER(:table), 'tbl_', ''), '_', ' ')), ' ', '')
+                WHERE tbl_model.auth_item_name = REPLACE(materialmap.ucwords(REPLACE(REPLACE(LOWER(:table), 'tbl_', ''), '_', ' ')), ' ', '')
                 AND tbl_column.name = :column_name", [
                     ':table' => $table->name,
                     ':column_name' => $column->name,
@@ -813,11 +813,11 @@ class Generator extends \yii\gii\generators\crud\Generator
             $column = $tableSchema->columns[$attribute];
 
             if (preg_match('/(password|pass|passwd|passcode)/i', $column->name)) {
-                $inputType = 'DetailView::INPUT_PASSWORD';
+                $inputType = "DetailView::INPUT_PASSWORD, 'options' => ['data-focus' => 'data-focus']";
             } elseif ($column->type == 'decimal' && preg_match('/(amount|charge|balance)/i', $column->name)) {
-                $inputType = 'DetailView::INPUT_MONEY';
+                $inputType = "DetailView::INPUT_MONEY, 'options' => ['data-focus' => 'data-focus']";
             } elseif ($column->type == 'decimal' && preg_match('/(rate)$/i', $column->name)) {
-                $inputType = 'DetailView::INPUT_SPIN';
+                $inputType = "DetailView::INPUT_SPIN, 'options' => ['data-focus' => 'data-focus']";
             } elseif (is_array($column->enumValues) && count($column->enumValues) > 0) {
                 $dropDownOptions = [];
                 foreach ($column->enumValues as $enumValue) {
@@ -872,13 +872,15 @@ class Generator extends \yii\gii\generators\crud\Generator
                             } else if (substr($attribute, -strlen('_html_basic')) === '_html_basic') {
                                 $inputType = "DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'common\components\HtmlEditorBasic'],";
                             } else {
-                                $inputType = 'DetailView::INPUT_TEXTAREA';
+                                $inputType = "DetailView::INPUT_TEXTAREA, 'options' => ['data-focus' => 'data-focus']";
                             }
                             break;
                         default :
                             $inputType = "DetailView::INPUT_TEXT";
                             if ($column->size) {
-                                $inputType .= ", 'options' => ['maxlength' => {$column->size}]";
+                                $inputType .= ", 'options' => ['data-focus' => 'data-focus', 'maxlength' => {$column->size}]";
+                            } {
+                               $inputType .= ", 'options' => ['data-focus' => 'data-focus']";
                             }
                     }
                 }

@@ -21,136 +21,36 @@ class BuildModelTreeController extends Controller
 	 * @var array 
 	 */
 	private $items = [
-		'Account' => [
-			'AccountToAffiliateCategory',
-			'AccountToMessage',
-			'AccountToMessageToUser',
-			'AccountToPaymentGateway',
-			'AccountToUser',
-			'Agency',
-			'AuthAssignment',
-			'AuthItem' => [
-				'AuthItemChild',
-			],
-			'CancellationPolicy',
-            'CustomField',
-			'Event' => [
-				'Booking' => [
-					'BookingToCharge',
-					'BookingToCustomField',
-					'BookingToItem',
-					'Ticket' => [
-						'TicketToCharge',
-						'TicketToCustomField',
-						'TicketToItem',
-						'TicketToSeat',
-						'TicketToSeatToCharge',
-						'TicketToSeatToContact',
-						'TicketToSeatToContactToSms',
-						'TicketToSeatToCustomField',
-						'TicketToSeatToItem',
-					],
-				],
-				'Comment',
-			],
-			'EventType' => [
-				'EventTypeToFieldSet',
-				'EventTypeToResourceType',
-				'EventTypeToTicketType',
-			],
-			'FieldSet' => [
-				'FieldSetToCustomField',
-				'FieldSetToItemGroup',
-				'FieldSetTree',
-			],
-			'Invoice',
-			'ItemGroup' => [
-				'Item' => [
-					'ItemInventory',
-				],
-			],
-			'Charge' => [
-				'AnnualCharge',
-			],
-			'Contact',
-			'Newsletter',
-			'Summary' => [
-				'Payment',
-				'SummaryToAccountToUser',
-				'SummaryToCharge',
-				'SummaryToCustomField',
-				'SummaryToItem',
-				'SummaryToPercentPromotion',
-				'SummaryToPercentVoucher',
-				'SummaryToPromotion',
-				'SummaryToVoucher',
-			],
-			'PercentPromotion' => [
-				'PercentPromotionConstraint',
-			],
-			'PercentVoucher' => [
-				'PercentVoucherConstraint',
-			],
-			'Promotion' => [
-				'PromotionConstraint',
-			],
-			'Question' => [
-                'Bid',
-				'QuestionThread',
-			],
-			'Referral',
-			'Reminder',
-			'ResourceType' => [
-				'Resource',
-				'ResourceTypeToMessage' => [
-					'ResourceTypeToMessageToUser',
-				],
-			],
-			'SeatType' => [
-				'Seat' => [
-					'SeatToTicketType',
-				],
-			],
-			'SmsThread' => [
-				'Sms' => [
-					'SmsToCharge',
-				],
-			],
-			'StandardSetup',
-			'Survey' => [
-				'SurveyResultToBooking',
-				'SurveyResultToSummary',
-				'SurveyResultToTicket',
-				'SurveyResultToTicketToSeat',
-				'SurveyToFieldSet',
-				'SurveyToResourceType',
-			],
-			'TicketType',
-			'User',
-			'Voucher' => [
-				'VoucherConstraint',
-			],
-		],
-		'AffiliateCategory',
-		'Channel',
-		'Country' => [
-            'StateProvinceRegion' => [
-                'TownCity',
-            ],
+        'AuthAssignment',
+        'AuthItem' => [
+            'AuthItemChild',
         ],
-		'Message' => [
-			'MessageToMessageField',
-		],
-		'MessageField',
+        'Contact',
+        'User',
 		'Model' => [
 			'Column',
 		],
-		'PaymentGateway',
-		'PaypalCategory' => [
-            'PaypalSubCategory',
+        'MapType' => [
+            'MapSetting',
         ],
-		'Reseller' => [
-            'Coupon',
+        'Manufacturer' => [
+            'RfidModel' => [
+                'RfidTag' => [
+                    'Marker' => [
+                        'Track'
+                    ],
+                ]
+            ],
+            'ReaderModel' => [
+                'Reader'
+            ],
+        ],
+        'SiteLocation',
+        'PurchaseOrder',
+        'Bom',
+        'CommodityCode',
+        'DocumentType' => [
+            'Document'
         ],
 	];
 

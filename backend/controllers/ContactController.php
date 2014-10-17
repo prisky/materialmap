@@ -18,7 +18,7 @@ class ContactController extends \backend\components\Controller
      * @inheritdoc
      */
     public $excelFormats = [
-        "verified" => "hh:mm AM/PM on mmmm d, yy"
+        "town_city_id" => "#"
     ];
 
     /**
@@ -40,12 +40,12 @@ class ContactController extends \backend\components\Controller
             ],
             [
                 "attribute" => "town_city_id",
-                "filterType" => "\\kartik\\widgets\\Select2",
-                "filterWidgetOptions" => Controller::fKWidgetOptions('TownCity', []),
-                "value" => function($model, $key, $index, $widget) {
-                                return \backend\components\GridView::foreignKeyValue($model, $key, $index, $widget, "townCity");
-                            },
-                "format" => "raw"
+                "filterType" => "backend\\components\\FieldRange",
+                "filterWidgetOptions" => [
+                    "separator" => NULL,
+                    "attribute1" => "from_town_city_id",
+                    "attribute2" => "to_town_city_id"
+                ]
             ],
             [
                 "attribute" => "post_code"
@@ -55,28 +55,6 @@ class ContactController extends \backend\components\Controller
             ],
             [
                 "attribute" => "address_line2"
-            ],
-            [
-                "attribute" => "verified",
-                "filterType" => "backend\\components\\FieldRange",
-                "filterWidgetOptions" => [
-                    "separator" => NULL,
-                    "attribute1" => "from_verified",
-                    "attribute2" => "to_verified",
-                    "type" => "\\kartik\\widgets\\DateTimePicker",
-                    "widgetOptions1" => [
-                        "type" => 1,
-                        "pluginOptions" => [
-                            "autoclose" => TRUE
-                        ]
-                    ],
-                    "widgetOptions2" => [
-                        "type" => 1,
-                        "pluginOptions" => [
-                            "autoclose" => TRUE
-                        ]
-                    ]
-                ]
             ]
         ];
     }

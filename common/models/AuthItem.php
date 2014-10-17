@@ -11,11 +11,8 @@ namespace common\models;
  * @property string $data
  * @property string $rule_name
  * @property string $description
- * @property integer $account_id
  * @property string $created_at
  * @property string $updated_at
- *
- * @property Account $account
  */
 class AuthItem extends \common\components\ActiveRecord
 {
@@ -35,20 +32,12 @@ class AuthItem extends \common\components\ActiveRecord
     {
         return [
             [['name', 'type'], 'required'],
-            [['type', 'account_id'], 'integer'],
+            [['type'], 'integer'],
             [['data', 'description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'rule_name'], 'string', 'max' => 64],
             [['name'], 'unique']
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount()
-    {
-        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 
 }

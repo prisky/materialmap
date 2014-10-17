@@ -15,7 +15,8 @@ use backend\components\DetailView;
         'hover'=>true,
         'mode'=>$mode,
         'attributes'=>[
-            ['attribute' => 'account_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Account', [])],
+            ['attribute' => 'id', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 10], 'options' => ['data-focus' => 'data-focus']],
+            ['attribute' => 'child', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 64], 'options' => ['data-focus' => 'data-focus']],
         ],
     ]);?>
 </div>

@@ -43,7 +43,7 @@ trait ClosureTableActiveRecordTrait
      */
     public function isLeaf()
     {
-        return (boolean) static::find()->childrenOf($this->id);
+        return (boolean) !static::find()->childrenOf($this->id)->one();
     }
 
     /**

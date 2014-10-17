@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "149ecc5501ccb670f25fa3f14baf2bb1",
+    "hash": "ab576076b2099b5e391faad9ab3cc8d2",
     "packages": [
         {
             "name": "2amigos/yii2-file-upload-widget",
@@ -58,6 +58,56 @@
                 "source": "https://github.com/andrewblake1/yii2-file-upload-widget/tree/master"
             },
             "time": "2014-10-12 22:48:44"
+        },
+        {
+            "name": "2amigos/yii2-google-maps-library",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-google-maps-library.git",
+                "reference": "2ffb9fe30ce639c088654a1a1f4feb7b61fa55f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-google-maps-library/zipball/2ffb9fe30ce639c088654a1a1f4feb7b61fa55f0",
+                "reference": "2ffb9fe30ce639c088654a1a1f4feb7b61fa55f0",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "4.*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii-extension",
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\google\\maps\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "ramirez.cobos@gmail.com",
+                    "homepage": "http://www.ramirezcobos.com"
+                },
+                {
+                    "name": "2amigOS! Consulting LLC",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us"
+                }
+            ],
+            "description": "Google Maps API library for Yii2.",
+            "keywords": [
+                "extension",
+                "google",
+                "library",
+                "maps",
+                "yii"
+            ],
+            "time": "2014-09-25 20:14:39"
         },
         {
             "name": "2amigos/yii2-resource-manager-component",
@@ -346,13 +396,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/marijnh/CodeMirror.git",
-                "reference": "ed21e488b95fbbca656ae77410c1ce0b6f3eea31"
+                "url": "https://github.com/codemirror/CodeMirror.git",
+                "reference": "137737779912ef2cb67416e5e91852753acfe6ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marijnh/CodeMirror/zipball/ed21e488b95fbbca656ae77410c1ce0b6f3eea31",
-                "reference": "ed21e488b95fbbca656ae77410c1ce0b6f3eea31",
+                "url": "https://api.github.com/repos/codemirror/CodeMirror/zipball/137737779912ef2cb67416e5e91852753acfe6ae",
+                "reference": "137737779912ef2cb67416e5e91852753acfe6ae",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -373,7 +423,7 @@
                     "package.json"
                 ]
             },
-            "time": "2014-09-21 20:55:56"
+            "time": "2014-10-15 02:53:18"
         },
         {
             "name": "bower-asset/fontawesome",
@@ -462,12 +512,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/jQuery-File-Upload.git",
-                "reference": "547b90532cb744db956b7b88802aefd1224ff909"
+                "reference": "1f0eb91e889c264fb92597fd08c217614f3a65d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/547b90532cb744db956b7b88802aefd1224ff909",
-                "reference": "547b90532cb744db956b7b88802aefd1224ff909",
+                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/1f0eb91e889c264fb92597fd08c217614f3a65d2",
+                "reference": "1f0eb91e889c264fb92597fd08c217614f3a65d2",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +581,7 @@
                 "upload",
                 "widget"
             ],
-            "time": "2014-09-18 10:41:04"
+            "time": "2014-10-13 19:32:43"
         },
         {
             "name": "bower-asset/jquery-ui",
@@ -560,16 +610,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.31",
+            "version": "3.1.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "2b485a3f9329c829b40872e4463c42143b0c6405"
+                "reference": "bb776eb7e7be594fa77d5598e6f89d96029a8bac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/2b485a3f9329c829b40872e4463c42143b0c6405",
-                "reference": "2b485a3f9329c829b40872e4463c42143b0c6405",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/bb776eb7e7be594fa77d5598e6f89d96029a8bac",
+                "reference": "bb776eb7e7be594fa77d5598e6f89d96029a8bac",
                 "shasum": ""
             },
             "require": {
@@ -644,12 +694,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/HackerWins/summernote.git",
-                "reference": "f5a80df8ec9f068fe448e9284fc34bcb5f2cdf5a"
+                "reference": "29a6f4f83735e259a915f431a607c485a479c220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/HackerWins/summernote/zipball/f5a80df8ec9f068fe448e9284fc34bcb5f2cdf5a",
-                "reference": "f5a80df8ec9f068fe448e9284fc34bcb5f2cdf5a",
+                "url": "https://api.github.com/repos/HackerWins/summernote/zipball/29a6f4f83735e259a915f431a607c485a479c220",
+                "reference": "29a6f4f83735e259a915f431a607c485a479c220",
                 "shasum": ""
             },
             "require": {
@@ -671,7 +721,7 @@
                     "tests"
                 ]
             },
-            "time": "2014-09-21 04:40:54"
+            "time": "2014-10-11 01:19:26"
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -1047,6 +1097,124 @@
             "time": "2014-01-28 22:29:15"
         },
         {
+            "name": "guzzlehttp/guzzle",
+            "version": "4.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "66fd916e9f9130bc22c51450476823391cb2f67c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/66fd916e9f9130bc22c51450476823391cb2f67c",
+                "reference": "66fd916e9f9130bc22c51450476823391cb2f67c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/streams": "~2.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0",
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-10-05 19:29:14"
+        },
+        {
+            "name": "guzzlehttp/streams",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/streams.git",
+                "reference": "f91b721d73f0e561410903b3b3c90a5d0e40b534"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/f91b721d73f0e561410903b3b3c90a5d0e40b534",
+                "reference": "f91b721d73f0e561410903b3b3c90a5d0e40b534",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple abstraction over streams of data (Guzzle 4+)",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2014-08-17 21:15:53"
+        },
+        {
             "name": "imagine/imagine",
             "version": "0.5.x-dev",
             "source": {
@@ -1153,12 +1321,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "f88e690a0b99d95ada629933bcc715e117cd7b2b"
+                "reference": "7a9161d1cb0db5cd25a63fd18ae5ef1397356e79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/f88e690a0b99d95ada629933bcc715e117cd7b2b",
-                "reference": "f88e690a0b99d95ada629933bcc715e117cd7b2b",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/7a9161d1cb0db5cd25a63fd18ae5ef1397356e79",
+                "reference": "7a9161d1cb0db5cd25a63fd18ae5ef1397356e79",
                 "shasum": ""
             },
             "type": "library",
@@ -1190,7 +1358,7 @@
                 "preview",
                 "upload"
             ],
-            "time": "2014-10-10 10:07:11"
+            "time": "2014-10-13 18:52:56"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -1242,12 +1410,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "5f9dedc14fbf13477ea72322b7b608676b046cbc"
+                "reference": "7bcec99706ca05239319ea0f9a0fd77fcf960f58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/5f9dedc14fbf13477ea72322b7b608676b046cbc",
-                "reference": "5f9dedc14fbf13477ea72322b7b608676b046cbc",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/7bcec99706ca05239319ea0f9a0fd77fcf960f58",
+                "reference": "7bcec99706ca05239319ea0f9a0fd77fcf960f58",
                 "shasum": ""
             },
             "type": "library",
@@ -1275,7 +1443,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2014-10-05 14:55:58"
+            "time": "2014-10-13 16:16:29"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -1857,12 +2025,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "9456c1c158faa84b50a656787e782d7c6288a32d"
+                "reference": "c5438db49f02f29328f5e8fafcab857f19acf2fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/9456c1c158faa84b50a656787e782d7c6288a32d",
-                "reference": "9456c1c158faa84b50a656787e782d7c6288a32d",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/c5438db49f02f29328f5e8fafcab857f19acf2fe",
+                "reference": "c5438db49f02f29328f5e8fafcab857f19acf2fe",
                 "shasum": ""
             },
             "require": {
@@ -1896,7 +2064,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-10-11 19:34:42"
+            "time": "2014-10-14 08:00:14"
         },
         {
             "name": "mikevanriel/text-to-latex",
@@ -2301,12 +2469,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7fab725c4c05bbc2b6fa6fcbe7f9c8cfab4f8f01"
+                "reference": "4b46a68dfbddcba32b94c49821e505aa3e1ef1c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7fab725c4c05bbc2b6fa6fcbe7f9c8cfab4f8f01",
-                "reference": "7fab725c4c05bbc2b6fa6fcbe7f9c8cfab4f8f01",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4b46a68dfbddcba32b94c49821e505aa3e1ef1c9",
+                "reference": "4b46a68dfbddcba32b94c49821e505aa3e1ef1c9",
                 "shasum": ""
             },
             "require": {
@@ -2381,7 +2549,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-10-12 22:13:22"
+            "time": "2014-10-14 13:36:43"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -2451,12 +2619,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "b1a65a1aa265be15fbb79f99ce11c77c37d4f5ca"
+                "reference": "0dfd8e9dc6fc102b25a2b8ca2551f16c53739d89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/b1a65a1aa265be15fbb79f99ce11c77c37d4f5ca",
-                "reference": "b1a65a1aa265be15fbb79f99ce11c77c37d4f5ca",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/0dfd8e9dc6fc102b25a2b8ca2551f16c53739d89",
+                "reference": "0dfd8e9dc6fc102b25a2b8ca2551f16c53739d89",
                 "shasum": ""
             },
             "require": {
@@ -2489,7 +2657,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2014-10-12 20:44:45"
+            "time": "2014-10-13 21:52:05"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -2741,16 +2909,16 @@
     "packages-dev": [
         {
             "name": "bower-asset/typeahead.js",
-            "version": "dev-master",
+            "version": "v0.10.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twitter/typeahead.js.git",
-                "reference": "0fd2467baa3e0593b91794b485be0bd725b7d2cb"
+                "reference": "5f198b87d1af845da502ea9df93a5e84801ce742"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/0fd2467baa3e0593b91794b485be0bd725b7d2cb",
-                "reference": "0fd2467baa3e0593b91794b485be0bd725b7d2cb",
+                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/5f198b87d1af845da502ea9df93a5e84801ce742",
+                "reference": "5f198b87d1af845da502ea9df93a5e84801ce742",
                 "shasum": ""
             },
             "require": {
@@ -2764,8 +2932,7 @@
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": "dist/typeahead.bundle.js"
-            },
-            "time": "2014-10-01 14:38:12"
+            }
         },
         {
             "name": "codeception/codeception",
@@ -2854,20 +3021,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Specify.git",
-                "reference": "0cabe95241bec511917e9804b211a3a91645d026"
+                "reference": "a407bb43588f65879786e27139311a3992ff8e72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/0cabe95241bec511917e9804b211a3a91645d026",
-                "reference": "0cabe95241bec511917e9804b211a3a91645d026",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/a407bb43588f65879786e27139311a3992ff8e72",
+                "reference": "a407bb43588f65879786e27139311a3992ff8e72",
                 "shasum": ""
             },
             "require": {
-                "myclabs/deep-copy": "*",
+                "myclabs/deep-copy": "~1.1",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "autoload": {
@@ -2879,12 +3046,11 @@
             "authors": [
                 {
                     "name": "Michael Bodnarchuk",
-                    "email": "davert.php@mailican.com",
-                    "homepage": "http://codeception.com"
+                    "email": "davert.php@mailican.com"
                 }
             ],
             "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2014-03-22 00:46:25"
+            "time": "2014-10-13 20:55:34"
         },
         {
             "name": "codeception/verify",
@@ -2926,16 +3092,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "4bdc0421209a00e6f425f4c3554d1b0df3a7e897"
+                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/4bdc0421209a00e6f425f4c3554d1b0df3a7e897",
-                "reference": "4bdc0421209a00e6f425f4c3554d1b0df3a7e897",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
+                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
                 "shasum": ""
             },
             "require": {
-                "php": "~5.3"
+                "php": ">=5.3,<8.0-DEV"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
@@ -2972,7 +3138,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-05 00:20:37"
+            "time": "2014-10-13 12:58:55"
         },
         {
             "name": "facebook/webdriver",
@@ -3020,12 +3186,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "1ce76e851997c7ac51d7f76e5b4cd01ae50e607f"
+                "reference": "b6d383161d84092a7a9f5b14db6e2637edbd3a6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/1ce76e851997c7ac51d7f76e5b4cd01ae50e607f",
-                "reference": "1ce76e851997c7ac51d7f76e5b4cd01ae50e607f",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/b6d383161d84092a7a9f5b14db6e2637edbd3a6e",
+                "reference": "b6d383161d84092a7a9f5b14db6e2637edbd3a6e",
                 "shasum": ""
             },
             "require": {
@@ -3062,135 +3228,20 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-10-01 07:35:35"
-        },
-        {
-            "name": "guzzlehttp/guzzle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "cfdb1169e4eefd6513e577c2fa8b4cc02d8de8a8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/cfdb1169e4eefd6513e577c2fa8b4cc02d8de8a8",
-                "reference": "cfdb1169e4eefd6513e577c2fa8b4cc02d8de8a8",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "guzzlehttp/streams": "~2.1",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "ext-curl": "*",
-                "phpunit/phpunit": "~4.0",
-                "psr/log": "~1.0"
-            },
-            "suggest": {
-                "ext-curl": "Guzzle will use specific adapters if cURL is present"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http client",
-                "rest",
-                "web service"
-            ],
-            "time": "2014-10-11 17:32:43"
-        },
-        {
-            "name": "guzzlehttp/streams",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/streams.git",
-                "reference": "48be63a56ea8a98ec620eb59ef76bcab77feba55"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/48be63a56ea8a98ec620eb59ef76bcab77feba55",
-                "reference": "48be63a56ea8a98ec620eb59ef76bcab77feba55",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Stream\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Provides a simple abstraction over streams of data",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "Guzzle",
-                "stream"
-            ],
-            "time": "2014-10-12 19:45:36"
+            "time": "2014-10-14 14:30:56"
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "dev-master",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "a7f8ab87fed4efe80e576387cd34d40e93169ce5"
+                "reference": "f0cb3bd7eddef40adcc1a1aaeaf569ceb3164532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a7f8ab87fed4efe80e576387cd34d40e93169ce5",
-                "reference": "a7f8ab87fed4efe80e576387cd34d40e93169ce5",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/f0cb3bd7eddef40adcc1a1aaeaf569ceb3164532",
+                "reference": "f0cb3bd7eddef40adcc1a1aaeaf569ceb3164532",
                 "shasum": ""
             },
             "require": {
@@ -3219,7 +3270,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2014-08-29 00:03:42"
+            "time": "2014-08-29 00:01:20"
         },
         {
             "name": "phpspec/php-diff",
@@ -4304,12 +4355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "038e16408c199ca9e37b51af66cffbbe382ee7f7"
+                "reference": "5c2ef58d2b6855a674c0bd16701cd49c90cb965d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/038e16408c199ca9e37b51af66cffbbe382ee7f7",
-                "reference": "038e16408c199ca9e37b51af66cffbbe382ee7f7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5c2ef58d2b6855a674c0bd16701cd49c90cb965d",
+                "reference": "5c2ef58d2b6855a674c0bd16701cd49c90cb965d",
                 "shasum": ""
             },
             "require": {
@@ -4343,7 +4394,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2014-10-12 20:44:45"
+            "time": "2014-10-13 21:58:38"
         },
         {
             "name": "yiisoft/yii2-faker",

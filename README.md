@@ -6,4 +6,4 @@ user.php
 
 To recreate a list of models
 1./ run the script after re-creating the database in order to make ucwords function available
-2./ SELECT REPLACE(bookaspot.UCWORDS(REPLACE(table_name, 'tbl_', '')), '_', '') FROM information_schema.tables WHERE `TABLE_SCHEMA` = 'bookaspot';
+2./ SELECT REPLACE(materialmap.UCWORDS(REPLACE(table_name, 'tbl_', '')), '_', '') FROM information_schema.tables WHERE `TABLE_SCHEMA` = 'materialmap';

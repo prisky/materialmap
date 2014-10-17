@@ -18,6 +18,7 @@ class DetailView extends \kartik\detail\DetailView
         'class' => "overflow-hidden",
     ];
     public $button;
+    public $fadeDelay = 0;
 
     /**
      * @inheritdoc
@@ -42,15 +43,13 @@ class DetailView extends \kartik\detail\DetailView
         $this->formOptions['options']['enctype'] = 'multipart/form-data';
 
         parent::init();
-
-
-
-// TODO: is this needed now?
-//        // place hidden field to parent if not root
-//        foreach($parentParam as $parentAttribute => $value) {
-//            $this->model->$parentAttribute = $value;
-//            echo Html::activeHiddenInput($this->model, $parentAttribute);
-//        }
+        
+        // place hidden field to parent if not root
+        foreach(Yii::$app->controller->parentParam as $parentAttribute => $value) {
+            $this->model->$parentAttribute = $value;
+            echo Html::activeHiddenInput($this->model, $parentAttribute);
+        }
+        
     }
 
     /**
@@ -78,7 +77,6 @@ class DetailView extends \kartik\detail\DetailView
         \yii\widgets\ActiveForm::end();
 
         $js = <<<JS
-// get the form id and set the event
 $('form#{$this->formOptions['id']}').on('beforeSubmit', function(e) {
     var form = $(this);
     $.post(
@@ -87,6 +85,8 @@ $('form#{$this->formOptions['id']}').on('beforeSubmit', function(e) {
     )
     .done(function(result) {
         form.parent().html(result);
+ console.log(2);
+       $('input:not([class=\"hasDatepicker\"]):visible:enabled:first, textarea:first', this).first().focus();
     })
     .fail(function() {
         console.log("server error");
