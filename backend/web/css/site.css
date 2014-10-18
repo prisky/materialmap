@@ -274,3 +274,13 @@ a.desc:after {
 .overflow-hidden {
     overflow:hidden;
 }
+/* haydens shit */
+body {
+    font: normal 10pt Helvetica, Arial;
+}
+#map {
+    width: 850px;
+    height: 600px;
+    border: 0px;
+    padding: 0px;
+}

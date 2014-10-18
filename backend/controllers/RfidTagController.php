@@ -38,8 +38,37 @@ class RfidTagController extends \backend\components\Controller
             ],
             [
                 "attribute" => "commodity_code"
+            ],
+            [
+                "attribute" => "latitude"
+            ],
+            [
+                "attribute" => "longitude"
             ]
         ];
+    }
+    
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // redirect back to parent admin view
+            $params[] = 'index';
+            $fullModelName = $this->modelName;
+            if ($parentAttribute = $fullModelName::parentAttribute()) {
+                $params[$parentAttribute] = $model->$parentAttribute;
+            }
+            $this->redirect($params);
+        }
+
+        return $this->render('//' . $this->id . '/_form', [
+            'model' => $model,
+            'mode' => \backend\components\DetailView::MODE_EDIT,
+            'name' => ($model->commodity_code || $model->name_plate),
+            'lat' => $model->latitude,
+            'long' => $model->longitude,
+        ]);
     }
 
 }

@@ -6,12 +6,12 @@ namespace common\models;
  * This is the model class for table "tbl_track".
  *
  * @property integer $id
- * @property integer $marker_id
+ * @property integer $rfid_tag_id
  * @property string $longitude
  * @property string $latitude
  * @property string $created
  *
- * @property Marker $marker
+ * @property RfidTag $rfidTag
  */
 class Track extends \common\components\ActiveRecord
 {
@@ -30,8 +30,8 @@ class Track extends \common\components\ActiveRecord
     public function rules()
     {
         return [
-            [['marker_id'], 'required'],
-            [['marker_id'], 'integer'],
+            [['rfid_tag_id'], 'required'],
+            [['rfid_tag_id'], 'integer'],
             [['longitude', 'latitude'], 'string', 'max' => 255]
         ];
     }
@@ -39,9 +39,9 @@ class Track extends \common\components\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMarker()
+    public function getRfidTag()
     {
-        return $this->hasOne(Marker::className(), ['id' => 'marker_id']);
+        return $this->hasOne(RfidTag::className(), ['id' => 'rfid_tag_id']);
     }
 
 }

@@ -233,7 +233,7 @@ abstract class Controller extends \common\components\Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // redirect back to parent admin view
-            $params[] = 'index';
+            $params[] = 'index'; 
             $fullModelName = $this->modelName;
             if ($parentAttribute = $fullModelName::parentAttribute()) {
                 $params[$parentAttribute] = $model->$parentAttribute;

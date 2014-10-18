@@ -8,12 +8,14 @@ namespace common\models;
  * @property integer $id
  * @property integer $rfid_model_id
  * @property string $activation
- * @property integer $deleted
  * @property string $name_plate
  * @property string $commodity_code
+ * @property string $latitude
+ * @property string $longitude
+ * @property integer $deleted
  *
- * @property Marker[] $markers
  * @property RfidModel $rfidModel
+ * @property Track[] $tracks
  */
 class RfidTag extends \common\components\ActiveRecord
 {
@@ -35,16 +37,8 @@ class RfidTag extends \common\components\ActiveRecord
             [['rfid_model_id', 'activation'], 'required'],
             [['rfid_model_id'], 'integer'],
             [['activation'], 'string'],
-            [['name_plate', 'commodity_code'], 'string', 'max' => 255]
+            [['name_plate', 'commodity_code', 'latitude', 'longitude'], 'string', 'max' => 255]
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMarkers()
-    {
-        return $this->hasMany(Marker::className(), ['rfid_tag_id' => 'id']);
     }
 
     /**
@@ -53,6 +47,14 @@ class RfidTag extends \common\components\ActiveRecord
     public function getRfidModel()
     {
         return $this->hasOne(RfidModel::className(), ['id' => 'rfid_model_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTracks()
+    {
+        return $this->hasMany(Track::className(), ['rfid_tag_id' => 'id']);
     }
 
 }

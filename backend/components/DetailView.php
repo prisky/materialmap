@@ -27,29 +27,30 @@ class DetailView extends \kartik\detail\DetailView
     {
         if ($this->mode == static::MODE_EDIT) {
             $this->button = $this->button ? $this->button : Html::submitButton('Save', [
-                    'id' => 'activFormSave',
-                    'class' => 'btn btn-primary start',
+                'id' => 'activFormSave',
+                'class' => 'btn btn-primary start',
             ]);
         } else {
             $this->button = '';
         }
 
         $this->formOptions['action'] = Url::to([
-                $this->model->id ? 'update' : 'create',
-                'id' => $this->model->id,
-                Yii::$app->controller->parentParam
+            $this->model->id ? 'update' : 'create',
+            'id' => $this->model->id,
+            Yii::$app->controller->parentParam
         ]);
         $this->formOptions['id'] = $this->model->formName() . '-form';
         $this->formOptions['options']['enctype'] = 'multipart/form-data';
 
         parent::init();
-        
-        // place hidden field to parent if not root
-        foreach(Yii::$app->controller->parentParam as $parentAttribute => $value) {
-            $this->model->$parentAttribute = $value;
-            echo Html::activeHiddenInput($this->model, $parentAttribute);
+
+        // place hidden field to parent if not root - if creating
+        if(!$this->model->id) {
+            foreach (Yii::$app->controller->parentParam as $parentAttribute => $value) {
+                $this->model->$parentAttribute = $value;
+                echo Html::activeHiddenInput($this->model, $parentAttribute);
+            }
         }
-        
     }
 
     /**
@@ -85,8 +86,6 @@ $('form#{$this->formOptions['id']}').on('beforeSubmit', function(e) {
     )
     .done(function(result) {
         form.parent().html(result);
- console.log(2);
-       $('input:not([class=\"hasDatepicker\"]):visible:enabled:first, textarea:first', this).first().focus();
     })
     .fail(function() {
         console.log("server error");

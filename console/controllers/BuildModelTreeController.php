@@ -36,9 +36,7 @@ class BuildModelTreeController extends Controller
         'Manufacturer' => [
             'RfidModel' => [
                 'RfidTag' => [
-                    'Marker' => [
-                        'Track'
-                    ],
+                    'Track'
                 ]
             ],
             'ReaderModel' => [

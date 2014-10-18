@@ -26,6 +26,8 @@ class RfidTagSearch extends RfidTag
         $query->andFilterWhere(['activation' => $this->activation]);
         $query->andFilterGoogleStyle('name_plate', $this->name_plate);
         $query->andFilterGoogleStyle('commodity_code', $this->commodity_code);
+        $query->andFilterGoogleStyle('latitude', $this->latitude);
+        $query->andFilterGoogleStyle('longitude', $this->longitude);
 
         return $dataProvider;
     }
