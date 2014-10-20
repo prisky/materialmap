@@ -22,14 +22,14 @@ class DisciplineQuery extends \common\components\ActiveQuery
         if(is_string($q)) {
             foreach(explode(' ', $q) as $like) {
                 // $this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-                $this->andWhere("CONCAT_WS(' ', discipline) LIKE :like", [':like' => "%$like%"]);
+                $this->andWhere("CONCAT_WS(' ', `discipline`) LIKE :like", [':like' => "%$like%"]);
             }
         }
 
         return parent::display($q, $page)
             // ->joinWith('contact')
             // ->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-            ->select(["tbl_discipline.id id", "CONCAT_WS(' ', discipline) text"]);
+            ->select(["tbl_discipline.id id", "CONCAT_WS(' ', `discipline`) text"]);
     }
 
 }

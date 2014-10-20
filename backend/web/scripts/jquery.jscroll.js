@@ -4,7 +4,7 @@
  *
  * Copyright 2011-2013, Philip Klauzinski
  * http://klauzinski.com/
- * Dual licensed under the MIT and GPL Version 2 licenses.
+ * Dual licensed under the MIT and GPL Versio n 2 licenses.
  * http://jscroll.com/#license
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html

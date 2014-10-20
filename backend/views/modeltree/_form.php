@@ -17,7 +17,7 @@ use backend\components\DetailView;
         'attributes'=>[
             ['attribute' => 'parent', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', [])],
             ['attribute' => 'child', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('Model', [])],
-            ['attribute' => 'depth', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 11], 'options' => ['data-focus' => 'data-focus']],
+            ['attribute' => 'depth', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 11]],
         ],
     ]);?>
 </div>

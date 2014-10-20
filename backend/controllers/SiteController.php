@@ -23,7 +23,7 @@ class SiteController extends \backend\components\Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'search'],
                         'allow' => true,
                     ],
                     [

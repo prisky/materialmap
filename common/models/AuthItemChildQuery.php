@@ -22,14 +22,14 @@ class AuthItemChildQuery extends \common\components\ActiveQuery
         if(is_string($q)) {
             foreach(explode(' ', $q) as $like) {
                 // $this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-                $this->andWhere("CONCAT_WS(' ', parent, child) LIKE :like", [':like' => "%$like%"]);
+                $this->andWhere("CONCAT_WS(' ', `parent`, `child`) LIKE :like", [':like' => "%$like%"]);
             }
         }
 
         return parent::display($q, $page)
             // ->joinWith('contact')
             // ->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-            ->select(["tbl_auth_item_child.id id", "CONCAT_WS(' ', parent, child) text"]);
+            ->select(["tbl_auth_item_child.id id", "CONCAT_WS(' ', `parent`, `child`) text"]);
     }
 
 }

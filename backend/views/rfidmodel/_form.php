@@ -15,7 +15,7 @@ use backend\components\DetailView;
         'hover'=>true,
         'mode'=>$mode,
         'attributes'=>[
-            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 64], 'options' => ['data-focus' => 'data-focus']],
+            ['attribute' => 'name', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 64]],
         ],
     ]);?>
 </div>

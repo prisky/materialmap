@@ -47,7 +47,7 @@ class RfidTagController extends \backend\components\Controller
             ]
         ];
     }
-    
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

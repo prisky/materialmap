@@ -18,7 +18,7 @@ namespace common\models;
  * @inheritdoc
  * This contains the rules for the "<?= $attribute ?>" file attribute for the "<?= $className ?>ActiveRecord" model.
  */
-class <?= $className . Inflector::id2camel($attribute, '_') . 'File' ?> extends \common\components\File
+class <?= $className . Inflector::id2camel($attribute, '_') . 'File' ?> extends \dosamigos\fileupload\File
 {
 
     public $privacy = self::ISPRIVATE;

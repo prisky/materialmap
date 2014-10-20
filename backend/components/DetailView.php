@@ -34,10 +34,12 @@ class DetailView extends \kartik\detail\DetailView
             $this->button = '';
         }
 
+        $parentParam = Yii::$app->controller->parentParam;
+
         $this->formOptions['action'] = Url::to([
-            $this->model->id ? 'update' : 'create',
-            'id' => $this->model->id,
-            Yii::$app->controller->parentParam
+                $this->model->id ? 'update' : 'create',
+                'id' => $this->model->id,
+                $parentParam
         ]);
         $this->formOptions['id'] = $this->model->formName() . '-form';
         $this->formOptions['options']['enctype'] = 'multipart/form-data';
@@ -71,13 +73,12 @@ class DetailView extends \kartik\detail\DetailView
             '{detail}' => '<div id="' . $this->container['id'] . '">' . $output . '</div>'
         ]);
 
-        $output .= $this->button;
-
-        echo $output;
+        echo $output . $this->button;
 
         \yii\widgets\ActiveForm::end();
 
         $js = <<<JS
+// get the form id and set the event
 $('form#{$this->formOptions['id']}').on('beforeSubmit', function(e) {
     var form = $(this);
     $.post(
@@ -98,5 +99,31 @@ JS;
         $view = $this->getView();
         $view->registerJs($js);
     }
+    
+    /**
+     * @inheritdoc Needed to alter due to asyncronousity bug where sometimes if $fadeDelay is set to 0 then elements not getting unhidden as
+     * probably not drawn at the time they are shown
+     *
+    */
+    protected function renderAttribute($attribute, $index)
+    {
+        $dispAttr = $this->formatter->format($attribute['value'], $attribute['format']);
+        $output = '<div class="kv-attribute">' . $dispAttr . "</div>\n";
+        if ($this->enableEditMode) {
+            $editInput = (!empty($attribute['displayOnly']) && $attribute['displayOnly']) ? $dispAttr : $this->renderFormAttribute($attribute);
+            // AB altered here - removed kv-hide
+//            $output .= '<div class="kv-form-attribute kv-hide">' . $editInput . '</div>';
+            $output .= '<div class="kv-form-attribute">' . $editInput . '</div>';
+        }
+        if (is_string($this->template)) {
+            return strtr($this->template, [
+                '{label}' => $attribute['label'],
+                '{value}' => $output
+            ]);
+        } else {
+            return call_user_func($this->template, $attribute, $index, $this);
+        }
+    }
+
 
 }

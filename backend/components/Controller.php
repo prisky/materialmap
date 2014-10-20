@@ -173,6 +173,7 @@ abstract class Controller extends \common\components\Controller
             SELECT COLUMN_NAME, COLUMN_DEFAULT
             FROM information_schema.COLUMNS
             WHERE TABLE_SCHEMA = '$databaseName'
+                AND DATA_TYPE != 'timestamp'
                 AND TABLE_NAME = '$tableName'")->queryAll();
         $safeAttributes = $model->safeAttributes();
         foreach ($results as $result) {
@@ -233,7 +234,7 @@ abstract class Controller extends \common\components\Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // redirect back to parent admin view
-            $params[] = 'index'; 
+            $params[] = 'index';
             $fullModelName = $this->modelName;
             if ($parentAttribute = $fullModelName::parentAttribute()) {
                 $params[$parentAttribute] = $model->$parentAttribute;
@@ -476,23 +477,24 @@ abstract class Controller extends \common\components\Controller
             }
         
         } else { // otherwise empty so returning help for current context
-            $model = Model::findOne(['auth_item_name' => $this->modelNameShort]);
-            // heading - model
-            echo '<div class="table-responsive modal-body">';
-            echo "<h1>{$model->label}</h1>";
-            echo "<p>{$model->help_html}</p>";
-            echo '<table class="detail-view table table-hover table-bordered table-striped">';
-            echo '<tbody>';
-            // table of attributes
-            foreach ($model->columns as $column) {
-                echo "<tr>";
-                echo "<th>{$column->label}</th>";
-                echo "<td>{$column->help_html}</td";
-                echo "/<tr>";
+            if ($model = Model::findOne(['auth_item_name' => $this->modelNameShort])) {
+                // heading - model
+                echo '<div class="table-responsive modal-body">';
+                echo "<h1>{$model->label}</h1>";
+                echo "<p>{$model->help_html}</p>";
+                echo '<table class="detail-view table table-hover table-bordered table-striped">';
+                echo '<tbody>';
+                // table of attributes
+                foreach ($model->columns as $column) {
+                    echo "<tr>";
+                    echo "<th>{$column->label}</th>";
+                    echo "<td>{$column->help_html}</td";
+                    echo "/<tr>";
+                }
+                echo "</tbody>";
+                echo "</table>";
+                echo "</div>";
             }
-            echo "</tbody>";
-            echo "</table>";
-            echo "</div>";
             // need to unbind jscroll which happens if no link for jscroll to take next url from
             echo "
                 <script type='text/javascript' charset='utf-8'>

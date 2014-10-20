@@ -16,7 +16,7 @@ use backend\components\DetailView;
         'mode'=>$mode,
         'attributes'=>[
             ['attribute' => 'user_id', 'type' => DetailView::INPUT_SELECT2, 'widgetOptions' => $this->context->fKWidgetOptions('User', [])],
-            ['attribute' => 'created_at', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 11], 'options' => ['data-focus' => 'data-focus']],
+            ['attribute' => 'created_at', 'type' => DetailView::INPUT_TEXT, 'options' => ['data-focus' => 'data-focus', 'maxlength' => 11]],
         ],
     ]);?>
 </div>

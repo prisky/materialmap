@@ -22,14 +22,14 @@ class ContactQuery extends \common\components\ActiveQuery
         if(is_string($q)) {
             foreach(explode(' ', $q) as $like) {
                 // $this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-                $this->andWhere("CONCAT_WS(' ', first_name, last_name, email, phone_mobile, post_code, address_line1, address_line2) LIKE :like", [':like' => "%$like%"]);
+                $this->andWhere("CONCAT_WS(' ', `first_name`, `last_name`, `email`, `phone_mobile`, `post_code`, `address_line1`, `address_line2`) LIKE :like", [':like' => "%$like%"]);
             }
         }
 
         return parent::display($q, $page)
             // ->joinWith('contact')
             // ->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-            ->select(["tbl_contact.id id", "CONCAT_WS(' ', first_name, last_name, email, phone_mobile, post_code, address_line1, address_line2) text"]);
+            ->select(["tbl_contact.id id", "CONCAT_WS(' ', `first_name`, `last_name`, `email`, `phone_mobile`, `post_code`, `address_line1`, `address_line2`) text"]);
     }
 
 }

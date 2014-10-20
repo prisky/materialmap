@@ -22,14 +22,14 @@ class PurchaseOrderQuery extends \common\components\ActiveQuery
         if(is_string($q)) {
             foreach(explode(' ', $q) as $like) {
                 // $this->andWhere("CONCAT_WS(' ', email, first_name, last_name) LIKE :like", [':like' => "%$like%"]);
-                $this->andWhere("CONCAT_WS(' ', name, construction_work_pack) LIKE :like", [':like' => "%$like%"]);
+                $this->andWhere("CONCAT_WS(' ', `name`, `construction_work_pack`) LIKE :like", [':like' => "%$like%"]);
             }
         }
 
         return parent::display($q, $page)
             // ->joinWith('contact')
             // ->select(["tbl_user.id id", "CONCAT_WS(' ', email, first_name, last_name) text"]);
-            ->select(["tbl_purchase_order.id id", "CONCAT_WS(' ', name, construction_work_pack) text"]);
+            ->select(["tbl_purchase_order.id id", "CONCAT_WS(' ', `name`, `construction_work_pack`) text"]);
     }
 
 }

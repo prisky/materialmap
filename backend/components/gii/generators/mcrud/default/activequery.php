@@ -11,7 +11,7 @@
 // do our best to determine what the display attributes are most likely be - hence concatenate any varchar fields
 foreach ($tableSchema->columns as $column) {
     if (strpos($column->dbType, 'varchar') !== FALSE) {
-        $columns[] = $column->name;
+        $columns[] = "`{$column->name}`";
     }
 }
 if (!isset($columns)) {

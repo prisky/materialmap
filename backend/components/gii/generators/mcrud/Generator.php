@@ -879,7 +879,7 @@ class Generator extends \yii\gii\generators\crud\Generator
                             $inputType = "DetailView::INPUT_TEXT";
                             if ($column->size) {
                                 $inputType .= ", 'options' => ['data-focus' => 'data-focus', 'maxlength' => {$column->size}]";
-                            } {
+                            } else {
                                $inputType .= ", 'options' => ['data-focus' => 'data-focus']";
                             }
                     }
